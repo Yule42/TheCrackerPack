@@ -59,13 +59,23 @@ SMODS.Challenge{
     jokers = {
         {id = 'j_cracker_bomb', eternal = true},
     },
+    rules = {
+        modifiers = {
+            { id = "joker_slots", value = 6 },
+        }
+    },
 }
 
 SMODS.Challenge{
     loc_txt = {name = "Swords Clash"},
     key = "swordsclash",
     jokers = {
-        {id = 'j_ceremonial', edition = "negative", eternal = true},
-        {id = 'j_cracker_sacramentalkatana', edition = "negative", eternal = true},
+        {id = 'j_ceremonial', eternal = true},
+        {id = 'j_cracker_sacramentalkatana', eternal = true},
+    },
+    rules = {
+        modifiers = {
+            { id = "joker_slots", value = 4 },
+        }
     },
 }
