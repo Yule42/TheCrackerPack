@@ -62,6 +62,9 @@ SMODS.Challenge{
     rules = {
         modifiers = {
             { id = "joker_slots", value = 6 },
+        },
+        custom = {
+            {id = 'bomb'},
         }
     },
 }

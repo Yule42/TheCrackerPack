@@ -30,6 +30,9 @@ return {
             ch_c_plasma_2 = {
                 "{C:red}X2{} base Blind size",
             }
+            ch_c_bomb = {
+                "{C:red}Bomb{} can only appear in this challenge",
+            }
         },
     }
 }
