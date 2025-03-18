@@ -80,3 +80,76 @@ Game.init_game_object = function(self)
     
     return ret
 end
+
+SMODS.current_mod.extra_tabs = function() --Credits
+    local scale = 0.4
+    return {
+        label = "Credits",
+        tab_definition_function = function()
+        return {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                padding = 0.05,
+                colour = G.C.CLEAR,
+            },
+            nodes = {
+                {
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Directors: sugariimari, sophiedeergirl",
+                                shadow = true,
+                                scale = scale,
+                                colour = G.C.SUITS.Hearts
+                            }
+                        }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Art: palestjade, MrkySpices, amoryax, lumahoneyy",
+                                shadow = true,
+                                scale = scale,
+                                colour = G.C.BLUE
+                            }
+                        },
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Programming: sophiedeergirl",
+                                shadow = true,
+                                scale = scale,
+                                colour = G.C.GREEN
+                            }
+                        }
+                    },
+                },
+            }
+        }
+        end
+    }
+end
