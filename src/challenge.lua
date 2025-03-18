@@ -67,7 +67,7 @@ SMODS.Challenge{
 }
 
 SMODS.Challenge{
-    loc_txt = {name = "Swords Clash"},
+    loc_txt = {name = "Dance of the Blades"},
     key = "swordsclash",
     jokers = {
         {id = 'j_ceremonial', eternal = true},
@@ -78,4 +78,10 @@ SMODS.Challenge{
             { id = "joker_slots", value = 4 },
         }
     },
+    restrictions = {
+        banned_cards = {
+            { id = 'j_egg' },
+            { id = 'j_gift' },
+        }
+    }
 }

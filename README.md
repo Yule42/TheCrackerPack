@@ -1,2 +1,1 @@
-# TheCrackerPack
-A Balatro content expansion mod.
+bibbity toilet
