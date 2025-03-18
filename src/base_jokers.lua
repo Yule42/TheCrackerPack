@@ -999,7 +999,7 @@ SMODS.Joker{ --Bomb
     key = "bomb",
     config = {
         extra = {
-            rounds = 1,
+            rounds = 12,
         }
     },
     loc_txt = {
