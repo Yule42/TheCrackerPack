@@ -122,7 +122,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, lumahoneyy",
+                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.BLUE
@@ -144,6 +144,24 @@ SMODS.current_mod.extra_tabs = function() --Credits
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.GREEN
+                            }
+                        }
+                    },
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Testing: brook",
+                                shadow = true,
+                                scale = scale,
+                                colour = G.C.MONEY
                             }
                         }
                     },
