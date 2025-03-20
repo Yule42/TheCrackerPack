@@ -33,6 +33,9 @@ return {
             ch_c_bomb = {
                 "{C:red}Bomb{} can only appear in this challenge",
             },
+            ch_c_testing = {
+                "This challenge is here for testing and will be {C:attention}removed/changed later{}",
+            },
         },
     }
 }
