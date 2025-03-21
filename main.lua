@@ -42,6 +42,9 @@ local food_jokers = {
     "j_cracker_cheese",
 }
 
+Cracker = {}
+Cracker.food = {}
+
 for i = 1, #food_jokers do
     Cracker.food[#Cracker.food+1] = food_jokers[i]
 end
