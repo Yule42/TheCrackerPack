@@ -283,64 +283,6 @@ SMODS.Joker{ --Hoarder
     end
 }
 
-SMODS.Joker{ --Purple Card
-    name = "Purple Card",
-    key = "purplecard",
-    config = {
-        extra = {
-            xmult = 1,
-            xmult_add = 0.15,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Purple Card',
-        ['text'] = {
-            [1] = 'This Joker gains',
-            [2] = '{X:mult,C:white}X#2#{} Mult when any',
-            [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
-        }
-    },
-    pos = {
-        x = 0,
-        y = 1
-    },
-    cost = 7,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-    unlocked = true,
-    discovered = true,
-    atlas = 'Jokers',
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
-    end,
-    
-    calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
-            }
-        elseif context.skipping_booster and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
-            G.E_MANAGER:add_event(Event({
-                func = function() 
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult_add}},
-                        colour = G.C.RED,
-                        delay = 0.45, 
-                        card = card
-                    }) 
-                    return true
-                end}))
-        end
-    end
-}
-
 SMODS.Joker{ --Cheese
     name = "Cheese",
     key = "cheese",

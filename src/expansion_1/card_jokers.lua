@@ -107,6 +107,197 @@ SMODS.Joker{ --Blue Card
     end
 }
 
+SMODS.Joker{ --Purple Card
+    name = "Purple Card",
+    key = "purplecard",
+    config = {
+        extra = {
+            xmult = 1,
+            xmult_add = 0.15,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Purple Card',
+        ['text'] = {
+            [1] = 'This Joker gains',
+            [2] = '{X:mult,C:white}X#2#{} Mult when any',
+            [3] = '{C:attention}Booster Pack{} is skipped',
+            [4] = '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
+        }
+    },
+    pos = {
+        x = 0,
+        y = 1
+    },
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
+                Xmult_mod = card.ability.extra.xmult,
+                colour = G.C.RED
+            }
+        elseif context.skipping_booster and not context.blueprint then
+            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {
+                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult_add}},
+                        colour = G.C.RED,
+                        delay = 0.45, 
+                        card = card
+                    }) 
+                    return true
+                end}))
+        end
+    end
+}
+
+SMODS.Joker{ --Pink Card
+    name = "Pink Card",
+    key = "pinkcard",
+    config = {
+        extra = {
+            add_hand_size = 1,
+            current_add = 0,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Pink Card',
+        ['text'] = {
+            [1] = 'This Joker gains {C:attention}+#1#{} hand size',
+            [2] = 'when {C:attention}Booster Pack{} is skipped',
+            [3] = '{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size)',
+            [4] = '{s:0.8}(Resets at end of round)',
+        }
+    },
+    pos = {
+        x = 5,
+        y = 2
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.current_add)
+    end,
+    
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.current_add)
+    end,
+    
+    calculate = function(self, card, context)
+        if context.skipping_booster and not context.blueprint then
+            card.ability.extra.current_add = card.ability.extra.current_add + card.ability.extra.add_hand_size
+            G.hand:change_size(card.ability.extra.add_hand_size)
+            G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize{type = 'variable', key = 'a_handsize', vars = {card.ability.extra.add_hand_size}},
+                            colour = G.C.FILTER,
+                            delay = 0.45, 
+                            card = card
+                        })
+                        return true
+                    end}))
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            G.hand:change_size(-card.ability.extra.current_add)
+            card.ability.extra.current_add = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        end
+    end
+}
+
+--[[SMODS.Joker{ --Orange Card
+    name = "Orange Card",
+    key = "orangecard",
+    config = {
+        extra = {
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Orange Card',
+        ['text'] = {
+            [1] = 'When {C:attention}Booster Pack{} is skipped,',
+            [2] = 'Creates a card',
+            [3] = 'of {C:attention}type of pack skipped{}'
+        }
+    },
+    pos = {
+        x = 6,
+        y = 2
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.current_add)
+    end,
+    
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.current_add)
+    end,
+    
+    calculate = function(self, card, context)
+        if context.skipping_booster and not context.blueprint then
+            card.ability.extra.current_add = card.ability.extra.current_add + card.ability.extra.add_hand_size
+            G.hand:change_size(card.ability.extra.add_hand_size)
+            G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize{type = 'variable', key = 'a_handsize', vars = {card.ability.extra.add_hand_size}},
+                            colour = G.C.FILTER,
+                            delay = 0.45, 
+                            card = card
+                        })
+                        return true
+                    end}))
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            G.hand:change_size(-card.ability.extra.current_add)
+            card.ability.extra.current_add = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        end
+    end
+}--]]
+
 SMODS.Joker{ --Black Card
     name = "Black Card",
     key = "blackcard",
@@ -222,74 +413,6 @@ SMODS.Joker{ --White Card
                     return true
                 end)}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
-        end
-    end
-}
-
-SMODS.Joker{ --Pink Card
-    name = "Pink Card",
-    key = "pinkcard",
-    config = {
-        extra = {
-            add_hand_size = 1,
-            current_add = 0,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Pink Card',
-        ['text'] = {
-            [1] = 'This Joker gains {C:attention}+#1#{} hand size',
-            [2] = 'when {C:attention}Booster Pack{} is skipped',
-            [3] = '{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size)',
-            [4] = '{s:0.8}(Resets at end of round)',
-        }
-    },
-    pos = {
-        x = 5,
-        y = 2
-    },
-    cost = 6,
-    rarity = 2,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'Jokers',
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(card.ability.extra.current_add)
-    end,
-    
-    remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-card.ability.extra.current_add)
-    end,
-    
-    calculate = function(self, card, context)
-        if context.skipping_booster and not context.blueprint then
-            card.ability.extra.current_add = card.ability.extra.current_add + card.ability.extra.add_hand_size
-            G.hand:change_size(card.ability.extra.add_hand_size)
-            G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize{type = 'variable', key = 'a_handsize', vars = {card.ability.extra.add_hand_size}},
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
-                        return true
-                    end}))
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            G.hand:change_size(-card.ability.extra.current_add)
-            card.ability.extra.current_add = 0
-            return {
-                message = localize('k_reset'),
-                colour = G.C.FILTER,
-                card = card,
-            }
         end
     end
 }

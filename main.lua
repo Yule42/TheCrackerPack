@@ -5,7 +5,7 @@ assert(SMODS.load_file('src/upgraded_food.lua'))()
 assert(SMODS.load_file('src/voucher.lua'))()
 assert(SMODS.load_file('src/challenge.lua'))()
 
-assert(SMODS.load_file('src/expansion_1/jokers.lua'))()
+assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 
 --region Atlas
 SMODS.Atlas {
