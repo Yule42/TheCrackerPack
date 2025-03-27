@@ -3,7 +3,7 @@ SMODS.Joker{ --Green Card
     key = "greencard",
     config = {
         extra = {
-            money = 2
+            money = 4,
         }
     },
     loc_txt = {
