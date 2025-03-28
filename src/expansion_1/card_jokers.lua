@@ -22,7 +22,7 @@ SMODS.Joker{ --Green Card
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
@@ -233,19 +233,21 @@ SMODS.Joker{ --Pink Card
     end
 }
 
---[[SMODS.Joker{ --Orange Card
+SMODS.Joker{ --Orange Card
     name = "Orange Card",
     key = "orangecard",
     config = {
         extra = {
+            booster = nil
         }
     },
     loc_txt = {
         ['name'] = 'Orange Card',
         ['text'] = {
             [1] = 'When {C:attention}Booster Pack{} is skipped,',
-            [2] = 'Creates a card',
-            [3] = 'of {C:attention}type of pack skipped{}'
+            [2] = 'Creates a random card',
+            [3] = 'from {C:attention}type of pack skipped{}',
+            [4] = '{C:inactive}(Must have room)',
         }
     },
     pos = {
@@ -254,7 +256,7 @@ SMODS.Joker{ --Pink Card
     },
     cost = 6,
     rarity = 2,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -262,41 +264,131 @@ SMODS.Joker{ --Pink Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(card.ability.extra.current_add)
+        return {}
     end,
     
-    remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-card.ability.extra.current_add)
+    calculate = function(self, card, context)
+        if context.open_booster then
+            card.ability.extra.booster = context.card
+        elseif context.skipping_booster then
+            if card.ability.extra.booster.ability.name:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.45,
+                    func = (function()
+                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                message = localize('k_plus_joker'),
+                                colour = G.C.BLUE
+                            })
+                            local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'orangecard')
+                            card:add_to_deck()
+                            G.jokers:emplace(card)
+                            G.GAME.joker_buffer = 0
+                        return true
+                    end)}))
+            elseif card.ability.extra.booster.ability.name:find("Standard") then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before',
+                    delay = 0.45,
+                    func = (function()
+                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                message = '+1 Card',
+                                colour = G.FILTER
+                            })
+                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                            local cardd = create_card((pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'orangecard')
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            G.play:emplace(cardd)
+                            playing_card_joker_effects({true})
+                            cardd:add_to_deck()
+                            table.insert(G.playing_cards, cardd)
+                            draw_card(G.play,G.deck, 90,'up', nil)
+                        return true
+                    end)}))
+            elseif #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                local consum_names = { "Arcana", "Celestial", "Spectral" }
+                local short_names = { "tarot", "planet", "spectral" }
+                local short_names_why_is_there_a_seperate_shorthand = { "Tarot", "Planet", "Spectral" }
+                for i = 1, #consum_names do
+                    if card.ability.extra.booster.ability.name:find(consum_names[i]) then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'before',
+                            delay = 0.45,
+                            func = (function()
+                                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                        message = localize('k_plus_'..short_names[i]),
+                                        colour = G.C.SECONDARY_SET[short_names_why_is_there_a_seperate_shorthand[i]]
+                                    })
+                                    local card = create_card(short_names_why_is_there_a_seperate_shorthand[i], G.consumeables, nil, nil, nil, nil, nil, 'orangecard')
+                                    card:add_to_deck()
+                                    G.consumeables:emplace(card)
+                                    G.GAME.consumeable_buffer = 0
+                                return true
+                            end)}))
+                    end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Joker{ --Yellow Card
+    name = "Yellow Card",
+    key = "yellowcard",
+    config = {
+        extra = {
+            dollars_gain = 1,
+            dollars = 0,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Yellow Card',
+        ['text'] = {
+            [1] = 'This Joker gains {C:money}$#1#',
+            [2] = 'when {C:attention}Booster Pack{} is skipped',
+            [3] = '{C:inactive}(Currently {C:money}$#2#{C:inactive})',
+        }
+    },
+    pos = {
+        x = 7,
+        y = 2
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars}}
+    end,
+    
+    calc_dollar_bonus = function(self, card)
+        local bonus = card.ability.extra.dollars
+        if bonus > 0 then return bonus end
     end,
     
     calculate = function(self, card, context)
         if context.skipping_booster and not context.blueprint then
-            card.ability.extra.current_add = card.ability.extra.current_add + card.ability.extra.add_hand_size
-            G.hand:change_size(card.ability.extra.add_hand_size)
+            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
             G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize{type = 'variable', key = 'a_handsize', vars = {card.ability.extra.add_hand_size}},
+                            message = localize('k_upgrade_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
                         })
                         return true
                     end}))
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            G.hand:change_size(-card.ability.extra.current_add)
-            card.ability.extra.current_add = 0
-            return {
-                message = localize('k_reset'),
-                colour = G.C.FILTER,
-                card = card,
-            }
         end
     end
-}--]]
+}
 
 SMODS.Joker{ --Black Card
     name = "Black Card",
