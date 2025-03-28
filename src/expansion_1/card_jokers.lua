@@ -64,7 +64,7 @@ SMODS.Joker{ --Blue Card
             [1] = 'This Joker gains',
             [2] = '{C:chips}+#2#{} Chips when',
             [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Mult){}',
+            [4] = '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
         }
     },
     pos = {
