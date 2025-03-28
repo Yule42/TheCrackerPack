@@ -245,7 +245,7 @@ SMODS.Joker{ --Orange Card
         ['name'] = 'Orange Card',
         ['text'] = {
             [1] = 'When {C:attention}Booster Pack{} is skipped,',
-            [2] = 'Creates a random card',
+            [2] = 'creates a random card',
             [3] = 'from {C:attention}type of pack skipped{}',
             [4] = '{C:inactive}(Must have room)',
         }
@@ -346,9 +346,9 @@ SMODS.Joker{ --Yellow Card
     loc_txt = {
         ['name'] = 'Yellow Card',
         ['text'] = {
-            [1] = 'This Joker gains {C:money}$#1#',
-            [2] = 'when {C:attention}Booster Pack{} is skipped',
-            [3] = '{C:inactive}(Currently {C:money}$#2#{C:inactive})',
+            [1] = 'Earn {C:money}$#2#{} at end of round',
+            [2] = 'Payout increased by {C:money}$#1#{}',
+            [3] = 'when {C:attention}Booster Pack{} is skipped',
         }
     },
     pos = {
