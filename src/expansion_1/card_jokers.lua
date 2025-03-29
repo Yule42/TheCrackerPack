@@ -269,8 +269,10 @@ SMODS.Joker{ --Orange Card
     
     calculate = function(self, card, context)
         if context.open_booster then
+            print(G.pack_cards)
             card.ability.extra.booster = context.card
         elseif context.skipping_booster then
+            print(G.pack_cards)
             if card.ability.extra.booster.ability.name:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                 G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                 G.E_MANAGER:add_event(Event({
@@ -297,7 +299,20 @@ SMODS.Joker{ --Orange Card
                                 colour = G.FILTER
                             })
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                            local cardd = create_card((pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'orangecard')
+                            local cardd = create_card((pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'orangecard')
+                            local edition_rate = 2
+                            local edition = poll_edition('orangecard'..G.GAME.round_resets.ante, edition_rate, true)
+                            cardd:set_edition(edition)
+                            local seal_rate = 10
+                            local seal_poll = pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante))
+                            if seal_poll > 1 - 0.02*seal_rate then
+                                local seal_type = pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante))
+                                if seal_type > 0.75 then cardd:set_seal('Red')
+                                elseif seal_type > 0.5 then cardd:set_seal('Blue')
+                                elseif seal_type > 0.25 then cardd:set_seal('Gold')
+                                else cardd:set_seal('Purple')
+                                end
+                            end
                             G.deck.config.card_limit = G.deck.config.card_limit + 1
                             G.play:emplace(cardd)
                             playing_card_joker_effects({true})
