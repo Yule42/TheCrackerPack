@@ -7,6 +7,8 @@ assert(SMODS.load_file('src/challenge.lua'))()
 
 assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 
+CrackerConfig = SMODS.current_mod.config
+
 --region Atlas
 SMODS.Atlas {
     key = 'Jokers',
@@ -174,5 +176,41 @@ SMODS.current_mod.extra_tabs = function() --Credits
             }
         }
         end
+    }
+end
+
+SMODS.current_mod.config_tab = function() --Config
+    return {
+      n = G.UIT.ROOT,
+      config = {
+        align = "cm",
+        padding = 0.05,
+        colour = G.C.CLEAR,
+      },
+      nodes = {
+        {
+            n = G.UIT.R,
+            config = {
+                padding = 0,
+                align = "cm"
+            },
+            nodes = {
+                {
+                    n = G.UIT.T,
+                    config = {
+                        text = "All changes require a restart.",
+                        shadow = true,
+                        scale = 0.5,
+                        colour = G.C.SECONDARY_SET.Enhanced
+                    }
+                },
+            }
+        },
+        create_toggle({
+            label = "I like men",
+            ref_table = CrackerConfig,
+            ref_value = "starlo",
+        }),
+      },
     }
 end
