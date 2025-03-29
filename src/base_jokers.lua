@@ -907,7 +907,7 @@ SMODS.Joker{ --Northern Star
     },
     pos = {
         x = 8,
-        y = 1
+        y = SMODS.current_mod.config.starlo and 2 or 1
     },
     cost = 5,
     rarity = 1,
