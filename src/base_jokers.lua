@@ -406,7 +406,7 @@ SMODS.Joker{ --Cheese
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
-            else
+            elseif hand_chips * mult < G.GAME.blind.chips then
                 return {
                     message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.xmult_remove * G.GAME.food_multiplier}},
                     colour = G.C.RED
@@ -414,6 +414,12 @@ SMODS.Joker{ --Cheese
             end
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.xmult = card.ability.extra.xmult_base
+			
+			return {
+				message = localize('k_reset'),
+				colour = G.C.FILTER
+			}
+			
         end
     end
 }
