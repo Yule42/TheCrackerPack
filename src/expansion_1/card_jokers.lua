@@ -269,10 +269,8 @@ SMODS.Joker{ --Orange Card
     
     calculate = function(self, card, context)
         if context.open_booster then
-            print(G.pack_cards)
             card.ability.extra.booster = context.card
         elseif context.skipping_booster then
-            print(G.pack_cards)
             if card.ability.extra.booster.ability.name:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                 G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                 G.E_MANAGER:add_event(Event({
