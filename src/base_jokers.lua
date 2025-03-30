@@ -383,7 +383,7 @@ SMODS.Joker{ --Cheese
                 Xmult_mod = card.ability.extra.xmult,
                 colour = G.C.RED
             }
-        elseif context.after and not context.blueprint and not context.repetition then
+        elseif context.after and not context.blueprint and not context.repetition and hand_chips * mult < G.GAME.blind.chips then
             card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_remove * G.GAME.food_multiplier
             if card.ability.extra.xmult <= 0 then
                 G.E_MANAGER:add_event(Event({
@@ -406,7 +406,7 @@ SMODS.Joker{ --Cheese
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
-            elseif hand_chips * mult < G.GAME.blind.chips then
+            else
                 return {
                     message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.xmult_remove * G.GAME.food_multiplier}},
                     colour = G.C.RED
