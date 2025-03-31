@@ -1014,7 +1014,7 @@ SMODS.Joker{ --Bomb
         x = 0,
         y = 2
     },
-    cost = 0,
+    cost = 2,
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
