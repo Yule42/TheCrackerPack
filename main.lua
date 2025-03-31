@@ -143,7 +143,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Programming: sophiedeergirl",
+                                text = "Programming: sophiedeergirl, I'm an issue",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.GREEN
@@ -161,10 +161,27 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Testing: brook",
+                                text = "Testing: brook03",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.MONEY
+                            }
+                        }
+                    },
+                },
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Joker Ideas: sophiedeergirl, sugariimari, palestjade, brook03",
+                                shadow = true,
+                                scale = scale,
+                                colour = G.C.SECONDARY_SET.Spectral
                             }
                         }
                     },
