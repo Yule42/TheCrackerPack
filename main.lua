@@ -169,6 +169,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         }
                     },
                 },
+                {
                     n = G.UIT.R,
                     config = {
                         padding = 0,
