@@ -15,6 +15,5 @@
         "Lovely (>=0.6)", 
     ],
     "conflicts": [
-        "Talisman (>=1.1)",
     ],
 }
