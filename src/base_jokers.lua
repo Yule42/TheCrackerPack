@@ -867,11 +867,11 @@ SMODS.Joker{ --Northern Star
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local hand, highest = nil, 0
-        for k, v in ipairs(G.handlist) do
-            if G.GAME.hands[v].visible and G.GAME.hands[v].level > highest then
-                hand = v
-                highest = G.GAME.hands[v].level
+        local hand, highest = nil, to_big(0)
+        for k, v in pairs(G.GAME.hands) do
+            if v.visible and v.level > highest then
+                hand = k
+                highest = v.level
             end
         end
         card.ability.extra.chips = highest * card.ability.extra.chips_add
@@ -880,11 +880,11 @@ SMODS.Joker{ --Northern Star
     
     calculate = function(self, card, context)
         if context.level_up_hand and not context.blueprint then
-            local hand, highest = nil, 0
-            for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].level > highest then
-                    hand = v
-                    highest = G.GAME.hands[v].level
+            local hand, highest = nil, to_big(0)
+            for k, v in pairs(G.GAME.hands) do
+                if v.visible and v.level > highest then
+                    hand = k
+                    highest = v.level
                 end
             end
             card.ability.extra.chips = highest * card.ability.extra.chips_add

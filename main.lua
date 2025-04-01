@@ -78,7 +78,13 @@ function Cracker.get_food(seed)
     end
 end
 
+-- Tailsman (fake)
 
+to_big = to_big or function(x)
+  return x
+end
+
+--
 
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
