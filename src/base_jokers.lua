@@ -841,8 +841,8 @@ SMODS.Joker{ --Northern Star
     key = "northstar",
     config = {
         extra = {
-            chips_add = 8,
-            chips = 8,
+            chips_add = 12,
+            chips = 12,
         }
     },
     loc_txt = {
