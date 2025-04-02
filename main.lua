@@ -78,7 +78,23 @@ function Cracker.get_food(seed)
     end
 end
 
--- Tailsman (fake)
+function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
+    if not G.GAME or not G.GAME.current_round then 
+        return 'High Card'
+    end
+    local chosen_hand = 'High Card'
+    local _handname, _played, _order = 'High Card', -1, 100
+    for k, v in pairs(G.GAME.hands) do
+        if v.played > _played or (v.played == _played and _order > v.order) then 
+            _played = v.played
+            _handname = k
+        end
+    end
+    chosen_hand = _handname
+    return chosen_hand
+end
+
+-- Tailsman Compat (fake)
 
 to_big = to_big or function(x)
   return x

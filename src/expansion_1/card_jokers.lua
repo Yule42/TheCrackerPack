@@ -107,9 +107,9 @@ SMODS.Joker{ --Blue Card
     end
 }
 
-SMODS.Joker{ --Purple Card
-    name = "Purple Card",
-    key = "purplecard",
+SMODS.Joker{ --Violet Card
+    name = "Violet Card",
+    key = "violetcard",
     config = {
         extra = {
             xmult = 1,
@@ -117,7 +117,7 @@ SMODS.Joker{ --Purple Card
         }
     },
     loc_txt = {
-        ['name'] = 'Purple Card',
+        ['name'] = 'Violet Card',
         ['text'] = {
             [1] = 'This Joker gains',
             [2] = '{X:mult,C:white}X#2#{} Mult when any',
@@ -161,6 +161,49 @@ SMODS.Joker{ --Purple Card
                     }) 
                     return true
                 end}))
+        end
+    end
+}
+
+SMODS.Joker{ --Indigo Card
+    name = "Indigo Card",
+    key = "indigocard",
+    config = {
+        extra = {
+            odds = 2,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Indigo Card',
+        ['text'] = {
+            [1] = '{C:green}#1# in #2#{} chance to upgrade level of',
+            [2] = '{C:attention}most played poker hand',
+            [3] = 'when {C:attention}Booster Pack{} is skipped',
+        }
+    },
+    pos = {
+        x = 9,
+        y = 2
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.skipping_booster and pseudorandom('indigo') < G.GAME.probabilities.normal/card.ability.extra.odds then
+            local hand = Cracker.mostplayedhand()
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'), chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
+            level_up_hand(card, hand)
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
         end
     end
 }
