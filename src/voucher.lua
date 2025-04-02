@@ -3,8 +3,8 @@ SMODS.Voucher {
     loc_txt = {
         ['name'] = 'Silver Spoon',
         ['text'] = {
-            [1] = 'Earn an additional',
-            [2] = '{C:money}$#1#{} per round',
+            [1] = 'Earn {C:money}$#1#{}',
+            [2] = 'at end of round',
         }
     },
     pos = {
@@ -34,8 +34,8 @@ SMODS.Voucher {
     loc_txt = {
         ['name'] = 'Heirloom',
         ['text'] = {
-            [1] = 'Earn an additional',
-            [2] = '{C:money}$#1#{} per round',
+            [1] = 'Earn {C:money}$#1#{}',
+            [2] = 'at end of round',
         }
     },
     pos = {
