@@ -223,7 +223,7 @@ SMODS.Joker{ --Pink Card
             [1] = 'This Joker gains {C:attention}+#1#{} hand size',
             [2] = 'when {C:attention}Booster Pack{} is skipped',
             [3] = '{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size)',
-            [4] = '{s:0.8}(Resets at end of round)',
+            [4] = '{s:0.8}Resets at end of round',
         }
     },
     pos = {
@@ -561,6 +561,70 @@ SMODS.Joker{ --White Card
                     return true
                 end)}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+        end
+    end
+}
+
+SMODS.Joker{ --Rainbow Card
+    name = "Rainbow Card",
+    key = "rainbowcard",
+    config = {
+        extra = {
+            retriggers = 0,
+            retriggers_increase = 1,
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Rainbow Card',
+        ['text'] = {
+            [1] = 'Retrigger all played cards {C:attention}#1#{} times',
+            [2] = 'Increases by {C:attention}#2#{} when {C:attention}Booster Pack{} is skipped',
+            [3] = '{s:0.8}Resets at end of round',
+        }
+    },
+    pos = {
+        x = 0,
+        y = 3
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.retriggers, card.ability.extra.retriggers_increase}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.skipping_booster and not context.blueprint then
+            card.ability.extra.retriggers = card.ability.extra.retriggers + card.ability.extra.retriggers_increase
+            G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize('k_upgrade_ex'),
+                            colour = G.C.FILTER,
+                            delay = 0.45, 
+                            card = card
+                        })
+                        return true
+                    end}))
+        elseif context.cardarea == G.play and context.repetition and not context.repetition_only then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retriggers,
+                card = context.other_card
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            card.ability.extra.retriggers = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
         end
     end
 }
