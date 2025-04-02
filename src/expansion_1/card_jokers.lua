@@ -616,7 +616,6 @@ SMODS.Joker{ --Rainbow Card
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-                card = context.other_card
             }
         elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
             card.ability.extra.retriggers = 0
