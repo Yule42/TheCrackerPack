@@ -619,14 +619,19 @@ SMODS.Joker{ --Life Support
     config = {
         extra = {
             rounds = 3,
+            active = false,
+            activity_no = '(Inactive)',
+            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
         ['name'] = 'Life Support',
         ['text'] = {
-            [1] = 'Cannot lose for {C:attention}#1#{} rounds,',
-            [2] = 'all cards are {C:attention}debuffed{}',
-            [3] = '{C:inactive}(Skipping reduces rounds)',
+            [1] = 'Activates upon Death',
+            [2] = 'When active, {C:inactive}debuffs{} {C:attention}all cards{}',
+            [3] = 'and prevents Death for the next {C:attention}#1#{} rounds',
+            [4] = '{C:inactive}(Skipping reduces rounds)',
+            [5] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -643,17 +648,20 @@ SMODS.Joker{ --Life Support
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.rounds}}
+        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
+        return {vars = {card.ability.extra.rounds, activity}}
     end,
     update = function(self, card, dt)
-        if G.deck and card.added_to_deck then
-            for i, v in pairs (G.deck.cards) do
-                v:set_debuff(true)
+        if card.ability.extra.active then
+            if G.deck and card.added_to_deck then
+                for i, v in pairs (G.deck.cards) do
+                    v:set_debuff(true)
+                end
             end
-        end
-        if G.hand and card.added_to_deck then
-            for i, v in pairs (G.hand.cards) do
-                v:set_debuff(true)
+            if G.hand and card.added_to_deck then
+                for i, v in pairs (G.hand.cards) do
+                    v:set_debuff(true)
+                end
             end
         end
     end,
@@ -661,6 +669,9 @@ SMODS.Joker{ --Life Support
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if context.game_over then
+                if not card.ability.extra.active then
+                    card.ability.extra.active = true
+                end
                 G.GAME.current_round.usesavedtext = true
                 G.GAME.current_round.savedtext = "Saved by Life Support"
                 card.ability.extra.rounds = card.ability.extra.rounds - 1
@@ -687,7 +698,7 @@ SMODS.Joker{ --Life Support
                     saved = true,
                     colour = G.C.RED
                 }
-            else
+            elseif card.ability.extra.active then
                 card.ability.extra.rounds = card.ability.extra.rounds - 1
                 if card.ability.extra.rounds < 1 then
                     G.E_MANAGER:add_event(Event({
@@ -747,7 +758,7 @@ SMODS.Joker{ --Life Support
                     colour = G.C.FILTER
                 }
             end
-        elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+        elseif context.end_of_round and card.ability.extra.active and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds < 1 then
                 G.E_MANAGER:add_event(Event({
