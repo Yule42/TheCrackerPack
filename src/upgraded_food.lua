@@ -28,7 +28,6 @@ SMODS.Joker{ --Cybernana MK920
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
-    discovered = false,
     atlas = 'Jokers',
     yes_pool_flag = 'cavendish_extinct',
 
