@@ -149,8 +149,8 @@ SMODS.Joker{ --Buttered Popcorn
     end
 }
 
-SMODS.Joker{ --Frozen Custard
-    name = "Frozen Custard",
+SMODS.Joker{ --Sundae
+    name = "Sundae",
     key = "frozencustard",
     config = {
         extra = {
@@ -159,7 +159,7 @@ SMODS.Joker{ --Frozen Custard
         }
     },
     loc_txt = {
-        ['name'] = 'Frozen Custard',
+        ['name'] = 'Sundae',
         ['text'] = {
             [1] = '{C:chips}+#1#{} Chips',
             [2] = '{C:chips}-#2#{} Chips for',
