@@ -395,8 +395,10 @@ SMODS.Joker{ --Yellow Card
     key = "yellowcard",
     config = {
         extra = {
-            dollars_gain = 1,
+            dollars_gain = 2,
             dollars = 0,
+            skips = 0,
+            required_skips = 2,
         }
     },
     loc_txt = {
@@ -404,7 +406,8 @@ SMODS.Joker{ --Yellow Card
         ['text'] = {
             [1] = 'Earn {C:money}$#2#{} at end of round',
             [2] = 'Payout increased by {C:money}$#1#{}',
-            [3] = 'when {C:attention}Booster Pack{} is skipped',
+            [3] = 'every {C:attention}#4#{} Booster Packs skipped',
+            [4] = '{C:inactive}(Currently {C:attention}#3#{C:inactive}/#4#){}',
         }
     },
     pos = {
@@ -421,7 +424,7 @@ SMODS.Joker{ --Yellow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars}}
+        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars, card.ability.extra.skips, card.ability.extra.required_skips}}
     end,
     
     calc_dollar_bonus = function(self, card)
@@ -431,17 +434,32 @@ SMODS.Joker{ --Yellow Card
     
     calculate = function(self, card, context)
         if context.skipping_booster and not context.blueprint then
-            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
-            G.E_MANAGER:add_event(Event({
+            card.ability.extra.skips = card.ability.extra.skips + 1
+            if card.ability.extra.skips >= card.ability.extra.required_skips then
+                card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
+                card.ability.extra.skips = 0
+                G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card_eval_status_text(card, 'extra', nil, nil, nil, {
+                                message = localize('k_upgrade_ex'),
+                                colour = G.C.FILTER,
+                                delay = 0.45, 
+                                card = card
+                            })
+                            return true
+                        end}))
+            else 
+                G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_upgrade_ex'),
+                            message = card.ability.extra.skips..'/'..card.ability.extra.required_skips,
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
                         })
                         return true
                     end}))
+            end
         end
     end
 }
@@ -460,7 +478,7 @@ SMODS.Joker{ --Black Card
         ['text'] = {
             [1] = 'Create a {C:spectral}Negative Tag{}',
             [2] = 'every {C:attention}#2#{} Booster Packs skipped',
-            [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/3){}',
+            [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
         }
     },
     pos = {
@@ -520,14 +538,17 @@ SMODS.Joker{ --White Card
     key = "whitecard",
     config = {
         extra = {
+            skips = 0,
+            required_skips = 2,
         }
     },
     loc_txt = {
         ['name'] = 'White Card',
         ['text'] = {
             [1] = 'Creates {C:tarot}The Fool{}',
-            [2] = 'when {C:attention}Booster Pack{} is skipped',
-            [3] = '{C:inactive}(Must have room)',
+            [2] = 'every {C:attention}#2#{} Booster Packs skipped',
+            [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
+            [4] = '{C:inactive}(Must have room)',
         }
     },
     pos = {
@@ -544,23 +565,40 @@ SMODS.Joker{ --White Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {}}
+        return {vars = {card.ability.extra.skips, card.ability.extra.required_skips}}
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                        local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_fool')
-                        card:add_to_deck()
-                        G.consumeables:emplace(card)
-                        G.GAME.consumeable_buffer = 0
-                    return true
-                end)}))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+        if context.skipping_booster then
+            card.ability.extra.skips = card.ability.extra.skips + 1
+            if card.ability.extra.skips >= card.ability.extra.required_skips then
+                card.ability.extra.skips = 0
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.0,
+                        func = (function()
+                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_fool')
+                                card:add_to_deck()
+                                G.consumeables:emplace(card)
+                                G.GAME.consumeable_buffer = 0
+                            return true
+                        end)}))
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
+                end
+            else 
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = card.ability.extra.skips..'/'..card.ability.extra.required_skips,
+                            colour = G.C.FILTER,
+                            delay = 0.45, 
+                            card = card
+                        })
+                        return true
+                    end}))
+            end
         end
     end
 }
