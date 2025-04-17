@@ -3,7 +3,7 @@ SMODS.Joker{ --Green Card
     key = "greencard",
     config = {
         extra = {
-            money = 2,
+            money = 8,
         }
     },
     loc_txt = {
@@ -11,7 +11,7 @@ SMODS.Joker{ --Green Card
         ['text'] = {
             [1] = 'This Joker gains',
             [2] = '{C:money}$#1#{} of {C:attention}sell value{} when',
-            [3] = '{C:attention}Booster Pack{} is skipped',
+            [3] = '{C:attention}Blind{} is skipped',
         }
     },
     pos = {
@@ -19,7 +19,7 @@ SMODS.Joker{ --Green Card
         y = 2
     },
     cost = 6,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
@@ -32,7 +32,7 @@ SMODS.Joker{ --Green Card
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and not context.blueprint then
+        if context.skip_blind and not context.blueprint then
             card.ability.extra_value = card.ability.extra_value + card.ability.extra.money
             card:set_cost()
             G.E_MANAGER:add_event(Event({
@@ -40,7 +40,6 @@ SMODS.Joker{ --Green Card
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
                         message = localize('k_val_up'),
                         colour = G.C.MONEY,
-                        delay = 0.45, 
                         card = card
                     }) 
                     return true
@@ -55,15 +54,16 @@ SMODS.Joker{ --Blue Card
     config = {
         extra = {
             chips = 0,
-            chips_add = 11,
+            chips_add = 15,
+            chips_remove = 10,
         }
     },
     loc_txt = {
         ['name'] = 'Blue Card',
         ['text'] = {
-            [1] = 'This Joker gains',
-            [2] = '{C:chips}+#2#{} Chips when',
-            [3] = '{C:attention}Booster Pack{} is skipped',
+            [1] = 'This Joker gains {C:chips}+#2#{} Chips',
+            [2] = 'when a card is taken from a {C:attention}Booster Pack{},',
+            [3] = 'loses {C:chips}-#3#{} Chips when a card is {C:attention}purchased{}',
             [4] = '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
         }
     },
@@ -81,7 +81,8 @@ SMODS.Joker{ --Blue Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add}}
+        info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.chips_remove}}
     end,
     
     calculate = function(self, card, context)
@@ -91,18 +92,27 @@ SMODS.Joker{ --Blue Card
                 chip_mod = card.ability.extra.chips,
                 colour = G.C.CHIPS
             }
-        elseif context.skipping_booster and not context.blueprint then
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
+        elseif context.taking_booster_card and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add, 0
             G.E_MANAGER:add_event(Event({
                 func = function() 
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
                         message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips_add}},
                         colour = G.C.CHIPS,
-                        delay = 0.45, 
+                        delay = 0.45,
                         card = card
                     }) 
                     return true
                 end}))
+        elseif context.buying_card and not context.blueprint and not (context.card == card) then
+            card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove, 0)
+            card_eval_status_text(card, 'extra', nil, nil, nil, {
+                message = localize{type = 'variable', key = 'a_chips_minus', vars = {card.ability.extra.chips_remove}},
+                colour = G.C.CHIPS,
+                delay = 0.45,
+                card = card
+            }) 
+            return nil, true
         end
     end
 }
@@ -395,10 +405,8 @@ SMODS.Joker{ --Yellow Card
     key = "yellowcard",
     config = {
         extra = {
-            dollars_gain = 2,
+            dollars_gain = 4,
             dollars = 0,
-            skips = 0,
-            required_skips = 2,
         }
     },
     loc_txt = {
@@ -406,8 +414,7 @@ SMODS.Joker{ --Yellow Card
         ['text'] = {
             [1] = 'Earn {C:money}$#2#{} at end of round',
             [2] = 'Payout increased by {C:money}$#1#{}',
-            [3] = 'every {C:attention}#4#{} Booster Packs skipped',
-            [4] = '{C:inactive}(Currently {C:attention}#3#{C:inactive}/#4#){}',
+            [3] = 'when {C:attention}Blind{} is skipped',
         }
     },
     pos = {
@@ -417,14 +424,14 @@ SMODS.Joker{ --Yellow Card
     cost = 8,
     rarity = 3,
     blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars, card.ability.extra.skips, card.ability.extra.required_skips}}
+        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars}}
     end,
     
     calc_dollar_bonus = function(self, card)
@@ -433,33 +440,18 @@ SMODS.Joker{ --Yellow Card
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and not context.blueprint then
-            card.ability.extra.skips = card.ability.extra.skips + 1
-            if card.ability.extra.skips >= card.ability.extra.required_skips then
-                card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
-                card.ability.extra.skips = 0
-                G.E_MANAGER:add_event(Event({
-                        func = function()
-                            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                                message = localize('k_upgrade_ex'),
-                                colour = G.C.FILTER,
-                                delay = 0.45, 
-                                card = card
-                            })
-                            return true
-                        end}))
-            else 
-                G.E_MANAGER:add_event(Event({
+        if context.skip_blind and not context.blueprint then
+            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
+            G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = card.ability.extra.skips..'/'..card.ability.extra.required_skips,
+                            message = localize('k_upgrade_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
                         })
                         return true
                     end}))
-            end
         end
     end
 }
@@ -476,8 +468,8 @@ SMODS.Joker{ --Black Card
     loc_txt = {
         ['name'] = 'Black Card',
         ['text'] = {
-            [1] = 'Create a {C:spectral}Negative Tag{}',
-            [2] = 'every {C:attention}#2#{} Booster Packs skipped',
+            [1] = 'Create a {C:spectral}Negative Tag{} every #2# {C:attention}Booster Packs{} opened,',
+            [2] = 'resets when {C:attention}Booster Pack{} is skipped',
             [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
         }
     },
@@ -500,6 +492,18 @@ SMODS.Joker{ --Black Card
     
     calculate = function(self, card, context)
         if context.skipping_booster and not context.blueprint then
+            card.ability.extra.skips = 0
+            G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize{type = 'variable', key = 'k_reset', vars = {}},
+                            colour = G.C.FILTER,
+                            delay = 0.45, 
+                            card = card
+                        })
+                        return true
+                    end}))
+        elseif context.open_booster then
             card.ability.extra.skips = card.ability.extra.skips + 1
             if card.ability.extra.skips >= card.ability.extra.skips_needed then
                 card.ability.extra.skips = 0
@@ -538,17 +542,18 @@ SMODS.Joker{ --White Card
     key = "whitecard",
     config = {
         extra = {
-            skips = 0,
-            required_skips = 2,
+            active = true,
+            activity_no = '(Inactive)',
+            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
         ['name'] = 'White Card',
         ['text'] = {
-            [1] = 'Creates {C:tarot}The Fool{}',
-            [2] = 'every {C:attention}#2#{} Booster Packs skipped',
-            [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
-            [4] = '{C:inactive}(Must have room)',
+            [1] = 'Fills {C:attention}empty consumable slots{}',
+            [2] = 'with {C:tarot}The Fool{} at the end of the {C:attention}shop',
+            [3] = 'if no {C:attention}Booster Packs{} opened this round',
+            [4] = '{C:inactive}#1#',
         }
     },
     pos = {
@@ -557,7 +562,7 @@ SMODS.Joker{ --White Card
     },
     cost = 8,
     rarity = 3,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -565,14 +570,14 @@ SMODS.Joker{ --White Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.skips, card.ability.extra.required_skips}}
+        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
+        return {vars = {activity}}
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster then
-            card.ability.extra.skips = card.ability.extra.skips + 1
-            if card.ability.extra.skips >= card.ability.extra.required_skips then
-                card.ability.extra.skips = 0
+        if context.ending_shop and not context.blueprint and card.ability.extra.active then
+            card.ability.extra.active = false
+            for i=1, (G.consumeables.config.card_limit) do
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -583,22 +588,32 @@ SMODS.Joker{ --White Card
                                 card:add_to_deck()
                                 G.consumeables:emplace(card)
                                 G.GAME.consumeable_buffer = 0
+                                card:juice_up(0.5, 0.5)
                             return true
                         end)}))
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
                 end
-            else 
-                G.E_MANAGER:add_event(Event({
-                    func = function()
+            end
+        elseif context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+            card.ability.extra.active = true
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        elseif context.open_booster and not context.blueprint then
+            card.ability.extra.active = false
+            G.E_MANAGER:add_event(Event({
+                    func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = card.ability.extra.skips..'/'..card.ability.extra.required_skips,
+                            message = 'Inactive...',
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
                         })
                         return true
-                    end}))
-            end
+                    end)
+                }))
         end
     end
 }
@@ -608,16 +623,18 @@ SMODS.Joker{ --Rainbow Card
     key = "rainbowcard",
     config = {
         extra = {
-            retriggers = 0,
-            retriggers_increase = 1,
+            retriggers = 2,
+            active = true,
+            activity_no = '(Inactive)',
+            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
         ['name'] = 'Rainbow Card',
         ['text'] = {
             [1] = 'Retrigger all played cards {C:attention}#1#{} times',
-            [2] = 'Increases by {C:attention}#2#{} when {C:attention}Booster Pack{} is skipped',
-            [3] = '{s:0.8}Resets at end of round',
+            [2] = 'if no {C:attention}Booster Packs{} opened this round',
+            [3] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -634,33 +651,35 @@ SMODS.Joker{ --Rainbow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.retriggers, card.ability.extra.retriggers_increase}}
+        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
+        return {vars = {card.ability.extra.retriggers, activity}}
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and not context.blueprint then
-            card.ability.extra.retriggers = card.ability.extra.retriggers + card.ability.extra.retriggers_increase
+        if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+            card.ability.extra.active = true
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        elseif context.open_booster and not context.blueprint then
+            card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
-                    func = function()
+                    func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_upgrade_ex'),
+                            message = 'Inactive...',
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
                         })
                         return true
-                    end}))
-        elseif context.cardarea == G.play and context.repetition and not context.repetition_only then
+                    end)
+                }))
+        elseif context.cardarea == G.play and context.repetition and not context.repetition_only and card.ability.extra.active then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,
-            }
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            card.ability.extra.retriggers = 0
-            return {
-                message = localize('k_reset'),
-                colour = G.C.FILTER,
-                card = card,
             }
         end
     end
