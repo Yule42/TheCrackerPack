@@ -16,6 +16,14 @@ return {
                     "or grow",
                 }
             },
+            d_purchased = {
+                name = "Purchased",
+                text = {
+                    "Bought in shop",
+                    "{C:inactive}(excl. taken from",
+                    "{C:inactive}purchased Booster Pack){}",
+                }
+            },
         },
     },
     misc = {

@@ -356,12 +356,12 @@ SMODS.Joker{ --Cheese
             end
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.xmult = card.ability.extra.xmult_base
-			
-			return {
-				message = localize('k_reset'),
-				colour = G.C.FILTER
-			}
-			
+            
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER
+            }
+            
         end
     end
 }

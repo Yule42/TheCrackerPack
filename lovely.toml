@@ -5,7 +5,6 @@ priority = 1
 
 # [------------------------------------------------------------------- JOKERS -------------------------------------------------------------------]
 
-
     # Cavendish
 [[patches]]
 [patches.pattern]
@@ -558,3 +557,17 @@ elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.roun
 '''
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end'''
+match_indent = true
+position = 'before'
+payload = '''
+if card.area == G.pack_cards then
+    print("HELP ME!!!!")
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {taking_booster_card = true})
+    end
+end'''
