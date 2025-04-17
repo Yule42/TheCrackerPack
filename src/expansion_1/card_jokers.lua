@@ -55,7 +55,7 @@ SMODS.Joker{ --Blue Card
     config = {
         extra = {
             chips = 0,
-            chips_add = 15,
+            chips_add = 11,
         }
     },
     loc_txt = {
