@@ -57,10 +57,6 @@ function get_flush(hand) -- this is very very bad for compat with other mods tha
       if hand[i]:get_id() == 10 then contains_ten = true; t[#t+1] = hand[i] end
       if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end
     end
-    print(contains_ten)
-    print(contains_ace)
-    print(next(get_straight(hand)))
-    print("NEXT")
     if contains_ten and contains_ace and next(get_straight(hand, nil, true, true)) then
       table.insert(ret, t)
       return ret
