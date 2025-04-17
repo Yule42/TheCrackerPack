@@ -566,7 +566,6 @@ match_indent = true
 position = 'before'
 payload = '''
 if card.area == G.pack_cards then
-    print("HELP ME!!!!")
     for i=1, #G.jokers.cards do
         eval_card(G.jokers.cards[i], {taking_booster_card = true})
     end
