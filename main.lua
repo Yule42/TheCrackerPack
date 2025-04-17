@@ -7,6 +7,8 @@ assert(SMODS.load_file('src/challenge.lua'))()
 
 assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 
+assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
+
 CrackerConfig = SMODS.current_mod.config
 
 --region Atlas
