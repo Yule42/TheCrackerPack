@@ -156,7 +156,7 @@ SMODS.Joker{ --Sundae
     config = {
         extra = {
             chips = 250,
-            chips_remove = 2,
+            chips_remove = 5,
         }
     },
     loc_txt = {
@@ -231,7 +231,7 @@ SMODS.Joker{ --Hard Seltzer
     key = "hardseltzer",
     config = {
         extra = {
-            rounds = 30,
+            rounds = 10,
             rounds_remove = 1
         }
     },
@@ -239,7 +239,7 @@ SMODS.Joker{ --Hard Seltzer
         ['name'] = 'Hard Seltzer',
         ['text'] = {
             [1] = 'Retrigger all cards played',
-            [2] = 'for the next {C:attention}#1#{} hands',
+            [2] = 'for the next {C:attention}#1#{} rounds',
         }
     },
     pos = {
@@ -268,7 +268,7 @@ SMODS.Joker{ --Hard Seltzer
                 repetitions = 1,
                 card = card
             }
-        elseif context.after and not context.blueprint and not context.repetition then
+        elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_remove * G.GAME.food_multiplier)
             if card.ability.extra.rounds <= 0 then
                 G.E_MANAGER:add_event(Event({
