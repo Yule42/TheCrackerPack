@@ -19,7 +19,7 @@ SMODS.Joker{ --Green Card
         y = 2
     },
     cost = 6,
-    rarity = 2,
+    rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
