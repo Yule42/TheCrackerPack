@@ -1,5 +1,43 @@
 return {
     descriptions = {
+        reversetarot = {
+            c_cracker_strength = {
+                name = 'Strength',
+                text = {
+                    'Decreases rank of',
+                    'up to {C:attention}#1#{} selected',
+                    'cards by {C:attention}1',
+                }
+            },
+            c_cracker_sun = {
+                name = 'The Sun',
+                text = {
+                    'Destroys up to {C:attention}#1#{}',
+                    '{V:1}#2#{} cards in hand',
+                }
+            },
+            c_cracker_star = {
+                name = 'The Star',
+                text = {
+                    'Destroys up to {C:attention}#1#{}',
+                    '{V:1}#2#{} cards in hand',
+                }
+            },
+            c_cracker_moon = {
+                name = 'The Moon',
+                text = {
+                    'Destroys up to {C:attention}#1#{}',
+                    '{V:1}#2#{} cards in hand',
+                }
+            },
+            c_cracker_world = {
+                name = 'The World',
+                text = {
+                    'Destroys up to {C:attention}#1#{}',
+                    '{V:1}#2#{} cards in hand',
+                }
+            },
+        },
         Other = {
             d_sacrifice = {
                 name = "Sacrificed",

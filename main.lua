@@ -8,6 +8,7 @@ assert(SMODS.load_file('src/challenge.lua'))()
 assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
+assert(SMODS.load_file('src/expansion_2/reverse_arcana.lua'))()
 
 CrackerConfig = SMODS.current_mod.config
 
@@ -22,6 +23,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = 'Vouchers',
     path = "Vouchers.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = 'reversearcana',
+    path = "reversearcana.png",
     px = 71,
     py = 95
 }
