@@ -28,8 +28,6 @@ SMODS.Challenge{
     },
     restrictions = {
         banned_cards = {
-            { id = 'j_egg' },
-            { id = 'j_gift' },
         }
     }
 }
