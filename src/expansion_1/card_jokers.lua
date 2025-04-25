@@ -601,7 +601,7 @@ SMODS.Joker{ --White Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.open_booster and not context.blueprint then
+        elseif context.open_booster and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                     func = (function()
@@ -633,8 +633,9 @@ SMODS.Joker{ --Rainbow Card
         ['name'] = 'Rainbow Card',
         ['text'] = {
             [1] = 'Retrigger all played cards {C:attention}#1#{} times',
-            [2] = 'if no {C:attention}Booster Packs{} opened this round',
-            [3] = '{C:inactive}#2#',
+            [2] = 'if no {C:attention}Booster Packs{} opened in shop',
+            [3] = 'during this round',
+            [4] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -663,7 +664,7 @@ SMODS.Joker{ --Rainbow Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.open_booster and not context.blueprint then
+        elseif context.open_booster and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                     func = (function()
