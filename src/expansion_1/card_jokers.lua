@@ -406,7 +406,7 @@ SMODS.Joker{ --Yellow Card
     config = {
         extra = {
             dollars_gain = 4,
-            dollars = 0,
+            dollars = 2,
         }
     },
     loc_txt = {
