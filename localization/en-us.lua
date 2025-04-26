@@ -65,6 +65,10 @@ return {
         },
     },
     misc = {
+        v_dictionary={
+            a_money="+$#1#",
+            a_money_minus="-$#1#",
+        },
         v_text = {
             ch_c_ante_39 = {
                 "Beat {C:attention}Ante 38{} to win"

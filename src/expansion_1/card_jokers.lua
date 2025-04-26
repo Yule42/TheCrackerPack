@@ -405,16 +405,18 @@ SMODS.Joker{ --Yellow Card
     key = "yellowcard",
     config = {
         extra = {
-            dollars_gain = 6,
-            dollars = 2,
+            dollars_gain = 20,
+            dollars = 0,
+            dollars_lose = 2,
         }
     },
     loc_txt = {
         ['name'] = 'Yellow Card',
         ['text'] = {
-            [1] = 'Earn {C:money}$#2#{} at end of round',
-            [2] = 'Payout increased by {C:money}$#1#{}',
+            [1] = 'Earn {C:money}$#1#{} at end of round',
+            [2] = 'Payout set to {C:money}$#2#{}',
             [3] = 'when {C:attention}Blind{} is skipped',
+            [4] = 'Decreases by {C:money}$#3#{} each payout',
         }
     },
     pos = {
@@ -431,17 +433,30 @@ SMODS.Joker{ --Yellow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.dollars_gain, card.ability.extra.dollars}}
+        return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_gain, card.ability.extra.dollars_lose}}
     end,
     
     calc_dollar_bonus = function(self, card)
         local bonus = card.ability.extra.dollars
+        if bonus > 0 then
+            card.ability.extra.dollars = math.max(card.ability.extra.dollars - card.ability.extra.dollars_lose, 0)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {
+                            message = localize{type = 'variable', key = 'a_money_minus', vars = {card.ability.extra.dollars_lose}},
+                            colour = G.C.MONEY
+                        })
+                    return true
+                end)}))
+        end
         if bonus > 0 then return bonus end
     end,
     
     calculate = function(self, card, context)
         if context.skip_blind and not context.blueprint then
-            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_gain
+            card.ability.extra.dollars = card.ability.extra.dollars_gain
             G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
@@ -601,7 +616,7 @@ SMODS.Joker{ --White Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.open_booster and G.shop and not context.blueprint then
+        elseif context.open_booster  and card.ability.extra.active and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                     func = (function()
@@ -664,7 +679,7 @@ SMODS.Joker{ --Rainbow Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.open_booster and G.shop and not context.blueprint then
+        elseif context.open_booster and card.ability.extra.active and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                     func = (function()
