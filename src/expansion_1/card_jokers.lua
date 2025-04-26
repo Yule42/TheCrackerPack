@@ -477,7 +477,7 @@ SMODS.Joker{ --Black Card
     config = {
         extra = {
             skips = 0,
-            skips_needed = 3,
+            skips_needed = 4,
         }
     },
     loc_txt = {
