@@ -138,7 +138,7 @@ SMODS.Voucher {
     atlas = 'Vouchers',
     config = {
         extra = {
-            hands = 2,
+            hands = 1,
         }
     },
     requires = { "v_nacho_tong" },
@@ -176,7 +176,7 @@ SMODS.Voucher {
     atlas = 'Vouchers',
     config = {
         extra = {
-            discards = 2,
+            discards = 1,
         }
     },
     requires = { "v_recyclomancy" },
