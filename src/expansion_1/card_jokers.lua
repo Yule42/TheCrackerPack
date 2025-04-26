@@ -511,7 +511,7 @@ SMODS.Joker{ --Black Card
             G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize{type = 'variable', key = 'k_reset', vars = {}},
+                            message = localize('k_reset'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
