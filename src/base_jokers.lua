@@ -562,8 +562,6 @@ SMODS.Joker{ --Life Support
         extra = {
             rounds = 3,
             active = false,
-            activity_no = '(Inactive)',
-            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
@@ -573,7 +571,6 @@ SMODS.Joker{ --Life Support
             [2] = 'When active, {C:inactive}debuffs{} {C:attention}all cards{}',
             [3] = 'and prevents Death for the next {C:attention}#1#{} rounds',
             [4] = '{C:inactive}(Skipping reduces rounds)',
-            [5] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -590,8 +587,19 @@ SMODS.Joker{ --Life Support
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
-        return {vars = {card.ability.extra.rounds, activity}}
+        local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        local info = nil
+        if has_message then
+            local active = card.ability.extra.active
+            info = {
+                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_cracker_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                    }}
+                }}
+            }
+        end
+        return {vars = {card.ability.extra.rounds}, main_end = info}
     end,
     update = function(self, card, dt)
         if card.ability.extra.active then

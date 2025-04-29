@@ -558,8 +558,6 @@ SMODS.Joker{ --White Card
     config = {
         extra = {
             active = true,
-            activity_no = '(Inactive)',
-            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
@@ -568,7 +566,6 @@ SMODS.Joker{ --White Card
             [1] = 'Fills {C:attention}empty consumable slots{}',
             [2] = 'with {C:tarot}The Fool{} at the end of the {C:attention}shop',
             [3] = 'if no {C:attention}Booster Packs{} opened this round',
-            [4] = '{C:inactive}#1#',
         }
     },
     pos = {
@@ -585,8 +582,18 @@ SMODS.Joker{ --White Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
-        return {vars = {activity}}
+        local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        if has_message then
+            local active = card.ability.extra.active
+            info = {
+                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                    }}
+                }}
+            }
+        end
+        return {vars = {}, main_end = info}
     end,
     
     calculate = function(self, card, context)
@@ -640,8 +647,6 @@ SMODS.Joker{ --Rainbow Card
         extra = {
             retriggers = 2,
             active = true,
-            activity_no = '(Inactive)',
-            activity_yes = '(Active!)',
         }
     },
     loc_txt = {
@@ -650,7 +655,6 @@ SMODS.Joker{ --Rainbow Card
             [1] = 'Retrigger all played cards {C:attention}#1#{} times',
             [2] = 'if no {C:attention}Booster Packs{} opened in shop',
             [3] = 'during this round',
-            [4] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -667,8 +671,18 @@ SMODS.Joker{ --Rainbow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
-        return {vars = {card.ability.extra.retriggers, activity}}
+        local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        if has_message then
+            local active = card.ability.extra.active
+            info = {
+                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                    }}
+                }}
+            }
+        end
+        return {vars = {card.ability.extra.retriggers}, main_end = info}
     end,
     
     calculate = function(self, card, context)

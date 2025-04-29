@@ -27,7 +27,11 @@ return {
         },
     },
     misc = {
-        v_dictionary={
+        dictionary = {
+            k_inactive="inactive",
+            k_inactive_ex="Inactive",
+        },
+        v_dictionary = {
             a_money="+$#1#",
             a_money_minus="-$#1#",
         },
