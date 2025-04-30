@@ -22,6 +22,9 @@ SMODS.Joker{ --Saltine Cracker
         x = 0,
         y = 0
     },
+    pools = {
+        Food = true,
+    },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -98,6 +101,9 @@ SMODS.Joker{ --Chocolate Coin
     pos = {
         x = 1,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 3,
     rarity = 1,
@@ -178,6 +184,9 @@ SMODS.Joker{ --Graham Cracker
     pos = {
         x = 2,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 7,
     rarity = 3,
@@ -304,6 +313,9 @@ SMODS.Joker{ --Cheese
     pos = {
         x = 1,
         y = 1
+    },
+    pools = {
+        Food = true,
     },
     cost = 6,
     rarity = 2,
@@ -761,6 +773,9 @@ SMODS.Joker{ --Curry
     pos = {
         x = 6,
         y = 1
+    },
+    pools = {
+        Food = true,
     },
     cost = 4,
     rarity = 1,

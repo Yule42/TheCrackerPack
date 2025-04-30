@@ -53,6 +53,44 @@ for i = 1, #food_jokers do
     Cracker.food[#Cracker.food+1] = food_jokers[i]
 end
 
+-- these are a few mods with food jokers i could think of off the cuff
+-- freezer still lacks cross-compatiblity though
+
+if next(SMODS.find_mod('paperback')) then
+    Cracker.food[#Cracker.food+1] = "j_paperback_apple"
+    Cracker.food[#Cracker.food+1] = "j_paperback_joker_cookie"
+    Cracker.food[#Cracker.food+1] = "j_paperback_nachos"
+    Cracker.food[#Cracker.food+1] = "j_paperback_crispy_taco"
+    Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
+    Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
+end
+
+if next(SMODS.find_mod('extracredit')) then
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_starfruit"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_candynecklace"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_espresso"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_ambrosia"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_badapple"
+end
+
+if next(SMODS.find_mod('Bunco')) then
+    Cracker.food[#Cracker.food+1] = "j_bunc_starfruit"
+end
+
+if next(SMODS.find_mod('Cryptid')) then
+    Cracker.food[#Cracker.food+1] = "j_cry_pickle"
+    Cracker.food[#Cracker.food+1] = "j_cry_chili_pepper"
+    Cracker.food[#Cracker.food+1] = "j_cry_oldcandy"
+    Cracker.food[#Cracker.food+1] = "j_cry_foodm"
+    Cracker.food[#Cracker.food+1] = "j_cry_cotton_candy"
+    Cracker.food[#Cracker.food+1] = "j_cry_wrapped"
+    Cracker.food[#Cracker.food+1] = "j_cry_candy_cane"
+    Cracker.food[#Cracker.food+1] = "j_cry_candy_buttons"
+    Cracker.food[#Cracker.food+1] = "j_cry_jawbreaker"
+    Cracker.food[#Cracker.food+1] = "j_cry_mellowcreme"
+    Cracker.food[#Cracker.food+1] = "j_cry_brittle"
+end
+
 function Cracker.get_food(seed)
     local pool = get_current_pool('Joker')
     local food_keys = {}
@@ -98,6 +136,10 @@ end
 
 to_big = to_big or function(x)
   return x
+end
+
+to_number = to_number or function(n)
+  return n
 end
 
 --
