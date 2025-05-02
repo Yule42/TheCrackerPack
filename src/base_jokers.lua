@@ -512,7 +512,7 @@ SMODS.Joker{ --Life Support
     rarity = 3,
     blueprint_compat = false,
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
