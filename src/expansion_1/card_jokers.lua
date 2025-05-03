@@ -54,8 +54,8 @@ SMODS.Joker{ --Blue Card
     config = {
         extra = {
             chips = 0,
-            chips_add = 15,
-            chips_remove = 10,
+            chips_add = 12,
+            chips_remove = 8,
         }
     },
     loc_txt = {
@@ -104,7 +104,7 @@ SMODS.Joker{ --Blue Card
                     }) 
                     return true
                 end}))
-        elseif context.buying_card and not context.blueprint and not (context.card == card) then
+        elseif context.buying_card and not context.blueprint and not (context.card == card) and not (context.card.ability.set == "Voucher") then
             card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove, 0)
             card_eval_status_text(card, 'extra', nil, nil, nil, {
                 message = localize{type = 'variable', key = 'a_chips_minus', vars = {card.ability.extra.chips_remove}},
