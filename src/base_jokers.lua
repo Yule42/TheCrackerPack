@@ -346,7 +346,7 @@ SMODS.Joker{ --Cracker Barrel
         x = 2,
         y = 1
     },
-    cost = 8,
+    cost = 7,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
