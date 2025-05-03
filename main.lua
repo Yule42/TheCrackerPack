@@ -62,7 +62,21 @@ if next(SMODS.find_mod('paperback')) then
     Cracker.food[#Cracker.food+1] = "j_paperback_nachos"
     Cracker.food[#Cracker.food+1] = "j_paperback_crispy_taco"
     Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
-    Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
+    Cracker.food[#Cracker.food+1] = "j_paperback_ghost_cola"
+    Cracker.food[#Cracker.food+1] = "j_paperback_complete_breakfast"
+    Cracker.food[#Cracker.food+1] = "j_paperback_b_soda"
+    Cracker.food[#Cracker.food+1] = "j_paperback_cream_liqueur"
+    Cracker.food[#Cracker.food+1] = "j_paperback_champagne"
+    Cracker.food[#Cracker.food+1] = "j_paperback_coffee"
+    Cracker.food[#Cracker.food+1] = "j_paperback_matcha"
+    Cracker.food[#Cracker.food+1] = "j_paperback_epic_sauce"
+    Cracker.food[#Cracker.food+1] = "j_paperback_dreamsicle"
+    Cracker.food[#Cracker.food+1] = "j_paperback_cakepop"
+    Cracker.food[#Cracker.food+1] = "j_paperback_caramel_apple"
+    Cracker.food[#Cracker.food+1] = "j_paperback_charred_marshmallow"
+    Cracker.food[#Cracker.food+1] = "j_paperback_rock_candy"
+    Cracker.food[#Cracker.food+1] = "j_paperback_tanghulu"
+    Cracker.food[#Cracker.food+1] = "j_paperback_ice_cube"
 end
 
 if next(SMODS.find_mod('extracredit')) then
