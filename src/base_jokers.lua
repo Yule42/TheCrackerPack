@@ -525,7 +525,7 @@ SMODS.Joker{ --Life Support
             info = {
                 {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
                     {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_cracker_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
                     }}
                 }}
             }
@@ -610,7 +610,7 @@ SMODS.Joker{ --Life Support
                 end
             end
         end
-        if context.skip_blind and not context.blueprint then
+        if context.skip_blind and card.ability.extra.active and not context.blueprint then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
             if card.ability.extra.rounds < 1 then
                 G.E_MANAGER:add_event(Event({
