@@ -554,7 +554,7 @@ SMODS.Joker{ --Life Support
                     card.ability.extra.active = true
                 end
                 G.GAME.current_round.usesavedtext = true
-                G.GAME.current_round.savedtext = "Saved by Life Support"
+                G.GAME.current_round.savedtext = localize('k_saved_lifesupport')
                 card.ability.extra.rounds = card.ability.extra.rounds - 1
                 if card.ability.extra.rounds < 1 then
                     G.E_MANAGER:add_event(Event({

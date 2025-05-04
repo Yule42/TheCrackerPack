@@ -315,6 +315,11 @@ SMODS.current_mod.config_tab = function() --Config
             ref_value = "disable_upgradedfood",
         }),
         create_toggle({
+            label = "Disable Tier 3 Vouchers",
+            ref_table = CrackerConfig,
+            ref_value = "disable_tier3",
+        }),
+        create_toggle({
             label = "Dev Textures",
             ref_table = CrackerConfig,
             ref_value = "starlo",

@@ -240,6 +240,7 @@ return {
             k_eaten_barrel="Emptied!",
             k_bomb_explode='Boom!',
             k_used_lifesupport='Beep!',
+            k_saved_lifesupport="Saved by Life Support",
         },
         v_dictionary = {
             a_money="+$#1#",
