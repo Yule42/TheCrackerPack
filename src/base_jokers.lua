@@ -8,25 +8,18 @@ SMODS.Joker{ --Saltine Cracker
             max_chips = 100
         }
     },
-    loc_txt = {
-        ['name'] = 'Saltine Cracker',
-        ['text'] = {
-            [1] = '{C:chips}+#1#{} Chips',
-            [2] = 'Gains {C:chips}+#2#{} Chips',
-            [3] = 'after each round',
-            [4] = '{S:1.1,C:red,E:2}Self destructs{} after',
-            [5] = 'reaching {C:chips}#3#{} Chips'
-        }
-    },
     pos = {
         x = 0,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
@@ -55,7 +48,7 @@ SMODS.Joker{ --Saltine Cracker
                     end
                 })) 
                 return {
-                    message = "Crumbled!",
+                    message = localize('k_eaten_crumble'),
                     colour = G.C.CHIPS
                 }
             else
@@ -86,18 +79,12 @@ SMODS.Joker{ --Chocolate Coin
             rounds_mod = 1
         }
     },
-    loc_txt = {
-        ['name'] = 'Chocolate Coin',
-        ['text'] = {
-            [1] = 'Earn {C:attention}$#1#{} at',
-            [2] = 'end of round',
-            [3] = 'for the next',
-            [4] = '{C:attention}#2#{} rounds'
-        }
-    },
     pos = {
         x = 1,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 3,
     rarity = 1,
@@ -165,19 +152,12 @@ SMODS.Joker{ --Graham Cracker
             xmult_max = 6
         }
     },
-    loc_txt = {
-        ['name'] = 'Graham Cracker',
-        ['text'] = {
-            [1] = 'This Joker gains {X:mult,C:white} X#1# {} Mult',
-            [2] = 'every {C:attention}#2#{C:inactive} [#3#]{} cards played',
-            [3] = '{S:1.1,C:red,E:2}Self destructs{} after',
-            [4] = 'reaching {X:mult,C:white} X#5# {} Mult',
-            [5] = '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)'
-        }
-    },
     pos = {
         x = 2,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 7,
     rarity = 3,
@@ -221,7 +201,7 @@ SMODS.Joker{ --Graham Cracker
                         end
                     })) 
                     return {
-                        message = "Crumbled!",
+                        message = localize('k_eaten_crumble'),
                         colour = G.C.RED
                     }
                 else
@@ -244,14 +224,6 @@ SMODS.Joker{ --Hoarder
     config = {
         extra = {
             vouchers_multiply = 6,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Hoarder',
-        ['text'] = {
-            [1] = '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
-            [2] = 'purchased this run',
-            [3] = '{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
         }
     },
     pos = {
@@ -283,64 +255,6 @@ SMODS.Joker{ --Hoarder
     end
 }
 
-SMODS.Joker{ --Purple Card
-    name = "Purple Card",
-    key = "purplecard",
-    config = {
-        extra = {
-            xmult = 1,
-            xmult_add = 0.15,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Purple Card',
-        ['text'] = {
-            [1] = 'This Joker gains',
-            [2] = '{X:mult,C:white}X#2#{} Mult when any',
-            [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
-        }
-    },
-    pos = {
-        x = 0,
-        y = 1
-    },
-    cost = 7,
-    rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-    unlocked = true,
-    discovered = true,
-    atlas = 'Jokers',
-
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
-    end,
-    
-    calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
-            }
-        elseif context.skipping_booster and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
-            G.E_MANAGER:add_event(Event({
-                func = function() 
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult_add}},
-                        colour = G.C.RED,
-                        delay = 0.45, 
-                        card = card
-                    }) 
-                    return true
-                end}))
-        end
-    end
-}
-
 SMODS.Joker{ --Cheese
     name = "Cheese",
     key = "cheese",
@@ -351,17 +265,12 @@ SMODS.Joker{ --Cheese
             xmult_base = 3,
         }
     },
-    loc_txt = {
-        ['name'] = 'Cheese',
-        ['text'] = {
-            [1] = '{X:mult,C:white}X#1#{} Mult, decreases by',
-            [2] = '{X:mult,C:white}X#2#{} every hand played',
-            [3] = '{s:0.8}resets at end of round',
-        }
-    },
     pos = {
         x = 1,
         y = 1
+    },
+    pools = {
+        Food = true,
     },
     cost = 6,
     rarity = 2,
@@ -414,12 +323,12 @@ SMODS.Joker{ --Cheese
             end
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.xmult = card.ability.extra.xmult_base
-			
-			return {
-				message = localize('k_reset'),
-				colour = G.C.FILTER
-			}
-			
+            
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER
+            }
+            
         end
     end
 }
@@ -433,20 +342,11 @@ SMODS.Joker{ --Cracker Barrel
             jokersleft = 5,
         }
     },
-    loc_txt = {
-        ['name'] = 'Cracker Barrel',
-        ['text'] = {
-            [1] = 'When {C:attention}Blind{} is selected,',
-            [2] = 'create {C:attention}#1# Food Joker',
-            [3] = '{C:inactive}({}{C:attention}#2#{}{C:inactive} Food Jokers left)',
-            [4] = '{C:inactive}(Must have room)',
-        }
-    },
     pos = {
         x = 2,
         y = 1
     },
-    cost = 8,
+    cost = 7,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
@@ -496,7 +396,7 @@ SMODS.Joker{ --Cracker Barrel
                     end
                 })) 
                 return {
-                    message = 'Emptied!',
+                    message = localize('k_eaten_barrel'),
                     colour = G.C.FILTER
                 }
             end
@@ -510,16 +410,6 @@ SMODS.Joker{ --Sacramental Katana
     config = {
         extra = {
             xmult = 1,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Sacramental Katana',
-        ['text'] = {
-            [1] = 'When {C:attention}Boss Blind{} is defeated,',
-            [2] = '{S:1.1,C:red,E:2}sacrifice{} and destroy Joker',
-            [3] = 'to the right and permanently',
-            [4] = 'add 1/4 its sell value as {X:mult,C:white} XMult',
-            [5] = '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult)',
         }
     },
     pos = {
@@ -578,14 +468,6 @@ SMODS.Joker{ --Freezer
             multiply = 0,
         }
     },
-    loc_txt = {
-        ['name'] = 'Freezer',
-        ['text'] = {
-            [1] = '{C:attention}Food Jokers{}',
-            [2] = 'and other {C:attention}perishables{}',
-            [3] = 'are {C:spectral}frozen{}',
-        }
-    },
     pos = {
         x = 4,
         y = 1
@@ -620,18 +502,6 @@ SMODS.Joker{ --Life Support
         extra = {
             rounds = 3,
             active = false,
-            activity_no = '(Inactive)',
-            activity_yes = '(Active!)',
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Life Support',
-        ['text'] = {
-            [1] = 'Activates upon Death',
-            [2] = 'When active, {C:inactive}debuffs{} {C:attention}all cards{}',
-            [3] = 'and prevents Death for the next {C:attention}#1#{} rounds',
-            [4] = '{C:inactive}(Skipping reduces rounds)',
-            [5] = '{C:inactive}#2#',
         }
     },
     pos = {
@@ -642,14 +512,25 @@ SMODS.Joker{ --Life Support
     rarity = 3,
     blueprint_compat = false,
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local activity = card.ability.extra.active and card.ability.extra.activity_yes or card.ability.extra.activity_no
-        return {vars = {card.ability.extra.rounds, activity}}
+        local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        local info = nil
+        if has_message then
+            local active = card.ability.extra.active
+            info = {
+                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_cracker_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                    }}
+                }}
+            }
+        end
+        return {vars = {card.ability.extra.rounds}, main_end = info}
     end,
     update = function(self, card, dt)
         if card.ability.extra.active then
@@ -673,7 +554,7 @@ SMODS.Joker{ --Life Support
                     card.ability.extra.active = true
                 end
                 G.GAME.current_round.usesavedtext = true
-                G.GAME.current_round.savedtext = "Saved by Life Support"
+                G.GAME.current_round.savedtext = localize('k_saved_lifesupport')
                 card.ability.extra.rounds = card.ability.extra.rounds - 1
                 if card.ability.extra.rounds < 1 then
                     G.E_MANAGER:add_event(Event({
@@ -718,7 +599,7 @@ SMODS.Joker{ --Life Support
                         end
                     })) 
                     return {
-                        message = 'Beep!',
+                        message = localize('k_used_lifesupport'),
                         colour = G.C.FILTER
                     }
                 else
@@ -749,7 +630,7 @@ SMODS.Joker{ --Life Support
                     end
                 })) 
                 return {
-                    message = 'Beep!',
+                    message = localize('k_used_lifesupport'),
                     colour = G.C.FILTER
                 }
             else
@@ -778,7 +659,7 @@ SMODS.Joker{ --Life Support
                     end
                 })) 
                 return {
-                    message = 'Beep!',
+                    message = localize('k_used_lifesupport'),
                     colour = G.C.FILTER
                 }
             else
@@ -800,17 +681,12 @@ SMODS.Joker{ --Curry
             mult_remove = 3,
         }
     },
-    loc_txt = {
-        ['name'] = 'Curry',
-        ['text'] = {
-            [1] = '{C:red}+#1#{} Mult',
-            [2] = 'before cards are scored',
-            [3] = '{C:red}-#2#{} mult per round played',
-        }
-    },
     pos = {
         x = 6,
         y = 1
+    },
+    pools = {
+        Food = true,
     },
     cost = 4,
     rarity = 1,
@@ -871,12 +747,6 @@ SMODS.Joker{ --Knife Thrower
             hands = 1,
         }
     },
-    loc_txt = {
-        ['name'] = 'Knife Thrower',
-        ['text'] = {
-            [1] = '{C:blue}+#1#{} hand each round',
-        }
-    },
     pos = {
         x = 7,
         y = 1
@@ -910,16 +780,8 @@ SMODS.Joker{ --Northern Star
     key = "northstar",
     config = {
         extra = {
-            chips_add = 12,
-            chips = 12,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Northern Star',
-        ['text'] = {
-            [1] = '{C:chips}+#1#{} chips per',
-            [2] = 'level from {C:attention}most leveled hand{}',
-            [3] = '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
+            chips_add = 10,
+            chips = 10,
         }
     },
     pos = {
@@ -936,10 +798,10 @@ SMODS.Joker{ --Northern Star
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local hand, highest = nil, to_big(0)
+        local hand, highest = G.GAME.hands["High Card"], to_big(0)
         for k, v in pairs(G.GAME.hands) do
             if v.visible and v.level > highest then
-                hand = k
+                hand = v
                 highest = v.level
             end
         end
@@ -949,10 +811,10 @@ SMODS.Joker{ --Northern Star
     
     calculate = function(self, card, context)
         if context.level_up_hand and not context.blueprint then
-            local hand, highest = nil, to_big(0)
+            local hand, highest = G.GAME.hands["High Card"], to_big(0)
             for k, v in pairs(G.GAME.hands) do
                 if v.visible and v.level > highest then
-                    hand = k
+                    hand = v
                     highest = v.level
                 end
             end
@@ -969,18 +831,10 @@ SMODS.Joker{ --Northern Star
 
 SMODS.Joker{ --The Dealer
     name = "The Dealer",
-    key = "The Dealer",
+    key = "thedealer",
     config = {
         extra = {
             odds = 2,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'The Dealer',
-        ['text'] = {
-            [1] = '{C:green}#1# in #2#{} chance',
-            [2] = 'to retrigger each',
-            [3] = 'scored card',
         }
     },
     pos = {
@@ -1019,19 +873,11 @@ SMODS.Joker{ --Bomb
             rounds = 12,
         }
     },
-    loc_txt = {
-        ['name'] = 'Bomb',
-        ['text'] = {
-            [1] = '{C:attention}Blows up{} in {C:attention}#1#{} rounds',
-            [2] = 'Ticks down when {C:attention}Blind{} is selected',
-            [3] = '{S:1.1,C:red,E:2}Ends game{} if this Joker hits 0',
-        }
-    },
     pos = {
         x = 0,
         y = 2
     },
-    cost = 2,
+    cost = 0,
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
@@ -1053,7 +899,7 @@ SMODS.Joker{ --Bomb
                 G.STATE = G.STATES.GAME_OVER
                 G.STATE_COMPLETE = false
                 return {
-                    message = 'Boom!',
+                    message = localize('k_bomb_explode'),
                     colour = G.C.FILTER
                 }
             else

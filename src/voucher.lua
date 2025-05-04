@@ -119,78 +119,80 @@ SMODS.Voucher {
     end,
 }
 
-SMODS.Voucher {
-    key = 'cheese_touch',
-    loc_txt = {
-        ['name'] = 'Cheese Touch',
-        ['text'] = {
-            [1] = 'Permanently',
-            [2] = 'gain {C:blue}+#1#{} hands',
-            [3] = 'per round',
-        }
-    },
-    pos = {
-        x = 2,
-        y = 0
-    },
-    unlocked = true,
-    discovered = true,
-    atlas = 'Vouchers',
-    config = {
-        extra = {
-            hands = 2,
-        }
-    },
-    requires = { "v_nacho_tong" },
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.hands}}
-    end,
-    
-    redeem = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.round_resets.hands = G.GAME.round_resets.hands + self.config.extra.hands
-                ease_hands_played(self.config.extra.hands)
-                return true
-            end,
-        }))
-    end
-}
+if not CrackerConfig.disable_tier3 then
+    SMODS.Voucher {
+        key = 'cheese_touch',
+        loc_txt = {
+            ['name'] = 'Cheese Touch',
+            ['text'] = {
+                [1] = 'Permanently',
+                [2] = 'gain {C:blue}+#1#{} hands',
+                [3] = 'per round',
+            }
+        },
+        pos = {
+            x = 2,
+            y = 0
+        },
+        unlocked = true,
+        discovered = true,
+        atlas = 'Vouchers',
+        config = {
+            extra = {
+                hands = 1,
+            }
+        },
+        requires = { "v_nacho_tong" },
+        loc_vars = function(self, info_queue, card)
+            return {vars = {card.ability.extra.hands}}
+        end,
+        
+        redeem = function(self)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.hands = G.GAME.round_resets.hands + self.config.extra.hands
+                    ease_hands_played(self.config.extra.hands)
+                    return true
+                end,
+            }))
+        end
+    }
 
-SMODS.Voucher {
-    key = 'dumpster',
-    loc_txt = {
-        ['name'] = 'Dumpster',
-        ['text'] = {
-            [1] = 'Permanently',
-            [2] = 'gain {C:red}+#1#{} discards',
-            [3] = 'each round',
-        }
-    },
-    pos = {
-        x = 3,
-        y = 0
-    },
-    unlocked = true,
-    discovered = true,
-    atlas = 'Vouchers',
-    config = {
-        extra = {
-            discards = 2,
-        }
-    },
-    requires = { "v_recyclomancy" },
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.discards}}
-    end,
-    
-    redeem = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.config.extra.discards
-                ease_discard(self.config.extra.discards)
-                return true
-            end,
-        }))
-    end
-}
+    SMODS.Voucher {
+        key = 'dumpster',
+        loc_txt = {
+            ['name'] = 'Dumpster',
+            ['text'] = {
+                [1] = 'Permanently',
+                [2] = 'gain {C:red}+#1#{} discards',
+                [3] = 'each round',
+            }
+        },
+        pos = {
+            x = 3,
+            y = 0
+        },
+        unlocked = true,
+        discovered = true,
+        atlas = 'Vouchers',
+        config = {
+            extra = {
+                discards = 1,
+            }
+        },
+        requires = { "v_recyclomancy" },
+        loc_vars = function(self, info_queue, card)
+            return {vars = {card.ability.extra.discards}}
+        end,
+        
+        redeem = function(self)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.config.extra.discards
+                    ease_discard(self.config.extra.discards)
+                    return true
+                end,
+            }))
+        end
+    }
+end

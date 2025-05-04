@@ -22,6 +22,9 @@ SMODS.Joker{ --Cybernana MK920
         x = 3,
         y = 0
     },
+    pools = {
+        Food = true,
+    },
     cost = 3,
     rarity = 1,
     blueprint_compat = true,
@@ -93,6 +96,9 @@ SMODS.Joker{ --Buttered Popcorn
     pos = {
         x = 5,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 5,
     rarity = 1,
@@ -170,6 +176,9 @@ SMODS.Joker{ --Sundae
         x = 6,
         y = 0
     },
+    pools = {
+        Food = true,
+    },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -244,6 +253,9 @@ SMODS.Joker{ --Hard Seltzer
     pos = {
         x = 7,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 8,
     rarity = 2,
@@ -321,6 +333,9 @@ SMODS.Joker{ --Can of Beans
     pos = {
         x = 8,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 6,
     rarity = 2,
@@ -401,6 +416,9 @@ SMODS.Joker{ --Tsukemen
     pos = {
         x = 9,
         y = 0
+    },
+    pools = {
+        Food = true,
     },
     cost = 6,
     rarity = 2,

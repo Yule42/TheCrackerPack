@@ -5,7 +5,6 @@ priority = 1
 
 # [------------------------------------------------------------------- JOKERS -------------------------------------------------------------------]
 
-
     # Cavendish
 [[patches]]
 [patches.pattern]
@@ -14,7 +13,7 @@ pattern = "if self.ability.name == 'Gros Michel' then G.GAME.pool_flags.gros_mic
 position = "at"
 payload = '''
 if self.ability.name == 'Gros Michel' then G.GAME.pool_flags.gros_michel_extinct = true
-elseif self.ability.name == 'Cavendish' then G.GAME.pool_flags.cavendish_extinct = true
+elseif self.ability.name == 'Cavendish' and not CrackerConfig.disable_upgradedfood then G.GAME.pool_flags.cavendish_extinct = true
 end
 '''
 match_indent = true
@@ -37,7 +36,9 @@ pattern = '''if self.ability.name == 'Popcorn' and not context.blueprint then
 if self.ability.mult - self.ability.extra <= 0 then '''
 position = "after"
 payload = '''
-G.GAME.pool_flags.popcorn_eaten = true
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.popcorn_eaten = true
+end
 '''
 match_indent = true
 times = 1
@@ -61,7 +62,9 @@ pattern = '''if self.ability.name == 'Ice Cream' and not context.blueprint then
 if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then '''
 position = "after"
 payload = '''
-G.GAME.pool_flags.ice_cream_eaten = true
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.ice_cream_eaten = true
+end
 '''
 match_indent = true
 times = 1
@@ -86,7 +89,9 @@ pattern = '''if self.ability.name == 'Seltzer' and not context.blueprint then
 if self.ability.extra - 1 <= 0 then '''
 position = "after"
 payload = '''
-G.GAME.pool_flags.seltzer_drank = true
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.seltzer_drank = true
+end
 '''
 match_indent = true
 times = 1
@@ -111,7 +116,9 @@ pattern = '''if self.ability.name == 'Turtle Bean' and not context.blueprint the
 if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then '''
 position = "after"
 payload = '''
-G.GAME.pool_flags.turtle_bean_eaten = true
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.turtle_bean_eaten = true
+end
 '''
 match_indent = true
 times = 1
@@ -136,7 +143,9 @@ pattern = '''if self.ability.name == 'Ramen' and not context.blueprint then
 if self.ability.x_mult - self.ability.extra <= 1 then '''
 position = "after"
 payload = '''
-G.GAME.pool_flags.ramen_eaten = true
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.ramen_eaten = true
+end
 '''
 match_indent = true
 times = 1
@@ -558,3 +567,29 @@ elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.roun
 '''
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end'''
+match_indent = true
+position = 'before'
+payload = '''
+if card.area == G.pack_cards then
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {taking_booster_card = true})
+    end
+end'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then'''
+match_indent = true
+position = 'before'
+payload = '''
+if card.area == G.pack_cards then
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {taking_booster_card = true})
+    end
+end'''
