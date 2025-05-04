@@ -353,9 +353,9 @@ SMODS.Joker{ --Yellow Card
     key = "yellowcard",
     config = {
         extra = {
-            dollars_gain = 20,
+            dollars_gain = 24,
             dollars = 0,
-            dollars_lose = 2,
+            dollars_lose = 4,
         }
     },
     pos = {
