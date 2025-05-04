@@ -6,14 +6,6 @@ SMODS.Joker{ --Green Card
             money = 8,
         }
     },
-    loc_txt = {
-        ['name'] = 'Green Card',
-        ['text'] = {
-            [1] = 'This Joker gains',
-            [2] = '{C:money}$#1#{} of {C:attention}sell value{} when',
-            [3] = '{C:attention}Blind{} is skipped',
-        }
-    },
     pos = {
         x = 1,
         y = 2
@@ -56,15 +48,6 @@ SMODS.Joker{ --Blue Card
             chips = 0,
             chips_add = 12,
             chips_remove = 8,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Blue Card',
-        ['text'] = {
-            [1] = 'This Joker gains {C:chips}+#2#{} Chips',
-            [2] = 'when a card is taken from a {C:attention}Booster Pack{},',
-            [3] = 'loses {C:chips}-#3#{} Chips when a card is {C:attention}purchased{}',
-            [4] = '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
         }
     },
     pos = {
@@ -126,15 +109,6 @@ SMODS.Joker{ --Violet Card
             xmult_add = 0.15,
         }
     },
-    loc_txt = {
-        ['name'] = 'Violet Card',
-        ['text'] = {
-            [1] = 'This Joker gains',
-            [2] = '{X:mult,C:white}X#2#{} Mult when any',
-            [3] = '{C:attention}Booster Pack{} is skipped',
-            [4] = '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
-        }
-    },
     pos = {
         x = 0,
         y = 1
@@ -183,14 +157,6 @@ SMODS.Joker{ --Indigo Card
             odds = 2,
         }
     },
-    loc_txt = {
-        ['name'] = 'Indigo Card',
-        ['text'] = {
-            [1] = '{C:green}#1# in #2#{} chance to upgrade level of',
-            [2] = '{C:attention}most played poker hand',
-            [3] = 'when {C:attention}Booster Pack{} is skipped',
-        }
-    },
     pos = {
         x = 9,
         y = 2
@@ -225,15 +191,6 @@ SMODS.Joker{ --Pink Card
         extra = {
             add_hand_size = 1,
             current_add = 0,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Pink Card',
-        ['text'] = {
-            [1] = 'This Joker gains {C:attention}+#1#{} hand size',
-            [2] = 'when {C:attention}Booster Pack{} is skipped',
-            [3] = '{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size)',
-            [4] = '{s:0.8}Resets at end of round',
         }
     },
     pos = {
@@ -294,15 +251,6 @@ SMODS.Joker{ --Orange Card
             booster = nil
         }
     },
-    loc_txt = {
-        ['name'] = 'Orange Card',
-        ['text'] = {
-            [1] = 'When {C:attention}Booster Pack{} is skipped,',
-            [2] = 'creates a random card',
-            [3] = 'from {C:attention}type of pack skipped{}',
-            [4] = '{C:inactive}(Must have room)',
-        }
-    },
     pos = {
         x = 6,
         y = 2
@@ -346,7 +294,7 @@ SMODS.Joker{ --Orange Card
                     delay = 0.45,
                     func = (function()
                             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                message = '+1 Card',
+                                message = localize{type = 'variable', key = 'a_card', vars = {1}}
                                 colour = G.FILTER
                             })
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
@@ -410,15 +358,6 @@ SMODS.Joker{ --Yellow Card
             dollars_lose = 2,
         }
     },
-    loc_txt = {
-        ['name'] = 'Yellow Card',
-        ['text'] = {
-            [1] = 'Earn {C:money}$#1#{} at end of round',
-            [2] = 'Payout set to {C:money}$#2#{}',
-            [3] = 'when {C:attention}Blind{} is skipped',
-            [4] = 'Decreases by {C:money}$#3#{} each payout',
-        }
-    },
     pos = {
         x = 7,
         y = 2
@@ -478,14 +417,6 @@ SMODS.Joker{ --Black Card
         extra = {
             skips = 0,
             skips_needed = 4,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Black Card',
-        ['text'] = {
-            [1] = 'Create a {C:spectral}Negative Tag{} every #2# {C:attention}Booster Packs{} opened,',
-            [2] = 'resets when {C:attention}Booster Pack{} is skipped',
-            [3] = '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
         }
     },
     pos = {
@@ -560,14 +491,6 @@ SMODS.Joker{ --White Card
             active = true,
         }
     },
-    loc_txt = {
-        ['name'] = 'White Card',
-        ['text'] = {
-            [1] = 'Fills {C:attention}empty consumable slots{}',
-            [2] = 'with {C:tarot}The Fool{} at the end of the {C:attention}shop',
-            [3] = 'if no {C:attention}Booster Packs{} opened this round',
-        }
-    },
     pos = {
         x = 4,
         y = 2
@@ -628,7 +551,7 @@ SMODS.Joker{ --White Card
             G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = 'Inactive...',
+                            message = localize('k_inactive_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
@@ -647,14 +570,6 @@ SMODS.Joker{ --Rainbow Card
         extra = {
             retriggers = 2,
             active = true,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Rainbow Card',
-        ['text'] = {
-            [1] = 'Retrigger all played cards {C:attention}#1#{} times',
-            [2] = 'if no {C:attention}Booster Packs{} opened in shop',
-            [3] = 'during this round',
         }
     },
     pos = {
@@ -698,7 +613,7 @@ SMODS.Joker{ --Rainbow Card
             G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = 'Inactive...',
+                            message = localize('k_inactive_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card

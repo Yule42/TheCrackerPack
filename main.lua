@@ -303,7 +303,7 @@ SMODS.current_mod.config_tab = function() --Config
             }
         },
         create_toggle({
-            label = "I like men",
+            label = "Dev Textures",
             ref_table = CrackerConfig,
             ref_value = "starlo",
         }),
