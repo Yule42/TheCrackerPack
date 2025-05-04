@@ -294,7 +294,7 @@ SMODS.Joker{ --Orange Card
                     delay = 0.45,
                     func = (function()
                             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                message = localize{type = 'variable', key = 'a_card', vars = {1}}
+                                message = localize{type = 'variable', key = 'a_card', vars = {1}},
                                 colour = G.FILTER
                             })
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1

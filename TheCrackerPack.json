@@ -3,7 +3,7 @@
     "name": "The Cracker Pack",
     "display_name": "The Cracker Pack",
     "author": ["sophiedeergirl", "sugariimari"],
-    "description": "Balatro Content Expansion mod that adds 20 new jokers and more!",
+    "description": "A Balatro Content Expansion Mod!",
     "prefix": "cracker",
     "main_file": "main.lua",
     "priority": 4,

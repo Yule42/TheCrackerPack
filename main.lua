@@ -1,13 +1,15 @@
-config = SMODS.current_mod.config
+CrackerConfig = SMODS.current_mod.config
 
 assert(SMODS.load_file('src/base_jokers.lua'))()
-assert(SMODS.load_file('src/upgraded_food.lua'))()
+if not CrackerConfig.disable_upgradedfood then
+    assert(SMODS.load_file('src/upgraded_food.lua'))()
+end
 assert(SMODS.load_file('src/voucher.lua'))()
 assert(SMODS.load_file('src/challenge.lua'))()
 
-assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
-
-CrackerConfig = SMODS.current_mod.config
+if not CrackerConfig.disable_card then
+    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
+end
 
 --region Atlas
 SMODS.Atlas {
@@ -302,6 +304,16 @@ SMODS.current_mod.config_tab = function() --Config
                 },
             }
         },
+        create_toggle({
+            label = "Disable Card Pack",
+            ref_table = CrackerConfig,
+            ref_value = "disable_card",
+        }),
+        create_toggle({
+            label = "Disable Upgraded Food Jokers",
+            ref_table = CrackerConfig,
+            ref_value = "disable_upgradedfood",
+        }),
         create_toggle({
             label = "Dev Textures",
             ref_table = CrackerConfig,
