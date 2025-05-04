@@ -109,7 +109,7 @@ return {
                 ['text'] = {
                     [1] = '{C:green}#1# in #2#{} chance',
                     [2] = 'to retrigger each',
-                    [3] = 'scored card',
+                    [3] = 'played card',
                 }
             },
             j_cracker_bomb = {
