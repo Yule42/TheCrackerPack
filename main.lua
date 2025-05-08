@@ -191,7 +191,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Directors: sugariimari, sophiedeergirl",
+                                text = "Directors: sugariimarii, sophiedeergirl",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.GREEN
@@ -263,7 +263,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Joker Ideas: sophiedeergirl, sugariimari, palestjade, brook03, plebmiester",
+                                text = "Joker Ideas: sophiedeergirl, sugariimarii, palestjade, brook03, plebmiester",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
