@@ -838,8 +838,8 @@ SMODS.Joker{ --The Dealer
         }
     },
     pos = {
-        x = 9,
-        y = 1
+        x = SMODS.current_mod.config.starlo and 1 or 9,
+        y = SMODS.current_mod.config.starlo and 3 or 1
     },
     cost = 6,
     rarity = 2,

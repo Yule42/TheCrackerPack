@@ -125,7 +125,7 @@ return {
                 text = {
                     'This Joker gains',
                     '{C:money}$#1#{} of {C:attention}sell value{} when',
-                    '{C:attention}Blind{} is skipped',
+                    'a card is {C:attention}purchased',
                 }
             },
             j_cracker_bluecard = {

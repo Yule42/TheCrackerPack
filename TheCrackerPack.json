@@ -3,7 +3,7 @@
     "name": "The Cracker Pack",
     "display_name": "The Cracker Pack",
     "author": ["sophiedeergirl", "sugariimari"],
-    "description": "A Balatro Content Expansion Mod!",
+    "description": "A Balatro mod that adds new content, including upgraded food, vouchers, challenges, and more!",
     "prefix": "cracker",
     "main_file": "main.lua",
     "priority": 4,

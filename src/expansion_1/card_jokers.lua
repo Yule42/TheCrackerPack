@@ -3,7 +3,7 @@ SMODS.Joker{ --Green Card
     key = "greencard",
     config = {
         extra = {
-            money = 8,
+            money = 1,
         }
     },
     pos = {
@@ -20,11 +20,12 @@ SMODS.Joker{ --Green Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
         return {vars = {card.ability.extra.money}}
     end,
     
     calculate = function(self, card, context)
-        if context.skip_blind and not context.blueprint then
+        if context.buying_card and not context.blueprint and not (context.card == card) and not (context.card.ability.set == "Voucher") then
             card.ability.extra_value = card.ability.extra_value + card.ability.extra.money
             card:set_cost()
             G.E_MANAGER:add_event(Event({
@@ -46,8 +47,8 @@ SMODS.Joker{ --Blue Card
     config = {
         extra = {
             chips = 0,
-            chips_add = 12,
-            chips_remove = 8,
+            chips_add = 10,
+            chips_remove = 10,
         }
     },
     pos = {
