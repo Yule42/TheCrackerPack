@@ -34,26 +34,6 @@ SMODS.Challenge{
 
 SMODS.Challenge{
     loc_txt = {name = "The End"},
-    key = "theend",
-    jokers = {
-        {id = 'j_perkeo'}
-    },
-    vouchers = {
-        {id = 'v_telescope'},
-        {id = 'v_directors_cut'},
-    },
-    rules = {
-        custom = {
-            {id = 'ante_39'},
-            {id = 'plasma'},
-            {id = 'plasma_2'},
-            {id = 'testing'},
-        }
-    }
-}
-
-SMODS.Challenge{
-    loc_txt = {name = "The End #2"},
     key = "theend2",
     jokers = {
         {id = 'j_perkeo', edition = "negative"},
@@ -66,26 +46,6 @@ SMODS.Challenge{
             {id = 'ante_39'},
             {id = 'plasma'},
             {id = 'plasma_2'},
-            {id = 'testing'},
-        }
-    }
-}
-
-SMODS.Challenge{
-    loc_txt = {name = "The End #3"},
-    key = "theend3",
-    jokers = {
-        {id = 'j_blueprint', edition = "negative"},
-        {id = 'j_brainstorm', edition = "negative"},
-    },
-    vouchers = {
-    },
-    rules = {
-        custom = {
-            {id = 'ante_39'},
-            {id = 'plasma'},
-            {id = 'plasma_2'},
-            {id = 'testing'},
         }
     }
 }

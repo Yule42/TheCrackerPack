@@ -1,2 +1,2 @@
 # TheCrackerPack
-A Balatro content expansion mod.
+A Balatro mod that adds new content, including upgraded food, vouchers, challenges, and more!

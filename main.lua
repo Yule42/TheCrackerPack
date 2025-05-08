@@ -1,16 +1,15 @@
-config = SMODS.current_mod.config
+CrackerConfig = SMODS.current_mod.config
 
 assert(SMODS.load_file('src/base_jokers.lua'))()
-assert(SMODS.load_file('src/upgraded_food.lua'))()
+if not CrackerConfig.disable_upgradedfood then
+    assert(SMODS.load_file('src/upgraded_food.lua'))()
+end
 assert(SMODS.load_file('src/voucher.lua'))()
 assert(SMODS.load_file('src/challenge.lua'))()
 
-assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
-
-assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
-assert(SMODS.load_file('src/expansion_2/reverse_arcana.lua'))()
-
-CrackerConfig = SMODS.current_mod.config
+if not CrackerConfig.disable_card then
+    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
+end
 
 --region Atlas
 SMODS.Atlas {
@@ -23,13 +22,6 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = 'Vouchers',
     path = "Vouchers.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
-    key = 'reversearcana',
-    path = "reversearcana.png",
     px = 71,
     py = 95
 }
@@ -61,6 +53,58 @@ Cracker.food = {}
 
 for i = 1, #food_jokers do
     Cracker.food[#Cracker.food+1] = food_jokers[i]
+end
+
+-- these are a few mods with food jokers i could think of off the cuff
+-- freezer still lacks cross-compatiblity though
+
+if next(SMODS.find_mod('paperback')) then
+    Cracker.food[#Cracker.food+1] = "j_paperback_apple"
+    Cracker.food[#Cracker.food+1] = "j_paperback_joker_cookie"
+    Cracker.food[#Cracker.food+1] = "j_paperback_nachos"
+    Cracker.food[#Cracker.food+1] = "j_paperback_crispy_taco"
+    Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
+    Cracker.food[#Cracker.food+1] = "j_paperback_ghost_cola"
+    Cracker.food[#Cracker.food+1] = "j_paperback_complete_breakfast"
+    Cracker.food[#Cracker.food+1] = "j_paperback_b_soda"
+    Cracker.food[#Cracker.food+1] = "j_paperback_cream_liqueur"
+    Cracker.food[#Cracker.food+1] = "j_paperback_champagne"
+    Cracker.food[#Cracker.food+1] = "j_paperback_coffee"
+    Cracker.food[#Cracker.food+1] = "j_paperback_matcha"
+    Cracker.food[#Cracker.food+1] = "j_paperback_epic_sauce"
+    Cracker.food[#Cracker.food+1] = "j_paperback_dreamsicle"
+    Cracker.food[#Cracker.food+1] = "j_paperback_cakepop"
+    Cracker.food[#Cracker.food+1] = "j_paperback_caramel_apple"
+    Cracker.food[#Cracker.food+1] = "j_paperback_charred_marshmallow"
+    Cracker.food[#Cracker.food+1] = "j_paperback_rock_candy"
+    Cracker.food[#Cracker.food+1] = "j_paperback_tanghulu"
+    Cracker.food[#Cracker.food+1] = "j_paperback_ice_cube"
+end
+
+if next(SMODS.find_mod('extracredit')) then
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_starfruit"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_candynecklace"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_espresso"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_ambrosia"
+    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_badapple"
+end
+
+if next(SMODS.find_mod('Bunco')) then
+    Cracker.food[#Cracker.food+1] = "j_bunc_starfruit"
+end
+
+if next(SMODS.find_mod('Cryptid')) then
+    Cracker.food[#Cracker.food+1] = "j_cry_pickle"
+    Cracker.food[#Cracker.food+1] = "j_cry_chili_pepper"
+    Cracker.food[#Cracker.food+1] = "j_cry_oldcandy"
+    Cracker.food[#Cracker.food+1] = "j_cry_foodm"
+    Cracker.food[#Cracker.food+1] = "j_cry_cotton_candy"
+    Cracker.food[#Cracker.food+1] = "j_cry_wrapped"
+    Cracker.food[#Cracker.food+1] = "j_cry_candy_cane"
+    Cracker.food[#Cracker.food+1] = "j_cry_candy_buttons"
+    Cracker.food[#Cracker.food+1] = "j_cry_jawbreaker"
+    Cracker.food[#Cracker.food+1] = "j_cry_mellowcreme"
+    Cracker.food[#Cracker.food+1] = "j_cry_brittle"
 end
 
 function Cracker.get_food(seed)
@@ -110,6 +154,10 @@ to_big = to_big or function(x)
   return x
 end
 
+to_number = to_number or function(n)
+  return n
+end
+
 --
 
 local igo = Game.init_game_object
@@ -143,10 +191,10 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Directors: sugariimari, sophiedeergirl",
+                                text = "Directors: sugariimarii, sophiedeergirl",
                                 shadow = true,
                                 scale = scale,
-                                colour = G.C.SUITS.Hearts
+                                colour = G.C.GREEN
                             }
                         }
                     }
@@ -215,7 +263,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Joker Ideas: sophiedeergirl, sugariimari, palestjade, brook03",
+                                text = "Joker Ideas: sophiedeergirl, sugariimarii, palestjade, brook03, plebmiester",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
@@ -257,7 +305,22 @@ SMODS.current_mod.config_tab = function() --Config
             }
         },
         create_toggle({
-            label = "I like men",
+            label = "Disable Card Pack",
+            ref_table = CrackerConfig,
+            ref_value = "disable_card",
+        }),
+        create_toggle({
+            label = "Disable Upgraded Food Jokers",
+            ref_table = CrackerConfig,
+            ref_value = "disable_upgradedfood",
+        }),
+        create_toggle({
+            label = "Disable Tier 3 Vouchers",
+            ref_table = CrackerConfig,
+            ref_value = "disable_tier3",
+        }),
+        create_toggle({
+            label = "Dev Textures",
             ref_table = CrackerConfig,
             ref_value = "starlo",
         }),
