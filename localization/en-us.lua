@@ -87,7 +87,7 @@ return {
                 text = {
                     '{C:red}+#1#{} Mult',
                     'before cards are scored',
-                    '{C:red}-#2#{} mult per round played',
+                    '{C:red}-#2#{} Mult per round played',
                 }
             },
             j_cracker_knifethrower = {
@@ -99,7 +99,7 @@ return {
             j_cracker_northstar = {
                 name = 'Northern Star',
                 text = {
-                    '{C:chips}+#1#{} chips per',
+                    '{C:chips}+#1#{} Chips per',
                     'level from {C:attention}most leveled hand{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
                 }
@@ -109,7 +109,7 @@ return {
                 text = {
                     '{C:green}#1# in #2#{} chance',
                     'to retrigger each',
-                    'played card',
+                    '{C:attention}played card',
                 }
             },
             j_cracker_bomb = {
