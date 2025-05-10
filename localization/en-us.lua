@@ -210,7 +210,7 @@ return {
             d_sacrifice = {
                 name = "Sacrificed",
                 text = {
-                    "This joker",
+                    "This Joker",
                     "cannot appear for",
                     "the rest of the run",
                 },
