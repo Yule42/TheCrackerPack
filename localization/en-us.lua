@@ -174,7 +174,7 @@ return {
             j_cracker_yellowcard = {
                 name = 'Yellow Card',
                 text = {
-                    'Earn {C:money}$#1#{} at end of round',
+                    'Earn {C:money}$#1#{} at end of round.',
                     'Payout set to {C:money}$#2#{}',
                     'when {C:attention}Blind{} is skipped',
                     'Decreases by {C:money}$#3#{} each payout',
