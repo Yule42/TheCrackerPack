@@ -164,7 +164,7 @@ if not CrackerConfig.disable_tier3 then
             ['name'] = 'Dumpster',
             ['text'] = {
                 [1] = 'Permanently',
-                [2] = 'gain {C:red}+#1#{} discards',
+                [2] = 'gain {C:red}+#1#{} discard',
                 [3] = 'each round',
             }
         },
