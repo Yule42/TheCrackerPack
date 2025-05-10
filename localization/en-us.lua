@@ -117,7 +117,6 @@ return {
                 text = {
                     '{C:attention}Blows up{} in {C:attention}#1#{} rounds',
                     'Ticks down when {C:attention}Blind{} is selected',
-                    '{S:1.1,C:red,E:2}Ends game{} if this Joker hits 0',
                 }
             },
             j_cracker_greencard = {
