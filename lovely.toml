@@ -135,7 +135,7 @@ match_indent = true
 times = 1
 
 
-    # Tonkotsu
+    # Tsukemen
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -445,34 +445,34 @@ payload = ''')'''
 
 
     # Guaranteed
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''return full_UI_table'''
-position = "before"
-payload = '''
-if 0 == 1 then
-    for i = 1, #full_UI_table.main do
-        for j = 1, #full_UI_table.main[i] do
-            if full_UI_table.main[i][j] and full_UI_table.main[i][j].config.text then
-                local text = full_UI_table.main[i][j].config.text
-                local first_number, second_number = text:match("(%d+) in ([%d,]+)")
-                
-                if first_number and second_number then
-                    first_number = tonumber(first_number)
-                    second_number = tonumber((second_number:gsub(",", "")))
-                    
-                    if first_number >= second_number then
-                        full_UI_table.main[i][j].config.text = "Guaranteed"
-                    end
-                end
-            end
-        end
-    end
-end
-'''
-match_indent = true
-times = 1
+#[[patches]]
+#[patches.pattern]
+#target = "functions/common_events.lua"
+#pattern = '''return full_UI_table'''
+#position = "before"
+#payload = '''
+#if 0 == 1 then
+#    for i = 1, #full_UI_table.main do
+#        for j = 1, #full_UI_table.main[i] do
+#            if full_UI_table.main[i][j] and full_UI_table.main[i][j].config.text then
+#                local text = full_UI_table.main[i][j].config.text
+#                local first_number, second_number = text:match("(%d+) in ([%d,]+)")
+#                
+#                if first_number and second_number then
+#                    first_number = tonumber(first_number)
+#                    second_number = tonumber((second_number:gsub(",", "")))
+#                    
+#                    if first_number >= second_number then
+#                        full_UI_table.main[i][j].config.text = "Guaranteed"
+#                    end
+#                end
+#            end
+#        end
+#    end
+#end
+#'''
+#match_indent = true
+#times = 1
 
     # Food Joker list
 [[patches]]

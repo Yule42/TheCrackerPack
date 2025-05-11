@@ -77,7 +77,7 @@ return {
                 name = 'Life Support',
                 text = {
                     'Activates upon Death',
-                    'When active, {C:inactive}debuffs{} {C:attention}all cards{}',
+                    'When active, {C:inactive}debuffs{} {C:attention}all cards in deck{}',
                     'and prevents Death for the next {C:attention}#1#{} rounds',
                     '{C:inactive}(Skipping reduces rounds)',
                 }
