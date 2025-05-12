@@ -26,110 +26,33 @@ SMODS.Atlas {
     py = 95
 }
 
-local food_jokers = {
-    "j_gros_michel",
-    "j_ice_cream",
-    "j_cavendish",
-    "j_turtle_bean",
-    "j_diet_cola",
-    "j_popcorn",
-    "j_ramen",
-    "j_selzer",
-    "j_cracker_saltinecracker",
-    "j_cracker_chocolatecoin",
-    "j_cracker_grahamcracker",
-    "j_cracker_cybernana",
-    "j_cracker_buttpopcorn",
-    "j_cracker_frozencustard",
-    "j_cracker_hardseltzer",
-    "j_cracker_curry",
-    "j_cracker_canofbeans",
-    "j_cracker_tsukemen",
-    "j_cracker_cheese",
+Cracker.vanilla_food = {
+  j_gros_michel = true,
+  j_ice_cream = true,
+  j_cavendish = true,
+  j_turtle_bean = true,
+  j_diet_cola = true,
+  j_popcorn = true,
+  j_ramen = true,
+  j_selzer = true,
 }
 
-Cracker = {}
-Cracker.food = {}
-
-for i = 1, #food_jokers do
-    Cracker.food[#Cracker.food+1] = food_jokers[i]
-end
-
--- these are a few mods with food jokers i could think of off the cuff
--- freezer still lacks cross-compatiblity though
-
-if next(SMODS.find_mod('paperback')) then
-    Cracker.food[#Cracker.food+1] = "j_paperback_apple"
-    Cracker.food[#Cracker.food+1] = "j_paperback_joker_cookie"
-    Cracker.food[#Cracker.food+1] = "j_paperback_nachos"
-    Cracker.food[#Cracker.food+1] = "j_paperback_crispy_taco"
-    Cracker.food[#Cracker.food+1] = "j_paperback_soft_taco"
-    Cracker.food[#Cracker.food+1] = "j_paperback_ghost_cola"
-    Cracker.food[#Cracker.food+1] = "j_paperback_complete_breakfast"
-    Cracker.food[#Cracker.food+1] = "j_paperback_b_soda"
-    Cracker.food[#Cracker.food+1] = "j_paperback_cream_liqueur"
-    Cracker.food[#Cracker.food+1] = "j_paperback_champagne"
-    Cracker.food[#Cracker.food+1] = "j_paperback_coffee"
-    Cracker.food[#Cracker.food+1] = "j_paperback_matcha"
-    Cracker.food[#Cracker.food+1] = "j_paperback_epic_sauce"
-    Cracker.food[#Cracker.food+1] = "j_paperback_dreamsicle"
-    Cracker.food[#Cracker.food+1] = "j_paperback_cakepop"
-    Cracker.food[#Cracker.food+1] = "j_paperback_caramel_apple"
-    Cracker.food[#Cracker.food+1] = "j_paperback_charred_marshmallow"
-    Cracker.food[#Cracker.food+1] = "j_paperback_rock_candy"
-    Cracker.food[#Cracker.food+1] = "j_paperback_tanghulu"
-    Cracker.food[#Cracker.food+1] = "j_paperback_ice_cube"
-end
-
-if next(SMODS.find_mod('extracredit')) then
-    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_starfruit"
-    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_candynecklace"
-    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_espresso"
-    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_ambrosia"
-    Cracker.food[#Cracker.food+1] = "j_ExtraCredit_badapple"
-end
-
-if next(SMODS.find_mod('Bunco')) then
-    Cracker.food[#Cracker.food+1] = "j_bunc_starfruit"
-end
-
-if next(SMODS.find_mod('Cryptid')) then
-    Cracker.food[#Cracker.food+1] = "j_cry_pickle"
-    Cracker.food[#Cracker.food+1] = "j_cry_chili_pepper"
-    Cracker.food[#Cracker.food+1] = "j_cry_oldcandy"
-    Cracker.food[#Cracker.food+1] = "j_cry_foodm"
-    Cracker.food[#Cracker.food+1] = "j_cry_cotton_candy"
-    Cracker.food[#Cracker.food+1] = "j_cry_wrapped"
-    Cracker.food[#Cracker.food+1] = "j_cry_candy_cane"
-    Cracker.food[#Cracker.food+1] = "j_cry_candy_buttons"
-    Cracker.food[#Cracker.food+1] = "j_cry_jawbreaker"
-    Cracker.food[#Cracker.food+1] = "j_cry_mellowcreme"
-    Cracker.food[#Cracker.food+1] = "j_cry_brittle"
-end
-
-function Cracker.get_food(seed)
-    local pool = get_current_pool('Joker')
-    local food_keys = {}
-
-    for k, v in pairs(Cracker.food) do  
-        if not G.GAME.banned_keys[v] and G.P_CENTERS[v] then
-            local found = false
-            for num, text in pairs(pool) do
-                if text == v then  -- compare the value, not the key
-                    found = true
-                    break
-                end
-            end
-            if found then
-                table.insert(food_keys, v)
-            end
-        end
+-- Initialize pool of food jokers if it doesn't exist already, which may be created by other mods.
+-- Any joker can add itself to this pool by adding pools = { Food = true } to its code
+-- Credits to Cryptid for the idea and Paperback for this code
+if not SMODS.ObjectTypes.Food then
+  SMODS.ObjectType {
+    key = 'Food',
+    default = 'j_joker',
+    cards = {},
+    inject = function(self)
+      SMODS.ObjectType.inject(self)
+      -- Insert base game food jokers
+      for k, _ in pairs(Cracker.vanilla_food) do
+        self:inject_card(G.P_CENTERS[k])
+      end
     end
-    if #food_keys <= 0 then
-    return "j_joker"
-    else
-        return pseudorandom_element(food_keys, pseudoseed(seed))
-    end
+  }
 end
 
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
