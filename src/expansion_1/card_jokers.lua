@@ -577,7 +577,7 @@ SMODS.Joker{ --Rainbow Card
         x = 0,
         y = 3
     },
-    cost = 8,
+    cost = 9,
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
