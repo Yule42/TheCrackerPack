@@ -8,16 +8,6 @@ SMODS.Joker{ --Cybernana MK920
             xmult_current = 3,
         }
     },
-    loc_txt = {
-        ['name'] = 'Cybernana MK920',
-        ['text'] = {
-            [1] = 'This Joker gains {X:mult,C:white}X#1#{} Mult',
-            [2] = 'per round played',
-            [3] = '{C:green}#2# in #3#{} chance this card',
-            [4] = 'is destroyed at end of round',
-            [5] = '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)'
-        }
-    },
     pos = {
         x = 3,
         y = 0
@@ -84,13 +74,6 @@ SMODS.Joker{ --Buttered Popcorn
         extra = {
             mult = 50,
             mult_remove = 5,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Buttered Popcorn',
-        ['text'] = {
-            [1] = '{C:mult}+#1#{} Mult',
-            [2] = '{C:mult}-#2#{} Mult per round played',
         }
     },
     pos = {
@@ -164,14 +147,6 @@ SMODS.Joker{ --Sundae
             chips_remove = 5,
         }
     },
-    loc_txt = {
-        ['name'] = 'Sundae',
-        ['text'] = {
-            [1] = '{C:chips}+#1#{} Chips',
-            [2] = '{C:chips}-#2#{} Chips for',
-            [3] = 'every hand played'
-        }
-    },
     pos = {
         x = 6,
         y = 0
@@ -241,13 +216,6 @@ SMODS.Joker{ --Hard Seltzer
         extra = {
             rounds = 10,
             rounds_remove = 1
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Hard Seltzer',
-        ['text'] = {
-            [1] = 'Retrigger all cards played',
-            [2] = 'for the next {C:attention}#1#{} rounds',
         }
     },
     pos = {
@@ -322,14 +290,6 @@ SMODS.Joker{ --Can of Beans
             rounds_remove = 1
         }
     },
-    loc_txt = {
-        ['name'] = 'Can of Beans',
-        ['text'] = {
-            [1] = '{C:attention}+#3#{} hand size',
-            [2] = 'for the next',
-            [3] = '{C:attention}#1#{} rounds',
-        }
-    },
     pos = {
         x = 8,
         y = 0
@@ -401,16 +361,6 @@ SMODS.Joker{ --Tsukemen
             xmult = 2,
             xmult_add = 0.1,
             xmult_remove = 0.75,
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Tsukemen',
-        ['text'] = {
-            [1] = '{X:mult,C:white} X#1#{} Mult,',
-            [2] = 'gains {X:mult,C:white} X#2#{} Mult',
-            [3] = 'per {C:attention}card{} discarded,',
-            [4] = 'loses {X:mult,C:white} X#3# {} Mult',
-            [5] = 'after {C:attention}hand is scored{}',
         }
     },
     pos = {

@@ -369,7 +369,7 @@ SMODS.Joker{ --Cracker Barrel
             G.E_MANAGER:add_event(Event({
                 func = function() 
                     for i = 1, jokers_to_create do
-                        local card = create_card('Joker', G.jokers, nil, nil, nil, nil, Cracker.get_food('cracker_food'))
+                        local card = create_card('Food', G.jokers, nil, nil, nil, nil)
                         card:add_to_deck()
                         G.jokers:emplace(card)
                         card:start_materialize()

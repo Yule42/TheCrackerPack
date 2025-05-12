@@ -1,12 +1,5 @@
 SMODS.Voucher {
     key = 'silver_spoon',
-    loc_txt = {
-        ['name'] = 'Silver Spoon',
-        ['text'] = {
-            [1] = 'Earn {C:money}$#1#{}',
-            [2] = 'at end of round',
-        }
-    },
     pos = {
         x = 0,
         y = 0
@@ -62,13 +55,6 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = 'clowncar',
-    loc_txt = {
-        ['name'] = 'Clown Car',
-        ['text'] = {
-            [1] = '{C:green}Uncommon Jokers{}',
-            [2] = 'appear 40% more often',
-        }
-    },
     pos = {
         x = 4,
         y = 0
@@ -91,13 +77,6 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = 'busfullofclowns',
-    loc_txt = {
-        ['name'] = 'Bus Full o\' Clowns',
-        ['text'] = {
-            [1] = '{C:red}Rare Jokers{}',
-            [2] = 'appear twice as often',
-        }
-    },
     pos = {
         x = 5,
         y = 0
@@ -122,14 +101,6 @@ SMODS.Voucher {
 if not CrackerConfig.disable_tier3 then
     SMODS.Voucher {
         key = 'cheese_touch',
-        loc_txt = {
-            ['name'] = 'Cheese Touch',
-            ['text'] = {
-                [1] = 'Permanently',
-                [2] = 'gain {C:blue}+#1#{} hands',
-                [3] = 'per round',
-            }
-        },
         pos = {
             x = 2,
             y = 0
@@ -160,14 +131,6 @@ if not CrackerConfig.disable_tier3 then
 
     SMODS.Voucher {
         key = 'dumpster',
-        loc_txt = {
-            ['name'] = 'Dumpster',
-            ['text'] = {
-                [1] = 'Permanently',
-                [2] = 'gain {C:red}+#1#{} discards',
-                [3] = 'each round',
-            }
-        },
         pos = {
             x = 3,
             y = 0

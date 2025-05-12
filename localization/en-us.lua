@@ -77,7 +77,7 @@ return {
                 name = 'Life Support',
                 text = {
                     'Activates upon Death',
-                    'When active, {C:inactive}debuffs{} {C:attention}all cards{}',
+                    'When active, {C:inactive}debuffs{} {C:attention}all cards in deck{}',
                     'and prevents Death for the next {C:attention}#1#{} rounds',
                     '{C:inactive}(Skipping reduces rounds)',
                 }
@@ -87,7 +87,7 @@ return {
                 text = {
                     '{C:red}+#1#{} Mult',
                     'before cards are scored',
-                    '{C:red}-#2#{} mult per round played',
+                    '{C:red}-#2#{} Mult per round played',
                 }
             },
             j_cracker_knifethrower = {
@@ -99,7 +99,7 @@ return {
             j_cracker_northstar = {
                 name = 'Northern Star',
                 text = {
-                    '{C:chips}+#1#{} chips per',
+                    '{C:chips}+#1#{} Chips per',
                     'level from {C:attention}most leveled hand{}',
                     '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
                 }
@@ -109,7 +109,7 @@ return {
                 text = {
                     '{C:green}#1# in #2#{} chance',
                     'to retrigger each',
-                    'played card',
+                    '{C:attention}played card',
                 }
             },
             j_cracker_bomb = {
@@ -117,9 +117,59 @@ return {
                 text = {
                     '{C:attention}Blows up{} in {C:attention}#1#{} rounds',
                     'Ticks down when {C:attention}Blind{} is selected',
-                    '{S:1.1,C:red,E:2}Ends game{} if this Joker hits 0',
                 }
             },
+            j_cracker_cybernana = {
+                name = 'Cybernana MK920',
+                text = {
+                    'This Joker gains {X:mult,C:white}X#1#{} Mult',
+                    'per round played',
+                    '{C:green}#2# in #3#{} chance this card',
+                    'is destroyed at end of round',
+                    '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)'
+                }
+            },
+            j_cracker_buttpopcorn = {
+                name = 'Buttered Popcorn',
+                text = {
+                    '{C:mult}+#1#{} Mult',
+                    '{C:mult}-#2#{} Mult per round played',
+                }
+            },
+            j_cracker_frozencustard = {
+                name = 'Sundae',
+                text = {
+                    '{C:chips}+#1#{} Chips',
+                    '{C:chips}-#2#{} Chips for',
+                    'every hand played'
+                }
+            },
+            j_cracker_hardseltzer = {
+                name = 'Hard Seltzer',
+                text = {
+                    'Retrigger all cards played',
+                    'for the next {C:attention}#1#{} rounds',
+                }
+            },
+            j_cracker_canofbeans = {
+                name = 'Can of Beans',
+                text = {
+                    '{C:attention}+#3#{} hand size',
+                    'for the next',
+                    '{C:attention}#1#{} rounds',
+                }
+            },
+            j_cracker_tsukemen = {
+                name = 'Tsukemen',
+                text = {
+                    '{X:mult,C:white} X#1#{} Mult,',
+                    'gains {X:mult,C:white} X#2#{} Mult',
+                    'per {C:attention}card{} discarded,',
+                    'loses {X:mult,C:white} X#3# {} Mult',
+                    'after {C:attention}hand is scored{}',
+                }
+            },
+            
             j_cracker_greencard = {
                 name = 'Green Card',
                 text = {
@@ -175,7 +225,7 @@ return {
             j_cracker_yellowcard = {
                 name = 'Yellow Card',
                 text = {
-                    'Earn {C:money}$#1#{} at end of round',
+                    'Earn {C:money}$#1#{} at end of round.',
                     'Payout set to {C:money}$#2#{}',
                     'when {C:attention}Blind{} is skipped',
                     'Decreases by {C:money}$#3#{} each payout',
@@ -205,6 +255,46 @@ return {
                     'during this round',
                 }
             },
+        },
+        Voucher = {
+            v_cracker_silver_spoon = {
+                name = 'Silver Spoon',
+                text = {
+                    'Earn {C:money}$#1#{}',
+                    'at end of round',
+                }
+            },
+            v_cracker_clowncar = {
+                name = 'Clown Car',
+                text = {
+                    '{C:green}Uncommon Jokers{}',
+                    'appear 40% more often',
+                }
+            },
+            v_cracker_busfullofclowns = {
+                name = 'Bus Full o\' Clowns',
+                text = {
+                    '{C:red}Rare Jokers{}',
+                    'appear twice as often',
+                }
+            },
+            v_cracker_cheese_touch = {
+                name = 'Cheese Touch',
+                text = {
+                    'Permanently',
+                    'gain {C:blue}+#1#{} hand',
+                    'per round',
+                }
+            },
+            v_cracker_dumpster = {
+                name = 'Dumpster',
+                text = {
+                    'Permanently',
+                    'gain {C:red}+#1#{} discard',
+                    'each round',
+                }
+            },
+            v_cracker_
         },
         Other = {
             d_sacrifice = {
