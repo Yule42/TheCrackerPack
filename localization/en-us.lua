@@ -1,5 +1,33 @@
 return {
     descriptions = {
+        Back = {
+            b_cracker_golden = {
+                name = 'Golden Deck',
+                text = {
+                    'Start run with',
+                    '{C:money,T:v_seed_money}#1#{},',
+                    '{C:money,T:v_cracker_silver_spoon}#2#{},',
+                    'and {C:dark_edition,T:v_hone}#3#',
+                },
+            },
+            b_cracker_window_shopper = {
+                name = 'Window Shopper Deck',
+                text = {
+                    'Start run with',
+                    '{C:attention,T:v_directors_cut}#1#{},',
+                    '{C:attention,T:v_reroll_surplus}#2#{},',
+                    'and {C:uncommon,T:v_cracker_clowncar}#3#',
+                }
+            },
+            b_cracker_blitz = {
+                name = 'Blitz Deck',
+                text = {
+                    'Win in Ante {C:attention}6',
+                    'Required score scales',
+                    'faster for each {C:attention}Ante',
+                }
+            },
+        },
         Joker = {
             j_cracker_saltinecracker = {
                 name = 'Saltine Cracker',
@@ -253,6 +281,14 @@ return {
                     'Retrigger all played cards {C:attention}#1#{} times',
                     'if no {C:attention}Booster Packs{} opened in shop',
                     'during this round',
+                }
+            },
+            j_cracker_royaldecree = {
+                name = 'Royal Decree',
+                text = {
+                    'A {C:attention}Straight{} that contains an',
+                    '{C:attention}Ace{} and a {C:attention}face card{}',
+                    'is a {C:attention}Royal Flush{}',
                 }
             },
         },

@@ -5,14 +5,6 @@ SMODS.Joker{ --Royal Decree
         extra = {
         }
     },
-    loc_txt = {
-        ['name'] = 'Royal Decree',
-        ['text'] = {
-            [1] = 'A {C:attention}Straight{} that contains an',
-            [2] = '{C:attention}Ace{} and a {C:attention}10{}',
-            [3] = 'is a {C:attention}Royal Flush{}',
-        }
-    },
     pos = {
         x = 8,
         y = 2,
@@ -35,7 +27,7 @@ SMODS.Joker{ --Royal Decree
 -- Royal Decree use
 local get_flush_ref = get_flush
 
-function get_flush(hand) -- this is very very bad for compat with other mods that touch this function but idk what to do about that
+function get_flush(hand)
     if not next(SMODS.find_card("j_cracker_royaldecree")) then return get_flush_ref(hand) end
 
   local ret = {}
@@ -47,17 +39,17 @@ function get_flush(hand) -- this is very very bad for compat with other mods tha
     "Diamonds"
   }
   
-  local contains_ten = false
+  local contains_face = false
   local contains_ace = false
   
   
   if #hand > 5 or #hand < (5 - (four_fingers and 1 or 0)) then return ret else
     local t = {}
     for i=1, #hand do
-      if hand[i]:get_id() == 10 then contains_ten = true; t[#t+1] = hand[i] end
+      if hand[i]:get_id() > 10 and hand[i]:get_id() < 14 then contains_face = true; t[#t+1] = hand[i] end
       if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end
     end
-    if contains_ten and contains_ace and next(get_straight(hand, nil, true, true)) then
+    if contains_face and contains_ace and next(get_straight(hand, nil, true, true)) then
       table.insert(ret, t)
       return ret
     end
@@ -95,14 +87,14 @@ function G.FUNCS.get_poker_hand_info(_cards)
     disp_text = text
     local _hand = SMODS.PokerHands[text]
     if text == 'Straight Flush' then
-        local contains_ten = false
+        local contains_face = false
         local contains_ace = false
         for j = 1, #scoring_hand do
             local rank = SMODS.Ranks[scoring_hand[j].base.value]
-            contains_ace = rank.key == 'Ace' or contains_ace
-            contains_ten = rank.key == '10' or contains_ten
+            contains_ace = contains_ace or rank.key == 'Ace'
+            contains_face = contains_face or rank.key == 'Jack' or rank.key == 'Queen' or rank.key == 'King'
         end
-        if contains_ace and contains_ten then
+        if contains_ace and contains_face then
             disp_text = 'Royal Flush'
         end
     elseif _hand and _hand.modify_display_text and type(_hand.modify_display_text) == 'function' then

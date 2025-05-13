@@ -11,6 +11,9 @@ if not CrackerConfig.disable_card then
     assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 end
 
+assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
+assert(SMODS.load_file('src/expansion_2/decks.lua'))()
+
 --region Atlas
 SMODS.Atlas {
     key = 'Jokers',
@@ -22,6 +25,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = 'Vouchers',
     path = "Vouchers.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = 'Backs',
+    path = "backs.png",
     px = 71,
     py = 95
 }
