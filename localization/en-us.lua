@@ -31,7 +31,7 @@ return {
                 name = 'Patchwork Deck',
                 text = {
                     '{C:attention}Deck Vouchers{} appear instead of',
-                    '{C:attention}Vouchers'
+                    '{C:attention}Vouchers',
                     '{C:attention}Deck Vouchers{} restock',
                     'on {C:attention}odd{} Antes',
                 }
