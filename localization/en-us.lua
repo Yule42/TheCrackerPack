@@ -379,7 +379,7 @@ return {
                 name = "Magic Deck",
                 text = {
                     "Get {C:tarot,T:v_crystal_ball}#1#{} and {C:attention}2{} copies",
-                    "of {C:tarot,T:c_fool}#2#",
+                    "of {C:tarot,T:c_fool}#3#",
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                     "{C:inactive}(Must have room)",
                 }
@@ -396,7 +396,8 @@ return {
                 text = {
                     "{C:spectral}Spectral{} cards may",
                     "appear in the shop,",
-                    "Create {C:spectral,T:c_hex}#1#"
+                    "Create {C:spectral,T:c_hex}#1#",
+                    "{C:inactive}(Must have room)",
                 },
             },
             v_cracker_pw_abandoned = {
