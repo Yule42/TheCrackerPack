@@ -83,6 +83,7 @@ SMODS.Back{ -- Patchwork Deck
     
     apply = function(self, back)
         G.GAME.modifiers.voucher_override = 'patchwork_enabled'
+        G.GAME.modifiers.voucher_restock_antes = 2
     end
 }
 

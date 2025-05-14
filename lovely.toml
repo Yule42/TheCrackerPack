@@ -487,16 +487,17 @@ for _, key in ipairs(G.GAME.current_round.voucher or {}) do
     end
 end'''
 position = "at"
-payload = '''if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
-    if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
         for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
         if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
             SMODS.get_next_vouchers(G.GAME.current_round.voucher)
         end
-        for _, key in ipairs(G.GAME.current_round.voucher or {}) do
-            if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
-                SMODS.add_voucher_to_shop(key)
-            end
+    end
+    for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+        if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+            SMODS.add_voucher_to_shop(key)
         end
     end
 end'''

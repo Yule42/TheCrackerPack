@@ -32,6 +32,8 @@ return {
                 text = {
                     '{C:attention}Deck Vouchers{} appear',
                     'instead of {C:attention}Vouchers',
+                    '{C:attention}Deck Vouchers{} restock',
+                    'every {C:attention}other{} Ante',
                 }
             },
         },
