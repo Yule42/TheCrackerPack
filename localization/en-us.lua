@@ -30,10 +30,8 @@ return {
             b_cracker_patchwork = {
                 name = 'Patchwork Deck',
                 text = {
-                    '{C:attention}Deck Vouchers{} appear instead of',
-                    '{C:attention}Vouchers',
-                    '{C:attention}Deck Vouchers{} restock',
-                    'on {C:attention}odd{} Antes',
+                    '{C:attention}Deck Vouchers{} appear',
+                    'instead of {C:attention}Vouchers',
                 }
             },
         },
@@ -464,9 +462,9 @@ return {
             v_cracker_pw_window_shopper = {
                 name = "Window Shopper Deck",
                 text = {
-                    "Get {C:money,T:v_seed_money}#1#{},",
-                    "{C:money,T:v_cracker_silver_spoon}#2#{},",
-                    "and {C:dark_edition,T:v_hone}#3#",
+                    'Get {C:attention,T:v_directors_cut}#1#{},',
+                    '{C:attention,T:v_reroll_surplus}#2#{},',
+                    'and {C:uncommon,T:v_cracker_clowncar}#3#',
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },

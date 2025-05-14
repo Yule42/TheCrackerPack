@@ -83,11 +83,10 @@ SMODS.Back{ -- Patchwork Deck
     
     apply = function(self, back)
         G.GAME.modifiers.voucher_override = 'patchwork_enabled'
-        G.GAME.modifiers.voucher_restock_antes = 2
     end
 }
 
-local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
+--[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then
         if math.fmod(G.GAME.round_resets.ante, 2) == 1 then
@@ -96,4 +95,4 @@ function SMODS.add_voucher_to_shop(...)
         return
     end
     return add_voucher_to_shop_ref(...)
-end
+end--]]
