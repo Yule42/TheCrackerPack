@@ -119,13 +119,8 @@ if not CrackerConfig.disable_tier3 then
         end,
         
         redeem = function(self)
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.hands = G.GAME.round_resets.hands + self.config.extra.hands
-                    ease_hands_played(self.config.extra.hands)
-                    return true
-                end,
-            }))
+            G.GAME.round_resets.hands = G.GAME.round_resets.hands + self.config.extra.hands
+            ease_hands_played(self.config.extra.hands)
         end
     }
 
@@ -149,13 +144,8 @@ if not CrackerConfig.disable_tier3 then
         end,
         
         redeem = function(self)
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.config.extra.discards
-                    ease_discard(self.config.extra.discards)
-                    return true
-                end,
-            }))
+            G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.config.extra.discards
+            ease_discard(self.config.extra.discards)
         end
     }
 end

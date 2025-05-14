@@ -66,3 +66,34 @@ SMODS.Back{ -- Blitz Deck
         G.GAME.win_ante = 6
     end,
 }
+
+SMODS.Back{ -- Patchwork Deck
+    name = "Patchwork Deck",
+    key = "patchwork",
+    
+    pos = {
+        x = 3,
+        y = 0,
+    },
+    atlas = 'Backs',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {}}
+    end,
+    
+    apply = function(self, back)
+        G.GAME.modifiers.voucher_override = 'patchwork_enabled'
+        G.GAME.modifiers.voucher_restock_antes = 2
+    end
+}
+
+local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
+function SMODS.add_voucher_to_shop(...)
+    if G.GAME.modifiers.every_other_ante then
+        if math.fmod(G.GAME.round_resets.ante, 2) == 1 then
+            return add_voucher_to_shop_ref(...)
+        end
+        return
+    end
+    return add_voucher_to_shop_ref(...)
+end

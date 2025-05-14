@@ -13,6 +13,7 @@ end
 
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
+assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 
 --region Atlas
 SMODS.Atlas {
@@ -32,6 +33,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = 'Backs',
     path = "backs.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = 'pw_vouchers',
+    path = "pw_vouchers.png",
     px = 71,
     py = 95
 }

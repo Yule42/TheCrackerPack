@@ -27,6 +27,15 @@ return {
                     'faster for each {C:attention}Ante',
                 }
             },
+            b_cracker_patchwork = {
+                name = 'Patchwork Deck',
+                text = {
+                    '{C:attention}Deck Vouchers{} appear instead of',
+                    '{C:attention}Vouchers'
+                    '{C:attention}Deck Vouchers{} restock',
+                    'on {C:attention}odd{} Antes',
+                }
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
@@ -58,8 +67,8 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)',
                 }
             },
-            j_cracker_hoarder = {
-                name = 'Hoarder',
+            j_cracker_thrifty_joker = {
+                name = 'Thrifty Joker',
                 text = {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
                     'purchased this run',
@@ -330,7 +339,142 @@ return {
                     'each round',
                 }
             },
-            v_cracker_
+            v_cracker_pw_red = {
+                name = "Red Deck",
+                text = {
+                    'Permanently',
+                    'gain {C:red}+#1#{} discard',
+                    'each round',
+                },
+            },
+            v_cracker_pw_blue = {
+                name = "Blue Deck",
+                text = {
+                    'Permanently',
+                    'gain {C:blue}+#1#{} hand',
+                    'per round',
+                },
+            },
+            v_cracker_pw_yellow = {
+                name = "Yellow Deck",
+                text = {
+                    'Gain {C:money}$#1#',
+                },
+            },
+            v_cracker_pw_green = {
+                name = "Green Deck",
+                text = {
+                    "At end of round, earn an additional",
+                    "{C:money}$#1#{s:0.85} per remaining {C:blue}Hand,",
+                    "and {C:money}$#2#{s:0.85} per remaining {C:red}Discard",
+                },
+            },
+            v_cracker_pw_black = {
+                name = "Black Deck",
+                text = {
+                    '{C:attention}+1{} Joker Slot',
+                },
+            },
+            v_cracker_pw_magic = {
+                name = "Magic Deck",
+                text = {
+                    "Get {C:tarot,T:v_crystal_ball}#1#{} and {C:attention}2{} copies",
+                    "of {C:tarot,T:c_fool}#2#",
+                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                    "{C:inactive}(Must have room)",
+                }
+            },
+            v_cracker_pw_nebula = {
+                name = "Nebula Deck",
+                text = {
+                    "Get {C:planet,T:v_telescope}#1#{}",
+                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                },
+            },
+            v_cracker_pw_ghost = {
+                name = "Ghost Deck",
+                text = {
+                    "{C:spectral}Spectral{} cards may",
+                    "appear in the shop,",
+                    "Create {C:spectral,T:c_hex}#1#"
+                },
+            },
+            v_cracker_pw_abandoned = {
+                name = "Abandoned Deck",
+                text = {
+                    "Destroy all {C:attention}Face Cards",
+                    "in deck",
+                },
+            },
+            v_cracker_pw_checkered = {
+                name = "Checkered Deck",
+                text = {
+                    "Convert all {C:clubs}Clubs{} to {C:spades}Spades",
+                    "and all {C:diamonds}Diamonds{} to {C:hearts}Hearts",
+                },
+            },
+            v_cracker_pw_zodiac = {
+                name = "Zodiac Deck",
+                text = {
+                    "Get {C:tarot,T:v_tarot_merchant}#1#{},",
+                    "{C:planet,T:v_planet_merchant}#2#{},",
+                    "and {C:attention,T:v_overstock_norm}#3#",
+                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                },
+            },
+            v_cracker_pw_painted = {
+                name = "Painted Deck",
+                text = {
+                    "{C:attention}+#1#{} Hand Size",
+                },
+            },
+            v_cracker_pw_anaglyph = {
+                name = "Anaglyph Deck",
+                text = {
+                    "After defeating each",
+                    "{C:attention}Boss Blind{}, gain a",
+                    "{C:attention,T:tag_double}#1#",
+                },
+            },
+            v_cracker_pw_plasma = {
+                name = "Plasma Deck",
+                text = {
+                    "Balance {C:blue}Chips{} and",
+                    "{C:red}Mult{} when calculating",
+                    "score for played hand",
+                    "{C:red}X2{} base Blind size",
+                },
+            },
+            v_cracker_pw_erratic = {
+                name = "Erratic Deck",
+                text = {
+                    "Get {C:attention}#1#{} random Vouchers",
+                },
+            },
+            v_cracker_pw_golden = {
+                name = "Golden Deck",
+                text = {
+                    "Get {C:money,T:v_seed_money}#1#{},",
+                    "{C:money,T:v_cracker_silver_spoon}#2#{},",
+                    "and {C:dark_edition,T:v_hone}#3#",
+                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                },
+            },
+            v_cracker_pw_window_shopper = {
+                name = "Window Shopper Deck",
+                text = {
+                    "Get {C:money,T:v_seed_money}#1#{},",
+                    "{C:money,T:v_cracker_silver_spoon}#2#{},",
+                    "and {C:dark_edition,T:v_hone}#3#",
+                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                },
+            },
+             v_cracker_pw_blitz = {
+                name = "Blitz Deck",
+                text = {
+                    "{C:attention}-1{} Ante Requirement",
+                },
+            },
         },
         Other = {
             d_sacrifice = {

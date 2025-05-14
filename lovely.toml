@@ -404,35 +404,6 @@ payload = "message = self.ability.extra * G.GAME.food_multiplier..'',"
 match_indent = true
 times = 1
 
-    # Life Support
-[[patches]]
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = "if G.blind_select then"
-position = "before"
-payload = '''
-G.GAME.current_round.usesavedtext = false
-G.GAME.current_round.savedtext = ""
-'''
-match_indent = true
-
-[[patches]]
-[patches.regex]
-target = "functions/common_events.lua"
-pattern = '''localize\('ph_mr_bones'\)'''
-position = 'before'
-line_prepend = ''
-payload = '''(G.GAME.current_round.usesavedtext and G.GAME.current_round.savedtext or '''
-
-[[patches]]
-[patches.regex]
-target = "functions/common_events.lua"
-pattern = '''localize\('ph_mr_bones'\)'''
-position = 'after'
-# match_indent = true
-line_prepend = ''
-payload = ''')'''
-
 
 # [------------------------------------------------------------------- VOUCHERS ---------------------------------------------------------------------]
 
@@ -474,7 +445,7 @@ payload = ''')'''
 #match_indent = true
 #times = 1
 
-    # Food Joker list
+    # Start
 [[patches]]
 [patches.pattern]
 target = "main.lua"
@@ -486,6 +457,50 @@ Cracker.food = {}
 '''
 match_indent = true
 times = 1
+
+    # Patchwork deck requires voucher override
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if v.requires then '''
+position = "at"
+payload = '''
+if not G.GAME.modifiers.voucher_override and v.patchwork then
+    include = false
+elseif G.GAME.modifiers.voucher_override and not v.patchwork then 
+    include = false
+elseif v.requires then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+    SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+end
+for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+    if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+        SMODS.add_voucher_to_shop(key)
+    end
+end'''
+position = "at"
+payload = '''if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
+    if G.GAME.current_round.voucher then
+        for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+        if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+            SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+        end
+        for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+            if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+                SMODS.add_voucher_to_shop(key)
+            end
+        end
+    end
+end'''
+match_indent = true
 
     # New scoring context
 [[patches]]
@@ -548,7 +563,7 @@ times = 1
 target = "back.lua"
 pattern = '''if self.name == 'Plasma Deck' and args.context == 'final_scoring_step' then'''
 position = "at"
-payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma']) and args.context == 'final_scoring_step' then'''
+payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma'] or G.GAME.used_vouchers['v_cracker_pw_plasma']) and args.context == 'final_scoring_step' then'''
 match_indent = true
 times = 1
 

@@ -218,9 +218,9 @@ SMODS.Joker{ --Graham Cracker
     end
 }
 
-SMODS.Joker{ --Hoarder
-    name = "Hoarder",
-    key = "hoarder",
+SMODS.Joker{ --Thrifty Joker
+    name = "Thrifty Joker",
+    key = "thrifty_joker",
     config = {
         extra = {
             vouchers_multiply = 6,
@@ -241,14 +241,14 @@ SMODS.Joker{ --Hoarder
     
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.vouchers_multiply, (table_length(G.GAME.used_vouchers) * card.ability.extra.vouchers_multiply)}}
+        return {vars = {card.ability.extra.vouchers_multiply, (#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0) * card.ability.extra.vouchers_multiply)}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and table_length(G.GAME.used_vouchers) > 0 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and #G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0) > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={((table_length(G.GAME.used_vouchers)) * card.ability.extra.vouchers_multiply)}},
-                mult_mod = ((table_length(G.GAME.used_vouchers)) * card.ability.extra.vouchers_multiply),
+                message = localize{type='variable',key='a_mult',vars={((#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0)) * card.ability.extra.vouchers_multiply)}},
+                mult_mod = ((#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0)) * card.ability.extra.vouchers_multiply),
                 colour = G.C.MULT
             }
         end
@@ -553,8 +553,6 @@ SMODS.Joker{ --Life Support
                 if not card.ability.extra.active then
                     card.ability.extra.active = true
                 end
-                G.GAME.current_round.usesavedtext = true
-                G.GAME.current_round.savedtext = localize('k_saved_lifesupport')
                 card.ability.extra.rounds = card.ability.extra.rounds - 1
                 if card.ability.extra.rounds < 1 then
                     G.E_MANAGER:add_event(Event({
@@ -576,7 +574,7 @@ SMODS.Joker{ --Life Support
                 end
                 return {
                     message = localize('k_saved_ex'),
-                    saved = true,
+                    saved = localize('k_saved_lifesupport'),
                     colour = G.C.RED
                 }
             elseif card.ability.extra.active then
