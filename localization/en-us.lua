@@ -36,6 +36,15 @@ return {
                     'every {C:attention}other{} Ante',
                 }
             },
+            b_cracker_catalog = {
+                name = 'Catalog Deck',
+                text = {
+                    'In shop:',
+                    '{C:attention}+1{} Voucher slot',
+                    '{C:attention}+1{} Booster Pack slot',
+                    '{C:attention}-1{} card slot',
+                }
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
@@ -470,11 +479,19 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
-             v_cracker_pw_blitz = {
+            v_cracker_pw_blitz = {
                 name = "Blitz Deck",
                 text = {
                     "{C:attention}-1{} Ante Requirement",
                 },
+            },
+            v_cracker_pw_catalog = {
+                name = 'Catalog Deck',
+                text = {
+                    'In shop:',
+                    '{C:attention}+1{} Voucher slot',
+                    '{C:attention}+1{} Booster Pack slot',
+                }
             },
         },
         Other = {

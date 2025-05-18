@@ -67,8 +67,29 @@ SMODS.Back{ -- Blitz Deck
     end,
 }
 
+SMODS.Back{ -- Catalog Deck
+    name = "Catalog Deck",
+    key = "catalog",
+    
+    pos = {
+        x = 4,
+        y = 0,
+    },
+    atlas = 'Backs',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {}}
+    end,
+    
+    apply = function(self, back)
+        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
+        G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
+        change_shop_size(-1)
+    end
+}
+
 SMODS.Back{ -- Patchwork Deck
-    name = "Patchwork Deck",
+    name = "Patchwork Deck", 
     key = "patchwork",
     
     pos = {

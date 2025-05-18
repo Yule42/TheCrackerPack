@@ -669,3 +669,27 @@ SMODS.Voucher {
         G.GAME.win_ante = G.GAME.win_ante - 1
     end
 }
+
+SMODS.Voucher {
+    key = 'pw_catalog',
+    pos = {
+        x = 8,
+        y = 1
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 25,
+    atlas = 'pw_vouchers',
+    config = {
+        extra = {
+        }
+    },
+    patchwork = true,
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+    redeem = function(self)
+        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
+        G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
+    end
+}
