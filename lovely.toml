@@ -521,7 +521,6 @@ target = "functions/state_events.lua"
 pattern = '''G.GAME.current_round.voucher = SMODS.get_next_vouchers()'''
 position = "at"
 payload = '''
-print(G.GAME.current_round.voucher)
 if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
     G.GAME.current_round.voucher = SMODS.get_next_vouchers()
 end'''
