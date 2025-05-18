@@ -159,7 +159,7 @@ return {
                 }
             },
             j_cracker_bomb = {
-                name = 'Bomb',
+                name = 'Bomb Joker',
                 text = {
                     '{C:attention}Blows up{} in {C:attention}#1#{} rounds',
                     'Ticks down when {C:attention}Blind{} is selected',
@@ -545,9 +545,6 @@ return {
             },
             ch_c_plasma_2 = {
                 "{C:red}X2{} base Blind size",
-            },
-            ch_c_bomb = {
-                "{C:red}Bomb{} can only appear in this challenge",
             },
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",

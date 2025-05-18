@@ -245,8 +245,6 @@ SMODS.Joker{ --Thrifty Joker
     end,
     
     calculate = function(self, card, context)
-        print(#G.GAME.used_vouchers)
-        print(G.GAME.starting_voucher_count or 0)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
                 message = localize{type='variable',key='a_mult',vars={(math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}},
@@ -865,8 +863,8 @@ SMODS.Joker{ --The Dealer
     end,
 }
 
-SMODS.Joker{ --Bomb
-    name = "Bomb",
+SMODS.Joker{ --Bomb Joker
+    name = "Bomb Joker",
     key = "bomb",
     config = {
         extra = {
