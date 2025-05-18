@@ -443,7 +443,7 @@ return {
                     "Balance {C:blue}Chips{} and",
                     "{C:red}Mult{} when calculating",
                     "score for played hand",
-                    "{C:red}X2{} base Blind size",
+                    --"{C:red}X2{} base Blind size",
                 },
             },
             v_cracker_pw_erratic = {

@@ -241,14 +241,16 @@ SMODS.Joker{ --Thrifty Joker
     
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.vouchers_multiply, (#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0) * card.ability.extra.vouchers_multiply)}}
+        return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and #G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0) > 0 then
+        print(#G.GAME.used_vouchers)
+        print(G.GAME.starting_voucher_count or 0)
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={((#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0)) * card.ability.extra.vouchers_multiply)}},
-                mult_mod = ((#G.GAME.used_vouchers - (G.GAME.starting_voucher_count or 0)) * card.ability.extra.vouchers_multiply),
+                message = localize{type='variable',key='a_mult',vars={(math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}},
+                mult_mod = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
                 colour = G.C.MULT
             }
         end

@@ -476,6 +476,17 @@ times = 1
 
 [[patches]]
 [patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif _type == 'Voucher' then _pool[#_pool + 1] = "v_blank"'''
+position = "at"
+payload = '''
+elseif _type == 'Voucher' then _pool[#_pool + 1] = ((G.GAME.modifiers.voucher_override and "v_cracker_pw_erratic") or "v_blank")
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
 target = "game.lua"
 pattern = '''for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
 if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
@@ -502,6 +513,7 @@ if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
     end
 end'''
 match_indent = true
+times = 1
 
 [[patches]]
 [patches.pattern]
@@ -514,6 +526,22 @@ if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % 
     G.GAME.current_round.voucher = SMODS.get_next_vouchers()
 end'''
 match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end'''
+position = "at"
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+    if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end
+end
+'''
+match_indent = true
+times = 1
 
     # New scoring context
 [[patches]]

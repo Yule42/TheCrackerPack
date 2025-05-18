@@ -97,7 +97,7 @@ SMODS.Voucher {
     end,
     
     redeem = function(self)
-        G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 0) + self.config.extra.hand_money
+        G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 1) + self.config.extra.hand_money
         G.GAME.modifiers.money_per_discard = (G.GAME.money_per_discard or 0) + self.config.extra.discard_money
     end
 }
@@ -201,7 +201,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 15,
+    cost = 10,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -470,7 +470,7 @@ SMODS.Voucher {
     end,
     
     redeem = function(self)
-        G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 1
+        --G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 1
     end,
 }
 
