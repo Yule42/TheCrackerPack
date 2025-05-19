@@ -678,7 +678,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 25,
+    cost = 20,
     atlas = 'pw_vouchers',
     config = {
         extra = {
