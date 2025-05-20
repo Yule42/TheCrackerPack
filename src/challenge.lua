@@ -9,7 +9,6 @@ SMODS.Challenge{
             { id = "joker_slots", value = 6 },
         },
         custom = {
-            {id = 'bomb'},
         }
     },
 }

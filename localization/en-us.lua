@@ -30,8 +30,8 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)',
                 }
             },
-            j_cracker_hoarder = {
-                name = 'Hoarder',
+            j_cracker_thriftyjoker = {
+                name = 'Thrifty Joker',
                 text = {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
                     'purchased this run',
@@ -113,7 +113,7 @@ return {
                 }
             },
             j_cracker_bomb = {
-                name = 'Bomb',
+                name = 'Bomb Joker',
                 text = {
                     '{C:attention}Blows up{} in {C:attention}#1#{} rounds',
                     'Ticks down when {C:attention}Blind{} is selected',
@@ -347,9 +347,6 @@ return {
             },
             ch_c_plasma_2 = {
                 "{C:red}X2{} base Blind size",
-            },
-            ch_c_bomb = {
-                "{C:red}Bomb{} can only appear in this challenge",
             },
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
