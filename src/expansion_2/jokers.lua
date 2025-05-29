@@ -103,3 +103,46 @@ function G.FUNCS.get_poker_hand_info(_cards)
     loc_disp_text = localize(disp_text, 'poker_hands')
     return text, loc_disp_text, poker_hands, scoring_hand, disp_text
 end
+
+SMODS.Joker{ --Snail
+    name = "Snail",
+    key = "snail",
+    config = {
+        extra = {
+            chips = 0,
+            chips_add = 1,
+        }
+    },
+    pos = {
+        x = 2,
+        y = 3,
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.chips}}
+    end,
+    calculate = function(self, card, context)
+        if context.discard and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + 1
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips_add}},
+                colour = G.C.CHIPS
+            }
+        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                chip_mod = card.ability.extra.chips, 
+                colour = G.C.CHIPS
+            }
+        end
+    end
+}

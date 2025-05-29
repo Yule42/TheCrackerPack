@@ -309,6 +309,14 @@ return {
                     'is a {C:attention}Royal Flush{}',
                 }
             },
+            j_cracker_snail = {
+                name = 'Snail',
+                text = {
+                    'This Joker gains {C:chips}+#2#{} Chip',
+                    'per discarded card',
+                    '{C:inactive}(Currently {C:attention}#1#{C:inactive} Chips)',
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
