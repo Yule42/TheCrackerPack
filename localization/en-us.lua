@@ -314,7 +314,7 @@ return {
                 text = {
                     'This Joker gains {C:chips}+#2#{} Chip',
                     'per discarded card',
-                    '{C:inactive}(Currently {C:attention}#1#{C:inactive} Chips)',
+                    '{C:inactive}(Currently {C:attention}+#1#{C:inactive} Chips)',
                 }
             },
         },

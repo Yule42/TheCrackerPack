@@ -128,7 +128,7 @@ SMODS.Joker{ --Snail
     
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.chips}}
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add}}
     end,
     calculate = function(self, card, context)
         if context.discard and not context.blueprint then
