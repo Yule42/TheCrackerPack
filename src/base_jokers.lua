@@ -292,7 +292,7 @@ SMODS.Joker{ --Cheese
                 Xmult_mod = card.ability.extra.xmult,
                 colour = G.C.RED
             }
-        elseif context.after and not context.blueprint and not context.repetition and hand_chips * mult < G.GAME.blind.chips then
+        elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
             card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_remove * G.GAME.food_multiplier
             if card.ability.extra.xmult <= 0 then
                 G.E_MANAGER:add_event(Event({
