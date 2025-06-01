@@ -574,7 +574,7 @@ SMODS.Joker{ --Life Support
                 end
                 return {
                     message = localize('k_saved_ex'),
-                    saved = localize('k_saved_lifesupport'),
+                    saved = m'ph_saved_lifesupport',
                     colour = G.C.RED
                 }
             elseif card.ability.extra.active then
