@@ -312,9 +312,9 @@ return {
             j_cracker_snail = {
                 name = 'Snail',
                 text = {
-                    'This Joker gains {C:chips}+#2#{} Chip',
-                    'per discard',
-                    '{C:inactive}(Currently {C:attention}+#1#{C:inactive} Chips)',
+                    'This Joker gains {C:chips}+#2#{} Chips',
+                    'if discard has exactly {C:attention}#3#{} cards',
+                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)',
                 }
             },
         },

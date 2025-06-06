@@ -111,6 +111,7 @@ SMODS.Joker{ --Snail
         extra = {
             chips = 0,
             chips_add = 3,
+			cards = 3,
         }
     },
     pos = {
@@ -128,10 +129,10 @@ SMODS.Joker{ --Snail
     
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add}}
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.cards}}
     end,
     calculate = function(self, card, context)
-        if context.pre_discard and not context.blueprint then
+        if context.pre_discard and table_length(G.hand.highlighted) == card.ability.extra.cards and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
             return {
                 message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips_add}},
