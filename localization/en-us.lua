@@ -313,7 +313,7 @@ return {
                 name = 'Snail',
                 text = {
                     'This Joker gains {C:chips}+#2#{} Chip',
-                    'per discarded card',
+                    'per discard',
                     '{C:inactive}(Currently {C:attention}+#1#{C:inactive} Chips)',
                 }
             },

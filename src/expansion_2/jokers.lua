@@ -110,7 +110,7 @@ SMODS.Joker{ --Snail
     config = {
         extra = {
             chips = 0,
-            chips_add = 1,
+            chips_add = 3,
         }
     },
     pos = {
@@ -131,8 +131,8 @@ SMODS.Joker{ --Snail
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_add}}
     end,
     calculate = function(self, card, context)
-        if context.discard and not context.blueprint then
-            card.ability.extra.chips = card.ability.extra.chips + 1
+        if context.pre_discard and not context.blueprint then
+            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
             return {
                 message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips_add}},
                 colour = G.C.CHIPS
