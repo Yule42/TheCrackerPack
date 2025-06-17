@@ -110,7 +110,7 @@ SMODS.Joker{ --Snail
     config = {
         extra = {
             chips = 0,
-            chips_add = 3,
+            chips_add = 4,
             cards = 3,
         }
     },
