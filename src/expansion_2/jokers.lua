@@ -154,7 +154,7 @@ SMODS.Joker{ --Prosopagnosia
     config = {
         extra = {
             xmult = 1,
-            xmult_add = 0.05,
+            xmult_add = 0.08,
         }
     },
     pos = {
