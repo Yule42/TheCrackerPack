@@ -520,6 +520,13 @@ return {
             },
         },
         Other = {
+            artist_credits_cracker = {
+                name = 'Credits',
+                text = {
+                    '{C:chips}Art:{} #1#',
+                    '{C:money}Design:{} #2#',
+                }
+            },
             d_sacrifice = {
                 name = "Sacrificed",
                 text = {
