@@ -222,6 +222,9 @@ SMODS.Joker{ --Shrimp Cocktail
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    pools = {
+        Food = true,
+    },
     
 
     loc_vars = function(self, info_queue, card)
@@ -296,6 +299,9 @@ SMODS.Joker{ --Hamburger
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    pools = {
+        Food = true,
+    },
     
 
     loc_vars = function(self, info_queue, card)
@@ -317,7 +323,7 @@ SMODS.Joker{ --Hamburger
             card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - 1
             if card.ability.extra.discard_cards_left <= 0 then
                 card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_required
-                ease_hands_played(-1)
+                ease_hands_played(math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier))
                 card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
                 G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
                 if card.ability.extra.hands <= 0 then
@@ -351,3 +357,4 @@ SMODS.Joker{ --Hamburger
         end
     end
 }
+
