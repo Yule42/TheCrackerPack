@@ -304,6 +304,12 @@ return {
                     '{C:money}Design:{} #2#',
                 }
             },
+            concept_credits_cracker = {
+                name = 'Credits',
+                text = {
+                    '{C:money}Design:{} #1#',
+                }
+            },
             d_sacrifice = {
                 name = "Sacrificed",
                 text = {
