@@ -329,7 +329,7 @@ return {
             j_cracker_shrimpcocktail = {
                 name = 'Shrimp Cocktail',
                 text = {
-                    '{C:red}+#1#{} discards each round',
+                    '{C:red}+#1#{} discard#3# each round',
                     '{C:red}-#2#{} discard when a',
                     'discard is used',
                 }

@@ -222,7 +222,7 @@ SMODS.Joker{ --Shrimp Cocktail
     
 
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction}}
+        return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction, (card.ability.extra.discards == 1 and G.SETTINGS.language == "en-us") and "" or "s"}}
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
