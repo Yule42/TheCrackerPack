@@ -226,7 +226,7 @@ SMODS.Joker{ --Shrimp Cocktail
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'brook03'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction, (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s"}}
+        return {vars = {card.ability.extra.discards, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s"}}
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
@@ -240,8 +240,8 @@ SMODS.Joker{ --Shrimp Cocktail
     
     calculate = function(self, card, context)
         if context.pre_discard and not context.blueprint then
-            card.ability.extra.discards = card.ability.extra.discards - card.ability.extra.discards_reduction * G.GAME.food_multiplier
-            G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards_reduction
+            card.ability.extra.discards = card.ability.extra.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+            G.GAME.round_resets.discards = G.GAME.round_resets.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
             if card.ability.extra.discards <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -265,9 +265,88 @@ SMODS.Joker{ --Shrimp Cocktail
                 }
             else
                 return {
-                    message = localize{type='variable',key='a_discards_minus',vars={card.ability.extra.discards_reduction * G.GAME.food_multiplier}},
+                    message = localize{type='variable',key='a_discards_minus',vars={math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)}},
                     colour = G.C.MULT
                 }
+            end
+        end
+    end
+}
+
+SMODS.Joker{ --Hamburger
+    name = "Hamburger",
+    key = "hamburger",
+    config = {
+        extra = {
+            hands = 6,
+            discards_reduction = 1,
+            discard_cards_required = 5,
+            discard_cards_left = 5,
+        }
+    },
+    pos = {
+        x = 5,
+        y = 3,
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'brook03'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.hands, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", card.ability.extra.discard_cards_required, card.ability.extra.discard_cards_left}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        ease_hands_played(card.ability.extra.hands)
+    end,
+    
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+        ease_hands_played(-card.ability.extra.hands)
+    end,
+    
+    calculate = function(self, card, context)
+        if context.discard and not context.blueprint then
+            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - 1
+            if card.ability.extra.discard_cards_left <= 0 then
+                card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_required
+                ease_hands_played(-card.ability.extra.hands)
+                card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+                if card.ability.extra.hands <= 0 then
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot1')
+                            card.T.r = -0.2
+                            card:juice_up(0.3, 0.4)
+                            card.states.drag.is = true
+                            card.children.center.pinch.x = true
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                                func = function()
+                                        G.jokers:remove_card(card)
+                                        card:remove()
+                                        card = nil
+                                    return true; end})) 
+                            return true
+                        end
+                    })) 
+                    return {
+                        message = localize('k_eaten_ex'),
+                        colour = G.C.FILTER
+                    }
+                else
+                    return {
+                        message = localize{type='variable',key='a_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.food_multiplier}},
+                        colour = G.C.BLUE
+                    }
+                end
             end
         end
     end

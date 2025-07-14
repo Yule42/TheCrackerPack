@@ -329,9 +329,17 @@ return {
             j_cracker_shrimpcocktail = {
                 name = 'Shrimp Cocktail',
                 text = {
-                    '{C:red}+#1#{} discard#3# each round',
-                    '{C:red}-#2#{} discard when a',
-                    'discard is used',
+                    '{C:red}+#1#{} discard#3# each round,',
+                    'This Joker loses {C:red}#2#{} discard',
+                    'when a discard is used',
+                }
+            },
+            j_cracker_hamburger = {
+                name = 'Hamburger',
+                text = {
+                    '{C:blue}+#1#{} hand#3# each round,',
+                    'This Joker loses {C:blue}#2#{} hand',
+                    'every {C:attention}#4# {C:inactive}[#5#]{} cards discarded',
                 }
             },
         },
@@ -571,6 +579,7 @@ return {
         v_dictionary = {
             a_money="+$#1#",
             a_money_minus="-$#1#",
+            a_hands_minus="-#1# Hands",
             a_card="+#1# Card",
             a_discards="+#1# Discards",
             a_discards_minus="-#1# Discards",
