@@ -197,3 +197,74 @@ SMODS.Joker{ --Prosopagnosia
         end
     end
 }
+
+SMODS.Joker{ --Shrimp Cocktail
+    name = "Shrimp Cocktail",
+    key = "shrimpcocktail",
+    config = {
+        extra = {
+            discards = 6,
+            discards_reduction = 1,
+        }
+    },
+    pos = {
+        x = 4,
+        y = 3,
+    },
+    cost = 3,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    
+
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
+    end,
+    
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
+        ease_discard(-card.ability.extra.discards)
+    end,
+    
+    calculate = function(self, card, context)
+        if context.pre_discard and not context.blueprint then
+            card.ability.extra.discards = card.ability.extra.discards - card.ability.extra.discards_reduction * G.GAME.food_multiplier
+            G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards_reduction
+            if card.ability.extra.discards <= 0 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                            func = function()
+                                    G.jokers:remove_card(card)
+                                    card:remove()
+                                    card = nil
+                                return true; end})) 
+                        return true
+                    end
+                })) 
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.RED
+                }
+            else
+                return {
+                    message = localize{type='variable',key='a_discards_minus',vars={card.ability.extra.discards_reduction * G.GAME.food_multiplier}},
+                    colour = G.C.MULT
+                }
+            end
+        end
+    end
+}

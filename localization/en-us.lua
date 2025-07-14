@@ -271,7 +271,7 @@ return {
             j_cracker_yellowcard = {
                 name = 'Yellow Card',
                 text = {
-                    'Earn {C:money}$#1#{} at end of round.',
+                    'Earn {C:money}$#1#{} at end of round',
                     'Payout set to {C:money}$#2#{}',
                     'when {C:attention}Blind{} is skipped',
                     'Decreases by {C:money}$#3#{} each payout',
@@ -317,15 +317,23 @@ return {
                     '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)',
                 }
             },
-			j_cracker_prosopagnosia = {
-				name = 'Prosopagnosia',
-				text = {
-					'This Joker gains {X:mult,C:white}X#2#{} Mult',
-					'when a {C:attention}face{} card is scored,',
-					'face cards are drawn face down',
-					'{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
-				}
-			},
+            j_cracker_prosopagnosia = {
+                name = 'Prosopagnosia',
+                text = {
+                    'This Joker gains {X:mult,C:white}X#2#{} Mult',
+                    'when a {C:attention}face{} card is scored,',
+                    'face cards are drawn face down',
+                    '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
+                }
+            },
+            j_cracker_shrimpcocktail = {
+                name = 'Shrimp Cocktail',
+                text = {
+                    '{C:red}+#1#{} discards each round',
+                    '{C:red}-#2#{} discard when a',
+                    'discard is used',
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
@@ -551,6 +559,8 @@ return {
             a_money="+$#1#",
             a_money_minus="-$#1#",
             a_card="+#1# Card",
+            a_discards="+#1# Discards",
+            a_discards_minus="-#1# Discards",
         },
         v_text = {
             ch_c_ante_39 = {

@@ -150,7 +150,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni",
+                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, wombatcountry",
                                 shadow = true,
                                 scale = scale,
                                 colour = G.C.BLUE
