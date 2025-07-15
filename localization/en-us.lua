@@ -329,7 +329,7 @@ return {
             j_cracker_shrimpcocktail = {
                 name = 'Shrimp Cocktail',
                 text = {
-                    '{C:red}+#1#{} discard#3# each round,',
+                    '{C:red}+#1#{} discard#3# each round',
                     'This Joker loses {C:red}#2#{} discard',
                     'when a discard is used',
                 }
@@ -337,9 +337,17 @@ return {
             j_cracker_hamburger = {
                 name = 'Hamburger',
                 text = {
-                    '{C:blue}+#1#{} hand#3# each round,',
+                    '{C:blue}+#1#{} hand#3# each round',
                     'This Joker loses {C:blue}#2#{} hand',
                     'every {C:attention}#4# {C:inactive}[#5#]{} cards discarded',
+                }
+            },
+            j_cracker_potatochips = {
+                name = 'Potato Chips',
+                text = {
+                    '{C:blue}+#1#{} Chips',
+                    '{C:blue}+#2#{} Chips if {C:attention}first played hand of round',
+                    'wins Blind',
                 }
             },
         },

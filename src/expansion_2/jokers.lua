@@ -358,3 +358,73 @@ SMODS.Joker{ --Hamburger
     end
 }
 
+SMODS.Joker{ --Potato Chips
+    name = "Potato Chips",
+    key = "potatochips",
+    config = {
+        extra = {
+            chips = 200,
+            chips_remove = 50,
+        }
+    },
+    pos = {
+        x = 6,
+        y = 3,
+    },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    pools = {
+        Food = true,
+    },
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
+            return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
+                chip_mod = card.ability.extra.chips, 
+                colour = G.C.CHIPS
+            }
+        elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual and G.GAME.current_round.hands_played == 1 then
+            if card.ability.extra.chips - card.ability.extra.chips_remove <= 0 then 
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                            func = function()
+                                    G.jokers:remove_card(card)
+                                    card:remove()
+                                    card = nil
+                                return true; end})) 
+                        return true
+                    end
+                })) 
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.CHIPS
+                }
+            else
+                card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier
+                return {
+                    message = localize{type='variable',key='a_chips_minus',vars={card.ability.extra.chips_remove * G.GAME.food_multiplier}},
+                    colour = G.C.CHIPS
+                }
+            end
+        end
+    end
+}
