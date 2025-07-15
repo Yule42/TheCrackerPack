@@ -429,3 +429,48 @@ SMODS.Joker{ --Potato Chips
     end
 }
 
+SMODS.Joker{ --Ants
+    name = "Ants",
+    key = "ants",
+    config = {
+        extra = {
+            xmult = 1,
+            xmult_add = 1,
+        }
+    },
+    pos = {
+        x = 7,
+        y = 3,
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 0 then
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
+                Xmult_mod = card.ability.extra.xmult,
+                colour = G.C.RED
+            }
+        elseif context.self_destroying_food_joker and context.cardarea == G.jokers and not context.blueprint then
+            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_add}},
+                colour = G.C.MULT
+            }
+        end
+    end
+}
+

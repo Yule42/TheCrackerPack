@@ -350,6 +350,15 @@ return {
                     'wins Blind',
                 }
             },
+            j_cracker_ants = {
+                name = 'Ants',
+                text = {
+                    'This Joker gains',
+                    '{X:mult,C:white}X#2#{} Mult when a',
+                    '{C:attention}Food Joker{} destroys itself',
+                    '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
