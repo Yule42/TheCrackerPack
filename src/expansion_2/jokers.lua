@@ -458,7 +458,7 @@ SMODS.Joker{ --Ants
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 0 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
             return {
                 message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
                 Xmult_mod = card.ability.extra.xmult,

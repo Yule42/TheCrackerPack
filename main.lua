@@ -90,8 +90,7 @@ function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round
 end
 
 
--- Code modified from Paperback
----Checks if a provided card is classified as a "Food Joker"
+-- Code modified from Paperback 
 ---@param card table | string a center key or a card
 ---@return boolean
 function is_food(card)
