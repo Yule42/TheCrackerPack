@@ -24,6 +24,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = 'modicon',
+    px = 34,
+    py = 34,
+    path = 'modicon.png'
+}
+
+SMODS.Atlas {
     key = 'Vouchers',
     path = "Vouchers.png",
     px = 71,
