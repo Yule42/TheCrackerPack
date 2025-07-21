@@ -346,7 +346,7 @@ return {
                 name = 'Potato Chips',
                 text = {
                     '{C:blue}+#1#{} Chips',
-                    '{C:blue}+#2#{} Chips if {C:attention}first played hand of round',
+                    '{C:blue}-#2#{} Chips if {C:attention}first played hand of round',
                     'wins Blind',
                 }
             },
