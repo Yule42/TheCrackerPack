@@ -359,6 +359,16 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },
+            j_cracker_highroller = {
+                name = 'High Roller',
+                text = {
+                    'Played {C:attention}Lucky Cards{} give',
+                    '{X:mult,C:white}X#1#{} Mult when scored,',
+                    'increases by {X:mult,C:white}X#2#{} when a {C:attention}Lucky{} card',
+                    '{C:green}successfully{} triggers',
+                    '{C:inactive}(Resets every hand){}',
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {

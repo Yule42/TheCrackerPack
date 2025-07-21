@@ -474,3 +474,49 @@ SMODS.Joker{ --Ants
     end
 }
 
+SMODS.Joker{ --High Roller
+    name = "High Roller",
+    key = "highroller",
+    config = {
+        extra = {
+            xmult = 1,
+            xmult_add = 0.5,
+        }
+    },
+    pos = {
+        x = 8,
+        y = 3,
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_lucky',
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.after then
+            card.ability.extra.xmult = 1
+        elseif context.cardarea == G.play and context.individual then
+            if context.other_card.lucky_trigger and not context.blueprint then
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            end
+            if card.ability.extra.xmult > 1 then
+                return {
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
+                    Xmult_mod = card.ability.extra.xmult,
+                    colour = G.C.RED
+                }
+            end
+        end
+    end
+}
+
