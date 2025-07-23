@@ -182,7 +182,7 @@ SMODS.Joker{ --Prosopagnosia
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.blueprint then
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_add}},
+                message = localize('k_upgrade_ex'),
                 colour = G.C.RED,
                 card = card,
                 focus = card,
@@ -505,7 +505,7 @@ SMODS.Joker{ --High Roller
     calculate = function(self, card, context)
         if context.after then
             card.ability.extra.xmult = 1
-        elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == "m_lucky" then
+        elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if context.other_card.lucky_trigger and not context.blueprint then
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
             end
