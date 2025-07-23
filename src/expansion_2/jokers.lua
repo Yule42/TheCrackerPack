@@ -488,7 +488,7 @@ SMODS.Joker{ --High Roller
         y = 3,
     },
     cost = 8,
-    rarity = 3,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -505,7 +505,7 @@ SMODS.Joker{ --High Roller
     calculate = function(self, card, context)
         if context.after then
             card.ability.extra.xmult = 1
-        elseif context.cardarea == G.play and context.individual then
+        elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == "m_lucky" then
             if context.other_card.lucky_trigger and not context.blueprint then
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
             end
