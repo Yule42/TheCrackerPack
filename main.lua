@@ -35,6 +35,7 @@ Cracker.vanilla_food = {
   j_popcorn = true,
   j_ramen = true,
   j_selzer = true,
+  j_egg = true,
 }
 
 -- Initialize pool of food jokers if it doesn't exist already, which may be created by other mods.
