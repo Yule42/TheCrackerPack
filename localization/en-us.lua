@@ -542,7 +542,8 @@ return {
             v_cracker_pw_blitz = {
                 name = "Blitz Deck",
                 text = {
-                    "{C:attention}-1{} Ante Requirement",
+                    "{C:attention}-1{} Ante Requirement,",
+                    "{C:attention}-1{} Ante",
                 },
             },
             v_cracker_pw_catalog = {

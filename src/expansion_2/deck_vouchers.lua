@@ -655,7 +655,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 15,
+    cost = 20,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -667,6 +667,7 @@ SMODS.Voucher {
     end,
     redeem = function(self)
         G.GAME.win_ante = G.GAME.win_ante - 1
+        ease_ante(-1)
     end
 }
 
