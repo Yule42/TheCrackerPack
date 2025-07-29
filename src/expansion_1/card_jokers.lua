@@ -328,12 +328,12 @@ SMODS.Joker{ --Orange Card
                         return true
                     end)}))
             elseif #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 local consum_names = { "Arcana", "Celestial", "Spectral" }
                 local short_names = { "tarot", "planet", "spectral" }
                 local short_names_why_is_there_a_seperate_shorthand = { "Tarot", "Planet", "Spectral" }
                 for i = 1, #consum_names do
                     if card.ability.extra.booster.ability.name:find(consum_names[i]) then
+                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
                             trigger = 'before',
                             delay = 0.45,

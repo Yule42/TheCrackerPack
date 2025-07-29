@@ -320,7 +320,7 @@ SMODS.Joker{ --Hamburger
     
     calculate = function(self, card, context)
         if context.discard and not context.blueprint then
-            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - 1
+            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - math.floor(1 * G.GAME.food_multiplier)
             if card.ability.extra.discard_cards_left <= 0 then
                 card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_required
                 ease_hands_played(-math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier))
@@ -386,7 +386,7 @@ SMODS.Joker{ --Potato Chips
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove}}
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove * G.GAME.food_multiplier}}
     end,
     
     calculate = function(self, card, context)
@@ -397,7 +397,7 @@ SMODS.Joker{ --Potato Chips
                 colour = G.C.CHIPS
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual and G.GAME.current_round.hands_played == 1 then
-            if card.ability.extra.chips - card.ability.extra.chips_remove <= 0 then 
+            if card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier <= 0 then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
