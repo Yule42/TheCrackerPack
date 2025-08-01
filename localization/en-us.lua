@@ -369,6 +369,13 @@ return {
                     '{C:inactive}(Resets every hand){}',
                 }
             },
+            j_cracker_thefalcon = {
+                name = 'The Falcon',
+                text = {
+                    'If {C:attention}#1#{} cards are discarded,',
+                    'destroy {C:attention}#2#{} random card in discard'
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
@@ -603,6 +610,7 @@ return {
             k_bomb_explode='Boom!',
             k_used_lifesupport='Beep!',
             ph_saved_lifesupport='Saved by Life Support',
+            k_discard_falcon='Clawed!',
         },
         v_dictionary = {
             a_money="+$#1#",

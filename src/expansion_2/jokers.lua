@@ -520,3 +520,74 @@ SMODS.Joker{ --High Roller
     end
 }
 
+SMODS.Joker{ --The Falcon
+    name = "The Falcon",
+    key = "thefalcon",
+    config = {
+        extra = {
+            discard_size = 5,
+            destroyed = 1,
+            FPS = 5,
+            delay = 0,
+            x_pos = 0
+        }
+    },
+    pos = {
+        x = 0,
+        y = 0,
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'falcon',
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari', 'palestjade'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.discard_size, card.ability.extra.destroyed}}
+    end,
+    
+    update = function(self, card, dt)
+        if card.ability.extra.delay == 60 / card.ability.extra.FPS then
+            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20
+            card.children.center:set_sprite_pos({x=card.ability.extra.x_pos,y=0})
+            card.ability.extra.delay = 0
+        else
+            card.ability.extra.delay = card.ability.extra.delay + 1
+        end
+    end,
+    
+    calculate = function(self, card, context)
+        if context.pre_discard and #context.full_hand == 5 then
+            local destroyed_cards = {}
+            local temp_hand = {}
+            
+            for _, playing_card in ipairs(context.full_hand) do temp_hand[#temp_hand + 1] = playing_card end
+            table.sort(temp_hand,
+                function(a, b)
+                    return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
+                end
+            )
+            pseudoshuffle(temp_hand, pseudoseed('falcon'))
+            for i = 1, card.ability.extra.destroyed do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
+            
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    play_sound('tarot1')
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+            SMODS.destroy_cards(destroyed_cards)
+            return {
+                message = localize('k_discard_falcon'),
+                colour = G.C.FILTER
+            }
+        end
+    end
+}
