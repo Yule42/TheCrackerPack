@@ -176,11 +176,12 @@ SMODS.Joker{ --Indigo Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
-        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'indigo')
+        return {vars = {new_numerator, new_denominator}}
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and pseudorandom('indigo') < G.GAME.probabilities.normal/card.ability.extra.odds then
+        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'indigo', 1, card.ability.extra.odds, 'indigocard') then
             local hand = Cracker.mostplayedhand()
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'), chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
             level_up_hand(card, hand)

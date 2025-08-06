@@ -108,7 +108,7 @@ end
 -- Code modified from Paperback 
 ---@param card table | string a center key or a card
 ---@return boolean
-function is_food(card)
+function Cracker.is_food(card)
   local center = type(card) == "string"
       and G.P_CENTERS[card]
       or (card.config and card.config.center)
@@ -125,7 +125,7 @@ end
 
 local remove_ref = Card.remove
 function Card.remove(self)
-    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and not self.getting_sliced and is_food(self.config.center_key) then
+    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and not self.getting_sliced and Cracker.is_food(self.config.center_key) then
         SMODS.calculate_context({
             self_destroying_food_joker = true,
             destroyed_joker = self
