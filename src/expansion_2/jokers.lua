@@ -156,7 +156,7 @@ SMODS.Joker{ --Prosopagnosia
     config = {
         extra = {
             xmult = 1,
-            xmult_add = 0.08,
+            xmult_add = 0.10,
         }
     },
     pos = {
@@ -179,14 +179,22 @@ SMODS.Joker{ --Prosopagnosia
     end,
     
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.RED,
-                card = card,
-                focus = card,
-            }
+        if context.before and not context.blueprint then
+            local xmult_add = 0
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:is_face() then
+                    xmult_add = xmult_add + card.ability.extra.xmult_add
+                end
+            end
+            if xmult_add > 0 then
+                card.ability.extra.xmult = card.ability.extra.xmult + xmult_add
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.RED,
+                    card = card,
+                    focus = card,
+                }
+            end
         elseif context.stay_flipped and context.to_area == G.hand and not context.blueprint then
             if context.other_card:is_face() then
                 return { stay_flipped = true }
