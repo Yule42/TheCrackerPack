@@ -500,6 +500,14 @@ SMODS.Joker{ --Freezer
     
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.food_multiplier = 1
+    end,
+    
+    calculate = function(self, card, context)
+        if context.mod_probability and Cracker.is_food(context.trigger_obj) then
+            return {
+                numerator = 0
+            }
+        end
     end
 }
 
@@ -864,11 +872,12 @@ SMODS.Joker{ --The Dealer
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds}}
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thedealer')
+        return {vars = {new_numerator, new_denominator}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.repetition and not context.repetition_only and pseudorandom('The Dealer') < G.GAME.probabilities.normal/card.ability.extra.odds then
+        if context.cardarea == G.play and context.repetition and not context.repetition_only and SMODS.pseudorandom_probability(card, 'thedealer', 1, card.ability.extra.odds, 'thedealer') then
             return {
                 message = localize('k_again_ex'),
                 repetitions = 1,
