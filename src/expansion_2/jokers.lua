@@ -527,7 +527,7 @@ SMODS.Joker{ --The Falcon
         extra = {
             discard_size = 5,
             destroyed = 1,
-            FPS = 5,
+            FPS = 10,
             delay = 0,
             x_pos = 0
         }
@@ -551,13 +551,12 @@ SMODS.Joker{ --The Falcon
     end,
     
     update = function(self, card, dt)
-        if card.ability.extra.delay == 60 / card.ability.extra.FPS then
+        if card.ability.extra.delay >= 1 / card.ability.extra.FPS then
             card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20
             card.children.center:set_sprite_pos({x=card.ability.extra.x_pos,y=0})
             card.ability.extra.delay = 0
-        else
-            card.ability.extra.delay = card.ability.extra.delay + 1
         end
+        card.ability.extra.delay = card.ability.extra.delay + love.timer.getDelta() -- dt kept returning 0
     end,
     
     calculate = function(self, card, context)
