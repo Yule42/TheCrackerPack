@@ -627,10 +627,12 @@ SMODS.Joker{ --Curry
     end,
     
     calculate = function(self, card, context)
-        if context.before_main_scoring then -- don't really feel like making this context handle it itself so
-            card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}}, mult_mod = card.ability.extra.mult})
-            mult = mod_mult(mult + card.ability.extra.mult)
-            update_hand_text({delay = 0}, {mult = mult})
+        if context.initial_scoring_step then
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                mult_mod = card.ability.extra.mult,
+                colour = G.C.MULT
+            }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier
             if card.ability.extra.mult <= 0 then
