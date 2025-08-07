@@ -321,7 +321,7 @@ return {
                 name = 'Prosopagnosia',
                 text = {
                     'This Joker gains {X:mult,C:white}X#2#{} Mult',
-                    'when a {C:attention}face{} card is played,',
+                    'when a {C:attention}face{} card is scored,',
                     'face cards are drawn face down',
                     '{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)',
                 }
