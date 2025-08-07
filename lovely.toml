@@ -516,19 +516,6 @@ times = 1
     # New scoring context
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
-match_indent = true
-pattern = '''if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end'''
-position = 'after'
-payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, before_main_scoring = true})
-end
-'''
-
-    # New scoring context
-[[patches]]
-[patches.pattern]
 target = 'functions/common_events.lua'
 match_indent = true
 pattern = '''G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)'''
