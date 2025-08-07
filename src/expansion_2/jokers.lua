@@ -593,3 +593,44 @@ SMODS.Joker{ --The Falcon
         end
     end
 }
+
+SMODS.Joker{ --Postman
+    name = "Postman",
+    key = "postman",
+    config = {
+        extra = {
+            mult = 0,
+            mult_add = 1,
+        }
+    },
+    pos = {
+        x = 9,
+        y = 3,
+    },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'None'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
+            return {
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                mult_mod = card.ability.extra.mult,
+                colour = G.C.MULT
+            }
+        elseif context.seal_trigger and not context.blueprint then
+            card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize('k_upgrade_ex')})
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
+        end
+    end
+}

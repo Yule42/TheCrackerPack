@@ -376,6 +376,14 @@ return {
                     'destroy {C:attention}#2#{} random card in discard'
                 }
             },
+            j_cracker_postman = {
+                name = 'Postman',
+                text = {
+                    'This Joker gains',
+                    '{C:mult}+#2#{} Mult when a seal is triggered',
+                    '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
+                },
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {

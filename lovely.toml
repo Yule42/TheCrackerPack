@@ -516,6 +516,55 @@ times = 1
     # New scoring context
 [[patches]]
 [patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Red' then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+    # New scoring context
+[[patches]]
+[patches.pattern]
 target = 'functions/common_events.lua'
 match_indent = true
 pattern = '''G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)'''
