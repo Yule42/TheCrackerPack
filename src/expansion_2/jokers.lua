@@ -315,7 +315,10 @@ SMODS.Joker{ --Hamburger
     
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
-        ease_hands_played(-card.ability.extra.hands)
+        ease_hands_played(-card.ability.extra.hands, true)
+        if G.GAME.current_round.hands_left < 1 then
+            G.GAME.current_round.hands_left = 1
+        end
     end,
     
     calculate = function(self, card, context)
