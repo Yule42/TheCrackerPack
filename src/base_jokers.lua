@@ -534,155 +534,64 @@ SMODS.Joker{ --Life Support
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local has_message = (G.GAME and card.area and (card.area == G.jokers))
-        local info = nil
-        if has_message then
-            local active = card.ability.extra.active
-            info = {
-                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-                    }}
-                }}
-            }
-        end
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds}, main_end = info}
     end,
-    update = function(self, card, dt)
-        if card.ability.extra.active then
-            if G.deck and card.added_to_deck then
-                for i, v in pairs (G.deck.cards) do
-                    v:set_debuff(true)
-                end
-            end
-            if G.hand and card.added_to_deck then
-                for i, v in pairs (G.hand.cards) do
-                    v:set_debuff(true)
-                end
-            end
-        end
-    end,
     
     calculate = function(self, card, context)
-        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if context.game_over then
-                if not card.ability.extra.active then
-                    card.ability.extra.active = true
-                end
-                card.ability.extra.rounds = card.ability.extra.rounds - 1
-                if card.ability.extra.rounds < 1 then
-                    G.E_MANAGER:add_event(Event({
+        if context.joker_main and G.GAME.current_round.hands_left == 0 and not context.blueprint then
+            local maxim = math.max(to_big(hand_chips), to_big(mult))
+            hand_chips = maxim
+            mult = maxim
+            update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+            
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_maximized'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
+            
+            
+            
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = (function()
+                    ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
+                    ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
+                    ease_dollars(-G.GAME.dollars, true)
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
                         func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    })) 
-                end
-                return {
-                    message = localize('k_saved_ex'),
-                    saved = m'ph_saved_lifesupport',
-                    colour = G.C.RED
-                }
-            elseif card.ability.extra.active then
-                card.ability.extra.rounds = card.ability.extra.rounds - 1
-                if card.ability.extra.rounds < 1 then
+                            G.jokers:remove_card(card)
+                            card:remove()
+                            card = nil
+                        return true; end})) 
                     G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
+                        trigger = 'after',
+                        blockable = false,
+                        blocking = false,
+                        delay = 4.3,
+                        func = (function()
+                            ease_colour(G.C.UI_CHIPS, G.C.BLUE, 1)
+                            ease_colour(G.C.UI_MULT, G.C.RED, 1)
                             return true
-                        end
-                    })) 
-                    return {
-                        message = localize('k_used_lifesupport'),
-                        colour = G.C.FILTER
-                    }
-                else
-                    return {
-                        message = card.ability.extra.rounds..'',
-                        colour = G.C.FILTER
-                    }
-                end
-            end
-        end
-        if context.skip_blind and card.ability.extra.active and not context.blueprint then
-            card.ability.extra.rounds = card.ability.extra.rounds - 1
-            if card.ability.extra.rounds < 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
-                return {
-                    message = localize('k_used_lifesupport'),
-                    colour = G.C.FILTER
-                }
-            else
-                return {
-                    message = card.ability.extra.rounds..'',
-                    colour = G.C.FILTER
-                }
-            end
-        elseif context.end_of_round and card.ability.extra.active and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.rounds = card.ability.extra.rounds - 1
-            if card.ability.extra.rounds < 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
-                return {
-                    message = localize('k_used_lifesupport'),
-                    colour = G.C.FILTER
-                }
-            else
-                return {
-                    message = card.ability.extra.rounds..'',
-                    colour = G.C.FILTER
-                }
-            end
+                        end)
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        blockable = false,
+                        blocking = false,
+                        no_delete = true,
+                        delay = 6.3,
+                        func = (function()
+                            G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], G.C.BLUE[4]
+                            G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED[4]
+                            return true
+                        end)
+                    }))
+                    return true
+                end)
+            }))
         end
     end
 }
