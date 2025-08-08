@@ -639,6 +639,9 @@ return {
             ch_c_plasma_2 = {
                 "{C:red}X2{} base Blind size",
             },
+            ch_c_onlyjokers = {
+                "Only {C:attention}Jokers{} show up in shop",
+            },
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
             },

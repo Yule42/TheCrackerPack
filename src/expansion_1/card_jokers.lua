@@ -142,7 +142,7 @@ SMODS.Joker{ --Violet Card
             G.E_MANAGER:add_event(Event({
                 func = function() 
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult_add}},
+                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}},
                         colour = G.C.RED,
                         delay = 0.45, 
                         card = card

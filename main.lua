@@ -5,7 +5,6 @@ if not CrackerConfig.disable_upgradedfood then
     assert(SMODS.load_file('src/upgraded_food.lua'))()
 end
 assert(SMODS.load_file('src/voucher.lua'))()
-assert(SMODS.load_file('src/challenge.lua'))()
 
 if not CrackerConfig.disable_card then
     assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
@@ -14,6 +13,9 @@ end
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
+
+
+assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
 
 --region Atlas
 SMODS.Atlas {

@@ -606,6 +606,8 @@ end
 match_indent = true
 times = 1
 
+
+    # patchwork plasma deck
 [[patches]]
 [patches.pattern]
 target = "back.lua"
@@ -615,6 +617,8 @@ payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma'] or G.G
 match_indent = true
 times = 1
 
+
+    # boss always shows up on multiplies of 8 in endless, as well as the winning ante
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -631,6 +635,7 @@ elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.roun
 match_indent = true
 times = 1
 
+    # New scoring context
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
@@ -656,3 +661,17 @@ if card.area == G.pack_cards then
         eval_card(G.jokers.cards[i], {taking_booster_card = true})
     end
 end'''
+
+    # Circus Act challenge
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "elseif v.id == 'no_shop_jokers' then"
+position = "before"
+payload = """
+elseif v.id == 'onlyjokers' then
+    self.GAME.tarot_rate = 0
+    self.GAME.planet_rate = 0
+"""
+match_indent = true
+times = 1
