@@ -24,9 +24,9 @@ SMODS.Back{ -- Golden Deck
     },
 }
 
-SMODS.Back{ -- Window Shopper Deck
-    name = "Window Shopper Deck",
-    key = "window_shopper",
+SMODS.Back{ -- Consumer Deck
+    name = "Consumer Deck",
+    key = "consumer",
     
     pos = {
         x = 1,

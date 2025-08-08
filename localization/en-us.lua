@@ -10,8 +10,8 @@ return {
                     'and {C:dark_edition,T:v_hone}#3#',
                 },
             },
-            b_cracker_window_shopper = {
-                name = 'Window Shopper Deck',
+            b_cracker_consumer = {
+                name = 'Consumers Deck',
                 text = {
                     'Start run with',
                     '{C:attention,T:v_directors_cut}#1#{},',
@@ -545,8 +545,8 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
-            v_cracker_pw_window_shopper = {
-                name = "Window Shopper Deck",
+            v_cracker_pw_consumer = {
+                name = "Consumers Deck",
                 text = {
                     'Get {C:attention,T:v_directors_cut}#1#{},',
                     '{C:attention,T:v_reroll_surplus}#2#{},',

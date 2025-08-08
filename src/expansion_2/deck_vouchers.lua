@@ -600,7 +600,7 @@ SMODS.Voucher {
 }
 
 SMODS.Voucher {
-    key = 'pw_window_shopper',
+    key = 'pw_consumer',
     pos = {
         x = 6,
         y = 1
