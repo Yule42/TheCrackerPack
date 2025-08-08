@@ -47,6 +47,8 @@ local challenge = SMODS.Challenge{
             {id = 'j_cracker_postman'},
             {id = 'j_sixth_sense'},
             {id = 'j_certificate'},
+            {id = 'j_marble'},
+            {id = 'j_hologram'},
             {id = 'v_crystal_ball', ids = {
                 'v_crystal_ball','v_omen_globe',
             }},
