@@ -111,18 +111,21 @@ end
 ---@param card table | string a center key or a card
 ---@return boolean
 function Cracker.is_food(card)
-  local center = type(card) == "string"
-      and G.P_CENTERS[card]
-      or (card.config and card.config.center)
+    if not card then
+        return false
+    else
+        local center = type(card) == "string"
+            and G.P_CENTERS[card]
+            or (card.config and card.config.center)
 
-  if not center then
-    return false
-  end
-
-  -- If the center has the Food pool in its definition
-  if center.pools and center.pools.Food then
-    return true
-  end
+        if not center then
+            return false
+        end
+        -- If the center has the Food pool in its definition
+        if center.pools and center.pools.Food then
+            return true
+        end
+    end
 end
 
 local remove_ref = Card.remove
