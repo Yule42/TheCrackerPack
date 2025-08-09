@@ -78,6 +78,40 @@ function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round
     return chosen_hand
 end
 
+-- Code modified from Paperback 
+---@param card table | string a center key or a card
+---@return boolean
+function Cracker.is_food(card)
+    if not card then
+        return false
+    else
+        local center = type(card) == "string"
+            and G.P_CENTERS[card]
+            or (card.config and card.config.center)
+
+        if not center then
+            return false
+        end
+        -- If the center has the Food pool in its definition
+        if center.pools and center.pools.Food then
+            return true
+        end
+    end
+end
+
+local remove_ref = Card.remove
+function Card.remove(self)
+    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and not self.getting_sliced and Cracker.is_food(self.config.center_key) then
+        SMODS.calculate_context({
+            self_destroying_food_joker = true,
+            destroyed_joker = self
+        })
+    end
+
+    return remove_ref(self)
+end
+
+
 -- Tailsman Compat (fake)
 
 to_big = to_big or function(x)
