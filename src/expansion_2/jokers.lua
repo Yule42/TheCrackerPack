@@ -489,7 +489,7 @@ SMODS.Joker{ --High Roller
         x = 8,
         y = 3,
     },
-    cost = 8,
+    cost = 7,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
