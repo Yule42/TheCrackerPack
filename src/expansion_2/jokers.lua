@@ -281,7 +281,7 @@ SMODS.Joker{ --Hamburger
     key = "hamburger",
     config = {
         extra = {
-            hands = 3,
+            hands = 4,
             discards_reduction = 1,
             discard_cards_required = 5,
             discard_cards_left = 5,
