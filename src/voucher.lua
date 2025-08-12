@@ -116,6 +116,7 @@ if not CrackerConfig.disable_tier3 then
         },
         requires = { "v_nacho_tong" },
         loc_vars = function(self, info_queue, card)
+            if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
             return {vars = {card.ability.extra.hands}}
         end,
         
