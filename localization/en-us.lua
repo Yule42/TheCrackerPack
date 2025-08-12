@@ -312,9 +312,9 @@ return {
             j_cracker_snail = {
                 name = 'Snail',
                 text = {
-                    'This Joker gains {C:chips}+#2#{} Chips',
-                    'if discard has exactly {C:attention}#3#{} cards',
-                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)',
+                    '{C:mult}+#2#{} Mult',
+                    'per {C:attention}blind defeated{} with this Joker',
+                    '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)',
                 }
             },
             j_cracker_prosopagnosia = {
@@ -578,6 +578,13 @@ return {
                     '{C:money}Design:{} #2#',
                 }
             },
+            patchwork_only = {
+                name = 'Deck Voucher',
+                text = {
+                    'This {C:attention}Voucher',
+                    'only appears in {C:attention}Patchwork Deck',
+                }
+            },
             concept_credits_cracker = {
                 name = 'Credits',
                 text = {
@@ -603,8 +610,8 @@ return {
                 name = "Purchased",
                 text = {
                     "Bought in shop",
-                    "{C:inactive}(excl. taken from",
-                    "{C:inactive}purchased Booster Pack){}",
+                    "{C:inactive}(excl. cards in",
+                    "{C:inactive}Booster Packs){}",
                 }
             },
         },

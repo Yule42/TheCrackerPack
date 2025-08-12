@@ -110,9 +110,8 @@ SMODS.Joker{ --Snail
     key = "snail",
     config = {
         extra = {
-            chips = 0,
-            chips_add = 4,
-            cards = 3,
+            mult = 0,
+            mult_add = 2
         }
     },
     pos = {
@@ -130,21 +129,21 @@ SMODS.Joker{ --Snail
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.cards}}
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
     end,
     calculate = function(self, card, context)
-        if context.pre_discard and table_length(G.hand.highlighted) == card.ability.extra.cards and not context.blueprint then
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips_add}},
-                colour = G.C.CHIPS
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                mult_mod = card.ability.extra.mult, 
+                colour = G.C.MULT
             }
-        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
+        elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult_add}},
+                colour = G.C.MULT
             }
         end
     end

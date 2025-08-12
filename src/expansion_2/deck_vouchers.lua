@@ -15,6 +15,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.discards}}
     end,
     
@@ -41,6 +42,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hands}}
     end,
     
@@ -67,6 +69,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.money}}
     end,
     
@@ -93,6 +96,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hand_money, card.ability.extra.discard_money}}
     end,
     
@@ -118,6 +122,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     
@@ -149,6 +154,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_crystal_ball', set = 'Voucher'}, card.ability.extra.fools, localize{type = 'name_text', key = 'c_fool', set = 'Tarot'}}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
@@ -211,6 +217,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_telescope', set = 'Voucher'}}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
@@ -256,6 +263,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'c_hex', set = 'Spectral'}}}
     end,
     redeem = function(self)
@@ -293,6 +301,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     redeem = function(self)
@@ -330,6 +339,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     redeem = function(self)
@@ -362,6 +372,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_tarot_merchant', set = 'Voucher'}, localize{type = 'name_text', key = 'v_planet_merchant', set = 'Voucher'}, localize{type = 'name_text', key = 'v_overstock_norm', set = 'Voucher'}}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
@@ -409,6 +420,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hand_size}}
     end,
     
@@ -433,6 +445,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'tag_double', set = 'Tag'}}}
     end,
     
@@ -466,6 +479,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     
@@ -491,6 +505,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.vouchers}}
     end,
     
@@ -569,6 +584,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_seed_money', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_silver_spoon', set = 'Voucher'}, localize{type = 'name_text', key = 'v_hone', set = 'Voucher'}}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
@@ -617,6 +633,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_directors_cut', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_surplus', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_clowncar', set = 'Voucher'}}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
@@ -663,6 +680,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     redeem = function(self)
@@ -687,6 +705,7 @@ SMODS.Voucher {
     },
     patchwork = true,
     loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
     end,
     redeem = function(self)
