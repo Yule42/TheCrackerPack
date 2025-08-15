@@ -570,6 +570,13 @@ return {
                     'is {C:attention}uncapped{} next round',
                 },
             },
+            tag_cracker_curse = {
+                name = 'Curse Tag',
+                text = {
+                    'Gives a free',
+                    '{C:reverse_arcana}Reverse Arcana Pack',
+                },
+            },
         },
         Enhanced = {
             m_cracker_cheater = {

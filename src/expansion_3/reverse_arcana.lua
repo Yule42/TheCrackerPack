@@ -186,7 +186,7 @@ SMODS.Consumable{ -- The Emperor
     end,
 
     can_use = function(self, card)
-        return true
+        return G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit
     end,
 
     use = function(self, card)
@@ -406,9 +406,7 @@ SMODS.Consumable{ -- Strength
     atlas = 'reversearcana',
     key = 'strength',
     config = {
-        extra = {
-            cards = 2,
-        }
+        max_highlighted = 2,
     },
     
     pos = {
@@ -420,11 +418,7 @@ SMODS.Consumable{ -- Strength
     discovered = true,
     
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.cards}}
-    end,
-
-    can_use = function(self, card)
-        return #G.hand.highlighted <= card.ability.extra.cards
+        return {vars = {card.ability.max_highlighted}}
     end,
 
     use = function(self, card)
@@ -560,31 +554,27 @@ SMODS.Consumable{ -- Death
             }))
         end
         delay(0.2)
-        local rightmost = G.hand.highlighted[1]
-        for i = 1, #G.hand.highlighted do
-            if G.hand.highlighted[i].T.x > rightmost.T.x then
-                rightmost = G.hand.highlighted[i]
+        local left = G.hand.highlighted[1]
+        local right = G.hand.highlighted[2]
+        if right.T.x < left.T.x then
+            local swap = left
+            left = right
+            right = swap
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function()
+                local rank = left.base.value
+                local suit = left.base.suit
+                copy_card(right, left)
+                SMODS.change_base(left, suit, rank)
+                right:set_ability(G.P_CENTERS.c_base)
+                right:set_seal(nil, true, true)
+                right:set_edition(nil, true, true)
+                return true
             end
-        end
-        for i = 1, #G.hand.highlighted do
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    if G.hand.highlighted[i] ~= rightmost then
-                        local rank = G.hand.highlighted[i].base.value
-                        local suit = G.hand.highlighted[i].base.suit
-                        copy_card(rightmost, G.hand.highlighted[i])
-                        SMODS.change_base(G.hand.highlighted[i], suit, rank)
-                    else
-                        v:set_ability(G.P_CENTERS.c_base)
-                        v:set_seal(nil, true, true)
-                        v:set_edition(nil, true, true)
-                    end
-                    return true
-                end
-            }))
-        end
+        }))
         for i = 1, #G.hand.highlighted do
             local percent = 0.85 + (i - 0.999) / (#G.hand.highlighted - 0.998) * 0.3
             G.E_MANAGER:add_event(Event({
@@ -633,7 +623,7 @@ SMODS.Consumable{ -- Temperance
     end,
 
     can_use = function(self, card)
-        return true
+        return G.jokers and #G.jokers.cards > 0
     end,
 
     use = function(self, card)
@@ -923,23 +913,30 @@ SMODS.Consumable{ -- Judgement
     end,
 
     can_use = function(self, card)
-        return true
+        local destructable_jokers = {}
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
+                destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
+            end
+        end
+        return #destructable_jokers > 0 or (G.jokers and #G.jokers.cards < G.jokers.config.card_limit)
     end,
 
     use = function(self, card)
-        local jokers = {}
+        local destructable_jokers = {}
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card and not G.jokers.cards[i].debuff then
-                jokers[#jokers + 1] = G.jokers.cards[i]
+            if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
+                destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
             end
         end
+        local joker_to_destroy = pseudorandom_element(destructable_jokers, 'judgement')
         local destroyjoker = false
         local chosen_joker = nil
         local chosen_rarity = nil
         local edition = poll_edition("judgement", nil, false, true)
-        if #jokers > 0 then
+        if #destructable_jokers > 0 then
             destroyjoker = true
-            chosen_joker = pseudorandom_element(jokers, pseudoseed("judgement"))
+            chosen_joker = pseudorandom_element(destructable_jokers, pseudoseed("judgement"))
             chosen_rarity = Cracker.base_rarities[chosen_joker.config.center.rarity] -- doesn't support custom rarities LMAO
         end
         G.E_MANAGER:add_event(Event{
