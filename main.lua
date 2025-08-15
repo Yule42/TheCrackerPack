@@ -13,10 +13,12 @@ end
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
-assert(SMODS.load_file('src/expansion_2/reverse_arcana.lua'))()
-assert(SMODS.load_file('src/expansion_2/tags.lua'))()
-assert(SMODS.load_file('src/expansion_2/enhancements.lua'))()
-assert(SMODS.load_file('src/expansion_2/editions.lua'))()
+
+assert(SMODS.load_file('src/expansion_3/reverse_arcana.lua'))()
+assert(SMODS.load_file('src/expansion_3/tags.lua'))()
+assert(SMODS.load_file('src/expansion_3/enhancements.lua'))()
+assert(SMODS.load_file('src/expansion_3/editions.lua'))()
+assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
 
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
@@ -81,6 +83,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = 'enhancements',
     path = "enhancements.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas{
+    key = 'booster',
+    path = 'boosters.png',
     px = 71,
     py = 95
 }

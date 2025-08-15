@@ -888,10 +888,77 @@ return {
                     "{C:inactive}Booster Packs){}",
                 }
             },
+            p_cracker_reverse_arcana_jumbo_1 = {
+                name = "Jumbo Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_jumbo_2 = {
+                name = "Jumbo Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_mega_1 = {
+                name = "Mega Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_mega_2 = {
+                name = "Mega Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_normal_1 = {
+                name = "Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_normal_2 = {
+                name = "Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_normal_3 = {
+                name = "Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
+            p_cracker_reverse_arcana_normal_4 = {
+                name = "Reverse Arcana Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "be used immediately",
+                },
+            },
         },
     },
     misc = {
         dictionary = {
+            reverse_arcana_pack = 'Reverse Arcana Pack',
+            reverse_arcana_pack_2 = 'Jumbo Reverse Arcana Pack',
+            reverse_arcana_pack_3 = 'Mega Reverse Arcana Pack',
             k_inactive="inactive",
             k_inactive_ex="Inactive...",
             k_eaten_crumble="Crumbled!",
