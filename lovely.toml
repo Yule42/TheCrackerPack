@@ -715,3 +715,13 @@ match_indent = true
 payload = '''
   reverse_arcana = G.C.REVERSE_ARCANA,
 '''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''(self.ability.set == 'Voucher' and {G.C.SECONDARY_SET.Voucher, G.C.CLEAR}) or'''
+position = "after"
+payload = '''
+(G.C.Cracker.Dissolve[self.ability.set] and {G.C.Cracker.Dissolve[self.ability.set]}) or
+'''
+match_indent = true

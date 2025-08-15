@@ -104,7 +104,7 @@ local mega_boosters = {keys = {'reverse_arcana_mega_1', 'reverse_arcana_mega_2'}
     atlas = 'booster',
     config = {
         choose = 2,
-        extra = 5
+        extra = 4
     },
     loc_vars = function(self, info_queue, card)
         return {vars = {(card and card.ability.choose or self.config.choose), card and card.ability.extra or self.config.extra}}

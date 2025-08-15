@@ -7,6 +7,7 @@ SMODS.ConsumableType{
         name = "Reverse Arcana",
         label = "Reverse Arcana",
     },
+    collection_rows = { 5, 6 }
 }
 
 SMODS.Consumable{ -- The Fool

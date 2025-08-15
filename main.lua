@@ -94,6 +94,12 @@ SMODS.Atlas{
     py = 95
 }
 
+G.C.Cracker = {}
+G.C.Cracker.reversetarot = HEX("845baa")
+G.C.Cracker.Dissolve = {
+    reversetarot = G.C.Cracker.reversetarot,
+}
+
 Cracker.vanilla_food = {
   j_gros_michel = true,
   j_ice_cream = true,
