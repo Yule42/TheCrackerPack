@@ -785,7 +785,14 @@ SMODS.Consumable{ -- The Moon
     end,
 
     can_use = function(self, card)
-        return #G.hand.cards > 0
+        local contains_suit = false
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
+                contains_suit = true
+                break
+            end
+        end
+        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)
@@ -848,7 +855,14 @@ SMODS.Consumable{ -- The Sun
     end,
 
     can_use = function(self, card)
-        return #G.hand.cards > 0
+        local contains_suit = false
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
+                contains_suit = true
+                break
+            end
+        end
+        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)
@@ -989,7 +1003,14 @@ SMODS.Consumable{ -- The World
     end,
 
     can_use = function(self, card)
-        return #G.hand.cards > 0
+        local contains_suit = false
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
+                contains_suit = true
+                break
+            end
+        end
+        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)

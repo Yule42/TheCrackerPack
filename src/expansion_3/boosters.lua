@@ -11,7 +11,8 @@ local normal_boosters = {keys = {'reverse_arcana_normal_1', 'reverse_arcana_norm
         return create_card("reversetarot", G.pack_cards, nil, nil, true, true, nil, "reverse_arcana")
     end,
     ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.TAROT_PACK)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.REVERSE_ARCANA)
+        ease_background_colour{new_colour = G.C.REVERSE_ARCANA, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'reverse_arcana_pack',
     kind = 'cracker_reverse_arcana',
@@ -61,7 +62,8 @@ local jumbo_boosters = {keys = {'reverse_arcana_jumbo_1', 'reverse_arcana_jumbo_
         return create_card("reversetarot", G.pack_cards, nil, nil, true, true, nil, "reverse_arcana")
     end,
     ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.TAROT_PACK)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.REVERSE_ARCANA)
+        ease_background_colour{new_colour = G.C.REVERSE_ARCANA, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'reverse_arcana_pack_2',
     kind = 'cracker_reverse_arcana',
@@ -111,7 +113,8 @@ local mega_boosters = {keys = {'reverse_arcana_mega_1', 'reverse_arcana_mega_2'}
         return create_card("reversetarot", G.pack_cards, nil, nil, true, true, nil, "reverse_arcana")
     end,
     ease_background_colour = function(self)
-        ease_background_colour_blind(G.STATES.TAROT_PACK)
+        ease_colour(G.C.DYN_UI.MAIN, G.C.REVERSE_ARCANA)
+        ease_background_colour{new_colour = G.C.REVERSE_ARCANA, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'reverse_arcana_pack_3',
     kind = 'cracker_reverse_arcana',

@@ -892,7 +892,7 @@ return {
                 name = "Jumbo Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -900,7 +900,7 @@ return {
                 name = "Jumbo Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -908,7 +908,7 @@ return {
                 name = "Mega Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -916,7 +916,7 @@ return {
                 name = "Mega Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -924,7 +924,7 @@ return {
                 name = "Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -932,7 +932,7 @@ return {
                 name = "Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -940,7 +940,7 @@ return {
                 name = "Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },
@@ -948,7 +948,7 @@ return {
                 name = "Reverse Arcana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:tarot} Reverse Tarot{} cards to",
+                    "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
                 },
             },

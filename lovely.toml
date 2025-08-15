@@ -677,6 +677,8 @@ match_indent = true
 times = 1
 
 
+
+    # Laminated edition
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
@@ -690,5 +692,26 @@ payload = '''if self.edition and self.edition.cracker_laminated then
     end
     return
 end
+'''
 
+
+    # Colors
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = "RENTAL = HEX('b18f43'),"
+position = "after"
+match_indent = true
+payload = '''
+REVERSE_ARCANA = HEX('7360BF'),
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.ARGS.LOC_COLOURS = G.ARGS.LOC_COLOURS or {"
+position = "after"
+match_indent = true
+payload = '''
+  reverse_arcana = G.C.REVERSE_ARCANA,
 '''
