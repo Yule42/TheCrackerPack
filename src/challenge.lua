@@ -1,7 +1,6 @@
 function Cracker.get_challenge_by_id(challenges_table, id) -- G.CHALLENGES for vanilla challenges
     for _, challenge in pairs(challenges_table) do
         if challenge.id == id then
-            print(challenge)
             return challenge
         end
     end

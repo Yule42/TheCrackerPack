@@ -82,7 +82,7 @@ SMODS.Back{ -- Catalog Deck
     end,
     
     apply = function(self, back)
-        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 100
+        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
         G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
         change_shop_size(-1)
     end
