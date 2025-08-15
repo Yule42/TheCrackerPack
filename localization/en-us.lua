@@ -646,7 +646,7 @@ return {
             e_cracker_crystalline = {
                 name = "Crystalline",
                 text = {
-                    "{C:chips}+#1#{} chips",
+                    "{C:chips}+#1#{} Chips",
                     "{C:mult}+#2#{} Mult",
                     "{X:mult,C:white} X#3# {} Mult"
                 },

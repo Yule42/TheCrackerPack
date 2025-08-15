@@ -25,13 +25,25 @@ SMODS.Edition { -- Laminated
         end
     end,
     calculate = function(self, card, context)
-        return {
-            no_destroy = {
-                override_compat = true
+        if context.check_eternal and context.other_card == card then
+            return {
+                no_destroy = {
+                    override_compat = true
+                }
             }
-        }
+        end
     end
 }
+
+local cscr = Card.can_sell_card
+function Card:can_sell_card(context)
+    local ref = cscr(self, context)
+    local can_sell = self.ability.set == 'Joker' and self.edition and self.edition.cracker_laminated and not self.ability.eternal
+    if not ref and can_sell then
+        return true
+    end
+    return ref
+end
 
 SMODS.Edition { -- Sleeved
     key = 'sleeved',
