@@ -675,3 +675,20 @@ elseif v.id == 'onlyjokers' then
 """
 match_indent = true
 times = 1
+
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "function Card:set_debuff(should_debuff)"
+position = 'after'
+match_indent = true
+payload = '''if self.edition and self.edition.cracker_laminated then
+    if self.debuff then
+        self.debuff = false
+        if self.area == G.jokers then self:add_to_deck(true) end
+    end
+    return
+end
+
+'''

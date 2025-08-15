@@ -13,6 +13,10 @@ end
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
+assert(SMODS.load_file('src/expansion_2/reverse_arcana.lua'))()
+assert(SMODS.load_file('src/expansion_2/tags.lua'))()
+assert(SMODS.load_file('src/expansion_2/enhancements.lua'))()
+assert(SMODS.load_file('src/expansion_2/editions.lua'))()
 
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
@@ -21,6 +25,13 @@ assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it refere
 SMODS.Atlas {
     key = 'Jokers',
     path = "Jokers.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = 'reversearcana',
+    path = "reversearcana.png",
     px = 71,
     py = 95
 }
@@ -60,6 +71,20 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = 'tags',
+    path = "tags.png",
+    px = 34,
+    py = 34
+}
+
+SMODS.Atlas {
+    key = 'enhancements',
+    path = "enhancements.png",
+    px = 71,
+    py = 95
+}
+
 Cracker.vanilla_food = {
   j_gros_michel = true,
   j_ice_cream = true,
@@ -90,20 +115,93 @@ if not SMODS.ObjectTypes.Food then
   }
 end
 
+Cracker.base_rarities = {
+  "Common",
+  "Uncommon",
+  "Rare",
+  "Legendary"
+}
+
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
     if not G.GAME or not G.GAME.current_round then 
         return 'High Card'
     end
     local chosen_hand = 'High Card'
-    local _handname, _played, _order = 'High Card', -1, 100
+    local _handname, _played, _order = 'High Card', -1, 0
     for k, v in pairs(G.GAME.hands) do
         if v.played > _played or (v.played == _played and _order > v.order) then 
+            _order = v.order
             _played = v.played
             _handname = k
         end
     end
     chosen_hand = _handname
     return chosen_hand
+end
+
+function Cracker.get_ordered_list_of_hands()
+    local hands = {}
+
+    for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
+        if v.config and v.config.hand_type then
+            local hand = G.GAME.hands[v.config.hand_type]
+
+            if hand and hand.visible then
+                hands[#hands+1] = {
+                    key = v.config.hand_type,
+                    hand = hand,
+                    planet_key = v.key
+                }
+            end
+        end
+    end
+
+    table.sort(hands, function(a, b)
+        if a.hand.played ~= b.hand.played then
+            return a.hand.played > b.hand.played
+        end
+        return a.hand.order < b.hand.order
+    end)
+
+     return hands
+end
+
+function Cracker.is_in_consumeables(key)
+    for _, card in ipairs(G.consumeables.cards) do
+        if card.config.center_key == key then
+            return true
+        end
+    end
+    return false
+end
+
+function Cracker.is_in_array(key, current_index, array)
+    for k, v in ipairs(array) do
+        if k ~= current_index and v == key then
+            return true
+        end
+    end
+    return false
+end
+
+local cref = set_consumeable_usage
+function set_consumeable_usage(card)
+    if card.config.center_key and card.ability.consumeable and card.config.center.set == 'Spectral' and not card.config.center.hidden then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        G.GAME.last_spectral = card.config.center_key
+                        return true
+                    end
+                }))
+                return true
+            end
+        }))
+    end
+    return cref(card)
 end
 
 

@@ -516,6 +516,7 @@ SMODS.Joker{ --White Card
 
     loc_vars = function(self, info_queue, card)
         local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        info = nil
         if has_message then
             local active = card.ability.extra.active
             info = {
@@ -598,6 +599,7 @@ SMODS.Joker{ --Rainbow Card
 
     loc_vars = function(self, info_queue, card)
         local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        info = nil
         if has_message then
             local active = card.ability.extra.active
             info = {

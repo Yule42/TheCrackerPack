@@ -535,7 +535,7 @@ SMODS.Joker{ --Life Support
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.rounds}, main_end = info}
+        return {vars = {card.ability.extra.rounds}}
     end,
     
     calculate = function(self, card, context)

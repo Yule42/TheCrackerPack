@@ -280,7 +280,7 @@ return {
             j_cracker_blackcard = {
                 name = 'Black Card',
                 text = {
-                    'Create a {C:spectral}Negative Tag{} every #2# {C:attention}Booster Packs{} opened,',
+                    'Create a {C:dark_edition}Negative Tag{} every #2# {C:attention}Booster Packs{} opened,',
                     'resets when {C:attention}Booster Pack{} is skipped',
                     '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
                 }
@@ -383,6 +383,280 @@ return {
                     '{C:mult}+#2#{} Mult when a seal is triggered',
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
                 },
+            },
+        },
+        reversetarot = {
+            c_cracker_fool = {
+                name = 'The Fool',
+                text = {
+                    'Creates the last',
+                    '{C:spectral}Spectral{} card',
+                    'used during this run',
+                },
+            },
+            c_cracker_magician = {
+                name = 'The Magician',
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_cracker_high_priestess = {
+                name = 'High Priestess',
+                text = {
+                    'Creates up to {C:attention}#1#',
+                    '{C:dark_edition}Negative {C:planet}Planet{} cards',
+                    'from your least played hands',
+                },
+            },
+            c_cracker_empress = {
+                name = 'The Empress',
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_cracker_emperor = {
+                name = 'The Emperor',
+                text = {
+                    'Creates up to {C:attention}#1#',
+                    'copies of {C:tarot}The Fool{}',
+                    '{C:inactive}(Must have room)',
+                },
+            },
+            c_cracker_hierophant = {
+                name = 'The Hierophant',
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_cracker_lovers = {
+                name = 'The Lovers',
+                text = {
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
+                    "{C:attention}#2#s",
+                },
+            },
+            c_cracker_chariot = {
+                name = 'The Chariot',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_cracker_justice = {
+                name = 'Justice',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_cracker_hermit = {
+                name = 'The Hermit',
+                text = {
+                    'Create an',
+                    '{C:attention}Interest Tag',
+                },
+            },
+            c_cracker_wheel_of_fortune = {
+                name = "The Wheel of Fortune",
+                text = {
+                    "{C:green}#1# in #2#{} chance to add",
+                    "{C:dark_edition}Laminated{}, {C:dark_edition}Sleeved{}, or",
+                    "{C:dark_edition}Crystalline{} edition",
+                    "to a random {C:attention}Joker",
+                },
+            },
+            c_cracker_strength = {
+                name = 'Strength',
+                text = {
+                    'Decreases rank of',
+                    'up to {C:attention}#1#{} selected',
+                    'cards by {C:attention}1',
+                },
+            },
+            c_cracker_hanged_man = {
+                name = 'The Hanged Man',
+                text = {
+                    'Create copies of up to',
+                    '{C:attention}#1#{} selected cards',
+                    'in your hand',
+                },
+            },
+            c_cracker_death = {
+                name = 'Death',
+                text = {
+                    'Select {C:attention}#1#{} cards,',
+                    'transfer everything except {C:attention}suit{} and {C:attention}rank',
+                    'from the {C:attention}right{} card to the {C:attention}left{} card',
+                },
+            },
+            c_cracker_temperance = {
+                name = 'Temperance',
+                text = {
+                    '{C:attention}Doubles{} the sell value',
+                    'of all current Jokers',
+                },
+            },
+            c_cracker_devil = {
+                name = 'The Devil',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_cracker_tower = {
+                name = 'The Tower',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#",
+                },
+            },
+            c_cracker_star = {
+                name = 'The Star',
+                text = {
+                    'Destroys up to',
+                    '{C:attention}#1# {V:1}#2#{} cards',
+                    'held in hand',
+                },
+            },
+            c_cracker_moon = {
+                name = 'The Moon',
+                text = {
+                    'Destroys up to',
+                    '{C:attention}#1# {V:1}#2#{} cards',
+                    'held in hand',
+                },
+            },
+            c_cracker_sun = {
+                name = 'The Sun',
+                text = {
+                    'Destroys up to',
+                    '{C:attention}#1# {V:1}#2#{} cards',
+                    'held in hand',
+                },
+            },
+            c_cracker_judgement = {
+                name = 'Judgement',
+                text = {
+                    'Destroys one random {C:attention}Joker{},',
+                    'creates a Joker of the same rarity with an {C:dark_edition}Edition',
+                    '{C:inactive}(Does not require a destructable Joker)',
+                },
+            },
+            c_cracker_world = {
+                name = 'The World',
+                text = {
+                    'Destroys up to',
+                    '{C:attention}#1# {V:1}#2#{} cards',
+                    'held in hand',
+                },
+            },
+        },
+        Tag = {
+            tag_cracker_interest = {
+                name = 'Interest Tag',
+                text = {
+                    'End of round {C:attention}interest',
+                    'is {C:attention}uncapped{} next round',
+                },
+            },
+        },
+        Enhanced = {
+            m_cracker_cheater = {
+                name = "Cheater Card",
+                text = {
+                    "{C:green}#1# in #4#{} chance",
+                    "for {C:mult}+#3#{} Mult",
+                    "{C:green}#2# in #6#{} chance",
+                    "to win {C:money}$#5#",
+                },
+            },
+            m_cracker_multi = {
+                name = "Multi Card",
+                text = {
+                    "{C:mult}+#1#{} Mult,",
+                    "gains {C:mult}+#2#{} Mult",
+                    "when scored",
+                },
+            },
+            m_cracker_sequenced = {
+                name = "Sequenced Card",
+                text = {
+                    "{C:chips}+#1#{} Chips,",
+                    "gains {C:chips}+#2#{} Chips",
+                    "when scored",
+                },
+            },
+            m_cracker_mild = {
+                name = "Mild Card",
+                text = {
+                    "Card cannot",
+                    "be {C:attention}debuffed",
+                },
+            },
+            m_cracker_scrap_metal = {
+                name = "Scrap Metal Card",
+                text = {
+                    "{X:mult,C:white} X#1#{} Mult"
+                },
+            },
+            m_cracker_annealed = {
+                name = "Annealed Card",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "while this card",
+                    "stays in hand",
+                    "{C:green}#2# in #3#{} chance to",
+                    "{C:mult}destroy{} this card when held in hand"
+                },
+            },
+            m_cracker_silver = {
+                name = "Silver Card",
+                text = {
+                    "Earn {C:money}$#1#",
+                    "when scored"
+                },
+            },
+            m_cracker_soil = {
+                name = "Soil Card",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                    "no rank or suit",
+                },
+            },
+        },
+        Edition = {
+            e_cracker_laminated = {
+                name = "Laminated",
+                text = {
+                    "Cannot be debuffed",
+                    "or destroyed",
+                }
+            },
+            e_cracker_crystalline = {
+                name = "Crystalline",
+                text = {
+                    "{C:chips}+#1#{} chips",
+                    "{C:mult}+#2#{} Mult",
+                    "{X:mult,C:white} X#3# {} Mult"
+                },
+            },
+            e_cracker_sleeved = {
+                name = "Sleeved",
+                text = {
+                    "Gains {C:money}$#1#{} of",
+                    "{C:attention}sell value{} at end of round",
+                }
             },
         },
         Voucher = {
@@ -652,6 +926,11 @@ return {
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
             },
+        },
+        labels = {
+            cracker_laminated = "Laminated",
+            cracker_crystalline = "Crystalline",
+            cracker_sleeved = "Sleeved",
         },
     }
 }
