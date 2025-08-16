@@ -128,12 +128,10 @@ SMODS.Consumable{ -- High Priestess
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                    if G.consumeables.config.card_limit > #G.consumeables.cards then
-                        play_sound('timpani')
-                        local ccard = SMODS.add_card({ set = 'Planet', key = least[i] })
-                        ccard:set_edition({ negative = true }, true)
-                        card:juice_up(0.3, 0.5)
-                    end
+                    play_sound('timpani')
+                    local ccard = SMODS.add_card({ set = 'Planet', key = least[i] })
+                    ccard:set_edition({ negative = true }, true)
+                    card:juice_up(0.3, 0.5)
                     return true
                 end
             }))
