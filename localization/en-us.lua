@@ -495,7 +495,8 @@ return {
                 text = {
                     'Select {C:attention}#1#{} cards,',
                     'transfer everything except {C:attention}suit{} and {C:attention}rank',
-                    'from the {C:attention}right{} card to the {C:attention}left{} card',
+                    'from the {C:attention}right{} card to the {C:attention}left{} card,',
+                    'then destroy the {C:attention}right{} card'
                 },
             },
             c_cracker_temperance = {
@@ -548,7 +549,7 @@ return {
             c_cracker_judgement = {
                 name = 'Judgement',
                 text = {
-                    'Destroys one random {C:attention}Joker{},',
+                    'Destroys the leftmost destructable {C:attention}Joker{},',
                     'creates a Joker of the same rarity with an {C:dark_edition}Edition',
                     '{C:inactive}(Does not require a destructable Joker)',
                 },

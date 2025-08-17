@@ -7,7 +7,8 @@ SMODS.ConsumableType{
         name = "Reverse Arcana",
         label = "Reverse Arcana",
     },
-    collection_rows = { 5, 6 }
+    collection_rows = { 5, 6 },
+    default = 'c_cracker_strength',
 }
 
 SMODS.Consumable{ -- The Fool
@@ -571,6 +572,7 @@ SMODS.Consumable{ -- Death
                 right:set_ability(G.P_CENTERS.c_base)
                 right:set_seal(nil, true, true)
                 right:set_edition(nil, true, true)
+                SMODS.destroy_cards(right)
                 return true
             end
         }))
@@ -935,7 +937,7 @@ SMODS.Consumable{ -- Judgement
         local edition = poll_edition("judgement", nil, false, true)
         if #destructable_jokers > 0 then
             destroyjoker = true
-            chosen_joker = pseudorandom_element(destructable_jokers, pseudoseed("judgement"))
+            chosen_joker = destructable_jokers[1]
             chosen_rarity = Cracker.base_rarities[chosen_joker.config.center.rarity] -- doesn't support custom rarities LMAO
         end
         G.E_MANAGER:add_event(Event{
