@@ -461,8 +461,9 @@ return {
             c_cracker_hermit = {
                 name = 'The Hermit',
                 text = {
-                    'Create an',
-                    '{C:attention}Interest Tag',
+                    'Gain {C:money}$#1#{},',
+                    'reduced by {C:money}$#2#{} for every {C:money}$#3#{} you have',
+                    '{C:inactive}(Currently {C:money}$#4#{C:inactive})',
                 },
             },
             c_cracker_wheel_of_fortune = {
@@ -592,17 +593,15 @@ return {
             m_cracker_multi = {
                 name = "Multi Card",
                 text = {
-                    "{C:mult}+#1#{} Mult,",
-                    "gains {C:mult}+#2#{} Mult",
-                    "when scored",
+                    "Adds {C:mult}+#2#{} Mult",
+                    "when scored, gain {C:mult}+#1#{} when applied",
                 },
             },
             m_cracker_sequenced = {
                 name = "Sequenced Card",
                 text = {
-                    "{C:chips}+#1#{} Chips,",
-                    "gains {C:chips}+#2#{} Chips",
-                    "when scored",
+                    "Adds {C:chips}+#2#{} Chips",
+                    "when scored, gain {C:chips}+#1#{} when applied",
                 },
             },
             m_cracker_mild = {

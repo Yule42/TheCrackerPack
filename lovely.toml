@@ -725,3 +725,20 @@ payload = '''
 (G.C.Cracker.Dissolve[self.ability.set] and {G.C.Cracker.Dissolve[self.ability.set]}) or
 '''
 match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "v.current_weight = v.get_weight and v:get_weight() or v.weight or 1"
+position = "after"
+match_indent = true
+payload = '''
+local test_deck = ((G.GAME.selected_back_key or {}).key == 'b_cracker_test')
+
+if test_deck then
+    if v.kind == "cracker_reverse_arcana" then
+        v.current_weight = v.current_weight * 5
+    end
+end
+'''

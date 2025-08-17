@@ -108,6 +108,30 @@ SMODS.Back{ -- Patchwork Deck
     end
 }
 
+SMODS.Back{ -- Test Deck
+    name = "Test Deck", 
+    key = "test",
+    
+    pos = {
+        x = 5,
+        y = 0,
+    },
+    atlas = 'Backs',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {}}
+    end,
+    
+    loc_txt = {
+        name = 'Test Deck',
+        text = {
+            'reverse arcana packs are {C:attention}x5{} more common yay',
+            '{C:inactive,s:1.25,E:1}why is this baby so bald'
+        }
+    },
+    
+}
+
 --[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then

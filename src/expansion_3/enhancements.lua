@@ -51,14 +51,15 @@ SMODS.Enhancement { -- Multi
     },
     
     config = {
-        mult = 1,
+        perma_mult = 1,
         extra = {
+            mult_base = 1,
             mult_add = 1,
         }
     },
     
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.mult, card.ability.extra.mult_add } }
+        return { vars = { card.ability.extra.mult_base, card.ability.extra.mult_add } }
     end,
     
     in_pool = function(self, args)
@@ -67,7 +68,7 @@ SMODS.Enhancement { -- Multi
     
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            card.ability.mult = card.ability.mult + card.ability.extra.mult_add
+            card.ability.perma_mult = card.ability.perma_mult + card.ability.extra.mult_add
             return {
                 extra = { message = localize('k_upgrade_ex'), colour = G.C.MULT },
                 card = card
@@ -85,14 +86,15 @@ SMODS.Enhancement { -- Sequenced
     },
     
     config = {
-        bonus = 10,
+        perma_bonus = 10,
         extra = {
+            bonus_base = 10,
             bonus_add = 3,
         }
     },
     
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.bonus, card.ability.extra.bonus_add } }
+        return { vars = { card.ability.extra.bonus_base, card.ability.extra.bonus_add } }
     end,
     
     in_pool = function(self, args)
@@ -101,7 +103,7 @@ SMODS.Enhancement { -- Sequenced
     
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
-            card.ability.bonus = card.ability.bonus + card.ability.extra.bonus_add
+            card.ability.perma_bonus = card.ability.perma_bonus + card.ability.extra.bonus_add
             return {
                 extra = { message = localize('k_upgrade_ex'), colour = G.C.CHIPS },
                 card = card

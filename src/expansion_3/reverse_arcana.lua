@@ -365,7 +365,9 @@ SMODS.Consumable{ -- Hermit
     key = 'hermit',
     config = {
         extra = {
-            tag = 'tag_cracker_interest',
+            max = 20,
+            reduction = 2,
+            reduction_breakpoints = 5,
         }
     },
     
@@ -378,8 +380,8 @@ SMODS.Consumable{ -- Hermit
     discovered = true,
     
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_TAGS.tag_cracker_interest
-        return {vars = {localize{type = 'name_text', key = card.ability.extra.tag, set = 'Tag'}}}
+        local current_money = math.max(0, card.ability.extra.max - math.floor(G.GAME.dollars/card.ability.extra.reduction_breakpoints) * card.ability.extra.reduction)
+        return {vars = {card.ability.extra.max, card.ability.extra.reduction, card.ability.extra.reduction_breakpoints, current_money}}
     end,
 
     can_use = function(self, card)
@@ -391,13 +393,13 @@ SMODS.Consumable{ -- Hermit
             trigger = 'after',
             delay = 0.4,
             func = function()
-                play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
-                play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
-                add_tag(Tag(card.ability.extra.tag))
+                play_sound('timpani')
                 card:juice_up(0.3, 0.5)
+                ease_dollars(math.max(0, card.ability.extra.max - math.floor(G.GAME.dollars/card.ability.extra.reduction_breakpoints) * card.ability.extra.reduction), true)
                 return true
             end
         }))
+        delay(0.6)
     end,
 }
 
