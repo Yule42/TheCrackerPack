@@ -594,14 +594,14 @@ return {
                 name = "Multi Card",
                 text = {
                     "Adds {C:mult}+#2#{} Mult",
-                    "when scored, gain {C:mult}+#1#{} when applied",
+                    "when scored,",
                 },
             },
             m_cracker_sequenced = {
                 name = "Sequenced Card",
                 text = {
                     "Adds {C:chips}+#2#{} Chips",
-                    "when scored, gain {C:chips}+#1#{} when applied",
+                    "when scored,",
                 },
             },
             m_cracker_mild = {
