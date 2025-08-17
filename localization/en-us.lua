@@ -564,6 +564,16 @@ return {
                 },
             },
         },
+        Spectral = {
+            c_cracker_rebirth = {
+                name = 'Rebirth',
+                text = {
+                    'Destroys the rightmost destructable {C:attention}Joker{},',
+                    'creates a {C:legendary,E:1}Legendary{} Joker with the same {C:dark_edition}Edition',
+                    '{C:inactive}(Does not require a destructable Joker)',
+                },
+            },
+        },
         Tag = {
             tag_cracker_interest = {
                 name = 'Interest Tag',

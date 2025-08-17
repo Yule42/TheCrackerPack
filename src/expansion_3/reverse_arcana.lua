@@ -912,7 +912,7 @@ SMODS.Consumable{ -- Judgement
     discovered = true,
     
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.destroy}}
+        return {vars = {}}
     end,
 
     can_use = function(self, card)
@@ -932,7 +932,6 @@ SMODS.Consumable{ -- Judgement
                 destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
             end
         end
-        local joker_to_destroy = pseudorandom_element(destructable_jokers, 'judgement')
         local destroyjoker = false
         local chosen_joker = nil
         local chosen_rarity = nil
@@ -1049,3 +1048,106 @@ SMODS.Consumable{ -- The World
     end,
 }
 
+SMODS.Consumable{ -- Rebirth
+    set = 'Spectral',
+    atlas = 'reversearcana',
+    key = 'rebirth',
+    config = {
+        extra = {
+        }
+    },
+    
+    pos = {
+        x = 2,
+        y = 2
+    },
+    
+    unlocked = true,
+    discovered = true,
+    hidden = true,
+    soul_set = 'reversetarot',
+    
+    loc_vars = function(self, info_queue, card)
+        return {vars = {}}
+    end,
+
+    can_use = function(self, card)
+        local destructable_jokers = {}
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
+                destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
+            end
+        end
+        return #destructable_jokers > 0 or (G.jokers and #G.jokers.cards < G.jokers.config.card_limit)
+    end,
+
+    use = function(self, card)
+        local destructable_jokers = {}
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
+                destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
+            end
+        end
+        local destroyjoker = false
+        local chosen_joker = nil
+        local chosen_rarity = nil
+        if #destructable_jokers > 0 then
+            destroyjoker = true
+            chosen_joker = destructable_jokers[#destructable_jokers]
+        end
+        G.E_MANAGER:add_event(Event{
+            trigger = 'after',
+            delay = 0.4,
+            func = function()
+                card:juice_up()
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card:juice_up(0.3, 0.4)
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            blockable = false,
+                            func = function()
+                                if destroyjoker then
+                                    G.jokers:remove_card(chosen_joker)
+                                    chosen_joker:remove()
+                                    SMODS.add_card{set = 'Joker', rarity = 4, edition = edition}
+                                else
+                                    SMODS.add_card{set = 'Joker', rarity = 4}
+                                end
+                                return true
+                            end
+                        }))
+                        return true
+                    end
+                }))
+
+                return true
+            end
+        })
+    end,
+}
+
+SMODS.DrawStep {
+    key = 'cracker_rebirth',
+    order = 50,
+    func = function(card)
+        if card.config.center.key == "c_cracker_rebirth" and (card.config.center.discovered or card.bypass_discovery_center) then
+            local scale_mod = 0.05 + 0.05 * math.sin(1.8 * G.TIMERS.REAL) +
+                0.07 * math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL)) * math.pi * 14) *
+                (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 3
+            local rotate_mod = 0.1 * math.sin(1.219 * G.TIMERS.REAL) +
+                0.07 * math.sin((G.TIMERS.REAL) * math.pi * 5) * (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 2 + math.pi
+
+            G.shared_soul.role.draw_major = card
+            G.shared_soul:draw_shader('dissolve', 0, nil, nil, card.children.center, scale_mod, rotate_mod, nil,
+                0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL), nil, 0.6)
+            G.shared_soul:draw_shader('dissolve', nil, nil, nil, card.children.center, scale_mod, rotate_mod)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
