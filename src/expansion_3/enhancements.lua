@@ -169,7 +169,7 @@ SMODS.Enhancement { -- Annealed
     config = {
         h_x_mult = 3,
         extra = {
-            odds = 2,
+            odds = 3,
         }
     },
     
