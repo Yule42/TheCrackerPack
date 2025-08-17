@@ -527,7 +527,7 @@ return {
                 name = 'The Star',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1# {V:1}#2#{} cards',
+                    '{C:attention}#1# random {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -535,7 +535,7 @@ return {
                 name = 'The Moon',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1# {V:1}#2#{} cards',
+                    '{C:attention}#1# random {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -543,7 +543,7 @@ return {
                 name = 'The Sun',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1# {V:1}#2#{} cards',
+                    '{C:attention}#1# random {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -559,7 +559,7 @@ return {
                 name = 'The World',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1# {V:1}#2#{} cards',
+                    '{C:attention}#1# random {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
