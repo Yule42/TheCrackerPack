@@ -132,6 +132,32 @@ SMODS.Back{ -- Test Deck
     
 }
 
+SMODS.Back{ -- Beethjak Deck
+    name = "Beethjak Deck", 
+    key = "beethjak",
+    
+    pos = {
+        x = 6,
+        y = 0,
+    },
+    atlas = 'Backs',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {}}
+    end,
+    
+    loc_txt = {
+        name = 'Beethjak Deck',
+        text = {
+            '{s:1.25,E:1}can i get the ',
+            '{s:1.25,E:1}deluxe burger meal',
+            '{s:1.25,E:1}with no cheese or tomato',
+            '{s:0.5}as a large'
+        }
+    },
+    
+}
+
 --[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then
