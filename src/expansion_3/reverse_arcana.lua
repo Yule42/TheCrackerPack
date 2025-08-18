@@ -1115,9 +1115,9 @@ SMODS.Consumable{ -- Rebirth
                                 if destroyjoker then
                                     G.jokers:remove_card(chosen_joker)
                                     chosen_joker:remove()
-                                    SMODS.add_card{set = 'Joker', rarity = 'Legendary', edition = edition}
+                                    SMODS.add_card{set = 'Joker', rarity = 4, edition = edition}
                                 else
-                                    SMODS.add_card{set = 'Joker', rarity = 'Legendary'}
+                                    SMODS.add_card{set = 'Joker', rarity = 4}
                                 end
                                 return true
                             end
