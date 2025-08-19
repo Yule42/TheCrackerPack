@@ -599,7 +599,7 @@ SMODS.Joker{ --Postman
     config = {
         extra = {
             mult = 0,
-            mult_add = 1,
+            mult_add = 2,
         }
     },
     pos = {
