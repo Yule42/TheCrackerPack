@@ -453,8 +453,8 @@ return {
             c_cracker_justice = {
                 name = 'Justice',
                 text = {
-                    "Enhances {C:attention}#1#{}",
-                    "selected cards to",
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
                     "{C:attention}#2#s",
                 },
             },
