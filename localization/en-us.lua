@@ -455,7 +455,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
-                    "{C:attention}#2#s",
+                    "{C:attention}#2#",
                 },
             },
             c_cracker_hermit = {
