@@ -47,8 +47,8 @@ function get_flush(hand)
   if #hand > 5 or #hand < (5 - (four_fingers and 1 or 0)) then return ret else
     local t = {}
     for i=1, #hand do
-      if hand[i]:get_id() > 10 and hand[i]:get_id() < 14 then contains_face = true; t[#t+1] = hand[i] end
-      if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end
+      if not contains_face then if hand[i]:is_face() then contains_face = true; t[#t+1] = hand[i] end end
+      if not contains_ace then if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end end
     end
     if contains_face and contains_ace and next(get_straight(hand, nil, true, true)) then
       table.insert(ret, t)
@@ -91,9 +91,8 @@ function G.FUNCS.get_poker_hand_info(_cards)
         local contains_face = false
         local contains_ace = false
         for j = 1, #scoring_hand do
-            local rank = SMODS.Ranks[scoring_hand[j].base.value]
-            contains_ace = contains_ace or rank.key == 'Ace'
-            contains_face = contains_face or rank.key == 'Jack' or rank.key == 'Queen' or rank.key == 'King'
+            if not contains_face then if scoring_hand[j]:is_face() then contains_face = true; end end
+            if not contains_ace then if scoring_hand[j]:get_id() == 14 then contains_ace = true; end end
         end
         if contains_ace and contains_face then
             disp_text = 'Royal Flush'
