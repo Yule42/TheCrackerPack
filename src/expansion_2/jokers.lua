@@ -578,7 +578,7 @@ SMODS.Joker{ --The Falcon
         elseif context.discard and #context.full_hand == 5 and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.0,
+                delay = 0.4,
                 func = function()
                     play_sound('tarot1')
                     card:juice_up(0.3, 0.5)
