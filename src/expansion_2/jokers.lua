@@ -531,7 +531,8 @@ SMODS.Joker{ --The Falcon
             destroyed = 1,
             FPS = 10,
             delay = 0,
-            x_pos = 0
+            x_pos = 0,
+            destroyed_cards = {},
         }
     },
     pos = {
@@ -563,7 +564,7 @@ SMODS.Joker{ --The Falcon
     
     calculate = function(self, card, context)
         if context.pre_discard and #context.full_hand == 5 then
-            local destroyed_cards = {}
+            card.ability.extra.destroyed_cards = {}
             local temp_hand = {}
             
             for _, playing_card in ipairs(context.full_hand) do temp_hand[#temp_hand + 1] = playing_card end
@@ -573,21 +574,21 @@ SMODS.Joker{ --The Falcon
                 end
             )
             pseudoshuffle(temp_hand, pseudoseed('falcon'))
-            for i = 1, card.ability.extra.destroyed do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
-            
+            for i = 1, card.ability.extra.destroyed do card.ability.extra.destroyed_cards[#card.ability.extra.destroyed_cards + 1] = temp_hand[i] end
+        elseif context.discard and #context.full_hand == 5 and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.4,
+                delay = 0.0,
                 func = function()
                     play_sound('tarot1')
                     card:juice_up(0.3, 0.5)
                     return true
                 end
             }))
-            SMODS.destroy_cards(destroyed_cards)
             return {
                 message = localize('k_discard_falcon'),
-                colour = G.C.FILTER
+                colour = G.C.FILTER,
+                remove = true,
             }
         end
     end
