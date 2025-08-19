@@ -111,7 +111,7 @@ SMODS.Joker{ --Snail
     config = {
         extra = {
             mult = 0,
-            mult_add = 3
+            mult_add = 2
         }
     },
     pos = {
