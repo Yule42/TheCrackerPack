@@ -20,6 +20,10 @@ assert(SMODS.load_file('src/expansion_3/enhancements.lua'))()
 assert(SMODS.load_file('src/expansion_3/editions.lua'))()
 assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
 
+if JokerDisplay then
+    assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
+end
+
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
 

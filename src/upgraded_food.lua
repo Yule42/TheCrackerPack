@@ -3,9 +3,9 @@ SMODS.Joker{ --Cybernana MK920
     key = "cybernana",
     config = {
         extra = {
-            xmult_add = 3,
+            x_mult_add = 3,
             odds = 10000,
-            xmult_current = 3,
+            x_mult = 3,
         }
     },
     pos = {
@@ -26,18 +26,19 @@ SMODS.Joker{ --Cybernana MK920
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult_add * G.GAME.food_multiplier, ''..((G.GAME and G.GAME.probabilities.normal or 1) * G.GAME.food_multiplier), card.ability.extra.odds, card.ability.extra.xmult_current}}
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Cybernana MK920')
+        return {vars = {card.ability.extra.x_mult_add * G.GAME.food_multiplier, new_numerator, new_denominator, card.ability.extra.x_mult}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult_current > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_current}},
-                Xmult_mod = card.ability.extra.xmult_current,
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                Xmult_mod = card.ability.extra.x_mult,
                 colour = G.C.RED
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if pseudorandom('Cybernana MK920') < G.GAME.probabilities.normal/card.ability.extra.odds then 
+            if SMODS.pseudorandom_probability(card, 'Cybernana MK920', 1, card.ability.extra.odds, 'Cybernana MK920') then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -58,7 +59,7 @@ SMODS.Joker{ --Cybernana MK920
                     message = localize('k_extinct_ex')
                 }
             else
-                card.ability.extra.xmult_current = card.ability.extra.xmult_current + card.ability.extra.xmult_add * G.GAME.food_multiplier
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add * G.GAME.food_multiplier
                 return {
                     message = "Safe!",
                     colour = G.C.RED
@@ -364,9 +365,9 @@ SMODS.Joker{ --Tsukemen
     key = "tsukemen",
     config = {
         extra = {
-            xmult = 2,
-            xmult_add = 0.1,
-            xmult_remove = 0.75,
+            x_mult = 2,
+            x_mult_add = 0.1,
+            x_mult_remove = 0.75,
         }
     },
     pos = {
@@ -389,26 +390,26 @@ SMODS.Joker{ --Tsukemen
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add * G.GAME.food_multiplier, card.ability.extra.xmult_remove * G.GAME.food_multiplier}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add * G.GAME.food_multiplier, card.ability.extra.x_mult_remove * G.GAME.food_multiplier}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                Xmult_mod = card.ability.extra.x_mult,
                 colour = G.C.RED
             }
         elseif context.discard and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add * G.GAME.food_multiplier
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add * G.GAME.food_multiplier
             return {
                 delay = 0.2,
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_add * G.GAME.food_multiplier}},
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult_add * G.GAME.food_multiplier}},
                 colour = G.C.RED
             }
         elseif context.after and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_remove * G.GAME.food_multiplier
-            if card.ability.extra.xmult <= 1 then
+            card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier
+            if card.ability.extra.x_mult <= 1 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -433,7 +434,7 @@ SMODS.Joker{ --Tsukemen
                 return {
                     card = card,
                     focus = card,
-                    message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.xmult_remove * G.GAME.food_multiplier}},
+                    message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.x_mult_remove * G.GAME.food_multiplier}},
                     colour = G.C.RED
                 }
             end

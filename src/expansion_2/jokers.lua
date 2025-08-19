@@ -154,8 +154,8 @@ SMODS.Joker{ --Prosopagnosia
     key = "prosopagnosia",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 0.08,
+            x_mult = 1,
+            x_mult_add = 0.08,
         }
     },
     pos = {
@@ -174,12 +174,12 @@ SMODS.Joker{ --Prosopagnosia
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.RED,
@@ -190,10 +190,10 @@ SMODS.Joker{ --Prosopagnosia
             if context.other_card:is_face() then
                 return { stay_flipped = true }
             end
-        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                Xmult_mod = card.ability.extra.x_mult,
                 colour = G.C.RED
             }
         end
@@ -436,8 +436,8 @@ SMODS.Joker{ --Ants
     key = "ants",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 1,
+            x_mult = 1,
+            x_mult_add = 1,
         }
     },
     pos = {
@@ -456,20 +456,20 @@ SMODS.Joker{ --Ants
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                Xmult_mod = card.ability.extra.x_mult,
                 colour = G.C.RED
             }
         elseif context.self_destroying_food_joker and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_add}},
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult_add}},
                 colour = G.C.MULT
             }
         end
@@ -481,8 +481,8 @@ SMODS.Joker{ --High Roller
     key = "highroller",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 0.5,
+            x_mult = 1,
+            x_mult_add = 0.5,
         }
     },
     pos = {
@@ -501,20 +501,20 @@ SMODS.Joker{ --High Roller
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
         if context.after then
-            card.ability.extra.xmult = 1
+            card.ability.extra.x_mult = 1
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if context.other_card.lucky_trigger and not context.blueprint then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             end
-            if card.ability.extra.xmult > 1 then
+            if card.ability.extra.x_mult > 1 then
                 return {
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                    Xmult_mod = card.ability.extra.xmult,
+                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
+                    Xmult_mod = card.ability.extra.x_mult,
                     colour = G.C.RED
                 }
             end
@@ -554,7 +554,7 @@ SMODS.Joker{ --The Falcon
     
     update = function(self, card, dt)
         if card.ability.extra.delay >= 1 / card.ability.extra.FPS then
-            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20
+            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20 -- 20 is the number of frames
             card.children.center:set_sprite_pos({x=card.ability.extra.x_pos,y=0})
             card.ability.extra.delay = 0
         end
