@@ -282,7 +282,7 @@ SMODS.Consumable{ -- Justice
         y = 0
     },
     config = { 
-        max_highlighted = 2, 
+        max_highlighted = 1,
         mod_conv = 'm_cracker_annealed'
     },
     
