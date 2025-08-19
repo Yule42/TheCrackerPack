@@ -129,10 +129,6 @@ JokerDisplay.Definitions.j_cracker_thedealer = {
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thedealer')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
-    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        if held_in_hand then return 0 end
-        return JokerDisplay.calculate_joker_triggers(joker_card)
-    end
 }
 JokerDisplay.Definitions.j_cracker_bomb = {
     reminder_text = {
@@ -220,4 +216,95 @@ JokerDisplay.Definitions.j_cracker_tsukemen = {
             }
         }
     },
+}
+JokerDisplay.Definitions.j_cracker_bluecard = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.CHIPS },
+}
+JokerDisplay.Definitions.j_cracker_violetcard = {
+    text = {
+        border_nodes = {
+            { text = "X" },
+            { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+        }
+    },
+}
+JokerDisplay.Definitions.j_cracker_indigocard = {
+    text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "odds" },
+        { text = ")" },
+    },
+    text_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'indigo')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end,
+}
+JokerDisplay.Definitions.j_cracker_pinkcard = {
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "h_size", colour = G.C.FILTER, retrigger_type = "mult" },
+    },
+    text_config = { colour = G.C.FILTER },
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] then
+            text.children[1].config.colour = card.joker_display_values.active and G.C.FILTER or
+                G.C.UI.TEXT_INACTIVE
+        end
+        return false
+    end,
+    calc_function = function(card)
+        card.joker_display_values.active = card.ability.extra.current_add > 0
+        card.joker_display_values.h_size = card.joker_display_values.active and ("+" .. (card.ability.extra.current_add and JokerDisplay.number_format(card.ability.extra.current_add) or 0)) or "-"
+    end,
+}
+JokerDisplay.Definitions.j_cracker_yellowcard = {
+    text = {
+        { text = "+$" },
+        { ref_table = "card.ability.extra", ref_value = "money" },
+    },
+    text_config = { colour = G.C.GOLD },
+}
+JokerDisplay.Definitions.j_cracker_blackcard = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "skips" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "skips_needed" },
+        { text = ")" },
+    },
+}
+JokerDisplay.Definitions.j_cracker_whitecard = {
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "tarot_count", colour = G.C.SECONDARY_SET.Tarot, retrigger_type = "mult" },
+    },
+    text_config = { colour = G.C.FILTER },
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] then
+            text.children[1].config.colour = card.joker_display_values.active and G.C.SECONDARY_SET.Tarot or
+                G.C.UI.TEXT_INACTIVE
+        end
+        return false
+    end,
+    calc_function = function(card)
+        card.joker_display_values.active = card.ability.extra.active
+        card.joker_display_values.tarot_count = card.joker_display_values.active and ("+" .. (G.consumeables.config.card_limit and JokerDisplay.number_format(G.consumeables.config.card_limit - #G.consumeables.cards) or 0)) or "-"
+    end,
+}
+JokerDisplay.Definitions.j_cracker_rainbowcard = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "active" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.active = card.ability.extra.active and localize("jdis_active") or localize("jdis_inactive")
+    end,
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        return joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
 }
