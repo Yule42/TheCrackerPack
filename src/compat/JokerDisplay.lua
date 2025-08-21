@@ -96,6 +96,16 @@ JokerDisplay.Definitions.j_cracker_sacramentalkatana = {
         }
     },
 }
+JokerDisplay.Definitions.j_cracker_lifesupport = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "active" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.active = G.GAME and G.GAME.current_round.hands_left <= 1 and localize("jdis_active") or localize("jdis_inactive")
+    end,
+}
 JokerDisplay.Definitions.j_cracker_curry = {
     text = {
         { text = "+" },
@@ -226,9 +236,11 @@ JokerDisplay.Definitions.j_cracker_bluecard = {
 }
 JokerDisplay.Definitions.j_cracker_violetcard = {
     text = {
-        border_nodes = {
-            { text = "X" },
-            { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+            }
         }
     },
 }
@@ -264,7 +276,7 @@ JokerDisplay.Definitions.j_cracker_pinkcard = {
 JokerDisplay.Definitions.j_cracker_yellowcard = {
     text = {
         { text = "+$" },
-        { ref_table = "card.ability.extra", ref_value = "money" },
+        { ref_table = "card.ability.extra", ref_value = "dollars" },
     },
     text_config = { colour = G.C.GOLD },
 }
@@ -307,4 +319,91 @@ JokerDisplay.Definitions.j_cracker_rainbowcard = {
         if held_in_hand then return 0 end
         return joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
+}
+JokerDisplay.Definitions.j_cracker_snail = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+}
+JokerDisplay.Definitions.j_cracker_prosopagnosia = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = localize("k_face_cards")
+    end
+}
+JokerDisplay.Definitions.j_cracker_shrimpcocktail = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "discards" },
+        { text = "D" },
+    },
+    text_config = { colour = G.C.MULT },
+}
+JokerDisplay.Definitions.j_cracker_hamburger = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "hands" },
+        { text = "H" },
+    },
+    text_config = { colour = G.C.CHIPS },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "discard_cards_left" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "discard_cards_required" },
+        { text = ")" },
+    },
+}
+JokerDisplay.Definitions.j_cracker_potatochips = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.CHIPS },
+}
+JokerDisplay.Definitions.j_cracker_ants = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+        }
+    },
+}
+JokerDisplay.Definitions.j_cracker_thefalcon = {
+    text = {
+        { ref_table = "card.joker_display_values", ref_value = "txt", colour = G.C.MULT },
+    },
+    calc_function = function(card)
+        card.joker_display_values.active = #G.hand.highlighted == 5
+        card.joker_display_values.txt = card.joker_display_values.active and "!" or "-"
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] then
+            text.children[1].config.colour = card.joker_display_values.active and G.C.MULT or G.C.UI.TEXT_INACTIVE
+        end
+        return false
+    end
+}
+JokerDisplay.Definitions.j_cracker_postman = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
 }
