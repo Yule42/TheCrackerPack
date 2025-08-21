@@ -112,6 +112,10 @@ SMODS.Back{ -- Test Deck
     name = "Test Deck", 
     key = "test",
     
+    config = {
+        joker_slot = 722
+    },
+    
     pos = {
         x = 5,
         y = 0,
