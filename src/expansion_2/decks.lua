@@ -113,7 +113,6 @@ SMODS.Back{ -- Test Deck
     key = "test",
     
     config = {
-        joker_slot = 722
     },
     
     pos = {
@@ -133,7 +132,6 @@ SMODS.Back{ -- Test Deck
             '{C:inactive,s:1.25,E:1}why is this baby so bald'
         }
     },
-    
 }
 
 --[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
