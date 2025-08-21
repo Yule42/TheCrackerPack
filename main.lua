@@ -1,5 +1,7 @@
 CrackerConfig = SMODS.current_mod.config
 
+-- region load files
+
 assert(SMODS.load_file('src/base_jokers.lua'))()
 if not CrackerConfig.disable_upgradedfood then
     assert(SMODS.load_file('src/upgraded_food.lua'))()
@@ -23,7 +25,6 @@ assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
 end
-
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
 
@@ -98,6 +99,8 @@ SMODS.Atlas{
     py = 95
 }
 
+-- region declare variables
+
 G.C.Cracker = {}
 G.C.Cracker.reversetarot = HEX("845baa")
 G.C.Cracker.Dissolve = {
@@ -114,6 +117,13 @@ Cracker.vanilla_food = {
   j_ramen = true,
   j_selzer = true,
   j_egg = true,
+}
+
+Cracker.base_rarities = {
+  "Common",
+  "Uncommon",
+  "Rare",
+  "Legendary"
 }
 
 -- Initialize pool of food jokers if it doesn't exist already, which may be created by other mods.
@@ -134,13 +144,7 @@ if not SMODS.ObjectTypes.Food then
   }
 end
 
-Cracker.base_rarities = {
-  "Common",
-  "Uncommon",
-  "Rare",
-  "Legendary"
-}
-
+-- region declare functions
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
     if not G.GAME or not G.GAME.current_round then 
         return 'High Card'
@@ -203,27 +207,6 @@ function Cracker.is_in_array(key, current_index, array)
     return false
 end
 
-local cref = set_consumeable_usage
-function set_consumeable_usage(card)
-    if card.config.center_key and card.ability.consumeable and card.config.center.set == 'Spectral' and not card.config.center.hidden then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = function()
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                        G.GAME.last_spectral = card.config.center_key
-                        return true
-                    end
-                }))
-                return true
-            end
-        }))
-    end
-    return cref(card)
-end
-
-
 -- Code modified from Paperback 
 ---@param card table | string a center key or a card
 ---@return boolean
@@ -245,6 +228,28 @@ function Cracker.is_food(card)
     end
 end
 
+-- Tailsman Compat (fake)
+
+to_big = to_big or function(x)
+  return x
+end
+
+to_number = to_number or function(n)
+  return n
+end
+
+
+
+-- region Hooks
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+    local ret = igo(self)
+    ret.food_multiplier = 1
+    
+    return ret
+end
+
 local remove_ref = Card.remove
 function Card.remove(self)
     if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and not self.getting_sliced and Cracker.is_food(self.config.center_key) then
@@ -257,26 +262,27 @@ function Card.remove(self)
     return remove_ref(self)
 end
 
--- Tailsman Compat (fake)
-
-to_big = to_big or function(x)
-  return x
+local cref = set_consumeable_usage
+function set_consumeable_usage(card)
+    if card.config.center_key and card.ability.consumeable and card.config.center.set == 'Spectral' and not card.config.center.hidden then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        G.GAME.last_spectral = card.config.center_key
+                        return true
+                    end
+                }))
+                return true
+            end
+        }))
+    end
+    return cref(card)
 end
 
-to_number = to_number or function(n)
-  return n
-end
-
---
-
-local igo = Game.init_game_object
-Game.init_game_object = function(self)
-    local ret = igo(self)
-    ret.food_multiplier = 1
-    
-    return ret
-end
-
+-- extra tabs
 SMODS.current_mod.extra_tabs = function() --Credits
     local scale = 0.4
     return {
