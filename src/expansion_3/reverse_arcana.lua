@@ -309,6 +309,9 @@ SMODS.Consumable{ -- The Wheel of Fortune
         }
     },
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_laminated
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_sleeved
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_crystalline
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'wheel_of_fortune')
         return { vars = { numerator, denominator } }
     end,
