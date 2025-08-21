@@ -59,7 +59,7 @@ SMODS.Enhancement { -- Multi
     },
     
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult_base, card.ability.extra.mult_add } }
+        return { vars = { card.ability.extra.mult_base, card.ability.extra.mult_add }, key = card.fake_card and "m_cracker_multi_alt" or nil }
     end,
     
     in_pool = function(self, args)
@@ -94,7 +94,7 @@ SMODS.Enhancement { -- Sequenced
     },
     
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.bonus_base, card.ability.extra.bonus_add } }
+        return { vars = { card.ability.extra.bonus_base, card.ability.extra.bonus_add }, key = card.fake_card and "m_cracker_sequenced_alt" or nil }
     end,
     
     in_pool = function(self, args)

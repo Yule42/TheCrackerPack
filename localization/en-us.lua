@@ -607,11 +607,27 @@ return {
                     "when scored,",
                 },
             },
+            m_cracker_multi_alt = {
+                name = "Multi Card",
+                text = {
+                    "Adds {C:mult}+#2#{} Mult",
+                    "when scored,",
+                    "{C:mult}+#1#{} extra Mult"
+                },
+            },
             m_cracker_sequenced = {
                 name = "Sequenced Card",
                 text = {
-                    "Adds {C:chips}+#2#{} Chips",
+                    "Adds {C:chips}+#2#{} chips",
                     "when scored,",
+                },
+            },
+            m_cracker_sequenced_alt = {
+                name = "Sequenced Card",
+                text = {
+                    "Adds {C:chips}+#2#{} chips",
+                    "when scored,",
+                    "{C:chips}+#1#{} extra chips"
                 },
             },
             m_cracker_mild = {
