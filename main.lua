@@ -2,7 +2,7 @@ CrackerConfig = SMODS.current_mod.config
 
 -- region smods settings
 
-CrackerConfig.marquee = false
+SMODS.current_mod.no_marquee = true
 
 -- region load files
 
