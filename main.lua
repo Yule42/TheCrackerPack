@@ -1,5 +1,9 @@
 CrackerConfig = SMODS.current_mod.config
 
+-- region smods settings
+
+CrackerConfig.marquee = false
+
 -- region load files
 
 assert(SMODS.load_file('src/base_jokers.lua'))()
