@@ -49,10 +49,9 @@ return {
                 name = 'Gambler\'s Deck',
                 text = {
                     'When money is gained,',
-                    '{C:green}1 in #1#{} chance to double',
+                    '{C:green}#1# in #2#{} chance to double',
                     'the amount of money gained,',
-                    '{C:green}1 in #2#{} chance to lose it instead',
-                    '{C:inactive}(Unmodifiable probabilities)',
+                    '{C:green}#3# in #4#{} chance to half it instead',
                 }
             },
         },
