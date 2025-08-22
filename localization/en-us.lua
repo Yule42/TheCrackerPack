@@ -45,6 +45,16 @@ return {
                     '{C:attention}-1{} card slot',
                 }
             },
+            b_cracker_gambler = {
+                name = 'Gambler\'s Deck',
+                text = {
+                    'When money is gained,',
+                    '{C:green}1 in #1#{} chance to double',
+                    'the amount of money gained,',
+                    '{C:green}1 in #2#{} chance to lose it instead',
+                    '{C:inactive}(Unmodifiable probabilities)',
+                }
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
@@ -1000,6 +1010,7 @@ return {
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
             k_discard_falcon='Clawed!',
+            k_winner='Winner!',
             jdis_before='Before',
         },
         v_dictionary = {

@@ -134,6 +134,50 @@ SMODS.Back{ -- Test Deck
     },
 }
 
+SMODS.Back{ -- Gambling Deck
+    name = "Gambler's Deck", 
+    key = "gambler",
+    
+    config = {
+        odds_double = 4,
+        odds_no_money = 4,
+        already_triggered = false
+    },
+    
+    pos = {
+        x = 4,
+        y = 0,
+    },
+    atlas = 'Backs',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {self.config.odds_double, self.config.odds_no_money}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.money_altered and context.amount > 0 and not self.config.already_triggered then
+            self.config.already_triggered = true -- prevent this joker from triggering from itself
+            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true) then
+                ease_dollars(context.amount, true)
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_winner')
+                }
+            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true) then
+                ease_dollars(-context.amount, true)
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_nope_ex')
+                }
+            end
+            self.config.already_triggered = false
+        end
+    end,
+    apply = function(self, back)
+        G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) - 4
+    end
+}
+
 --[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then
