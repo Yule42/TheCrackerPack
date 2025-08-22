@@ -1094,9 +1094,11 @@ SMODS.Consumable{ -- Rebirth
         local destroyjoker = false
         local chosen_joker = nil
         local chosen_rarity = nil
+        local edition = nil
         if #destructable_jokers > 0 then
             destroyjoker = true
             chosen_joker = destructable_jokers[#destructable_jokers]
+            edition = chosen_joker.edition
         end
         G.E_MANAGER:add_event(Event{
             trigger = 'after',
