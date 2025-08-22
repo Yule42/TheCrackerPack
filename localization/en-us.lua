@@ -76,10 +76,10 @@ return {
             j_cracker_lifesupport = {
                 name = 'Life Support',
                 text = {
-                    'Activates upon Death',
-                    'When active, {C:inactive}debuffs{} {C:attention}all cards in deck{}',
-                    'and prevents Death for the next {C:attention}#1#{} rounds',
-                    '{C:inactive}(Skipping reduces rounds)',
+                    'On {C:attention}final hand{} of the round,',
+                    'sets money to {C:money}$0{} and',
+                    '{C:mult}Mult{} and {C:chips}Chips{} to the higher value',
+                    '{S:1.1,C:red,E:2}Self destructs{}'
                 }
             },
             j_cracker_curry = {
@@ -343,7 +343,7 @@ return {
             k_eaten_barrel="Emptied!",
             k_bomb_explode='Boom!',
             k_used_lifesupport='Beep!',
-            k_saved_lifesupport="Saved by Life Support",
+            k_maximized='Maximized!',
         },
         v_dictionary = {
             a_money="+$#1#",
