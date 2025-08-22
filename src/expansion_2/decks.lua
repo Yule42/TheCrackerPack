@@ -173,9 +173,6 @@ SMODS.Back{ -- Gambling Deck
             self.config.already_triggered = false
         end
     end,
-    apply = function(self, back)
-        G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) - 4
-    end
 }
 
 --[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
