@@ -30,7 +30,7 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)',
                 }
             },
-            j_cracker_thriftyjoker = {
+            j_cracker_thrifty_joker = {
                 name = 'Thrifty Joker',
                 text = {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',

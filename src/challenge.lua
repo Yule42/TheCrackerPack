@@ -28,14 +28,10 @@ if nonperishable then
     table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_cheese'})
     table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_crackerbarrel'})
     table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_curry'})
-    table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_potatochips'})
-    table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_shrimpcocktail'})
-    table.insert(nonperishable.restrictions.banned_cards, 8, {id = 'j_cracker_hamburger'})
 end
 
 if blastoff then
     table.insert(blastoff.restrictions.banned_cards, {id = 'j_cracker_knifethrower'})
-    table.insert(blastoff.restrictions.banned_cards, {id = 'j_cracker_hamburger'})
 end
 
 if fivecard then
@@ -46,7 +42,6 @@ end
 
 if goldenneedle then
     table.insert(goldenneedle.restrictions.banned_cards, {id = 'j_cracker_knifethrower'})
-    table.insert(goldenneedle.restrictions.banned_cards, {id = 'j_cracker_hamburger'})
 end
 
 SMODS.Challenge{
