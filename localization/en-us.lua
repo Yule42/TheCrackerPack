@@ -54,6 +54,15 @@ return {
                     '{C:green}#3# in #4#{} chance to half it instead',
                 }
             },
+            b_cracker_gambler2 = {
+                name = 'Gambler\'s Deck Part 2: Revenge of Stuff',
+                text = {
+                    'When money is gained,',
+                    '{C:green}#1# in #2#{} chance to double',
+                    'money currently owned,',
+                    '{C:green}#3# in #4#{} chance to half it instead',
+                }
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
