@@ -368,7 +368,7 @@ SMODS.Consumable{ -- Hermit
     key = 'hermit',
     config = {
         extra = {
-            max = 20,
+            max = 30,
             reduction = 2,
             reduction_breakpoints = 5,
         }
