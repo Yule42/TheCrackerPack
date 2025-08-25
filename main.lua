@@ -25,6 +25,7 @@ assert(SMODS.load_file('src/expansion_3/tags.lua'))()
 assert(SMODS.load_file('src/expansion_3/enhancements.lua'))()
 assert(SMODS.load_file('src/expansion_3/editions.lua'))()
 assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
+assert(SMODS.load_file('src/expansion_3/jokers.lua'))()
 
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()

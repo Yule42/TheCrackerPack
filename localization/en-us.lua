@@ -402,6 +402,13 @@ return {
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
                 },
             },
+            j_cracker_student = {
+                name = 'Student',
+                text = {
+                    '{C:attention}Multi{} and {C:attention}Sequenced{}',
+                    'cards are retriggered',
+                },
+            },
         },
         reversetarot = {
             c_cracker_fool = {
