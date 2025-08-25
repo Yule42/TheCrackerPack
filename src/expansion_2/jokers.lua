@@ -500,6 +500,7 @@ SMODS.Joker{ --High Roller
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
@@ -548,7 +549,7 @@ SMODS.Joker{ --The Falcon
     atlas = 'falcon',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari', 'palestjade'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.discard_size, card.ability.extra.destroyed}}
     end,
     
@@ -616,7 +617,7 @@ SMODS.Joker{ --Postman
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'None'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
     end,
     
