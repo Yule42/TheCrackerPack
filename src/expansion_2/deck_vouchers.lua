@@ -7,6 +7,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -34,6 +39,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -61,6 +71,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -87,6 +102,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -115,6 +135,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -144,6 +169,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -208,6 +238,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -255,6 +290,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -294,6 +334,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -332,6 +377,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -363,6 +413,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -412,6 +467,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -438,6 +498,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -472,6 +537,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 20,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -497,6 +567,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -575,6 +650,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -624,6 +704,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -673,6 +758,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 20,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
@@ -698,6 +788,11 @@ SMODS.Voucher {
     unlocked = true,
     discovered = true,
     cost = 20,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
     atlas = 'pw_vouchers',
     config = {
         extra = {
