@@ -158,7 +158,7 @@ SMODS.Back{ -- Gambling Deck
     
     calculate = function(self, card, context)
         if context.money_altered and context.amount > 0 and not self.config.already_triggered then
-            self.config.already_triggered = true -- prevent this joker from triggering from itself
+            self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
             if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck') then
                 ease_dollars(context.amount)
                 self.config.already_triggered = false
@@ -201,7 +201,7 @@ SMODS.Back{ -- I'm afraid.
     
     calculate = function(self, card, context)
         if context.money_altered and context.amount > 0 and not self.config.already_triggered then
-            self.config.already_triggered = true -- prevent this joker from triggering from itself
+            self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
             if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck') then
                 ease_dollars(G.GAME.dollars)
                 self.config.already_triggered = false
