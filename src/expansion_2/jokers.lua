@@ -501,7 +501,6 @@ SMODS.Joker{ --High Roller
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
         return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
     end,
