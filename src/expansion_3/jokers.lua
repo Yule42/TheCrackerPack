@@ -22,7 +22,7 @@ SMODS.Joker{ --Student
     in_pool = function(self, args)
         for k, v in pairs(G.playing_cards) do
             if v.config.center.key == 'm_cracker_multi' or v.config.center.key == 'm_cracker_sequenced' then
-                add = true
+                return true
             end
         end
     end,
