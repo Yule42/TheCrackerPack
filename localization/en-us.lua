@@ -611,7 +611,7 @@ return {
                 name = 'Curse Tag',
                 text = {
                     'Gives a free',
-                    '{C:reverse_arcana}Rcana Pack',
+                    '{C:reverse_arcana}Mega R-cana Pack',
                 },
             },
         },
@@ -663,7 +663,7 @@ return {
                 },
             },
             m_cracker_scrap_metal = {
-                name = "Scrap Metal Card",
+                name = "Scrap Card",
                 text = {
                     "{X:mult,C:white} X#1#{} Mult"
                 },
@@ -947,7 +947,7 @@ return {
                 }
             },
             p_cracker_reverse_arcana_jumbo_1 = {
-                name = "Jumbo Rcana Pack",
+                name = "Jumbo R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -955,7 +955,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_jumbo_2 = {
-                name = "Jumbo Rcana Pack",
+                name = "Jumbo R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -963,7 +963,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_mega_1 = {
-                name = "Mega Rcana Pack",
+                name = "Mega R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -971,7 +971,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_mega_2 = {
-                name = "Mega Rcana Pack",
+                name = "Mega R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -979,7 +979,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_normal_1 = {
-                name = "Rcana Pack",
+                name = "R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -987,7 +987,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_normal_2 = {
-                name = "Rcana Pack",
+                name = "R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -995,7 +995,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_normal_3 = {
-                name = "Rcana Pack",
+                name = "R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -1003,7 +1003,7 @@ return {
                 },
             },
             p_cracker_reverse_arcana_normal_4 = {
-                name = "Rcana Pack",
+                name = "R-cana Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
@@ -1014,9 +1014,9 @@ return {
     },
     misc = {
         dictionary = {
-            reverse_arcana_pack = 'Rcana Pack',
-            reverse_arcana_pack_2 = 'Jumbo Rcana Pack',
-            reverse_arcana_pack_3 = 'Mega Rcana Pack',
+            reverse_arcana_pack = 'R-cana Pack',
+            reverse_arcana_pack_2 = 'Jumbo R-cana Pack',
+            reverse_arcana_pack_3 = 'Mega R-cana Pack',
             k_inactive="inactive",
             k_inactive_ex="Inactive...",
             k_eaten_crumble="Crumbled!",

@@ -140,7 +140,7 @@ SMODS.Enhancement { -- Mild
     end,
 }
 
-SMODS.Enhancement { -- Scrap Metal
+SMODS.Enhancement { -- Scrap
     key = 'scrap_metal',
     atlas = 'enhancements',
     pos = {
