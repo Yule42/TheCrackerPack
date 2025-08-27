@@ -61,6 +61,7 @@ return {
                     '{C:green}#1# in #2#{} chance to double',
                     'money currently owned,',
                     '{C:green}#3# in #4#{} chance to half it instead',
+                    '{C:inactive}(Odds cannot change)',
                 }
             },
         },
