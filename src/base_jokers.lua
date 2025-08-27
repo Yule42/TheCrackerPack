@@ -15,7 +15,7 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
-    cost = 5,
+    cost = 4,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
