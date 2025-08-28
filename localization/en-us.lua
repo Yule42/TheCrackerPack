@@ -410,6 +410,14 @@ return {
                     'cards are retriggered',
                 },
             },
+            j_cracker_silver_coin = {
+                name = 'Silver Coin',
+                text = {
+                    ':C:attention}Silver Cards{} give {C:money}$#1#{}',
+                    'when held in hand',
+                    'at end of round',
+                },
+            },
         },
         reversetarot = {
             c_cracker_fool = {

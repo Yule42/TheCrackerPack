@@ -407,3 +407,29 @@ JokerDisplay.Definitions.j_cracker_postman = {
     },
     text_config = { colour = G.C.MULT },
 }
+JokerDisplay.Definitions.j_cracker_student = {
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        if held_in_hand then return 0 end
+        return playing_card.config.center.key == 'm_cracker_sequenced' or playing_card.config.center.key == 'm_cracker_multi' and JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
+}
+
+JokerDisplay.Definitions.j_cracker_silver_coin = {
+    text = {
+        { text = "$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.GOLD },
+    calc_function = function(card)
+        local playing_hand = next(G.play.cards)
+        local count = 0
+        for _, playing_card in ipairs(G.hand.cards) do
+            if playing_hand or not playing_card.highlighted then
+                if not (playing_card.facing == 'back') and not playing_card.debuff and playing_card.config.center.key == 'm_cracker_silver' then
+                    count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                end
+            end
+        end
+        card.joker_display_values.dollars = card.ability.extra.dollars * count
+    end
+}
