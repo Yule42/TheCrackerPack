@@ -413,10 +413,19 @@ return {
             j_cracker_silver_coin = {
                 name = 'Silver Coin',
                 text = {
-                    ':C:attention}Silver Cards{} give {C:money}$#1#{}',
+                    '{C:attention}Silver Cards{} give {C:money}$#1#{}',
                     'when held in hand',
                     'at end of round',
                 },
+            },
+            j_cracker_multijoker = {
+                name = 'Multijoker',
+                text = {
+                    'Gives {C:mult}+#1#{} Mult',
+                    'for each {C:attention}Mult Card',
+                    'in your {C:attention}full deck',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
+                }
             },
         },
         reversetarot = {
@@ -615,7 +624,7 @@ return {
                     'End of round {C:attention}interest',
                     'is {C:attention}uncapped{} next round',
                 },
-            },
+            },    
             tag_cracker_curse = {
                 name = 'Curse Tag',
                 text = {

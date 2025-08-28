@@ -83,3 +83,50 @@ SMODS.Joker{ --Silver Coin
         end
     end
 }
+
+SMODS.Joker{ --Multijoker
+    name = "Multijoker",
+    key = "multijoker",
+    config = {
+        extra = {
+            mult = 4,
+        }
+    },
+    pos = {
+        x = 2,
+        y = 4,
+    },
+    cost = 6,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_mult',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'eternalqueenmelori'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
+        local mult_count = 0
+        if G.playing_cards then
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_mult') then mult_count = mult_count + 1 end
+            end
+        end
+        return {vars = {card.ability.extra.mult, mult_count * card.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local mult_count = 0
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_mult') then mult_count = mult_count + 1 end
+            end
+            return {
+                mult = card.ability.extra.mult * mult_count,
+            }
+        end
+    end
+}

@@ -413,7 +413,6 @@ JokerDisplay.Definitions.j_cracker_student = {
         return playing_card.config.center.key == 'm_cracker_sequenced' or playing_card.config.center.key == 'm_cracker_multi' and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
-
 JokerDisplay.Definitions.j_cracker_silver_coin = {
     text = {
         { text = "$" },
@@ -431,5 +430,21 @@ JokerDisplay.Definitions.j_cracker_silver_coin = {
             end
         end
         card.joker_display_values.dollars = card.ability.extra.dollars * count
+    end
+}
+JokerDisplay.Definitions.j_cracker_multijoker = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+    calc_function = function(card)
+        local mult_count = 0
+        if G.playing_cards then
+            for _, playing_card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(playing_card, 'm_mult') then mult_count = mult_count + 1 end
+            end
+        end
+        card.joker_display_values.mult = card.ability.extra.mult * mult_count
     end
 }
