@@ -74,9 +74,7 @@ SMODS.Joker{ --Blue Card
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 1 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips,
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         elseif context.taking_booster_card and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add, 0
@@ -133,9 +131,7 @@ SMODS.Joker{ --Violet Card
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.skipping_booster and not context.blueprint then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add

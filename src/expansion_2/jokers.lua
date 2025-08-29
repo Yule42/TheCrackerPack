@@ -134,9 +134,7 @@ SMODS.Joker{ --Snail
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
+                mult = card.ability.extra.mult, 
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
@@ -191,9 +189,7 @@ SMODS.Joker{ --Prosopagnosia
             end
         elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         end
     end
@@ -396,9 +392,7 @@ SMODS.Joker{ --Potato Chips
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual and G.GAME.current_round.hands_played == 1 then
             if card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier <= 0 then 
@@ -464,9 +458,7 @@ SMODS.Joker{ --Ants
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.self_destroying_food_joker and context.cardarea == G.jokers and not context.blueprint then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
@@ -516,9 +508,7 @@ SMODS.Joker{ --High Roller
             end
             if card.ability.extra.x_mult > 1 then
                 return {
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                    Xmult_mod = card.ability.extra.x_mult,
-                    colour = G.C.RED
+                    xmult = card.ability.extra.x_mult,
                 }
             end
         end
@@ -627,9 +617,7 @@ SMODS.Joker{ --Postman
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult,
-                colour = G.C.MULT
+                mult = card.ability.extra.mult,
             }
         elseif context.seal_trigger and not context.blueprint then
             card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize('k_upgrade_ex')})

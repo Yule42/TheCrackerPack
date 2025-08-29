@@ -33,9 +33,7 @@ SMODS.Joker{ --Cybernana MK920
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if SMODS.pseudorandom_probability(card, 'Cybernana MK920', 1, card.ability.extra.odds, 'Cybernana MK920') then 
@@ -104,9 +102,7 @@ SMODS.Joker{ --Buttered Popcorn
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 1 then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult,
-                colour = G.C.RED
+                mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier
@@ -176,9 +172,7 @@ SMODS.Joker{ --Sundae
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 1 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips,
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         elseif context.after and not context.blueprint and not context.repetition then
             card.ability.extra.chips = card.ability.extra.chips - (card.ability.extra.chips_remove * G.GAME.food_multiplier)
@@ -396,9 +390,7 @@ SMODS.Joker{ --Tsukemen
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.discard and not context.blueprint then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add * G.GAME.food_multiplier
