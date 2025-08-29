@@ -74,9 +74,7 @@ SMODS.Joker{ --Blue Card
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 1 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips,
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         elseif context.taking_booster_card and not context.blueprint then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add, 0
@@ -108,8 +106,8 @@ SMODS.Joker{ --Violet Card
     key = "violetcard",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 0.15,
+            x_mult = 1,
+            x_mult_add = 0.15,
         }
     },
     pos = {
@@ -127,22 +125,20 @@ SMODS.Joker{ --Violet Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.skipping_booster and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             G.E_MANAGER:add_event(Event({
                 func = function() 
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}},
+                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}},
                         colour = G.C.RED,
                         delay = 0.45, 
                         card = card
@@ -516,6 +512,7 @@ SMODS.Joker{ --White Card
 
     loc_vars = function(self, info_queue, card)
         local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        info = nil
         if has_message then
             local active = card.ability.extra.active
             info = {
@@ -598,6 +595,7 @@ SMODS.Joker{ --Rainbow Card
 
     loc_vars = function(self, info_queue, card)
         local has_message = (G.GAME and card.area and (card.area == G.jokers))
+        info = nil
         if has_message then
             local active = card.ability.extra.active
             info = {

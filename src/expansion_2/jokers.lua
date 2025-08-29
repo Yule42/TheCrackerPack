@@ -47,8 +47,8 @@ function get_flush(hand)
   if #hand > 5 or #hand < (5 - (four_fingers and 1 or 0)) then return ret else
     local t = {}
     for i=1, #hand do
-      if hand[i]:get_id() > 10 and hand[i]:get_id() < 14 then contains_face = true; t[#t+1] = hand[i] end
-      if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end
+      if not contains_face then if hand[i]:is_face() then contains_face = true; t[#t+1] = hand[i] end end
+      if not contains_ace then if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end end
     end
     if contains_face and contains_ace and next(get_straight(hand, nil, true, true)) then
       table.insert(ret, t)
@@ -91,9 +91,8 @@ function G.FUNCS.get_poker_hand_info(_cards)
         local contains_face = false
         local contains_ace = false
         for j = 1, #scoring_hand do
-            local rank = SMODS.Ranks[scoring_hand[j].base.value]
-            contains_ace = contains_ace or rank.key == 'Ace'
-            contains_face = contains_face or rank.key == 'Jack' or rank.key == 'Queen' or rank.key == 'King'
+            if not contains_face then if scoring_hand[j]:is_face() then contains_face = true; end end
+            if not contains_ace then if scoring_hand[j]:get_id() == 14 then contains_ace = true; end end
         end
         if contains_ace and contains_face then
             disp_text = 'Royal Flush'
@@ -135,9 +134,7 @@ SMODS.Joker{ --Snail
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.MULT
+                mult = card.ability.extra.mult, 
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
@@ -154,8 +151,8 @@ SMODS.Joker{ --Prosopagnosia
     key = "prosopagnosia",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 0.08,
+            x_mult = 1,
+            x_mult_add = 0.08,
         }
     },
     pos = {
@@ -174,12 +171,12 @@ SMODS.Joker{ --Prosopagnosia
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.RED,
@@ -190,11 +187,9 @@ SMODS.Joker{ --Prosopagnosia
             if context.other_card:is_face() then
                 return { stay_flipped = true }
             end
-        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         end
     end
@@ -328,6 +323,9 @@ SMODS.Joker{ --Hamburger
                 ease_hands_played(-math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier))
                 card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
                 G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+                if G.GAME.current_round.hands_left < 1 then
+                    G.GAME.current_round.hands_left = 1
+                end
                 if card.ability.extra.hands <= 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -394,9 +392,7 @@ SMODS.Joker{ --Potato Chips
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual and G.GAME.current_round.hands_played == 1 then
             if card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier <= 0 then 
@@ -436,8 +432,8 @@ SMODS.Joker{ --Ants
     key = "ants",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 1,
+            x_mult = 1,
+            x_mult_add = 1,
         }
     },
     pos = {
@@ -456,20 +452,18 @@ SMODS.Joker{ --Ants
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.self_destroying_food_joker and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_add}},
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult_add}},
                 colour = G.C.MULT
             }
         end
@@ -481,8 +475,8 @@ SMODS.Joker{ --High Roller
     key = "highroller",
     config = {
         extra = {
-            xmult = 1,
-            xmult_add = 0.5,
+            x_mult = 1,
+            x_mult_add = 0.5,
         }
     },
     pos = {
@@ -502,21 +496,19 @@ SMODS.Joker{ --High Roller
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_add}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
         if context.after then
-            card.ability.extra.xmult = 1
+            card.ability.extra.x_mult = 1
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if context.other_card.lucky_trigger and not context.blueprint then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_add
+                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
             end
-            if card.ability.extra.xmult > 1 then
+            if card.ability.extra.x_mult > 1 then
                 return {
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                    Xmult_mod = card.ability.extra.xmult,
-                    colour = G.C.RED
+                    xmult = card.ability.extra.x_mult,
                 }
             end
         end
@@ -532,7 +524,8 @@ SMODS.Joker{ --The Falcon
             destroyed = 1,
             FPS = 10,
             delay = 0,
-            x_pos = 0
+            x_pos = 0,
+            destroyed_cards = {},
         }
     },
     pos = {
@@ -555,7 +548,7 @@ SMODS.Joker{ --The Falcon
     
     update = function(self, card, dt)
         if card.ability.extra.delay >= 1 / card.ability.extra.FPS then
-            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20
+            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 20 -- 20 is the number of frames
             card.children.center:set_sprite_pos({x=card.ability.extra.x_pos,y=0})
             card.ability.extra.delay = 0
         end
@@ -564,7 +557,7 @@ SMODS.Joker{ --The Falcon
     
     calculate = function(self, card, context)
         if context.pre_discard and #context.full_hand == 5 then
-            local destroyed_cards = {}
+            card.ability.extra.destroyed_cards = {}
             local temp_hand = {}
             
             for _, playing_card in ipairs(context.full_hand) do temp_hand[#temp_hand + 1] = playing_card end
@@ -574,8 +567,8 @@ SMODS.Joker{ --The Falcon
                 end
             )
             pseudoshuffle(temp_hand, pseudoseed('falcon'))
-            for i = 1, card.ability.extra.destroyed do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
-            
+            for i = 1, card.ability.extra.destroyed do card.ability.extra.destroyed_cards[#card.ability.extra.destroyed_cards + 1] = temp_hand[i] end
+        elseif context.discard and #context.full_hand == 5 and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -585,10 +578,10 @@ SMODS.Joker{ --The Falcon
                     return true
                 end
             }))
-            SMODS.destroy_cards(destroyed_cards)
             return {
                 message = localize('k_discard_falcon'),
-                colour = G.C.FILTER
+                colour = G.C.FILTER,
+                remove = true,
             }
         end
     end
@@ -600,7 +593,7 @@ SMODS.Joker{ --Postman
     config = {
         extra = {
             mult = 0,
-            mult_add = 1,
+            mult_add = 2,
         }
     },
     pos = {
@@ -624,9 +617,7 @@ SMODS.Joker{ --Postman
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult,
-                colour = G.C.MULT
+                mult = card.ability.extra.mult,
             }
         elseif context.seal_trigger and not context.blueprint then
             card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize('k_upgrade_ex')})

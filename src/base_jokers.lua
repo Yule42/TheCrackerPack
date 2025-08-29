@@ -15,7 +15,7 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
-    cost = 5,
+    cost = 4,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
@@ -62,9 +62,7 @@ SMODS.Joker{ --Saltine Cracker
         
         elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips, 
             }
         end
     end
@@ -147,11 +145,11 @@ SMODS.Joker{ --Graham Cracker
     key = "grahamcracker",
     config = {
         extra = {
-            xmult_add = 1,
+            x_mult_add = 1,
             cards_require = 20,
             cards_left = 20,
-            xmult_current = 1,
-            xmult_max = 6
+            x_mult = 1,
+            x_mult_max = 6
         }
     },
     pos = {
@@ -172,21 +170,19 @@ SMODS.Joker{ --Graham Cracker
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult_add * G.GAME.food_multiplier, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.xmult_current, card.ability.extra.xmult_max}}
+        return {vars = {card.ability.extra.x_mult_add * G.GAME.food_multiplier, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.x_mult, card.ability.extra.x_mult_max}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult_current > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_current}},
-                Xmult_mod = card.ability.extra.xmult_current,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
             card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand))
             if card.ability.extra.cards_left <= 0 then
                 card.ability.extra.cards_left = card.ability.extra.cards_require
-                if card.ability.extra.xmult_current + (card.ability.extra.xmult_add * G.GAME.food_multiplier) >= card.ability.extra.xmult_max then 
+                if card.ability.extra.x_mult + (card.ability.extra.x_mult_add * G.GAME.food_multiplier) >= card.ability.extra.x_mult_max then 
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
@@ -208,11 +204,11 @@ SMODS.Joker{ --Graham Cracker
                         colour = G.C.RED
                     }
                 else
-                    card.ability.extra.xmult_current = card.ability.extra.xmult_current + card.ability.extra.xmult_add * G.GAME.food_multiplier
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add * G.GAME.food_multiplier
                     return {
                         card = card,
                         focus = card,
-                        message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_current * G.GAME.food_multiplier}},
+                        message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult * G.GAME.food_multiplier}},
                         colour = G.C.RED
                     }
                 end
@@ -251,9 +247,7 @@ SMODS.Joker{ --Thrifty Joker
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={(math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}},
-                mult_mod = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
-                colour = G.C.MULT
+                mult = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
             }
         end
     end
@@ -264,9 +258,9 @@ SMODS.Joker{ --Cheese
     key = "cheese",
     config = {
         extra = {
-            xmult = 3,
-            xmult_remove = 1,
-            xmult_base = 3,
+            x_mult = 3,
+            x_mult_remove = 1,
+            x_mult_base = 3,
         }
     },
     pos = {
@@ -287,19 +281,17 @@ SMODS.Joker{ --Cheese
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult, card.ability.extra.xmult_remove * G.GAME.food_multiplier, card.ability.extra.xmult_base}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_remove * G.GAME.food_multiplier, card.ability.extra.x_mult_base}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
-            card.ability.extra.xmult = card.ability.extra.xmult - card.ability.extra.xmult_remove * G.GAME.food_multiplier
-            if card.ability.extra.xmult <= 0 then
+            card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier
+            if card.ability.extra.x_mult <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -322,12 +314,12 @@ SMODS.Joker{ --Cheese
                 }
             else
                 return {
-                    message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.xmult_remove * G.GAME.food_multiplier}},
+                    message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.x_mult_remove * G.GAME.food_multiplier}},
                     colour = G.C.RED
                 }
             end
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.xmult = card.ability.extra.xmult_base
+            card.ability.extra.x_mult = card.ability.extra.x_mult_base
             
             return {
                 message = localize('k_reset'),
@@ -415,7 +407,7 @@ SMODS.Joker{ --Sacramental Katana
     key = "sacramentalkatana",
     config = {
         extra = {
-            xmult = 1,
+            x_mult = 1,
         }
     },
     pos = {
@@ -434,15 +426,13 @@ SMODS.Joker{ --Sacramental Katana
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_sacrifice'}
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.xmult}}
+        return {vars = {card.ability.extra.x_mult}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.xmult > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}},
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.end_of_round and not context.blueprint and G.GAME.blind.boss then
             local my_pos = nil
@@ -456,12 +446,12 @@ SMODS.Joker{ --Sacramental Katana
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({func = function()
                     G.GAME.joker_buffer = 0
-                    card.ability.extra.xmult = card.ability.extra.xmult + sliced_card.sell_cost*1/4
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + sliced_card.sell_cost*1/4
                     card:juice_up(0.8, 0.8)
                     sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
                     play_sound('slice1', 0.96+math.random()*0.08)
                 return true end }))
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult+(1/4)*sliced_card.sell_cost}}, colour = G.C.RED, no_juice = true})
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult+(1/4)*sliced_card.sell_cost}}, colour = G.C.RED, no_juice = true})
             end
         end
     end
@@ -535,7 +525,7 @@ SMODS.Joker{ --Life Support
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.rounds}, main_end = info}
+        return {vars = {card.ability.extra.rounds}}
     end,
     
     calculate = function(self, card, context)
@@ -629,9 +619,7 @@ SMODS.Joker{ --Curry
     calculate = function(self, card, context)
         if context.initial_scoring_step then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult,
-                colour = G.C.MULT
+                mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier
@@ -739,7 +727,7 @@ SMODS.Joker{ --Northern Star
     end,
     
     calculate = function(self, card, context)
-        if context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
+        if context.level_up_hand and not context.blueprint then
             local hand, highest = G.GAME.hands["High Card"], to_big(0)
             for k, v in pairs(G.GAME.hands) do
                 if v.visible and v.level > highest then
@@ -748,10 +736,9 @@ SMODS.Joker{ --Northern Star
                 end
             end
             card.ability.extra.chips = highest * card.ability.extra.chips_add
+        elseif context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips, 
             }
         end
     end,
