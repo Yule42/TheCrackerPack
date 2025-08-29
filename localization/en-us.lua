@@ -364,8 +364,8 @@ return {
                 text = {
                     'Played {C:attention}Lucky Cards{} give',
                     '{X:mult,C:white}X#1#{} Mult when scored,',
-                    'increases by {X:mult,C:white}X#2#{} when a {C:attention}Lucky{} card',
-                    '{C:green}successfully{} triggers',
+                    'increases by {X:mult,C:white}X#2#{} when a',
+                    '{C:attention}Lucky Card {C:green}successfully{} triggers',
                     '{C:inactive}(Resets every hand){}',
                 }
             },
