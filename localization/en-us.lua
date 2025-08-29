@@ -427,6 +427,14 @@ return {
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
                 }
             },
+            j_cracker_bonus_joker = {
+                name = 'Bonus Joker',
+                text = {
+                    'Editionless {C:attention}Bonus Cards{} have a',
+                    '{C:green}#1# in #2#{} chance to gain {C:dark_edition}Foil{}',
+                    'or {C:dark_edition}Holographic{} when scored',
+                }
+            },
         },
         reversetarot = {
             c_cracker_fool = {
