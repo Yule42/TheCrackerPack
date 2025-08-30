@@ -167,11 +167,13 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1'''
+pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})'''
 position = "at"
 payload = '''
 if G.GAME.food_multiplier > 0 then
     self.ability.perish_tally = self.ability.perish_tally - 1
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})
 end
 '''
 match_indent = true
@@ -201,19 +203,25 @@ times = 1
 [patches.pattern]
 target = "card.lua"
 pattern = '''
-self.ability.extra.chips = self.ability.extra.chips - self.ability.extra.chip_mod
-return {
-    message = localize{type='variable',key='a_chips_minus',vars={self.ability.extra.chip_mod}},
-    colour = G.C.CHIPS
-}
+SMODS.scale_card(self, {
+    ref_table = self.ability.extra,
+    ref_value = "chips",
+    scalar_value = "chip_mod",
+    operation = "-",
+    message_key = 'a_chips_minus'
+})
 '''
 position = "at"
 payload = '''
-self.ability.extra.chips = self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier)
-return {
-    message = localize{type='variable',key='a_chips_minus',vars={self.ability.extra.chip_mod * G.GAME.food_multiplier}},
-    colour = G.C.CHIPS
-}
+if G.GAME.food_multiplier > 0 then -- if anyone wanted to set this to anything besides 0 or 1, i am so sorry
+    SMODS.scale_card(self, {
+        ref_table = self.ability.extra,
+        ref_value = "chips",
+        scalar_value = "chip_mod",
+        operation = "-",
+        message_key = 'a_chips_minus'
+    })
+end
 '''
 match_indent = true
 times = 1
@@ -240,27 +248,32 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "self.ability.extra.h_size = self.ability.extra.h_size - self.ability.extra.h_mod"
+pattern = '''
+SMODS.scale_card(self, {
+    ref_table = self.ability.extra,
+    ref_value = "h_size",
+    scalar_value = "h_mod",
+    message_key = 'a_handsize_minus',
+    operation = function(ref_table, ref_value, initial, change)
+        ref_table[ref_value] = initial - change
+        G.hand:change_size(- change)
+    end
+})'''
 position = "at"
-payload = "self.ability.extra.h_size = self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "G.hand:change_size(- self.ability.extra.h_mod)"
-position = "at"
-payload = "G.hand:change_size(- (self.ability.extra.h_mod * G.GAME.food_multiplier))"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_handsize_minus',vars={self.ability.extra.h_mod}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_handsize_minus',vars={self.ability.extra.h_mod * G.GAME.food_multiplier}},"
+payload = '''
+if G.GAME.food_multiplier > 0 then
+    SMODS.scale_card(self, {
+        ref_table = self.ability.extra,
+        ref_value = "h_size",
+        scalar_value = "h_mod",
+        message_key = 'a_handsize_minus',
+        operation = function(ref_table, ref_value, initial, change)
+            ref_table[ref_value] = initial - change
+            G.hand:change_size(- change)
+        end
+    })
+end
+'''
 match_indent = true
 times = 1
 
@@ -286,18 +299,29 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "self.ability.mult = self.ability.mult - self.ability.extra"
+pattern = '''
+SMODS.scale_card(self, {
+    ref_table = self.ability,
+    ref_value = "x_mult",
+    scalar_value = "extra",
+    operation = "-",
+    message_key = 'a_xmult_minus',
+    colour = G.C.RED
+})
+'''
 position = "at"
-payload = "self.ability.mult = self.ability.mult - (self.ability.extra * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_mult_minus',vars={self.ability.extra}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_mult_minus',vars={self.ability.extra * G.GAME.food_multiplier}},"
+payload = '''
+if G.GAME.food_multiplier > 0 then
+    SMODS.scale_card(self, {
+        ref_table = self.ability,
+        ref_value = "x_mult",
+        scalar_value = "extra",
+        operation = "-",
+        message_key = 'a_xmult_minus',
+        colour = G.C.RED
+    })
+end
+'''
 match_indent = true
 times = 1
 
@@ -323,18 +347,29 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "self.ability.x_mult = self.ability.x_mult - self.ability.extra"
+pattern = '''
+SMODS.scale_card(self, {
+    ref_table = self.ability,
+    ref_value = "mult",
+    scalar_value = "extra",
+    message_key = 'a_mult_minus',
+    colour = G.C.MULT,
+    operation = '-'
+})
+'''
 position = "at"
-payload = "self.ability.x_mult = self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_xmult_minus',vars={self.ability.extra}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_xmult_minus',vars={self.ability.extra * G.GAME.food_multiplier}},"
+payload = '''
+if G.GAME.food_multiplier > 0 then
+    SMODS.scale_card(self, {
+        ref_table = self.ability,
+        ref_value = "mult",
+        scalar_value = "extra",
+        message_key = 'a_mult_minus',
+        colour = G.C.MULT,
+        operation = '-'
+    })
+end
+'''
 match_indent = true
 times = 1
 
