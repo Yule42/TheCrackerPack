@@ -727,7 +727,7 @@ SMODS.Joker{ --Northern Star
     end,
     
     calculate = function(self, card, context)
-        if context.level_up_hand and not context.blueprint then
+        if context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
             local hand, highest = G.GAME.hands["High Card"], to_big(0)
             for k, v in pairs(G.GAME.hands) do
                 if v.visible and v.level > highest then
@@ -736,7 +736,6 @@ SMODS.Joker{ --Northern Star
                 end
             end
             card.ability.extra.chips = highest * card.ability.extra.chips_add
-        elseif context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
             return {
                 chips = card.ability.extra.chips, 
             }
