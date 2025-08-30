@@ -182,7 +182,7 @@ SMODS.Back{ -- I'm afraid.
     key = "gambler2",
     
     config = {
-        odds_double = 5,
+        odds_double = 4,
         odds_no_money = 5,
         already_triggered = false
     },
