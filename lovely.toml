@@ -636,19 +636,6 @@ if card.area == G.pack_cards then
     end
 end'''
 
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = '''if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then'''
-match_indent = true
-position = 'before'
-payload = '''
-if card.area == G.pack_cards then
-    for i=1, #G.jokers.cards do
-        eval_card(G.jokers.cards[i], {taking_booster_card = true})
-    end
-end'''
-
     # Circus Act challenge
 [[patches]]
 [patches.pattern]
