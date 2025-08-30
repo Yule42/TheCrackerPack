@@ -186,3 +186,49 @@ SMODS.Joker{ --Bonus Joker
         end
     end
 }
+
+SMODS.Joker{ --Dirty Joker
+    name = "Dirty Joker",
+    key = "dirty_joker",
+    config = {
+        extra = {
+            mult = 0,
+            mult_gain = 4,
+        }
+    },
+    pos = {
+        x = 4,
+        y = 4,
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_cracker_soil',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_cracker_soil
+        return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.individual and not context.blueprint then
+            if context.other_card.config.center.key == 'm_cracker_soil' then
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                return {
+                    message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.mult_gain}},
+                    focus = card,
+                }
+            end
+        elseif context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}

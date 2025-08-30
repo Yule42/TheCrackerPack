@@ -435,6 +435,15 @@ return {
                     'or {C:dark_edition}Holographic{} when scored',
                 }
             },
+            j_cracker_dirty_joker = {
+                name = 'Dirty Joker',
+                text = {
+                    'This Joker gains',
+                    '{C:mult}+#1#{} Mult per {C:attention}Soil Card',
+                    'held in hand at end of round',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
+                },
+            },
         },
         reversetarot = {
             c_cracker_fool = {
