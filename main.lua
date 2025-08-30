@@ -1,5 +1,7 @@
 CrackerConfig = SMODS.current_mod.config
 
+SMODS.current_mod.no_marquee = true
+
 assert(SMODS.load_file('src/base_jokers.lua'))()
 if not CrackerConfig.disable_upgradedfood then
     assert(SMODS.load_file('src/upgraded_food.lua'))()
