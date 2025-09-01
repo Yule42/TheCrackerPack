@@ -6,7 +6,7 @@ SMODS.Back{ -- Golden Deck
         x = 0,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {
@@ -32,7 +32,7 @@ SMODS.Back{ -- Consumer Deck
         x = 1,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {localize{type = 'name_text', key = 'v_directors_cut', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_surplus', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_clowncar', set = 'Voucher'}}}
@@ -54,7 +54,7 @@ SMODS.Back{ -- Blitz Deck
         x = 2,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -75,7 +75,7 @@ SMODS.Back{ -- Catalog Deck
         x = 4,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -96,7 +96,7 @@ SMODS.Back{ -- Patchwork Deck
         x = 3,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -119,7 +119,7 @@ SMODS.Back{ -- Test Deck
         x = 5,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -148,7 +148,7 @@ SMODS.Back{ -- Gambling Deck
         x = 6,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', true)
@@ -191,7 +191,7 @@ SMODS.Back{ -- I'm afraid.
         x = 6,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck')

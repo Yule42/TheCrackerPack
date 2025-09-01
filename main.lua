@@ -4,35 +4,6 @@ CrackerConfig = SMODS.current_mod.config
 
 SMODS.current_mod.no_marquee = true
 
--- region load files
-
-assert(SMODS.load_file('src/base_jokers.lua'))()
-if not CrackerConfig.disable_upgradedfood then
-    assert(SMODS.load_file('src/upgraded_food.lua'))()
-end
-assert(SMODS.load_file('src/voucher.lua'))()
-
-if not CrackerConfig.disable_card then
-    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
-end
-
-assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
-assert(SMODS.load_file('src/expansion_2/decks.lua'))()
-assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
-
-assert(SMODS.load_file('src/expansion_3/reverse_arcana.lua'))()
-assert(SMODS.load_file('src/expansion_3/tags.lua'))()
-assert(SMODS.load_file('src/expansion_3/enhancements.lua'))()
-assert(SMODS.load_file('src/expansion_3/editions.lua'))()
-assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
-assert(SMODS.load_file('src/expansion_3/jokers.lua'))()
-
-if JokerDisplay then
-    assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
-end
-
-assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
-
 --region Atlas
 SMODS.Atlas {
     key = 'Jokers',
@@ -63,7 +34,7 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = 'Backs',
+    key = 'Decks',
     path = "backs.png",
     px = 71,
     py = 95
@@ -447,3 +418,32 @@ SMODS.current_mod.config_tab = function() --Config
       },
     }
 end
+
+-- region load files
+
+assert(SMODS.load_file('src/base_jokers.lua'))()
+if not CrackerConfig.disable_upgradedfood then
+    assert(SMODS.load_file('src/upgraded_food.lua'))()
+end
+assert(SMODS.load_file('src/voucher.lua'))()
+
+if not CrackerConfig.disable_card then
+    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
+end
+
+assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
+assert(SMODS.load_file('src/expansion_2/decks.lua'))()
+assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
+
+assert(SMODS.load_file('src/expansion_3/reverse_arcana.lua'))()
+assert(SMODS.load_file('src/expansion_3/tags.lua'))()
+assert(SMODS.load_file('src/expansion_3/enhancements.lua'))()
+assert(SMODS.load_file('src/expansion_3/editions.lua'))()
+assert(SMODS.load_file('src/expansion_3/boosters.lua'))()
+assert(SMODS.load_file('src/expansion_3/jokers.lua'))()
+
+if JokerDisplay then
+    assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
+end
+
+assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
