@@ -309,7 +309,7 @@ SMODS.Joker{ --Tempered Glass
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.add_xmult}}
     end,
     calculate = function(self, card, context)
