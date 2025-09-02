@@ -247,7 +247,7 @@ SMODS.Joker{ --Card Counter
     },
     cost = 9,
     rarity = 3,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -261,7 +261,7 @@ SMODS.Joker{ --Card Counter
         info_queue[#info_queue + 1] = G.P_CENTERS.m_cracker_cheater
         return {vars = {card.ability.extra.hand_size}}
     end,
-     remove_from_deck = function(self, card, from_debuff)
+    remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-card.ability.extra.hand_size)
     end,
     calculate = function(self, card, context)
@@ -281,6 +281,57 @@ SMODS.Joker{ --Card Counter
                 colour = G.C.FILTER,
                 card = card,
             }
+        end
+    end
+}
+
+SMODS.Joker{ --Tempered Glass
+    name = "Tempered Glass",
+    key = "tempered_glass",
+    config = {
+        extra = {
+            add_xmult = 0.1
+        }
+    },
+    pos = {
+        x = 6,
+        y = 4,
+    },
+    cost = 7,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_glass',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.add_xmult}}
+    end,
+    calculate = function(self, card, context)
+        if context.remove_playing_cards then
+            for k, v in ipairs(context.removed) do
+                if v.shattered then
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    local _card = copy_card(v, nil, nil, G.playing_card)
+                    _card.ability.Xmult = _card.ability.Xmult + card.ability.extra.add_xmult
+                    _card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    G.deck:emplace(_card)
+                    table.insert(G.playing_cards, _card)
+                    playing_card_joker_effects({true})
+                    G.E_MANAGER:add_event(Event({
+                        func = function() 
+                            _card:start_materialize()
+                            return true
+                    end}))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, { message = localize('k_copied_ex'), colour = G.C.FILTER })
+                end
+            end
         end
     end
 }

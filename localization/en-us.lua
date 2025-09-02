@@ -455,6 +455,15 @@ return {
                     
                 },
             },
+            j_cracker_tempered_glass = {
+                name = 'Tempered Glass',
+                text = {
+                    'When a {C:attention}Glass Card{} is destroyed,',
+                    'add a copy to deck with',
+                    'an additional {X:mult,C:white}X#1#{} Mult'
+                    
+                },
+            },
         },
         reversetarot = {
             c_cracker_fool = {
