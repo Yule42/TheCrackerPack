@@ -11,7 +11,8 @@ SMODS.Enhancement { -- Cheater
             mult = 5,
             dollars = 6,
             mult_odds = 2,
-            dollars_odds = 5
+            dollars_odds = 5,
+            cheater_trigger = nil,
         }
     },
     
@@ -29,15 +30,17 @@ SMODS.Enhancement { -- Cheater
         if context.main_scoring and context.cardarea == G.play then
             local ret = {}
             if SMODS.pseudorandom_probability(card, 'cheater_mult', 1, card.ability.extra.mult_odds) then
-                card.lucky_trigger = true
+                card.cheater_trigger = true
                 ret.mult = card.ability.extra.mult
             end
             if SMODS.pseudorandom_probability(card, 'cheater_money', 1, card.ability.extra.dollars_odds) then
-                card.lucky_trigger = true
+                card.cheater_trigger = true
                 ret.dollars = card.ability.extra.dollars
             end
             
             return ret
+        elseif context.after and not context.repetition then
+            card.cheater_trigger = nil
         end
     end,
 }

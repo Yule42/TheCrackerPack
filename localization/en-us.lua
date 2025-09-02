@@ -444,6 +444,17 @@ return {
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
                 },
             },
+            j_cracker_card_counter = {
+                name = 'Card Counter',
+                text = {
+                    'This Joker gains',
+                    '{C:attention}1{} hand size when a',
+                    '{C:attention}Cheater Card{} {C:green}successfully{} triggers',
+                    '{C:inactive}(Currently {C:attention}#1#{C:inactive} Hand Size){}',
+                    '{s:0.8}resets at end of round',
+                    
+                },
+            },
         },
         reversetarot = {
             c_cracker_fool = {

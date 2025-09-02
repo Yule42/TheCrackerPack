@@ -232,3 +232,55 @@ SMODS.Joker{ --Dirty Joker
         end
     end
 }
+
+SMODS.Joker{ --Card Counter
+    name = "Card Counter",
+    key = "card_counter",
+    config = {
+        extra = {
+            hand_size = 0,
+        }
+    },
+    pos = {
+        x = 5,
+        y = 4,
+    },
+    cost = 9,
+    rarity = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_cracker_cheater',
+    
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_cracker_cheater
+        return {vars = {card.ability.extra.hand_size}}
+    end,
+     remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.hand_size)
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card.cheater_trigger and not context.blueprint then
+            card.ability.extra.hand_size = card.ability.extra.hand_size + 1
+            G.hand:change_size(1)
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.FILTER,
+                message_card = card
+            }
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+            G.hand:change_size(-card.ability.extra.hand_size)
+            card.ability.extra.hand_size = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        end
+    end
+}
