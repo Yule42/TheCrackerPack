@@ -182,7 +182,7 @@ SMODS.Back{ -- I'm afraid.
     key = "gambler2",
     
     config = {
-        odds_double = 4,
+        odds_double = 5,
         odds_no_money = 5,
         already_triggered = false
     },
@@ -194,22 +194,22 @@ SMODS.Back{ -- I'm afraid.
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck')
-        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', true)
+        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', true)
         return {vars = {new_numerator, new_denominator, new_numerator_2, new_denominator_2}}
     end,
     
     calculate = function(self, card, context)
         if context.money_altered and context.amount > 0 and not self.config.already_triggered then
             self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
-            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck') then
-                ease_dollars(G.GAME.dollars)
+            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true) then
+                ease_dollars(math.min(G.GAME.dollars, 100))
                 self.config.already_triggered = false
                 return {
                     message = localize('k_winner')
                 }
-            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck') then
-                ease_dollars(-math.ceil(G.GAME.dollars/2))
+            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true) then
+                ease_dollars(-math.ceil(math.min(G.GAME.dollars/2, 100)))
                 self.config.already_triggered = false
                 return {
                     message = localize('k_nope_ex')

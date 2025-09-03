@@ -61,7 +61,7 @@ return {
                     '{C:green}#1# in #2#{} chance to double',
                     'money currently owned,',
                     '{C:green}#3# in #4#{} chance to half it instead',
-                    '{C:inactive}(Odds cannot change)',
+                    '{C:inactive}(Odds cannot change, {C:money}$100{C:inactive} max)',
                 }
             },
         },
@@ -89,7 +89,7 @@ return {
                 name = 'Graham Cracker',
                 text = {
                     'This Joker gains {X:mult,C:white} X#1# {} Mult',
-                    'every {C:attention}#2#{C:inactive} [#3#]{} cards played',
+                    'every {C:attention}#2#{C:inactive} [#3#]{} scoring cards played',
                     '{S:1.1,C:red,E:2}Self destructs{} after',
                     'reaching {X:mult,C:white} X#5# {} Mult',
                     '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)',
