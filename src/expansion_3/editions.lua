@@ -51,7 +51,7 @@ SMODS.Edition { -- Sleeved
     
     config = {
         extra = {
-            money = 1,
+            money = 2,
         }
     },
     
