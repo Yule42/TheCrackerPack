@@ -11,6 +11,8 @@ local nonperishable = Cracker.get_challenge_by_id(G.CHALLENGES, "c_non_perishabl
 local blastoff = Cracker.get_challenge_by_id(G.CHALLENGES, "c_blast_off_1")
 local fivecard = Cracker.get_challenge_by_id(G.CHALLENGES, "c_five_card_1")
 local goldenneedle = Cracker.get_challenge_by_id(G.CHALLENGES, "c_golden_needle_1")
+local fragile = Cracker.get_challenge_by_id(G.CHALLENGES, "c_fragile_1")
+local jokerless = Cracker.get_challenge_by_id(G.CHALLENGES, "c_jokerless_1")
 
 if omelette then
     table.insert(omelette.restrictions.banned_cards, 2, {id = 'v_cracker_silver_spoon'})
@@ -49,6 +51,23 @@ if goldenneedle then
     table.insert(goldenneedle.restrictions.banned_cards, {id = 'j_cracker_hamburger'})
 end
 
+if fragile then
+    table.insert(fragile.restrictions.banned_cards, 8, {id = 'c_cracker_magician'})
+    table.insert(fragile.restrictions.banned_cards, 9, {id = 'c_cracker_empress'})
+    table.insert(fragile.restrictions.banned_cards, 10, {id = 'c_cracker_hierophant'})
+    table.insert(fragile.restrictions.banned_cards, 11, {id = 'c_cracker_lovers'})
+    table.insert(fragile.restrictions.banned_cards, 12, {id = 'c_cracker_chariot'})
+    table.insert(fragile.restrictions.banned_cards, 13, {id = 'c_cracker_devil'})
+    table.insert(fragile.restrictions.banned_cards, 14, {id = 'c_cracker_tower'})
+end
+
+if jokerless then
+    table.insert(jokerless.restrictions.banned_cards, 2, {id = 'c_cracker_judgement'})
+    table.insert(jokerless.restrictions.banned_cards, 5, {id = 'c_cracker_rebirth'})
+end
+
+
+
 SMODS.Challenge{
     loc_txt = {name = "Hot Potato"},
     key = "hotpotato",
@@ -85,20 +104,12 @@ local challenge = SMODS.Challenge{
     key = "circusact",
     restrictions = {
         banned_cards = {
-            {id = 'j_8_ball'},
-            {id = 'j_superposition'},
-            {id = 'j_vagabond'},
-            {id = 'j_cartomancer'},
-            {id = 'j_hallucination'},
             {id = 'j_fortune_teller'},
-            {id = 'j_cracker_northstar'},
             {id = 'j_constellation'},
             {id = 'j_satellite'},
             {id = 'j_astronomer'},
             {id = 'j_cracker_postman'},
-            {id = 'j_sixth_sense'},
             {id = 'j_certificate'},
-            {id = 'j_marble'},
             {id = 'j_hologram'},
             {id = 'v_crystal_ball', ids = {
                 'v_crystal_ball','v_omen_globe',
@@ -127,24 +138,27 @@ local challenge = SMODS.Challenge{
             {id = 'p_standard_normal_1', ids = {
                 'p_standard_normal_1','p_standard_normal_2','p_standard_jumbo_1','p_standard_mega_1','p_standard_normal_3','p_standard_normal_4','p_standard_jumbo_2','p_standard_mega_2',
             }},
+            {id = 'p_cracker_reverse_arcana_normal_1', ids = {
+                'p_cracker_reverse_arcana_normal_1','p_cracker_reverse_arcana_normal_2','p_cracker_reverse_arcana_jumbo_1','p_cracker_reverse_arcana_mega_1','p_cracker_reverse_arcana_normal_3','p_cracker_reverse_arcana_normal_4','p_cracker_reverse_arcana_jumbo_2','p_cracker_reverse_arcana_mega_2',
+            }},
         },
         banned_tags = {
             {id = 'tag_standard'},
             {id = 'tag_charm'},
             {id = 'tag_meteor'},
             {id = 'tag_ethereal'},
+            {id = 'tag_cracker_curse'},
         }
     },
     rules = {
+        modifiers = {
+            {id = 'consumable_slots', value = 0},
+        },
         custom = {
             {id = 'onlyjokers'}
         }
     }
 }
-
-if not disable_card then
-    table.insert(challenge.restrictions.banned_cards, 4, {id = 'j_cracker_whitecard'})
-end
 
 SMODS.Challenge{
     loc_txt = {name = "The End"},
