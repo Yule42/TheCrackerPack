@@ -108,9 +108,6 @@ local challenge = SMODS.Challenge{
             {id = 'j_constellation'},
             {id = 'j_satellite'},
             {id = 'j_astronomer'},
-            {id = 'j_cracker_postman'},
-            {id = 'j_certificate'},
-            {id = 'j_hologram'},
             {id = 'v_crystal_ball', ids = {
                 'v_crystal_ball','v_omen_globe',
             }},
