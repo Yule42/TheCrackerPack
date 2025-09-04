@@ -151,8 +151,8 @@ SMODS.Back{ -- Gambling Deck
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', true)
-        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', true)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', false)
+        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', false)
         return {vars = {new_numerator, new_denominator, new_numerator_2, new_denominator_2}}
     end,
     
@@ -194,21 +194,21 @@ SMODS.Back{ -- I'm afraid.
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', true)
-        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', true)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', false, true)
+        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', false, true)
         return {vars = {new_numerator, new_denominator, new_numerator_2, new_denominator_2}}
     end,
     
     calculate = function(self, card, context)
         if context.money_altered and context.amount > 0 and not self.config.already_triggered then
             self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
-            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true) then
+            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true, true) then
                 ease_dollars(math.min(math.max(G.GAME.dollars, 0), 100))
                 self.config.already_triggered = false
                 return {
                     message = localize('k_winner')
                 }
-            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true) then
+            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true, true) then
                 ease_dollars(-math.ceil(math.min(math.max(G.GAME.dollars/2, 0), 100)))
                 self.config.already_triggered = false
                 return {
