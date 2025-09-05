@@ -315,7 +315,7 @@ SMODS.Joker{ --Tempered Glass
     calculate = function(self, card, context)
         if context.remove_playing_cards then
             for k, v in ipairs(context.removed) do
-                if v.shattered then
+                if v.config.center.key == 'm_glass' then
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                     local _card = copy_card(v, nil, nil, G.playing_card)
                     _card.ability.Xmult = _card.ability.Xmult + card.ability.extra.add_xmult
@@ -331,6 +331,23 @@ SMODS.Joker{ --Tempered Glass
                     end}))
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, { message = localize('k_copied_ex'), colour = G.C.FILTER })
                 end
+            end
+        elseif context.cards_destroyed then
+            for k, v in ipairs(context.glass_shattered) do
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local _card = copy_card(v, nil, nil, G.playing_card)
+                _card.ability.Xmult = _card.ability.Xmult + card.ability.extra.add_xmult
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                G.deck:emplace(_card)
+                table.insert(G.playing_cards, _card)
+                playing_card_joker_effects({true})
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        _card:start_materialize()
+                        return true
+                end}))
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, { message = localize('k_copied_ex'), colour = G.C.FILTER })
             end
         end
     end
