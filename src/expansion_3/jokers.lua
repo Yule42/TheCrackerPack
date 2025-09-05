@@ -163,7 +163,7 @@ SMODS.Joker{ --Bonus Joker
         return {vars = {new_numerator, new_denominator}}
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and context.other_card.config.center.key == 'm_bonus' then
             local aura_card = context.other_card
             if context.other_card:get_edition() == nil and not aura_card.bonus_joker_mark and SMODS.pseudorandom_probability(card, 'bonus_joker', 1, card.ability.extra.odds, 'bonus_joker') then
                 local edition = poll_edition('bonus_joker', nil, true, true, { 'e_holo', 'e_foil' })
