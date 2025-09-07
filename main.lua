@@ -132,7 +132,10 @@ end
 
 local remove_ref = Card.remove
 function Card.remove(self)
-    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and not self.getting_sliced and Cracker.is_food(self.config.center_key) then
+    -- check for self-destruction by including both the SMODS vanilla joker override and not getting sliced.
+    -- this will work with jokers that call SMODS.destroy_cards(, , , , true) to mark internal destruction but unfortunately not with jokers that call it without that
+    -- it will also work with jokers that destroy themself not using SMODS.destroy_cards and not setting getting_sliced to true
+    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and (self.internal_destruction or not self.getting_sliced) and Cracker.is_food(self.config.center_key) then
         SMODS.calculate_context({
             self_destroying_food_joker = true,
             destroyed_joker = self
