@@ -32,22 +32,7 @@ SMODS.Joker{ --Saltine Cracker
     calculate = function(self, card, context)
         if context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             if card.ability.extra.chips + card.ability.extra.chip_mod >= card.ability.extra.max_chips then 
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, true, true, true)
                 return {
                     message = localize('k_eaten_crumble'),
                     colour = G.C.CHIPS
@@ -102,22 +87,7 @@ SMODS.Joker{ --Chocolate Coin
     calc_dollar_bonus = function(self, card)
         local bonus = card.ability.extra.money
         if card.ability.extra.rounds <= 0 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                        func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                            return true; end})) 
-                    return true
-                end
-            }))
+            SMODS.destroy_cards(card, nil, true, true, true)
         end
         if bonus > 0 then return bonus end
     end,
@@ -183,22 +153,7 @@ SMODS.Joker{ --Graham Cracker
             if card.ability.extra.cards_left <= 0 then
                 card.ability.extra.cards_left = card.ability.extra.cards_require
                 if card.ability.extra.x_mult + (card.ability.extra.x_mult_add * G.GAME.food_multiplier) >= card.ability.extra.x_mult_max then 
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    })) 
+                    SMODS.destroy_cards(card, nil, true, true, true)
                     return {
                         message = localize('k_eaten_crumble'),
                         colour = G.C.RED
@@ -292,22 +247,7 @@ SMODS.Joker{ --Cheese
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
             card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier
             if card.ability.extra.x_mult <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, true, true, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -377,22 +317,7 @@ SMODS.Joker{ --Cracker Barrel
                 end}))   
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE}) 
             if card.ability.extra.jokersleft < 1 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, true, true, true)
                 return {
                     message = localize('k_eaten_barrel'),
                     colour = G.C.FILTER
@@ -550,12 +475,13 @@ SMODS.Joker{ --Life Support
                     card:juice_up(0.3, 0.4)
                     card.states.drag.is = true
                     card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false, -- do NOT replace with SMODS.destroy_cards
                         func = function()
                             G.jokers:remove_card(card)
                             card:remove()
                             card = nil
                         return true; end})) 
+                    
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         blockable = false,
@@ -624,22 +550,7 @@ SMODS.Joker{ --Curry
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier
             if card.ability.extra.mult <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, true, true, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED

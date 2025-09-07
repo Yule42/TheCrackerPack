@@ -751,3 +751,30 @@ if test_deck then
     end
 end
 '''
+
+    # smods patches
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "SMODS.destroy_cards(self, nil, nil, true)"
+position = "at"
+payload = "SMODS.destroy_cards(self, nil, true, true, true)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = "function SMODS.destroy_cards(cards, bypass_eternal, immediate, skip_anim)"
+position = "at"
+payload = "function SMODS.destroy_cards(cards, bypass_eternal, immediate, skip_anim, is_internal)"
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = "card.skip_destroy_animation = skip_anim"
+position = "before"
+payload = "card.internal_destruction = is_internal"
+match_indent = true
+times = 1
