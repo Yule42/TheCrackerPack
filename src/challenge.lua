@@ -157,6 +157,134 @@ local challenge = SMODS.Challenge{
     }
 }
 
+if not disable_card then
+    table.insert(challenge.restrictions.banned_cards, 4, {id = 'j_cracker_whitecard'})
+end
+
+SMODS.Challenge{
+    loc_txt = {name = "Mail Call"},
+    key = "mailcall",
+    jokers = {
+        {id = 'j_cracker_postman', eternal = true},
+    },
+    vouchers = {
+    },
+    rules = {
+        custom = {
+        }
+    },
+    deck = {
+        cards = {
+            { s = "D", r = "2", g = "Gold" },
+            { s = "D", r = "3" },
+            { s = "D", r = "4" },
+            { s = "D", r = "5" },
+            { s = "D", r = "6" },
+            { s = "D", r = "7" },
+            { s = "D", r = "8" },
+            { s = "D", r = "9" },
+            { s = "D", r = "T" },
+            { s = "D", r = "J" },
+            { s = "D", r = "Q" },
+            { s = "D", r = "K" },
+            { s = "D", r = "A" },
+            { s = "C", r = "2", g = "Blue" },
+            { s = "C", r = "3" },
+            { s = "C", r = "4" },
+            { s = "C", r = "5" },
+            { s = "C", r = "6" },
+            { s = "C", r = "7" },
+            { s = "C", r = "8" },
+            { s = "C", r = "9" },
+            { s = "C", r = "T" },
+            { s = "C", r = "J" },
+            { s = "C", r = "Q" },
+            { s = "C", r = "K" },
+            { s = "C", r = "A" },
+            { s = "H", r = "2", g = "Red" },
+            { s = "H", r = "3" },
+            { s = "H", r = "4" },
+            { s = "H", r = "5" },
+            { s = "H", r = "6" },
+            { s = "H", r = "7" },
+            { s = "H", r = "8" },
+            { s = "H", r = "9" },
+            { s = "H", r = "T" },
+            { s = "H", r = "J" },
+            { s = "H", r = "Q" },
+            { s = "H", r = "K" },
+            { s = "H", r = "A" },
+            { s = "S", r = "2", g = "Purple" },
+            { s = "S", r = "3" },
+            { s = "S", r = "4" },
+            { s = "S", r = "5" },
+            { s = "S", r = "6" },
+            { s = "S", r = "7" },
+            { s = "S", r = "8" },
+            { s = "S", r = "9" },
+            { s = "S", r = "T" },
+            { s = "S", r = "J" },
+            { s = "S", r = "Q" },
+            { s = "S", r = "K" },
+            { s = "S", r = "A" },
+        },
+    }
+}
+
+challenge = SMODS.Challenge{
+    loc_txt = {name = "Ghost in a Pack"},
+    key = "ghostinapack",
+    jokers = {
+    },
+    vouchers = {
+    },
+    rules = {
+        custom = {
+            {id = 'spectral_replace_arcana'},
+            {id = 'all_perishable'},
+        }
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'j_ceremonial'},
+            {id = 'j_ride_the_bus'},
+            {id = 'j_runner'},
+            {id = 'j_constellation'},
+            {id = 'j_green_joker'},
+            {id = 'j_red_card'},
+            {id = 'j_madness'},
+            {id = 'j_square'},
+            {id = 'j_vampire'},
+            {id = 'j_hologram'},
+            {id = 'j_rocket'},
+            {id = 'j_obelisk'},
+            {id = 'j_lucky_cat'},
+            {id = 'j_flash'},
+            {id = 'j_trousers'},
+            {id = 'j_castle'},
+            {id = 'j_glass'},
+            {id = 'j_wee'},
+            {id = 'j_cracker_grahamcracker'},
+            {id = 'j_cracker_sacramentalkatana'},
+            {id = 'j_cracker_snail'},
+            {id = 'j_cracker_prosopagnosia'},
+            {id = 'j_cracker_ants'},
+            {id = 'j_cracker_postman'},
+        },
+    }
+}
+
+if not disable_card then
+    table.insert(challenge.restrictions.banned_cards, 19, {id = 'j_cracker_yellowcard'})
+    table.insert(challenge.restrictions.banned_cards, 20, {id = 'j_cracker_bluecard'})
+    table.insert(challenge.restrictions.banned_cards, 21, {id = 'j_cracker_violetcard'})
+end
+
+if not disable_upgradedfood then
+    table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_cybernana'})
+    table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_tsukemen'})
+end
+
 SMODS.Challenge{
     loc_txt = {name = "The End"},
     key = "theend2",

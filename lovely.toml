@@ -686,7 +686,6 @@ match_indent = true
 times = 1
 
 
-
     # Laminated edition
 [[patches]]
 [patches.pattern]
@@ -751,6 +750,33 @@ if test_deck then
     end
 end
 '''
+
+    # Ghost in a Pack challenge
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if G.GAME.modifiers.all_eternal then"
+position = "before"
+payload = """
+if G.GAME.modifiers.all_perishable then
+    card:set_perishable(true)
+end
+"""
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local center = G.P_CENTERS.b_red"
+position = "before"
+payload = """
+if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
+    _type = "Spectral"
+end
+"""
+match_indent = true
+times = 1
 
     # smods patches
 [[patches]]
