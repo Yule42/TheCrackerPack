@@ -649,6 +649,12 @@ return {
             ch_c_onlyjokers = {
                 "Only {C:attention}Jokers{} show up in shop",
             },
+            ch_c_spectral_replace_arcana = {
+                "{C:spectral}Spectral{} cards replace {C:tarot}Tarot{} cards",
+            },
+            ch_c_all_perishable = {
+                "All Jokers are Perishable",
+            },
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
             },
