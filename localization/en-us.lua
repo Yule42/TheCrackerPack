@@ -626,6 +626,10 @@ return {
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
             k_discard_falcon='Clawed!',
+            k_frozen='Frozen!',
+            k_open_url='Open URL',
+            k_copy_url='Copy URL',
+            jdis_before='Before',
         },
         v_dictionary = {
             a_money="+$#1#",
