@@ -167,11 +167,13 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1'''
+pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})'''
 position = "at"
 payload = '''
 if G.GAME.food_multiplier > 0 then
     self.ability.perish_tally = self.ability.perish_tally - 1
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})
 end
 '''
 match_indent = true
@@ -193,51 +195,13 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "elseif self.ability.name == 'Ice Cream' then loc_vars = {self.ability.extra.chips, self.ability.extra.chip_mod}"
-position = "at"
-payload = "elseif self.ability.name == 'Ice Cream' then loc_vars = {self.ability.extra.chips, self.ability.extra.chip_mod * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
 pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
 position = "at"
 payload = "if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then"
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-self.ability.extra.chips = self.ability.extra.chips - self.ability.extra.chip_mod
-return {
-    message = localize{type='variable',key='a_chips_minus',vars={self.ability.extra.chip_mod}},
-    colour = G.C.CHIPS
-}
-'''
-position = "at"
-payload = '''
-self.ability.extra.chips = self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier)
-return {
-    message = localize{type='variable',key='a_chips_minus',vars={self.ability.extra.chip_mod * G.GAME.food_multiplier}},
-    colour = G.C.CHIPS
-}
-'''
-match_indent = true
-times = 1
-
     # Freezer - Turtle Bean
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Turtle Bean' then loc_vars = {self.ability.extra.h_size, self.ability.extra.h_mod}"
-position = "at"
-payload = "elseif self.ability.name == 'Turtle Bean' then loc_vars = {self.ability.extra.h_size, self.ability.extra.h_mod * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
 
 [[patches]]
 [patches.pattern]
@@ -248,43 +212,7 @@ payload = "if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.foo
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "self.ability.extra.h_size = self.ability.extra.h_size - self.ability.extra.h_mod"
-position = "at"
-payload = "self.ability.extra.h_size = self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "G.hand:change_size(- self.ability.extra.h_mod)"
-position = "at"
-payload = "G.hand:change_size(- (self.ability.extra.h_mod * G.GAME.food_multiplier))"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_handsize_minus',vars={self.ability.extra.h_mod}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_handsize_minus',vars={self.ability.extra.h_mod * G.GAME.food_multiplier}},"
-match_indent = true
-times = 1
-
     # Freezer - Popcorn
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Popcorn' then loc_vars = {self.ability.mult, self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Popcorn' then loc_vars = {self.ability.mult, self.ability.extra * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -294,33 +222,7 @@ payload = "if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) 
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "self.ability.mult = self.ability.mult - self.ability.extra"
-position = "at"
-payload = "self.ability.mult = self.ability.mult - (self.ability.extra * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_mult_minus',vars={self.ability.extra}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_mult_minus',vars={self.ability.extra * G.GAME.food_multiplier}},"
-match_indent = true
-times = 1
-
     # Freezer - Ramen
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Ramen' then loc_vars = {self.ability.x_mult, self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Ramen' then loc_vars = {self.ability.x_mult, self.ability.extra * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
 
 [[patches]]
 [patches.pattern]
@@ -331,34 +233,7 @@ payload = "if self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "self.ability.x_mult = self.ability.x_mult - self.ability.extra"
-position = "at"
-payload = "self.ability.x_mult = self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = localize{type='variable',key='a_xmult_minus',vars={self.ability.extra}},"
-position = "at"
-payload = "message = localize{type='variable',key='a_xmult_minus',vars={self.ability.extra * G.GAME.food_multiplier}},"
-match_indent = true
-times = 1
-
     # Freezer - Seltzer
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Seltzer' then loc_vars = {self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Seltzer' then loc_vars = {(G.GAME.food_multiplier and self.ability.extra or '')}"
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -376,44 +251,6 @@ position = "at"
 payload = "self.ability.extra = self.ability.extra - (1 * G.GAME.food_multiplier)"
 match_indent = true
 times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "message = self.ability.extra..'',"
-position = "at"
-payload = "message = self.ability.extra * G.GAME.food_multiplier..'',"
-match_indent = true
-times = 1
-
-    # Life Support
-[[patches]]
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = "if G.blind_select then"
-position = "before"
-payload = '''
-G.GAME.current_round.usesavedtext = false
-G.GAME.current_round.savedtext = ""
-'''
-match_indent = true
-
-[[patches]]
-[patches.regex]
-target = "functions/common_events.lua"
-pattern = '''localize\('ph_mr_bones'\)'''
-position = 'before'
-line_prepend = ''
-payload = '''(G.GAME.current_round.usesavedtext and G.GAME.current_round.savedtext or '''
-
-[[patches]]
-[patches.regex]
-target = "functions/common_events.lua"
-pattern = '''localize\('ph_mr_bones'\)'''
-position = 'after'
-# match_indent = true
-line_prepend = ''
-payload = ''')'''
 
 
 # [------------------------------------------------------------------- VOUCHERS ---------------------------------------------------------------------]
@@ -456,7 +293,7 @@ payload = ''')'''
 #match_indent = true
 #times = 1
 
-    # Food Joker list
+    # Start
 [[patches]]
 [patches.pattern]
 target = "main.lua"
@@ -469,18 +306,139 @@ Cracker.food = {}
 match_indent = true
 times = 1
 
+    # Patchwork deck requires voucher override
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if v.requires then '''
+position = "at"
+payload = '''
+if not G.GAME.modifiers.voucher_override and v.patchwork then
+    include = false
+elseif G.GAME.modifiers.voucher_override and not v.patchwork then 
+    include = false
+elseif v.requires then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif _type == 'Voucher' then _pool[#_pool + 1] = "v_blank"'''
+position = "at"
+payload = '''
+elseif _type == 'Voucher' then _pool[#_pool + 1] = ((G.GAME.modifiers.voucher_override and "v_cracker_pw_erratic") or "v_blank")
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+    SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+end
+for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+    if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+        SMODS.add_voucher_to_shop(key)
+    end
+end'''
+position = "at"
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
+        for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+        if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+            SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+        end
+    end
+    for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+        if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+            SMODS.add_voucher_to_shop(key)
+        end
+    end
+end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.GAME.current_round.voucher = SMODS.get_next_vouchers()'''
+position = "at"
+payload = '''
+if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
+    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end'''
+position = "at"
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+    if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end
+end
+'''
+match_indent = true
+times = 1
+
     # New scoring context
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = 'card.lua'
 match_indent = true
-pattern = '''G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)'''
+pattern = '''if self.seal == 'Red' then'''
 position = 'after'
 payload = '''
 for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, level_up_hand = true})
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
 end
 '''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
 
     # The End challenge
 [[patches]]
@@ -512,15 +470,19 @@ end
 match_indent = true
 times = 1
 
+
+    # patchwork plasma deck
 [[patches]]
 [patches.pattern]
 target = "back.lua"
 pattern = '''if self.name == 'Plasma Deck' and args.context == 'final_scoring_step' then'''
 position = "at"
-payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma']) and args.context == 'final_scoring_step' then'''
+payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma'] or G.GAME.used_vouchers['v_cracker_pw_plasma']) and args.context == 'final_scoring_step' then'''
 match_indent = true
 times = 1
 
+
+    # boss always shows up on multiplies of 8 in endless, as well as the winning ante
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -537,6 +499,7 @@ elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.roun
 match_indent = true
 times = 1
 
+    # New scoring context
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
@@ -550,15 +513,136 @@ if card.area == G.pack_cards then
     end
 end'''
 
+    # Circus Act challenge
 [[patches]]
 [patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = '''if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then'''
+target = "game.lua"
+pattern = "elseif v.id == 'no_shop_jokers' then"
+position = "before"
+payload = """
+elseif v.id == 'onlyjokers' then
+    self.GAME.tarot_rate = 0
+    self.GAME.planet_rate = 0
+"""
 match_indent = true
-position = 'before'
-payload = '''
-if card.area == G.pack_cards then
-    for i=1, #G.jokers.cards do
-        eval_card(G.jokers.cards[i], {taking_booster_card = true})
+times = 1
+
+
+    # Laminated edition
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "function Card:set_debuff(should_debuff)"
+position = 'after'
+match_indent = true
+payload = '''if self.edition and self.edition.cracker_laminated then
+    if self.debuff then
+        self.debuff = false
+        if self.area == G.jokers then self:add_to_deck(true) end
     end
-end'''
+    return
+end
+'''
+
+
+    # Colors
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = "RENTAL = HEX('b18f43'),"
+position = "after"
+match_indent = true
+payload = '''
+REVERSE_ARCANA = HEX('7360BF'),
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.ARGS.LOC_COLOURS = G.ARGS.LOC_COLOURS or {"
+position = "after"
+match_indent = true
+payload = '''
+  reverse_arcana = G.C.REVERSE_ARCANA,
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''(self.ability.set == 'Voucher' and {G.C.SECONDARY_SET.Voucher, G.C.CLEAR}) or'''
+position = "after"
+payload = '''
+(G.C.Cracker.Dissolve[self.ability.set] and {G.C.Cracker.Dissolve[self.ability.set]}) or
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "v.current_weight = v.get_weight and v:get_weight() or v.weight or 1"
+position = "after"
+match_indent = true
+payload = '''
+local test_deck = ((G.GAME.selected_back_key or {}).key == 'b_cracker_test')
+
+if test_deck then
+    if v.kind == "cracker_reverse_arcana" then
+        v.current_weight = v.current_weight * 5
+    end
+end
+'''
+
+    # Ghost in a Pack challenge
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if G.GAME.modifiers.all_eternal then"
+position = "before"
+payload = """
+if G.GAME.modifiers.all_perishable then
+    card:set_perishable(true)
+end
+"""
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local center = G.P_CENTERS.b_red"
+position = "before"
+payload = """
+if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
+    _type = "Spectral"
+end
+"""
+match_indent = true
+times = 1
+
+    # smods patches
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "SMODS.destroy_cards(self, nil, nil, true)"
+position = "at"
+payload = "SMODS.destroy_cards(self, nil, true, true, true)"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = "function SMODS.destroy_cards(cards, bypass_eternal, immediate, skip_anim)"
+position = "at"
+payload = "function SMODS.destroy_cards(cards, bypass_eternal, immediate, skip_anim, is_internal)"
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = "card.skip_destroy_animation = skip_anim"
+position = "before"
+payload = "card.internal_destruction = is_internal"
+match_indent = true
+times = 1
