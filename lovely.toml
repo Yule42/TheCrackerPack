@@ -195,57 +195,13 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "elseif self.ability.name == 'Ice Cream' then loc_vars = {self.ability.extra.chips, self.ability.extra.chip_mod}"
-position = "at"
-payload = "elseif self.ability.name == 'Ice Cream' then loc_vars = {self.ability.extra.chips, self.ability.extra.chip_mod * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
 pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
 position = "at"
 payload = "if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then"
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-SMODS.scale_card(self, {
-    ref_table = self.ability.extra,
-    ref_value = "chips",
-    scalar_value = "chip_mod",
-    operation = "-",
-    message_key = 'a_chips_minus'
-})
-'''
-position = "at"
-payload = '''
-if G.GAME.food_multiplier > 0 then -- if anyone wanted to set this to anything besides 0 or 1, i am so sorry
-    SMODS.scale_card(self, {
-        ref_table = self.ability.extra,
-        ref_value = "chips",
-        scalar_value = "chip_mod",
-        operation = "-",
-        message_key = 'a_chips_minus'
-    })
-end
-'''
-match_indent = true
-times = 1
-
     # Freezer - Turtle Bean
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Turtle Bean' then loc_vars = {self.ability.extra.h_size, self.ability.extra.h_mod}"
-position = "at"
-payload = "elseif self.ability.name == 'Turtle Bean' then loc_vars = {self.ability.extra.h_size, self.ability.extra.h_mod * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
 
 [[patches]]
 [patches.pattern]
@@ -256,48 +212,7 @@ payload = "if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.foo
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-SMODS.scale_card(self, {
-    ref_table = self.ability.extra,
-    ref_value = "h_size",
-    scalar_value = "h_mod",
-    message_key = 'a_handsize_minus',
-    operation = function(ref_table, ref_value, initial, change)
-        ref_table[ref_value] = initial - change
-        G.hand:change_size(- change)
-    end
-})'''
-position = "at"
-payload = '''
-if G.GAME.food_multiplier > 0 then
-    SMODS.scale_card(self, {
-        ref_table = self.ability.extra,
-        ref_value = "h_size",
-        scalar_value = "h_mod",
-        message_key = 'a_handsize_minus',
-        operation = function(ref_table, ref_value, initial, change)
-            ref_table[ref_value] = initial - change
-            G.hand:change_size(- change)
-        end
-    })
-end
-'''
-match_indent = true
-times = 1
-
     # Freezer - Popcorn
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Popcorn' then loc_vars = {self.ability.mult, self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Popcorn' then loc_vars = {self.ability.mult, self.ability.extra * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -307,44 +222,7 @@ payload = "if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) 
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-SMODS.scale_card(self, {
-    ref_table = self.ability,
-    ref_value = "x_mult",
-    scalar_value = "extra",
-    operation = "-",
-    message_key = 'a_xmult_minus',
-    colour = G.C.RED
-})
-'''
-position = "at"
-payload = '''
-if G.GAME.food_multiplier > 0 then
-    SMODS.scale_card(self, {
-        ref_table = self.ability,
-        ref_value = "x_mult",
-        scalar_value = "extra",
-        operation = "-",
-        message_key = 'a_xmult_minus',
-        colour = G.C.RED
-    })
-end
-'''
-match_indent = true
-times = 1
-
     # Freezer - Ramen
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Ramen' then loc_vars = {self.ability.x_mult, self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Ramen' then loc_vars = {self.ability.x_mult, self.ability.extra * G.GAME.food_multiplier}"
-match_indent = true
-times = 1
 
 [[patches]]
 [patches.pattern]
@@ -355,45 +233,7 @@ payload = "if self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier
 match_indent = true
 times = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-SMODS.scale_card(self, {
-    ref_table = self.ability,
-    ref_value = "mult",
-    scalar_value = "extra",
-    message_key = 'a_mult_minus',
-    colour = G.C.MULT,
-    operation = '-'
-})
-'''
-position = "at"
-payload = '''
-if G.GAME.food_multiplier > 0 then
-    SMODS.scale_card(self, {
-        ref_table = self.ability,
-        ref_value = "mult",
-        scalar_value = "extra",
-        message_key = 'a_mult_minus',
-        colour = G.C.MULT,
-        operation = '-'
-    })
-end
-'''
-match_indent = true
-times = 1
-
     # Freezer - Seltzer
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Seltzer' then loc_vars = {self.ability.extra}"
-position = "at"
-payload = "elseif self.ability.name == 'Seltzer' then loc_vars = {(G.GAME.food_multiplier and self.ability.extra or '')}"
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -608,7 +448,6 @@ for i=1, #G.jokers.cards do
 end
 '''
 
-
     # The End challenge
 [[patches]]
 [patches.pattern]
@@ -695,6 +534,70 @@ elseif v.id == 'onlyjokers' then
 """
 match_indent = true
 times = 1
+
+
+    # Laminated edition
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "function Card:set_debuff(should_debuff)"
+position = 'after'
+match_indent = true
+payload = '''if self.edition and self.edition.cracker_laminated then
+    if self.debuff then
+        self.debuff = false
+        if self.area == G.jokers then self:add_to_deck(true) end
+    end
+end'''
+
+
+    # Colors
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = "RENTAL = HEX('b18f43'),"
+position = "after"
+match_indent = true
+payload = '''
+REVERSE_ARCANA = HEX('7360BF'),
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.ARGS.LOC_COLOURS = G.ARGS.LOC_COLOURS or {"
+position = "after"
+match_indent = true
+payload = '''
+  reverse_arcana = G.C.REVERSE_ARCANA,
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''(self.ability.set == 'Voucher' and {G.C.SECONDARY_SET.Voucher, G.C.CLEAR}) or'''
+position = "after"
+payload = '''
+(G.C.Cracker.Dissolve[self.ability.set] and {G.C.Cracker.Dissolve[self.ability.set]}) or
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "v.current_weight = v.get_weight and v:get_weight() or v.weight or 1"
+position = "after"
+match_indent = true
+payload = '''
+local test_deck = ((G.GAME.selected_back_key or {}).key == 'b_cracker_test')
+
+if test_deck then
+    if v.kind == "cracker_reverse_arcana" then
+        v.current_weight = v.current_weight * 5
+    end
+end
+'''
 
 
     # Laminated edition
