@@ -31,7 +31,7 @@ SMODS.Joker{ --Saltine Cracker
 
     calculate = function(self, card, context)
         if context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.chips + (card.ability.extra.chip_mod * G.GAME.food_multiplier) >= card.ability.extra.max_chips then 
+            if card.ability.extra.chips + (card.ability.extra.chip_mod * G.GAME.food_multiplier) >= card.ability.extra.max_chips then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -58,7 +58,8 @@ SMODS.Joker{ --Saltine Cracker
                     ref_value = "chips",
                     scalar_value = "chip_mod",
                     operation = "+",
-                    message_key = 'a_chips'
+                    message_key = 'a_chips',
+                    message_colour = G.C.BLUE
                 })
             end
         
@@ -222,7 +223,8 @@ SMODS.Joker{ --Graham Cracker
                         ref_value = "x_mult",
                         scalar_value = "x_mult_add",
                         operation = "+",
-                        message_key = 'a_xmult'
+                        message_key = 'a_xmult',
+                        message_colour = G.C.RED
                     })
                 end
             end
@@ -313,7 +315,8 @@ SMODS.Joker{ --Cheese
                     ref_value = "x_mult",
                     scalar_value = "x_mult_remove",
                     operation = "-",
-                    message_key = 'a_xmult_minus'
+                    message_key = 'a_xmult_minus',
+                    message_colour = G.C.RED
                 })
             else
                 G.E_MANAGER:add_event(Event({
@@ -677,7 +680,8 @@ SMODS.Joker{ --Curry
                     ref_value = "mult",
                     scalar_value = "mult_remove",
                     operation = "-",
-                    message_key = 'a_mult_minus'
+                    message_key = 'a_mult_minus',
+                    message_colour = G.C.RED
                 })
             else
                 G.E_MANAGER:add_event(Event({
