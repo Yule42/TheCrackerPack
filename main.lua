@@ -1,5 +1,7 @@
 CrackerConfig = SMODS.current_mod.config
 
+Cracker = {}
+
 assert(SMODS.load_file('src/base_jokers.lua'))()
 if not CrackerConfig.disable_upgradedfood then
     assert(SMODS.load_file('src/upgraded_food.lua'))()
@@ -135,110 +137,158 @@ end
 SMODS.current_mod.extra_tabs = function() --Credits
     local scale = 0.4
     return {
-        label = "Credits",
-        tab_definition_function = function()
-        return {
-            n = G.UIT.ROOT,
-            config = {
-                align = "cm",
-                padding = 0.05,
-                colour = G.C.CLEAR,
-            },
-            nodes = {
-                {
-                    n = G.UIT.R,
-                    config = {
-                        padding = 0,
-                        align = "cm"
-                    },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Directors: sugariimarii, sophiedeergirl",
-                                shadow = true,
-                                scale = scale,
-                                colour = G.C.GREEN
+        {
+            label = "Credits",
+            tab_definition_function = function()
+            return {
+                n = G.UIT.ROOT,
+                config = {
+                    align = "cm",
+                    padding = 0.05,
+                    colour = G.C.CLEAR,
+                },
+                nodes = {
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0,
+                            align = "cm"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = "Directors: sugariimarii, sophiedeergirl",
+                                    shadow = true,
+                                    scale = scale,
+                                    colour = G.C.GREEN
+                                }
                             }
                         }
-                    }
-                },
-                {
-                    n = G.UIT.R,
-                    config = {
-                        padding = 0,
-                        align = "cm"
                     },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy",
-                                shadow = true,
-                                scale = scale,
-                                colour = G.C.BLUE
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0,
+                            align = "cm"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, wombatcountry",
+                                    shadow = true,
+                                    scale = scale,
+                                    colour = G.C.BLUE
+                                }
+                            },
+                        }
+                    },
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0,
+                            align = "cm"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = "Programming: sophiedeergirl, I'm an issue",
+                                    shadow = true,
+                                    scale = scale,
+                                    colour = G.C.GREEN
+                                }
                             }
                         },
-                    }
-                },
-                {
-                    n = G.UIT.R,
-                    config = {
-                        padding = 0,
-                        align = "cm"
                     },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Programming: sophiedeergirl, I'm an issue",
-                                shadow = true,
-                                scale = scale,
-                                colour = G.C.GREEN
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0,
+                            align = "cm"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = "Testing: brook03",
+                                    shadow = true,
+                                    scale = scale,
+                                    colour = G.C.MONEY
+                                }
                             }
-                        }
+                        },
                     },
-                },
-                {
-                    n = G.UIT.R,
-                    config = {
-                        padding = 0,
-                        align = "cm"
-                    },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Testing: brook03",
-                                shadow = true,
-                                scale = scale,
-                                colour = G.C.MONEY
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0,
+                            align = "cm"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.T,
+                                config = {
+                                    text = "Joker Ideas: sophiedeergirl, sugariimarii, palestjade, brook03, plebmiester",
+                                    shadow = true,
+                                    scale = scale,
+                                    colour = G.C.SECONDARY_SET.Spectral
+                                }
                             }
-                        }
+                        },
                     },
-                },
-                {
-                    n = G.UIT.R,
-                    config = {
-                        padding = 0,
-                        align = "cm"
-                    },
-                    nodes = {
-                        {
-                            n = G.UIT.T,
-                            config = {
-                                text = "Joker Ideas: sophiedeergirl, sugariimarii, palestjade, brook03, plebmiester",
-                                shadow = true,
-                                scale = scale,
-                                colour = G.C.SECONDARY_SET.Spectral
-                            }
-                        }
-                    },
-                },
+                }
             }
-        }
-        end
+            end
+        },
+        {
+            label = "URL",
+            tab_definition_function = function()
+            return {
+                n = G.UIT.ROOT,
+                config = {
+                    align = "cm",
+                    padding = 0.05,
+                    colour = G.C.CLEAR,
+                },
+                nodes = {
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0.1,
+                            align = "cm"
+                        },
+                        nodes = {
+                            UIBox_button({
+                                colour = G.C.RED, minw = 3.5, minh = 1, padding = 0.1, emboss = 0.2, button = "open_url", label = {localize("k_open_url")}
+                            }),
+                        }
+                    },
+                    {
+                        n = G.UIT.R,
+                        config = {
+                            padding = 0.1,
+                            align = "cm"
+                        },
+                        nodes = {
+                            UIBox_button({
+                                colour = G.C.RED, minw = 3.5, minh = 1, padding = 0.1, emboss = 0.2, button = "copy_url", label = {localize("k_copy_url")}
+                            })
+                        }
+                    }
+                }
+            }
+            end
+        },
     }
+end
+
+G.FUNCS.open_url = function(e)
+    love.system.openURL("https://docs.google.com/forms/d/e/1FAIpQLSdp-g2-Dd58vgNu6moXMbppHyBMSOXFt12NOLlqX6Yx2SHp0w/viewform")
+end
+G.FUNCS.copy_url = function(e)
+    love.system.setClipboardText("https://docs.google.com/forms/d/e/1FAIpQLSdp-g2-Dd58vgNu6moXMbppHyBMSOXFt12NOLlqX6Yx2SHp0w/viewform")
 end
 
 SMODS.current_mod.config_tab = function() --Config
