@@ -572,20 +572,6 @@ match_indent = true
 times = 1
 
 
-    # Laminated edition
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = "function Card:set_debuff(should_debuff)"
-position = 'after'
-match_indent = true
-payload = '''if self.edition and self.edition.cracker_laminated then
-    if self.debuff then
-        self.debuff = false
-        if self.area == G.jokers then self:add_to_deck(true) end
-    end
-end'''
-
     # Circus Act challenge
 [[patches]]
 [patches.pattern]
@@ -603,68 +589,6 @@ times = 1
 end
 '''
 
-
-    # Colors
-[[patches]]
-[patches.pattern]
-target = "globals.lua"
-pattern = "RENTAL = HEX('b18f43'),"
-position = "after"
-match_indent = true
-payload = '''
-REVERSE_ARCANA = HEX('7360BF'),
-'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/misc_functions.lua"
-pattern = "G.ARGS.LOC_COLOURS = G.ARGS.LOC_COLOURS or {"
-position = "after"
-match_indent = true
-payload = '''
-  reverse_arcana = G.C.REVERSE_ARCANA,
-'''
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''(self.ability.set == 'Voucher' and {G.C.SECONDARY_SET.Voucher, G.C.CLEAR}) or'''
-position = "after"
-payload = '''
-(G.C.Cracker.Dissolve[self.ability.set] and {G.C.Cracker.Dissolve[self.ability.set]}) or
-'''
-match_indent = true
-
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/overrides.lua"]'
-pattern = "v.current_weight = v.get_weight and v:get_weight() or v.weight or 1"
-position = "after"
-match_indent = true
-payload = '''
-local test_deck = ((G.GAME.selected_back_key or {}).key == 'b_cracker_test')
-
-if test_deck then
-    if v.kind == "cracker_reverse_arcana" then
-        v.current_weight = v.current_weight * 5
-    end
-end
-'''
-
-    # Ghost in a Pack challenge
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "if G.GAME.modifiers.all_eternal then"
-position = "before"
-payload = """
-if G.GAME.modifiers.all_perishable then
-    card:set_perishable(true)
-end
-"""
-match_indent = true
-times = 1
 
 [[patches]]
 [patches.pattern]
