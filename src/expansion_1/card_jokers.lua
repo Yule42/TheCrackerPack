@@ -357,17 +357,17 @@ SMODS.Joker{ --Yellow Card
     key = "yellowcard",
     config = {
         extra = {
-            dollars_gain = 24,
+            dollars_gain = 15,
             dollars = 0,
-            dollars_lose = 4,
+            dollars_lose = 2,
         }
     },
     pos = {
         x = 7,
         y = 2
     },
-    cost = 8,
-    rarity = 3,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = false,
