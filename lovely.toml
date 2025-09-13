@@ -572,24 +572,6 @@ match_indent = true
 times = 1
 
 
-    # Circus Act challenge
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "elseif v.id == 'no_shop_jokers' then"
-position = "before"
-payload = """
-elseif v.id == 'onlyjokers' then
-    self.GAME.tarot_rate = 0
-    self.GAME.planet_rate = 0
-"""
-match_indent = true
-times = 1
-    return
-end
-'''
-
-
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
