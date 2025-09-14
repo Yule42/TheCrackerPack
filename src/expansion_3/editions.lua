@@ -111,6 +111,7 @@ SMODS.Edition { -- Altered
         return { vars = { self.config.extra.slots } }
     end,
     weight = 7,
+    in_shop = true,
     
     
     on_apply = function(card)
@@ -145,7 +146,7 @@ SMODS.Edition { -- Crystalline
         return { vars = { self.config.extra.chips, self.config.extra.mult, self.config.extra.x_mult } }
     end,
     weight = 1.5,
-    
+    in_shop = true,
     
     calculate = function(self, card, context)
         if context.edition and context.cardarea == G.jokers and context.joker_main then
