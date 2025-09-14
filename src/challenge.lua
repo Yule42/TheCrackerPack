@@ -257,6 +257,7 @@ challenge = SMODS.Challenge{
             {id = 'j_cracker_prosopagnosia'},
             {id = 'j_cracker_ants'},
             {id = 'j_cracker_postman'},
+            {id = 'j_cracker_freezer'},
         },
     }
 }
