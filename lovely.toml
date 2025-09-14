@@ -598,22 +598,31 @@ if test_deck then
 end
 '''
 
-
-    # Laminated edition
+    # Ghost in a Pack challenge
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-pattern = "function Card:set_debuff(should_debuff)"
-position = 'after'
-match_indent = true
-payload = '''if self.edition and self.edition.cracker_laminated then
-    if self.debuff then
-        self.debuff = false
-        if self.area == G.jokers then self:add_to_deck(true) end
-    end
-    return
+target = "functions/common_events.lua"
+pattern = "if G.GAME.modifiers.all_eternal then"
+position = "before"
+payload = """
+if G.GAME.modifiers.all_perishable then
+    card:set_perishable(true)
 end
-'''
+"""
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local center = G.P_CENTERS.b_red"
+position = "before"
+payload = """
+if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
+    _type = "Spectral"
+end
+"""
+match_indent = true
 
 
 [[patches]]
