@@ -160,6 +160,7 @@ SMODS.Challenge{
         }
     },
     deck = {
+        type = 'Challenge Deck',
         cards = {
             { s = "D", r = "2", g = "Gold" },
             { s = "D", r = "3" },
