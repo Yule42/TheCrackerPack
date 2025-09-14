@@ -309,8 +309,8 @@ SMODS.Consumable{ -- The Wheel of Fortune
         }
     },
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_laminated
         info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_sleeved
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_altered
         info_queue[#info_queue + 1] = G.P_CENTERS.e_cracker_crystalline
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'wheel_of_fortune')
         return { vars = { numerator, denominator } }
@@ -321,9 +321,12 @@ SMODS.Consumable{ -- The Wheel of Fortune
 
             local eligible_card = pseudorandom_element(editionless_jokers, 'wheel_of_fortune')
             local edition = poll_edition('wheel_of_fortune', nil, true, true,
-                { 'e_cracker_laminated', 'e_cracker_crystalline', 'e_cracker_sleeved' })
-            eligible_card:set_edition(edition, true)
-            check_for_unlock({ type = 'have_edition' })
+                { 'e_cracker_crystalline', 'e_cracker_altered', 'e_cracker_sleeved' })
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                eligible_card:set_edition(edition, true)
+                check_for_unlock({ type = 'have_edition' })
+                return true end
+            }))
         else
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -466,7 +469,7 @@ SMODS.Consumable{ -- The Hanged Man
     key = 'hanged_man',
     config = {
         extra = {
-            cards = 2,
+            cards = 1,
         }
     },
     
@@ -718,42 +721,37 @@ SMODS.Consumable{ -- The Star
     end,
 
     can_use = function(self, card)
-        return #G.hand.cards > 0
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.destroy then
+            for k, v in ipairs(G.hand.highlighted) do
+                if not v:is_suit(card.ability.extra.suit_conv) then
+                    return false
+                end
+            end
+            return true
+        else
+            return false
+        end
     end,
 
     use = function(self, card)
-        local temp_hand = {}
-        local destroyed_cards = {}
-        for k, v in ipairs(G.hand.cards) do
-            if v:is_suit(card.ability.extra.suit_conv) then
-                temp_hand[#temp_hand+1] = v
-            end
-        end
-        table.sort(temp_hand, function (a, b) return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card end)
-        pseudoshuffle(temp_hand, pseudoseed('star'))
-        
-        for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards+1] = temp_hand[i] end
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.1,
-            func = function() 
-                for i=#destroyed_cards, 1, -1 do
-                    local _card = destroyed_cards[i]
-                    if _card.ability.name == 'Glass Card' then 
-                        _card:shatter()
-                    else
-                        _card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true end }))
-        delay(0.6)
-        for i = 1, #G.jokers.cards do
-            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-        end
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                SMODS.destroy_cards(G.hand.highlighted)
+                return true
+            end
+        }))
+        delay(0.3)
     end,
 }
 
@@ -781,49 +779,37 @@ SMODS.Consumable{ -- The Moon
     end,
 
     can_use = function(self, card)
-        local contains_suit = false
-        for _, playing_card in ipairs(G.hand.cards) do
-            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
-                contains_suit = true
-                break
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.destroy then
+            for k, v in ipairs(G.hand.highlighted) do
+                if not v:is_suit(card.ability.extra.suit_conv) then
+                    return false
+                end
             end
+            return true
+        else
+            return false
         end
-        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)
-        local temp_hand = {}
-        local destroyed_cards = {}
-        for k, v in ipairs(G.hand.cards) do
-            if v:is_suit(card.ability.extra.suit_conv) then
-                temp_hand[#temp_hand+1] = v
-            end
-        end
-        table.sort(temp_hand, function (a, b) return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card end)
-        pseudoshuffle(temp_hand, pseudoseed('moon'))
-        
-        for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards+1] = temp_hand[i] end
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.1,
-            func = function() 
-                for i=#destroyed_cards, 1, -1 do
-                    local _card = destroyed_cards[i]
-                    if _card.ability.name == 'Glass Card' then 
-                        _card:shatter()
-                    else
-                        _card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true end }))
-        delay(0.6)
-        for i = 1, #G.jokers.cards do
-            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-        end
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                SMODS.destroy_cards(G.hand.highlighted)
+                return true
+            end
+        }))
+        delay(0.3)
     end,
 }
 
@@ -851,49 +837,37 @@ SMODS.Consumable{ -- The Sun
     end,
 
     can_use = function(self, card)
-        local contains_suit = false
-        for _, playing_card in ipairs(G.hand.cards) do
-            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
-                contains_suit = true
-                break
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.destroy then
+            for k, v in ipairs(G.hand.highlighted) do
+                if not v:is_suit(card.ability.extra.suit_conv) then
+                    return false
+                end
             end
+            return true
+        else
+            return false
         end
-        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)
-        local temp_hand = {}
-        local destroyed_cards = {}
-        for k, v in ipairs(G.hand.cards) do
-            if v:is_suit(card.ability.extra.suit_conv) then
-                temp_hand[#temp_hand+1] = v
-            end
-        end
-        table.sort(temp_hand, function (a, b) return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card end)
-        pseudoshuffle(temp_hand, pseudoseed('sun'))
-        
-        for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards+1] = temp_hand[i] end
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.1,
-            func = function() 
-                for i=#destroyed_cards, 1, -1 do
-                    local _card = destroyed_cards[i]
-                    if _card.ability.name == 'Glass Card' then 
-                        _card:shatter()
-                    else
-                        _card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true end }))
-        delay(0.6)
-        for i = 1, #G.jokers.cards do
-            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-        end
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                SMODS.destroy_cards(G.hand.highlighted)
+                return true
+            end
+        }))
+        delay(0.3)
     end,
 }
 
@@ -1005,49 +979,37 @@ SMODS.Consumable{ -- The World
     end,
 
     can_use = function(self, card)
-        local contains_suit = false
-        for _, playing_card in ipairs(G.hand.cards) do
-            if playing_card:is_suit(card.ability.extra.suit_conv, nil, true) then
-                contains_suit = true
-                break
+        if G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.destroy then
+            for k, v in ipairs(G.hand.highlighted) do
+                if not v:is_suit(card.ability.extra.suit_conv) then
+                    return false
+                end
             end
+            return true
+        else
+            return false
         end
-        return #G.hand.cards > 0 and contains_suit
     end,
 
     use = function(self, card)
-        local temp_hand = {}
-        local destroyed_cards = {}
-        for k, v in ipairs(G.hand.cards) do
-            if v:is_suit(card.ability.extra.suit_conv) then
-                temp_hand[#temp_hand+1] = v
-            end
-        end
-        table.sort(temp_hand, function (a, b) return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card end)
-        pseudoshuffle(temp_hand, pseudoseed('world'))
-        
-        for i = 1, card.ability.extra.destroy do destroyed_cards[#destroyed_cards+1] = temp_hand[i] end
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
-            delay = 0.1,
-            func = function() 
-                for i=#destroyed_cards, 1, -1 do
-                    local _card = destroyed_cards[i]
-                    if _card.ability.name == 'Glass Card' then 
-                        _card:shatter()
-                    else
-                        _card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true end }))
-        delay(0.6)
-        for i = 1, #G.jokers.cards do
-            G.jokers.cards[i]:calculate_joker({remove_playing_cards = true, removed = destroyed_cards})
-        end
+            delay = 0.4,
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                SMODS.destroy_cards(G.hand.highlighted)
+                return true
+            end
+        }))
+        delay(0.3)
     end,
 }
 

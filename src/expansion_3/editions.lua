@@ -1,4 +1,4 @@
-SMODS.Shader {
+--[[SMODS.Shader {
   key = 'laminated',
   path = 'laminated.fs'
 }
@@ -43,7 +43,7 @@ function Card:can_sell_card(context)
         return true
     end
     return ref
-end
+end--]]
 
 SMODS.Edition { -- Sleeved
     key = 'sleeved',
@@ -59,28 +59,71 @@ SMODS.Edition { -- Sleeved
         return { vars = { self.config.extra.money } }
     end,
     
-    in_shop = false,
-    weight = 14,
+    in_shop = true,
+    weight = 10,
     
     calculate = function(self, card, context)
         if context.end_of_round and context.cardarea == G.jokers and not context.repetition and not context.individual then
             card.ability.extra_value = card.ability.extra_value + self.config.extra.money
             card:set_cost()
+            return {
+                message = localize('k_val_up'),
+                colour = G.C.MONEY
+            }
         end
     end
 }
+
+
 
 SMODS.DrawStep {
     key = 'sleeved',
     order = 50,
     func = function(card)
         if card.edition and card.edition.cracker_sleeved and (card.config.center.discovered or card.bypass_discovery_center) then
-            G.shared_soul.role.draw_major = card
-            G.shared_soul:draw_shader('dissolve', 0, nil, nil, card.children.center)
-            G.shared_soul:draw_shader('dissolve', nil, nil, nil, card.children.center)
+            if not G.shared_sleeved_cracker then
+                G.shared_sleeved_cracker = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["cracker_enhancements"], { x = 8, y = 0 })
+            end
+            G.shared_sleeved_cracker.role.draw_major = card
+            G.shared_sleeved_cracker:draw_shader('dissolve', 0, nil, nil, card.children.center)
+            G.shared_sleeved_cracker:draw_shader('dissolve', nil, nil, nil, card.children.center)
         end
     end,
     conditions = { vortex = false, facing = 'front' },
+}
+
+SMODS.Shader {
+  key = 'altered',
+  path = 'altered.fs'
+}
+
+SMODS.Edition { -- Altered
+    key = 'altered',
+    shader = 'altered',
+    
+    config = {
+        extra = {
+            slots = 1,
+        }
+    },
+    
+    loc_vars = function(self, info_queue, card)
+        return { vars = { self.config.extra.slots } }
+    end,
+    weight = 7,
+    
+    
+    on_apply = function(card)
+        if card.ability.set == 'Joker' and G.consumeables then
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+        end
+    end,
+    
+    on_remove = function(card)
+        if card.ability.set == 'Joker' and G.consumeables then
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+        end
+    end,
 }
 
 SMODS.Edition { -- Crystalline
@@ -101,9 +144,8 @@ SMODS.Edition { -- Crystalline
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.chips, self.config.extra.mult, self.config.extra.x_mult } }
     end,
-    weight = 3,
+    weight = 1.5,
     
-    in_shop = false,
     
     calculate = function(self, card, context)
         if context.edition and context.cardarea == G.jokers and context.joker_main then

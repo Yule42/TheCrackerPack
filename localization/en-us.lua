@@ -566,8 +566,8 @@ return {
             c_cracker_hanged_man = {
                 name = 'The Hanged Man',
                 text = {
-                    'Create copies of up to',
-                    '{C:attention}#1#{} selected cards',
+                    'Create a copy of',
+                    '{C:attention}#1#{} selected card',
                     'in your hand',
                 },
             },
@@ -607,7 +607,7 @@ return {
                 name = 'The Star',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1#{} random {V:1}#2#{} cards',
+                    '{C:attention}#1#{} selected {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -615,7 +615,7 @@ return {
                 name = 'The Moon',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1#{} random {V:1}#2#{} cards',
+                    '{C:attention}#1#{} selected {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -623,7 +623,7 @@ return {
                 name = 'The Sun',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1#{} random {V:1}#2#{} cards',
+                    '{C:attention}#1#{} selected {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -639,7 +639,7 @@ return {
                 name = 'The World',
                 text = {
                     'Destroys up to',
-                    '{C:attention}#1#{} random {V:1}#2#{} cards',
+                    '{C:attention}#1#{} selected {V:1}#2#{} cards',
                     'held in hand',
                 },
             },
@@ -754,6 +754,12 @@ return {
                 text = {
                     "Cannot be debuffed",
                     "or destroyed",
+                }
+            },
+            e_cracker_altered = {
+                name = "Altered",
+                text = {
+                    "{C:attention}+#1#{} Consumable Slot",
                 }
             },
             e_cracker_crystalline = {
@@ -1120,6 +1126,7 @@ return {
         },
         labels = {
             cracker_laminated = "Laminated",
+            cracker_altered = "Altered",
             cracker_crystalline = "Crystalline",
             cracker_sleeved = "Sleeved",
         },
