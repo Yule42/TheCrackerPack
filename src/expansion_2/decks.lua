@@ -108,6 +108,8 @@ SMODS.Back{ -- Patchwork Deck
     end
 }
 
+--[[
+
 SMODS.Back{ -- Test Deck
     name = "Test Deck", 
     key = "test",
@@ -220,7 +222,7 @@ SMODS.Back{ -- I'm afraid.
     end,
 }
 
---[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
+local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then
         if math.fmod(G.GAME.round_resets.ante, 2) == 1 then

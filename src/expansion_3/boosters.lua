@@ -18,7 +18,7 @@ local normal_boosters = {keys = {'reverse_arcana_normal_1', 'reverse_arcana_norm
     kind = 'cracker_reverse_arcana',
     draw_hand = true,
     cost = 4,
-    weight = 0.2,
+    weight = 0.3,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
             timer = 0.015,
@@ -69,7 +69,7 @@ local jumbo_boosters = {keys = {'reverse_arcana_jumbo_1', 'reverse_arcana_jumbo_
     kind = 'cracker_reverse_arcana',
     draw_hand = true,
     cost = 6,
-    weight = 0.1,
+    weight = 0.3,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
             timer = 0.015,
@@ -120,7 +120,7 @@ local mega_boosters = {keys = {'reverse_arcana_mega_1', 'reverse_arcana_mega_2'}
     kind = 'cracker_reverse_arcana',
     draw_hand = true,
     cost = 8,
-    weight = 0.04,
+    weight = 0.075,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0, 0, {
             timer = 0.015,

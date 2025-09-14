@@ -45,6 +45,13 @@ return {
                     '{C:attention}-1{} card slot',
                 }
             },
+            b_cracker_cheaters = {
+                name = 'Cheater\'s Deck',
+                text = {
+                    '{C:reversetarot}Reverse Tarot{} cards can appear',
+                    'in place of {C:tarot}Tarot{} cards',
+                }
+            },
             b_cracker_gambler = {
                 name = 'Gambler\'s Deck',
                 text = {

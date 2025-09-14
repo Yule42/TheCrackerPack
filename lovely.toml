@@ -612,31 +612,21 @@ end
 match_indent = true
 times = 1
 
+    # both challenge and deck
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "local center = G.P_CENTERS.b_red"
 position = "before"
-payload = """
+payload = '''
 if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
     _type = "Spectral"
+elseif G.GAME.selected_back.effect.center.key and pseudorandom("Cheater\'s Deck") > 0.7 then
+    _type = "reversetarot"
 end
-"""
+'''
 match_indent = true
 
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local center = G.P_CENTERS.b_red"
-position = "before"
-payload = """
-if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
-    _type = "Spectral"
-end
-"""
-match_indent = true
-times = 1
 
     # smods patches
 [[patches]]
