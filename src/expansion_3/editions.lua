@@ -114,6 +114,16 @@ SMODS.Edition { -- Altered
     weight = 7,
     in_shop = true,
     extra_cost = 3,
+    on_apply = function(card)
+        if card.ability.set == 'Joker' and card.area == G.jokers and G.consumeables then
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+        end
+    end,
+    on_remove = function(card)
+        if card.ability.set == 'Joker' and card.area == G.jokers and G.consumeables then
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+        end
+    end,
 }
 
 local add_to_deck_ref = Card.add_to_deck

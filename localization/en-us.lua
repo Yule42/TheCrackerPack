@@ -769,6 +769,13 @@ return {
                     "{C:attention}+#1#{} Consumable Slot",
                 }
             },
+            e_cracker_altered_playing_card = {
+                name="Altered",
+                text={
+                    "{C:attention}+#1#{} Consumable Slot",
+                    "while held in hand",
+                },
+            },
             e_cracker_crystalline = {
                 name = "Crystalline",
                 text = {
