@@ -152,14 +152,7 @@ SMODS.Edition { -- Crystalline
     extra_cost = 5,
     
     calculate = function(self, card, context)
-        if context.edition and context.cardarea == G.jokers and context.joker_main then
-            return {
-                chips = self.config.extra.chips,
-                mult = self.config.extra.mult,
-                x_mult = self.config.extra.x_mult,
-            }
-        end
-        if context.cardarea == G.play and context.main_scoring then
+        if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
             return {
                 chips = self.config.extra.chips,
                 mult = self.config.extra.mult,
