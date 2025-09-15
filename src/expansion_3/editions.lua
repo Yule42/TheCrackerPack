@@ -124,7 +124,7 @@ SMODS.Edition { -- Altered
             G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
         end
     end,
-    update = function(self, card)
+    --[[update = function(self, card)
         if not card.cracker_altered_active and not card.debuff and card.area and card.area == G.hand then 
             G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
             card.cracker_altered_active = true
@@ -134,8 +134,33 @@ SMODS.Edition { -- Altered
             G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
             card.cracker_altered_active = false
         end
-    end,
+    end,--]]
 }
+
+-- Code shamelessly ripped from Paperback
+-- Prevent Altered edition from appearing on playing cards
+local poll_edition_ref = poll_edition
+function poll_edition(_key, _mod, _no_neg, _guaranteed, _options)
+  local removed, pos
+
+  if _no_neg then
+    for i, v in ipairs(G.P_CENTER_POOLS.Edition) do
+      if v.key == 'e_cracker_altered' then
+        pos = i
+        removed = table.remove(G.P_CENTER_POOLS.Edition, i)
+        break
+      end
+    end
+  end
+
+  local ret = poll_edition_ref(_key, _mod, _no_neg, _guaranteed, _options)
+
+  if _no_neg and removed and pos then
+    table.insert(G.P_CENTER_POOLS.Edition, pos, removed)
+  end
+
+  return ret
+end
 
 local add_to_deck_ref = Card.add_to_deck
 
