@@ -65,9 +65,7 @@ SMODS.Joker{ --Saltine Cracker
         
         elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips, 
             }
         end
     end
@@ -188,9 +186,7 @@ SMODS.Joker{ --Graham Cracker
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
             card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand) * G.GAME.food_multiplier)
@@ -262,9 +258,7 @@ SMODS.Joker{ --Thrifty Joker
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
-                message = localize{type='variable',key='a_mult',vars={(math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}},
-                mult_mod = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
-                colour = G.C.MULT
+                mult = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
             }
         end
     end
@@ -304,9 +298,7 @@ SMODS.Joker{ --Cheese
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                mult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
             if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier > 0 then
@@ -454,9 +446,7 @@ SMODS.Joker{ --Sacramental Katana
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-                colour = G.C.RED
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.end_of_round and not context.blueprint and G.GAME.blind.boss then
             local my_pos = nil
@@ -669,9 +659,7 @@ SMODS.Joker{ --Curry
     calculate = function(self, card, context)
         if context.initial_scoring_step then
             return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                mult_mod = card.ability.extra.mult,
-                colour = G.C.MULT
+                mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier > 0 then
@@ -793,9 +781,7 @@ SMODS.Joker{ --Northern Star
             card.ability.extra.chips = highest * card.ability.extra.chips_add
         elseif context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
-                chip_mod = card.ability.extra.chips, 
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips,
             }
         end
     end,
