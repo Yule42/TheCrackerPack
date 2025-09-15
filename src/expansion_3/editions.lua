@@ -115,13 +115,24 @@ SMODS.Edition { -- Altered
     in_shop = true,
     extra_cost = 3,
     on_apply = function(card)
-        if card.ability.set == 'Joker' and card.area == G.jokers and G.consumeables then
+        if ((card.ability.set == 'Joker' and card.area == G.jokers) or card.area == G.hand) and G.consumeables then
             G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
         end
     end,
     on_remove = function(card)
-        if card.ability.set == 'Joker' and card.area == G.jokers and G.consumeables then
+        if ((card.ability.set == 'Joker' and card.area == G.jokers) or card.area == G.hand) and G.consumeables then
             G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+        end
+    end,
+    update = function(self, card)
+        if not card.cracker_altered_active and not card.debuff and card.area and card.area == G.hand then 
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+            card.cracker_altered_active = true
+        end
+
+        if card.cracker_altered_active and card.area and card.area ~= G.hand then 
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+            card.cracker_altered_active = false
         end
     end,
 }
