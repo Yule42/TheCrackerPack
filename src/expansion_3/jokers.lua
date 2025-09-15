@@ -69,7 +69,7 @@ SMODS.Joker{ --Silver Coin
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_cracker_silver
         return {vars = {card.ability.extra.dollars}}
     end,
@@ -155,7 +155,7 @@ SMODS.Joker{ --Bonus Joker
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
         info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
         info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
@@ -212,7 +212,7 @@ SMODS.Joker{ --Dirty Joker
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_cracker_soil
         return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult}}
     end,

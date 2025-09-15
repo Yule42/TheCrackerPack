@@ -20,7 +20,7 @@ SMODS.Joker{ --Royal Decree
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {}}
     end,
 }
@@ -385,7 +385,7 @@ SMODS.Joker{ --Potato Chips
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove * G.GAME.food_multiplier}}
     end,
     
@@ -542,7 +542,7 @@ SMODS.Joker{ --The Falcon
     atlas = 'falcon',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.discard_size, card.ability.extra.destroyed}}
     end,
     

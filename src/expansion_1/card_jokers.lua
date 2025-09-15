@@ -21,7 +21,7 @@ SMODS.Joker{ --Green Card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.money}}
     end,
     
@@ -67,7 +67,7 @@ SMODS.Joker{ --Blue Card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.chips_remove}}
     end,
     
@@ -124,7 +124,7 @@ SMODS.Joker{ --Violet Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
@@ -171,7 +171,7 @@ SMODS.Joker{ --Indigo Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'indigo')
         return {vars = {new_numerator, new_denominator}}
     end,
@@ -209,7 +209,7 @@ SMODS.Joker{ --Pink Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -376,7 +376,7 @@ SMODS.Joker{ --Yellow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_gain, card.ability.extra.dollars_lose}}
     end,
     
@@ -438,7 +438,7 @@ SMODS.Joker{ --Black Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed}}
     end,
     
@@ -606,7 +606,7 @@ SMODS.Joker{ --Rainbow Card
                 }}
             }
         end
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.retriggers}, main_end = info}
     end,
     
