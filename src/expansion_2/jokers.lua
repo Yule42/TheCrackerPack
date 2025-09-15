@@ -601,13 +601,20 @@ SMODS.Joker{ --Postman
         y = 3,
     },
     cost = 6,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    in_pool = function(self, args)
+        for k, v in pairs(G.playing_cards) do
+            if v.seal then
+                return true
+            end
+        end
+    end,
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'palestjade'}, key = 'artist_credits_cracker'} end
