@@ -114,20 +114,27 @@ SMODS.Edition { -- Altered
     weight = 7,
     in_shop = true,
     extra_cost = 3,
-    
-    
-    on_apply = function(card)
-        if card.ability.set == 'Joker' and G.consumeables then
-            G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
-        end
-    end,
-    
-    on_remove = function(card)
-        if card.ability.set == 'Joker' and G.consumeables then
-            G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
-        end
-    end,
 }
+
+local add_to_deck_ref = Card.add_to_deck
+
+function Card:add_to_deck(from_debuff)
+    if self and self.edition and self.edition.cracker_altered then
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+    end
+    
+    add_to_deck_ref(self, from_debuff)
+end
+
+local remove_from_deck_ref = Card.remove_from_deck
+
+function Card:remove_from_deck(from_debuff)
+    if self and self.edition and self.edition.cracker_altered then
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+    end
+    
+    remove_from_deck_ref(self, from_debuff)
+end
 
 SMODS.Edition { -- Crystalline
     key = 'crystalline',
