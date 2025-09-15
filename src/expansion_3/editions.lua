@@ -61,6 +61,7 @@ SMODS.Edition { -- Sleeved
     
     in_shop = true,
     weight = 10,
+    extra_cost = 2,
     
     calculate = function(self, card, context)
         if context.end_of_round and context.cardarea == G.jokers and not context.repetition and not context.individual then
@@ -112,6 +113,7 @@ SMODS.Edition { -- Altered
     end,
     weight = 7,
     in_shop = true,
+    extra_cost = 3,
     
     
     on_apply = function(card)
@@ -147,6 +149,7 @@ SMODS.Edition { -- Crystalline
     end,
     weight = 1.5,
     in_shop = true,
+    extra_cost = 5,
     
     calculate = function(self, card, context)
         if context.edition and context.cardarea == G.jokers and context.joker_main then
