@@ -48,8 +48,8 @@ return {
             b_cracker_cheaters = {
                 name = 'Cheater\'s Deck',
                 text = {
-                    '{C:reversetarot}Reverse Tarot{} cards can appear',
-                    'in place of {C:tarot}Tarot{} cards',
+                    '{C:reversetarot}Reverse Tarot{} cards may',
+                    'appear instead of {C:tarot}Tarot{} cards',
                 }
             },
             b_cracker_gambler = {
@@ -968,6 +968,13 @@ return {
                     '{C:attention}+1{} Voucher slot',
                     '{C:attention}+1{} Booster Pack slot',
                 }
+            },
+            v_cracker_pw_cheaters = {
+                name = 'Cheater\'s Deck',
+                text = {
+                    '{C:reversetarot}Reverse Tarot{} cards may',
+                    'appear instead of {C:tarot}Tarot{} cards',
+                },
             },
         },
         Other = {

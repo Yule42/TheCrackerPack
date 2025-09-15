@@ -535,7 +535,7 @@ SMODS.Consumable{ -- Death
     end,
 
     can_use = function(self, card)
-        return #G.hand.highlighted <= card.ability.extra.cards
+        return #G.hand.highlighted == card.ability.extra.cards
     end,
 
     use = function(self, card)

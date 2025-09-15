@@ -808,3 +808,29 @@ SMODS.Voucher {
         G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
     end
 }
+
+SMODS.Voucher {
+    key = 'pw_cheaters',
+    pos = {
+        x = 8,
+        y = 1
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    atlas = 'pw_vouchers',
+    config = {
+        extra = {
+        }
+    },
+    patchwork = true,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+}
