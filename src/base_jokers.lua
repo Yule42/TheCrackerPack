@@ -298,7 +298,7 @@ SMODS.Joker{ --Cheese
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
-                mult = card.ability.extra.x_mult,
+                xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
             if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier > 0 then
