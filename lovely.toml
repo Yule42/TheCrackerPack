@@ -621,7 +621,7 @@ position = "before"
 payload = '''
 if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
     _type = "Spectral"
-elseif G.GAME.selected_back.effect.center.key == "b_cracker_cheaters" and pseudorandom("Cheater\'s Deck") > 0.7 then
+elseif _type == "Tarot" and G.GAME.selected_back.effect.center.key == "b_cracker_cheaters" and pseudorandom("Cheater\'s Deck") > 0.7 then
     _type = "reversetarot"
 end
 '''
