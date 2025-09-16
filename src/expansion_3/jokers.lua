@@ -273,7 +273,7 @@ SMODS.Joker{ --Card Counter
                 colour = G.C.FILTER,
                 message_card = card
             }
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.setting_blind and not context.blueprint then
             G.hand:change_size(-card.ability.extra.hand_size)
             card.ability.extra.hand_size = 0
             return {

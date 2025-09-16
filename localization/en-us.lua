@@ -455,10 +455,10 @@ return {
                 name = 'Card Counter',
                 text = {
                     'This Joker gains',
-                    '{C:attention}1{} hand size when a',
+                    '{C:attention}+1{} hand size when a',
                     '{C:attention}Cheater Card{} {C:green}successfully{} triggers',
-                    '{C:inactive}(Currently {C:attention}#1#{C:inactive} Hand Size){}',
-                    '{s:0.8}resets at end of round',
+                    '{C:inactive}(Currently {C:attention}+#1#{C:inactive} Hand Size){}',
+                    '{s:0.8}resets when {C:attention,s:0.8}Blind{}{s:0.8} is selected',
                     
                 },
             },
