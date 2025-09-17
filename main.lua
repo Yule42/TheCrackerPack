@@ -429,6 +429,16 @@ SMODS.current_mod.config_tab = function() --Config
     }
 end
 
+SMODS.current_mod.calculate = function(self, context)
+    if context.remove_playing_cards then
+        for k, v in ipairs(context.removed) do
+            if not v.debuff and v.ability.perma_d_dollars then
+                ease_dollars(v.ability.perma_d_dollars)
+            end
+        end
+    end
+end
+
 -- region load files
 
 assert(SMODS.load_file('src/base_jokers.lua'))()

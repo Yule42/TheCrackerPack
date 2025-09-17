@@ -64,13 +64,21 @@ SMODS.Edition { -- Sleeved
     extra_cost = 2,
     
     calculate = function(self, card, context)
-        if context.end_of_round and context.cardarea == G.jokers and not context.repetition and not context.individual then
-            card.ability.extra_value = card.ability.extra_value + self.config.extra.money
-            card:set_cost()
-            return {
-                message = localize('k_val_up'),
-                colour = G.C.MONEY
-            }
+        if context.end_of_round then
+            if context.playing_card_end_of_round and context.cardarea == G.hand then
+                card.ability.perma_d_dollars = card.ability.perma_d_dollars or 0 + self.config.extra.money
+                return {
+                    message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                }
+            elseif context.cardarea == G.jokers and not context.repetition and not context.individual then
+                card.ability.extra_value = card.ability.extra_value + self.config.extra.money
+                card:set_cost()
+                return {
+                    message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                }
+            end
         end
     end
 }
@@ -121,8 +129,6 @@ SMODS.Edition { -- Altered
     end,
     on_remove = function(card)
         if (card.ability.set == 'Joker' and card.area == G.jokers) and G.consumeables then
-            print(card.area)
-            print("test")
             G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
         end
     end,

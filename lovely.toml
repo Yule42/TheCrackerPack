@@ -654,3 +654,28 @@ position = "before"
 payload = "card.internal_destruction = is_internal"
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = '''if specific_vars and specific_vars.bonus_h_dollars then
+        localize{type = 'other', key = 'card_extra_h_dollars', nodes = desc_nodes, vars = {SMODS.signed_dollars(specific_vars.bonus_h_dollars)}}
+    end'''
+position = "after"
+payload = '''
+if specific_vars and specific_vars.bonus_d_dollars then
+    localize{type = 'other', key = 'card_extra_d_dollars', nodes = desc_nodes, vars = {SMODS.signed_dollars(specific_vars.bonus_d_dollars)}}
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''card.lua'''
+pattern = '''bonus_h_dollars = self.ability.perma_h_dollars ~= 0 and self.ability.perma_h_dollars or nil,'''
+position = "after"
+payload = '''
+bonus_d_dollars = self.ability.perma_d_dollars ~= 0 and self.ability.perma_d_dollars or nil,
+'''
+match_indent = true

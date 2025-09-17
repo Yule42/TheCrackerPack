@@ -791,6 +791,13 @@ return {
                     "{C:attention}sell value{} at end of round",
                 }
             },
+            e_cracker_sleeved = {
+                name = "Sleeved",
+                text = {
+                    "Gains {C:money}+$#1#{} when destroyed",
+                    "if held in hand at end of round",
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
@@ -1090,6 +1097,11 @@ return {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:reverse_arcana} Reverse Tarot{} cards to",
                     "be used immediately",
+                },
+            },
+            card_extra_d_dollars = {
+                text = {
+                    "{C:money}#1#{} when destroyed",
                 },
             },
         },
