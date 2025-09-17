@@ -227,7 +227,8 @@ SMODS.Joker{ --Dirty Joker
             end
         elseif context.joker_main then
             return {
-                mult = card.ability.extra.mult
+                mult = card.ability.extra.mult,
+                colour = G.C.RED
             }
         end
     end
@@ -349,6 +350,76 @@ SMODS.Joker{ --Tempered Glass
                 end}))
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, { message = localize('k_copied_ex'), colour = G.C.FILTER })
             end
+        end
+    end
+}
+
+SMODS.Joker{ --Black Cat
+    name = "Black Cat",
+    key = "black_cat",
+    config = {
+        extra = {
+            mult = 0,
+            mult_add = 1,
+            FPS = 16,
+            delay = 0,
+            x_pos = 0,
+        }
+    },
+    pos = {
+        x = 0,
+        y = 5,
+    },
+    cost = 4,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    enhancement_gate = 'm_lucky',
+
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'papiliu'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
+    end,
+    
+    update = function(self, card, dt)
+        if card.ability.extra.delay >= 1 / card.ability.extra.FPS then
+            card.ability.extra.x_pos = (card.ability.extra.x_pos + 1) % 5 -- 5 is the number of frames
+            card.children.center:set_sprite_pos({x=card.ability.extra.x_pos,y=5})
+            card.ability.extra.delay = 0
+        end
+        card.ability.extra.delay = card.ability.extra.delay + love.timer.getDelta() -- dt kept returning 0
+    end,
+    
+    calculate = function(self, card, context)
+        if context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
+            if not context.blueprint then
+                if context.other_card.lucky_trigger then
+                    --[[card.ability.extra.mult = 0
+                    return {
+                        message = localize('k_reset'),
+                        colour = G.C.FILTER
+                    }--]]
+                else
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "mult",
+                        scalar_value = "mult_add",
+                        operation = "+",
+                        message_key = 'a_mult',
+                        message_colour = G.C.RED
+                    })
+                end
+            end
+        elseif context.joker_main and card.ability.extra.mult > 0 then
+            return {
+                mult = card.ability.extra.mult,
+                colour = G.C.RED
+            }
         end
     end
 }
