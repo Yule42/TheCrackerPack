@@ -475,7 +475,9 @@ return {
                 name = 'Black Cat',
                 text = {
                     'This Joker gains {C:mult}+#2#{} Mult when a',
-                    '{C:attention}Lucky Card{} fails to trigger',
+                    '{C:attention}Lucky Card{} fails to trigger,',
+                    '{C:mult}-#3#{} Mult when a Lucky Card',
+                    '{C:green}successfully{} triggers',
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
                 },
             },

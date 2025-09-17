@@ -361,6 +361,7 @@ SMODS.Joker{ --Black Cat
         extra = {
             mult = 0,
             mult_add = 1,
+            mult_remove = 1,
             FPS = 16,
             delay = 0,
             x_pos = 0,
@@ -383,7 +384,7 @@ SMODS.Joker{ --Black Cat
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'papiliu'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
-        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
+        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add, card.ability.extra.mult_remove}}
     end,
     
     update = function(self, card, dt)
@@ -399,6 +400,14 @@ SMODS.Joker{ --Black Cat
         if context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if not context.blueprint then
                 if context.other_card.lucky_trigger then
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "mult",
+                        scalar_value = "mult_remove",
+                        operation = "-",
+                        message_key = 'a_mult_minus',
+                        message_colour = G.C.RED
+                    })
                     --[[card.ability.extra.mult = 0
                     return {
                         message = localize('k_reset'),
