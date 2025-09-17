@@ -474,7 +474,7 @@ return {
             j_cracker_black_cat = {
                 name = 'Black Cat',
                 text = {
-                    'Gains {C:mult}+#2#{} Mult when a',
+                    'This Joker gains {C:mult}+#2#{} Mult when a',
                     '{C:attention}Lucky Card{} fails to trigger',
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
                 },
