@@ -115,12 +115,14 @@ SMODS.Edition { -- Altered
     in_shop = true,
     extra_cost = 3,
     on_apply = function(card)
-        if ((card.ability.set == 'Joker' and card.area == G.jokers) or card.area == G.hand) and G.consumeables then
+        if (card.ability.set == 'Joker' and card.area == G.jokers) and G.consumeables then
             G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
         end
     end,
     on_remove = function(card)
-        if ((card.ability.set == 'Joker' and card.area == G.jokers) or card.area == G.hand) and G.consumeables then
+        if (card.ability.set == 'Joker' and card.area == G.jokers) and G.consumeables then
+            print(card.area)
+            print("test")
             G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
         end
     end,
@@ -175,7 +177,7 @@ end
 local remove_from_deck_ref = Card.remove_from_deck
 
 function Card:remove_from_deck(from_debuff)
-    if self and self.edition and self.edition.cracker_altered then
+    if self and self.edition and self.edition.cracker_altered and self.added_to_deck then
         G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
     end
     
