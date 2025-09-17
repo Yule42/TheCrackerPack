@@ -345,8 +345,8 @@ return {
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
             k_frozen='Frozen!',
-            k_open_url='Open URL',
-            k_copy_url='Copy URL',
+            k_open_url='Open Feedback Form',
+            k_copy_url='Copy Feedback Form',
             jdis_before='Before',
         },
         v_dictionary = {

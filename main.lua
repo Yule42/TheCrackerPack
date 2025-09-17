@@ -34,6 +34,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = 'modicon',
+    px = 34,
+    py = 34,
+    path = 'modicon.png'
+}
+
 Cracker.vanilla_food = {
   j_gros_michel = true,
   j_ice_cream = true,
@@ -243,7 +250,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
             end
         },
         {
-            label = "URL",
+            label = "Feedback",
             tab_definition_function = function()
             return {
                 n = G.UIT.ROOT,
