@@ -56,7 +56,7 @@ SMODS.Edition { -- Sleeved
     },
     
     loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra.money }, key = (card.ability.set == "Default" or card.ability.set == "Enhanced") and "e_cracker_sleeved_playing" or "e_cracker_sleeved" }
+        return { vars = { self.config.extra.money }, key = (card and card.ability and (card.ability.set == "Default" or card.ability.set == "Enhanced")) and "e_cracker_sleeved_playing" or "e_cracker_sleeved" }
     end,
     
     in_shop = true,
