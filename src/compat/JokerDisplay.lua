@@ -448,3 +448,17 @@ JokerDisplay.Definitions.j_cracker_multijoker = {
         card.joker_display_values.mult = card.ability.extra.mult * mult_count
     end
 }
+JokerDisplay.Definitions.j_cracker_card_counter = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "hand_size"}
+    },
+    text_config = { colour = G.C.FILTER },
+}
+JokerDisplay.Definitions.j_cracker_black_cat = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+}

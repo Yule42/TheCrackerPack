@@ -801,7 +801,7 @@ return {
                     "{C:attention}sell value{} at end of round",
                 }
             },
-            e_cracker_sleeved = {
+            e_cracker_sleeved_playing = {
                 name = "Sleeved",
                 text = {
                     "Gains {C:money}+$#1#{} when destroyed",
