@@ -85,7 +85,7 @@ SMODS.Edition { -- Sleeved
 
 
 
-SMODS.DrawStep {
+SMODS.DrawStep { -- this doesnt work with nonstandard joker sizes but that's okay for now
     key = 'sleeved',
     order = 50,
     func = function(card)
