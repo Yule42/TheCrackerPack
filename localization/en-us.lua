@@ -602,6 +602,7 @@ return {
                 text = {
                     '{C:attention}Doubles{} the sell value',
                     'of all current Jokers',
+                    '{C:inactive}(Max of {C:money}$20{C:inactive})',
                 },
             },
             c_cracker_devil = {

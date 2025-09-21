@@ -616,6 +616,7 @@ SMODS.Consumable{ -- Temperance
     config = {
         extra = {
             multiply = 2,
+            max = 20,
         }
     },
     
@@ -642,7 +643,7 @@ SMODS.Consumable{ -- Temperance
             func = function()
                 play_sound('timpani')
                 for k, v in ipairs(G.jokers.cards) do
-                    v.sell_cost = v.sell_cost * card.ability.extra.multiply
+                    v.sell_cost = math.min(v.sell_cost * card.ability.extra.multiply, v.sell_cost + card.ability.extra.max)
                     v:juice_up(0.3, 0.5)
                 end
                 card:juice_up(0.3, 0.5)

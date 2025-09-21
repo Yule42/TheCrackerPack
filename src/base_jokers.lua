@@ -526,10 +526,8 @@ SMODS.Joker{ --Freezer
         end
     end,
     calc_scaling = function(self, card, other_card, initial, scalar_value, args)
-        local stg = card.ability.extra
         if Cracker.is_food(other_card) then
             return {
-                
                 override_scalar_value = {
                     value = scalar_value * 0
                 },
