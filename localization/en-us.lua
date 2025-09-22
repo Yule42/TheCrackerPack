@@ -681,7 +681,7 @@ return {
                 },
             },    
             tag_cracker_curse = {
-                name = 'Curse Tag',
+                name = 'Cursed Tag',
                 text = {
                     'Gives a free',
                     '{C:reverse_arcana}Mega R-cana Pack',
