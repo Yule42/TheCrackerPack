@@ -356,7 +356,7 @@ SMODS.Joker{ --Tempered Glass
 
 SMODS.Joker{ --Unlucky Cat
     name = "Unlucky Cat",
-    key = "black_cat",
+    key = "unlucky_cat",
     config = {
         extra = {
             mult = 0,
