@@ -354,14 +354,14 @@ SMODS.Joker{ --Tempered Glass
     end
 }
 
-SMODS.Joker{ --Black Cat
-    name = "Black Cat",
+SMODS.Joker{ --Unlucky Cat
+    name = "Unlucky Cat",
     key = "black_cat",
     config = {
         extra = {
             mult = 0,
-            mult_add = 1,
-            mult_remove = 1,
+            mult_add = 2,
+            mult_remove = 2,
             FPS = 16,
             delay = 0,
             x_pos = 0,
