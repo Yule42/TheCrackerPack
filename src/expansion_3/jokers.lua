@@ -360,8 +360,8 @@ SMODS.Joker{ --Unlucky Cat
     config = {
         extra = {
             mult = 0,
-            mult_add = 2,
-            mult_remove = 2,
+            mult_add = 1,
+            mult_remove = 1,
             FPS = 16,
             delay = 0,
             x_pos = 0,
@@ -400,14 +400,14 @@ SMODS.Joker{ --Unlucky Cat
         if context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if not context.blueprint then
                 if context.other_card.lucky_trigger then
-                    SMODS.scale_card(card, {
+                    --[[SMODS.scale_card(card, {
                         ref_table = card.ability.extra,
                         ref_value = "mult",
                         scalar_value = "mult_remove",
                         operation = "-",
                         message_key = 'a_mult_minus',
                         message_colour = G.C.RED
-                    })
+                    })--]]
                     --[[card.ability.extra.mult = 0
                     return {
                         message = localize('k_reset'),
