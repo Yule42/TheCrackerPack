@@ -54,10 +54,10 @@ SMODS.Enhancement { -- Multi
     },
     
     config = {
-        perma_mult = 1,
+        perma_mult = 2,
         extra = {
-            mult_base = 1,
-            mult_add = 1,
+            mult_base = 2,
+            mult_add = 2,
         }
     },
     
@@ -89,10 +89,10 @@ SMODS.Enhancement { -- Sequenced
     },
     
     config = {
-        perma_bonus = 10,
+        perma_bonus = 15,
         extra = {
-            bonus_base = 10,
-            bonus_add = 3,
+            bonus_base = 15,
+            bonus_add = 5,
         }
     },
     
