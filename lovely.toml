@@ -448,42 +448,6 @@ for i=1, #G.jokers.cards do
 end
 '''
 
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-pattern = '''if self.seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then'''
-position = 'after'
-payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
-position = 'after'
-payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement then'''
-position = 'after'
-payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
-end
-'''
-
     # The End challenge
 [[patches]]
 [patches.pattern]
