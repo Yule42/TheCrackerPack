@@ -13,10 +13,9 @@ return {
             b_cracker_consumer = {
                 name = 'Consumers Deck',
                 text = {
-                    'Start run with',
-                    '{C:attention,T:v_directors_cut}#1#{},',
-                    '{C:attention,T:v_reroll_surplus}#2#{},',
-                    'and {C:uncommon,T:v_cracker_clowncar}#3#',
+                    'For every {C:money}$#2#{} {C:inactive}[#3#]',
+                    'spent while in the shop,',
+                    'get an {C:attention}#1#',
                 }
             },
             b_cracker_blitz = {
@@ -1130,7 +1129,6 @@ return {
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
             k_discard_falcon='Clawed!',
-            k_winner='Winner!',
             k_frozen='Frozen!',
             k_open_url='Open URL',
             k_copy_url='Copy URL',

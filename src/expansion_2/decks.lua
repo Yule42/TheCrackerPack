@@ -32,18 +32,33 @@ SMODS.Back{ -- Consumer Deck
         x = 1,
         y = 0,
     },
+    config = {
+        requirement = 50,
+        current_amount = 50,
+    },
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {localize{type = 'name_text', key = 'v_directors_cut', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_surplus', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_clowncar', set = 'Voucher'}}}
+        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
     end,
-    config = {
-        vouchers = {
-            "v_directors_cut",
-            "v_reroll_surplus",
-            "v_cracker_clowncar",
-        }
-    },
+    calculate = function(self, card, context)
+        if context.money_altered and context.from_shop and context.amount < 0 then
+            self.config.current_amount = self.config.current_amount + context.amount
+            if self.config.current_amount <= 0 then
+                repeat
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            add_tag(Tag('tag_investment'))
+                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                            return true
+                        end)
+                    }))
+                    self.config.current_amount = self.config.current_amount + self.config.requirement
+                until self.config.current_amount > 0
+            end
+        end
+    end,
 }
 
 SMODS.Back{ -- Blitz Deck
