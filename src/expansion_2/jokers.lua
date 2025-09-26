@@ -20,7 +20,7 @@ SMODS.Joker{ --Royal Decree
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimarii'}, key = 'artist_credits_cracker'} end
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {}}
     end,
 }
