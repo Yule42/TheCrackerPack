@@ -6,7 +6,7 @@ SMODS.Back{ -- Golden Deck
         x = 0,
         y = 0,
     },
-    atlas = 'Decks',
+    atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {
@@ -36,7 +36,7 @@ SMODS.Back{ -- Consumer Deck
         requirement = 50,
         current_amount = 50,
     },
-    atlas = 'Decks',
+    atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}}
@@ -69,7 +69,7 @@ SMODS.Back{ -- Blitz Deck
         x = 2,
         y = 0,
     },
-    atlas = 'Decks',
+    atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -90,7 +90,7 @@ SMODS.Back{ -- Catalog Deck
         x = 4,
         y = 0,
     },
-    atlas = 'Decks',
+    atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -111,7 +111,7 @@ SMODS.Back{ -- Patchwork Deck
         x = 3,
         y = 0,
     },
-    atlas = 'Decks',
+    atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
