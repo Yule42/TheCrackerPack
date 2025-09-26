@@ -39,12 +39,12 @@ SMODS.Back{ -- Consumer Deck
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
+        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}}
     end,
-    calculate = function(self, card, context)
+    calculate = function(self, back, context)
         if context.money_altered and context.from_shop and context.amount < 0 then
-            self.config.current_amount = self.config.current_amount + context.amount
-            if self.config.current_amount <= 0 then
+            back.effect.config.current_amount = back.effect.config.current_amount + context.amount
+            if back.effect.config.current_amount <= 0 then
                 repeat
                     G.E_MANAGER:add_event(Event({
                         func = (function()
@@ -54,8 +54,8 @@ SMODS.Back{ -- Consumer Deck
                             return true
                         end)
                     }))
-                    self.config.current_amount = self.config.current_amount + self.config.requirement
-                until self.config.current_amount > 0
+                    back.effect.config.current_amount = back.effect.config.current_amount + back.effect.config.requirement
+                until back.effect.config.current_amount > 0
             end
         end
     end,
