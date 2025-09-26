@@ -11,7 +11,7 @@ return {
                 },
             },
             b_cracker_consumer = {
-                name = 'Consumers Deck',
+                name = 'Consumer Deck',
                 text = {
                     'For every {C:money}$#2#{} {C:inactive}[#3#]',
                     'spent while in the shop,',
@@ -545,7 +545,7 @@ return {
                 },
             },
             v_cracker_pw_consumer = {
-                name = "Consumers Deck",
+                name = "Consumer Deck",
                 text = {
                     'Get {C:attention,T:v_directors_cut}#1#{},',
                     '{C:attention,T:v_reroll_surplus}#2#{},',
