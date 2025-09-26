@@ -6,7 +6,7 @@ SMODS.Back{ -- Golden Deck
         x = 0,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {
@@ -32,18 +32,33 @@ SMODS.Back{ -- Consumer Deck
         x = 1,
         y = 0,
     },
-    atlas = 'Backs',
+    config = {
+        requirement = 50,
+        current_amount = 50,
+    },
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {localize{type = 'name_text', key = 'v_directors_cut', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_surplus', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_clowncar', set = 'Voucher'}}}
+        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
     end,
-    config = {
-        vouchers = {
-            "v_directors_cut",
-            "v_reroll_surplus",
-            "v_cracker_clowncar",
-        }
-    },
+    calculate = function(self, card, context)
+        if context.money_altered and context.from_shop and context.amount < 0 then
+            self.config.current_amount = self.config.current_amount + context.amount
+            if self.config.current_amount <= 0 then
+                repeat
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            add_tag(Tag('tag_investment'))
+                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                            return true
+                        end)
+                    }))
+                    self.config.current_amount = self.config.current_amount + self.config.requirement
+                until self.config.current_amount > 0
+            end
+        end
+    end,
 }
 
 SMODS.Back{ -- Blitz Deck
@@ -54,7 +69,7 @@ SMODS.Back{ -- Blitz Deck
         x = 2,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -75,7 +90,7 @@ SMODS.Back{ -- Catalog Deck
         x = 4,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -96,7 +111,7 @@ SMODS.Back{ -- Patchwork Deck
         x = 3,
         y = 0,
     },
-    atlas = 'Backs',
+    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -108,7 +123,121 @@ SMODS.Back{ -- Patchwork Deck
     end
 }
 
---[[local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
+--[[
+
+SMODS.Back{ -- Test Deck
+    name = "Test Deck", 
+    key = "test",
+    
+    config = {
+    },
+    
+    pos = {
+        x = 5,
+        y = 0,
+    },
+    atlas = 'Decks',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {}}
+    end,
+    
+    loc_txt = {
+        name = 'Test Deck',
+        text = {
+            'reverse arcana packs are {C:attention}x5{} more common yay',
+            '{C:inactive,s:1.25,E:1}why is this baby so bald'
+        }
+    },
+}
+
+SMODS.Back{ -- Gambling Deck
+    name = "Gambler's Deck", 
+    key = "gambler",
+    
+    config = {
+        odds_double = 4,
+        odds_no_money = 4,
+        already_triggered = false
+    },
+    
+    pos = {
+        x = 6,
+        y = 0,
+    },
+    atlas = 'Decks',
+    
+    loc_vars = function(self, info_queue, center)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', false)
+        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', false)
+        return {vars = {new_numerator, new_denominator, new_numerator_2, new_denominator_2}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.money_altered and context.amount > 0 and not self.config.already_triggered then
+            self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
+            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true) then
+                ease_dollars(context.amount)
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_winner')
+                }
+            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true) then
+                ease_dollars(-math.ceil(context.amount/2))
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_nope_ex')
+                }
+            end
+            self.config.already_triggered = false
+        end
+    end,
+}
+
+SMODS.Back{ -- I'm afraid.
+    name = "Gambler's Deck Part 2: Revenge of Stuff", 
+    key = "gambler2",
+    
+    config = {
+        odds_double = 5,
+        odds_no_money = 5,
+        already_triggered = false
+    },
+    
+    pos = {
+        x = 6,
+        y = 0,
+    },
+    atlas = 'Decks',
+    
+    loc_vars = function(self, info_queue, center)
+        local new_numerator, new_denominator = SMODS.get_probability_vars(self, 1, self.config.odds_double, 'Gambler\'s Deck', false, true)
+        local new_numerator_2, new_denominator_2 = SMODS.get_probability_vars(self, 1, self.config.odds_no_money, 'Gambler\'s Deck', false, true)
+        return {vars = {new_numerator, new_denominator, new_numerator_2, new_denominator_2}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.money_altered and context.amount > 0 and not self.config.already_triggered then
+            self.config.already_triggered = true -- prevent this joker from triggering from itself this isn't a joker
+            if SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_double, 'Gambler\'s Deck', true, true) then
+                ease_dollars(math.min(math.max(G.GAME.dollars, 0), 100))
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_winner')
+                }
+            elseif SMODS.pseudorandom_probability(self, 'Gambler\'s Deck', 1, self.config.odds_no_money, 'Gambler\'s Deck', true, true) then
+                ease_dollars(-math.ceil(math.min(math.max(G.GAME.dollars/2, 0), 100)))
+                self.config.already_triggered = false
+                return {
+                    message = localize('k_nope_ex')
+                }
+            end
+            self.config.already_triggered = false
+        end
+    end,
+}
+
+local add_voucher_to_shop_ref = SMODS.add_voucher_to_shop
 function SMODS.add_voucher_to_shop(...)
     if G.GAME.modifiers.every_other_ante then
         if math.fmod(G.GAME.round_resets.ante, 2) == 1 then
