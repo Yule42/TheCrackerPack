@@ -711,42 +711,33 @@ SMODS.Voucher {
     end,
     atlas = 'pw_vouchers',
     config = {
-        extra = {
-            voucher = { "v_directors_cut", "v_reroll_surplus", "v_cracker_clowncar" },
-            upgrade_voucher = { "v_retcon", "v_reroll_glut", "v_cracker_busfullofclowns" },
-        }
+        requirement = 50,
+        current_amount = 50,
     },
     patchwork = true,
-    loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {localize{type = 'name_text', key = 'v_directors_cut', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_surplus', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_clowncar', set = 'Voucher'}}}
+    atlas = 'Decks',
+    
+    loc_vars = function(self, info_queue, center)
+        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
     end,
-    redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
-        for i = 1, #self.config.extra.voucher do
-            if not G.GAME.used_vouchers[self.config.extra.upgrade_voucher[i]] or not G.GAME.used_vouchers[self.config.extra.voucher[i]] then
-                G.E_MANAGER:add_event(Event({
-                    delay = 0.5,
-                    func = function()
-                        local voucher = G.GAME.used_vouchers[self.config.extra.voucher[i]] and self.config.extra.upgrade_voucher[i] or self.config.extra.voucher[i]
-                        local area = G.play
-                        local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
-                        card:start_materialize()
-                        area:emplace(card)
-                        card.cost = 0
-                        card.shop_voucher = false
-                        card:redeem()
-                        G.GAME.current_round.voucher = voucher
-                        G.E_MANAGER:add_event(Event({
-                            delay = 0,
-                            func = function() 
-                                card:start_dissolve()
+    calculate = function(self, back, context)
+        if context.money_altered and context.from_shop and context.amount < 0 then
+            self.config.current_amount = self.config.current_amount + context.amount
+            if self.config.current_amount <= 0 then
+                repeat
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            add_tag(Tag('tag_investment'))
+                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                             return true
-                        end}))
-                    return true
-                end}))
+                        end)
+                    }))
+                    self.config.current_amount = self.config.current_amount + self.config.requirement
+                until self.config.current_amount > 0
             end
         end
-    end
+    end,
 }
 
 SMODS.Voucher {
