@@ -396,14 +396,14 @@ return {
                 name = 'Clown Car',
                 text = {
                     '{C:green}Uncommon Jokers{}',
-                    'appear 40% more often',
+                    'appear more often',
                 }
             },
             v_cracker_busfullofclowns = {
                 name = 'Bus Full o\' Clowns',
                 text = {
                     '{C:red}Rare Jokers{}',
-                    'appear twice as often',
+                    'appear more often',
                 }
             },
             v_cracker_cheese_touch = {

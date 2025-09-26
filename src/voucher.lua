@@ -64,7 +64,7 @@ SMODS.Voucher {
     atlas = 'Vouchers',
     config = {
         extra = {
-            weight_mod = 1.4,
+            weight_mod = 2,
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -87,7 +87,7 @@ SMODS.Voucher {
     atlas = 'Vouchers',
     config = {
         extra = {
-            weight_mod = 2,
+            weight_mod = 2.7,
         }
     },
     requires = { "v_cracker_clowncar" },
