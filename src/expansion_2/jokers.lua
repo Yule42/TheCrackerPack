@@ -6,8 +6,8 @@ SMODS.Joker{ --Royal Decree
         }
     },
     pos = {
-        x = 8,
-        y = 2,
+        x = 9,
+        y = 4,
     },
     cost = 6,
     rarity = 2,
