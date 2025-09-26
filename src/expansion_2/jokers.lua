@@ -33,12 +33,7 @@ function get_flush(hand)
 
   local ret = {}
   local four_fingers = next(find_joker('Four Fingers'))
-  local suits = {
-    "Spades",
-    "Hearts",
-    "Clubs",
-    "Diamonds"
-  }
+  local suits = SMODS.Suit.obj_buffer
   
   local contains_face = false
   local contains_ace = false
