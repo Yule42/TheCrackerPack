@@ -2,23 +2,6 @@ CrackerConfig = SMODS.current_mod.config
 
 SMODS.current_mod.no_marquee = true
 
-assert(SMODS.load_file('src/base_jokers.lua'))()
-if not CrackerConfig.disable_upgradedfood then
-    assert(SMODS.load_file('src/upgraded_food.lua'))()
-end
-assert(SMODS.load_file('src/voucher.lua'))()
-
-if not CrackerConfig.disable_card then
-    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
-end
-
-assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
-assert(SMODS.load_file('src/expansion_2/decks.lua'))()
-assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
-
-
-assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
-
 --region Atlas
 SMODS.Atlas {
     key = 'Jokers',
@@ -324,3 +307,23 @@ SMODS.current_mod.config_tab = function() --Config
       },
     }
 end
+
+assert(SMODS.load_file('src/base_jokers.lua'))()
+if not CrackerConfig.disable_upgradedfood then
+    assert(SMODS.load_file('src/upgraded_food.lua'))()
+end
+assert(SMODS.load_file('src/voucher.lua'))()
+
+if not CrackerConfig.disable_card then
+    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
+end
+
+assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
+assert(SMODS.load_file('src/expansion_2/decks.lua'))()
+assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
+
+if JokerDisplay then
+    assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
+end
+
+assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
