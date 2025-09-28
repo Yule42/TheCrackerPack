@@ -152,7 +152,7 @@ SMODS.Enhancement { -- Scrap
     },
     
     config = {
-        Xmult = 1.75,
+        Xmult = 1.5,
     },
     
     in_pool = function(self, args)
