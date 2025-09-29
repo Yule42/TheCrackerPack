@@ -405,6 +405,52 @@ SMODS.Voucher {
 }
 
 SMODS.Voucher {
+    key = 'paperback_pw_proud',
+    pos = {
+        x = 1,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    dependencies = 'paperback',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'paperback_decks_atlas',
+    config = {
+        extra = {
+        }
+    },
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    patchwork = true,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    redeem = function(self)
+        local destroyed_cards = {}
+        for i = 1, #G.playing_cards do
+            if G.playing_cards[i]:is_suit('Clubs') then
+                G.playing_cards[i]:change_suit('Spades')
+            elseif G.playing_cards[i]:is_suit('Diamonds') then
+                G.playing_cards[i]:change_suit('Hearts')
+            end
+        end
+    end
+}
+
+SMODS.Voucher {
     key = 'pw_zodiac',
     pos = {
         x = 0,
@@ -711,13 +757,14 @@ SMODS.Voucher {
     end,
     atlas = 'pw_vouchers',
     config = {
-        requirement = 50,
-        current_amount = 50,
+        requirement = 100,
+        current_amount = 100,
     },
     patchwork = true,
     atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
+        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
     end,
     calculate = function(self, back, context)
@@ -735,6 +782,11 @@ SMODS.Voucher {
                     }))
                     self.config.current_amount = self.config.current_amount + self.config.requirement
                 until self.config.current_amount > 0
+            else
+                return {
+                    message = ''..self.config.current_amount,
+                    colour = G.C.FILTER
+                }
             end
         end
     end,

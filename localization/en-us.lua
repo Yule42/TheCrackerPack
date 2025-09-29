@@ -922,6 +922,13 @@ return {
                     "and all {C:diamonds}Diamonds{} to {C:hearts}Hearts",
                 },
             },
+            v_paperback_pw_proud = {
+                name = "Proud Deck",
+                text = {
+                    "Add a full set of {C:paperback_crowns}Crowns",
+                    "and {C:paperback_stars}Stars{} to deck",
+                },
+            },
             v_cracker_pw_zodiac = {
                 name = "Zodiac Deck",
                 text = {
@@ -972,11 +979,10 @@ return {
             v_cracker_pw_consumer = {
                 name = "Consumer Deck",
                 text = {
-                    'Get {C:attention,T:v_directors_cut}#1#{},',
-                    '{C:attention,T:v_reroll_surplus}#2#{},',
-                    'and {C:uncommon,T:v_cracker_clowncar}#3#',
-                    "{C:inactive}(Gives upgrade if voucher already owned)",
-                },
+                    'For every {C:money}$#2#{} {C:inactive}[#3#]',
+                    'spent while in the shop,',
+                    'get an {C:attention}#1#',
+                }
             },
             v_cracker_pw_blitz = {
                 name = "Blitz Deck",
