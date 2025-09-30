@@ -404,7 +404,7 @@ SMODS.Voucher {
     end
 }
 
-SMODS.Voucher {
+[[--SMODS.Voucher {
     key = 'paperback_pw_proud',
     pos = {
         x = 1,
@@ -448,7 +448,7 @@ SMODS.Voucher {
             end
         end
     end
-}
+}--]]
 
 SMODS.Voucher {
     key = 'pw_zodiac',
