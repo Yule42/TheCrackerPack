@@ -33,8 +33,8 @@ SMODS.Back{ -- Consumer Deck
         y = 0,
     },
     config = {
-        requirement = 50,
-        current_amount = 50,
+        requirement = 100,
+        current_amount = 100,
     },
     atlas = 'Decks',
     
