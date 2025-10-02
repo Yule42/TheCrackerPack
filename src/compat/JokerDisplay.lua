@@ -455,7 +455,7 @@ JokerDisplay.Definitions.j_cracker_card_counter = {
     },
     text_config = { colour = G.C.FILTER },
 }
-JokerDisplay.Definitions.j_cracker_black_cat = {
+JokerDisplay.Definitions.j_cracker_unlucky_cat = {
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }

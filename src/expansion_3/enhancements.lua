@@ -8,18 +8,18 @@ SMODS.Enhancement { -- Cheater
     
     config = {
         extra = {
-            mult = 5,
-            dollars = 6,
-            mult_odds = 2,
+            x_mult = 4,
+            dollars = 5,
+            mult_odds = 10,
             dollars_odds = 5,
             cheater_trigger = nil,
         }
     },
     
     loc_vars = function(self, info_queue, card)
-        local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds, 'cheater_mult')
+        local mult_numerator, mult_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds, 'cheater_x_mult')
         local dollars_numerator, dollars_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.dollars_odds, 'cheater_money')
-        return { vars = { mult_numerator, dollars_numerator, card.ability.extra.mult, mult_denominator, card.ability.extra.dollars, dollars_denominator } }
+        return { vars = { mult_numerator, dollars_numerator, card.ability.extra.x_mult, mult_denominator, card.ability.extra.dollars, dollars_denominator } }
     end,
     
     in_pool = function(self, args)
@@ -29,9 +29,9 @@ SMODS.Enhancement { -- Cheater
     calculate = function(self, card, context)
         if context.main_scoring and context.cardarea == G.play then
             local ret = {}
-            if SMODS.pseudorandom_probability(card, 'cheater_mult', 1, card.ability.extra.mult_odds) then
+            if SMODS.pseudorandom_probability(card, 'cheater_x_mult', 1, card.ability.extra.mult_odds) then
                 card.cheater_trigger = true
-                ret.mult = card.ability.extra.mult
+                ret.Xmult = card.ability.extra.x_mult
             end
             if SMODS.pseudorandom_probability(card, 'cheater_money', 1, card.ability.extra.dollars_odds) then
                 card.cheater_trigger = true

@@ -691,10 +691,10 @@ return {
             m_cracker_cheater = {
                 name = "Cheater Card",
                 text = {
-                    "{C:green}#1# in #4#{} chance",
-                    "for {C:mult}+#3#{} Mult",
                     "{C:green}#2# in #6#{} chance",
                     "to win {C:money}$#5#",
+                    "{C:green}#1# in #4#{} chance",
+                    "for {X:mult,C:white} X#3#{} Mult",
                 },
             },
             m_cracker_multi = {
