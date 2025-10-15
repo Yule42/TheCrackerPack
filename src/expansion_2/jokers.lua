@@ -455,12 +455,17 @@ SMODS.Joker{ --Ants
             return {
                 xmult = card.ability.extra.x_mult,
             }
-        elseif context.self_destroying_food_joker and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult_add}},
-                colour = G.C.MULT
-            }
+        elseif context.food_joker_destroyed and context.cardarea == G.jokers and not context.blueprint then
+			SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "x_mult",
+				scalar_value = "x_mult_add",
+				operation = "+",
+				scaling_message = {
+					message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult+card.ability.extra.x_mult_add}},
+					colour = G.C.RED
+				}
+			})
         end
     end
 }
