@@ -91,6 +91,51 @@ function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round
     return chosen_hand
 end
 
+function Cracker.get_ordered_list_of_hands()
+    local hands = {}
+
+    for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
+        if v.config and v.config.hand_type then
+            local hand = G.GAME.hands[v.config.hand_type]
+
+            if hand and hand.visible then
+                hands[#hands+1] = {
+                    key = v.config.hand_type,
+                    hand = hand,
+                    planet_key = v.key
+                }
+            end
+        end
+    end
+
+    table.sort(hands, function(a, b)
+        if a.hand.played ~= b.hand.played then
+            return a.hand.played > b.hand.played
+        end
+        return a.hand.order < b.hand.order
+    end)
+
+     return hands
+end
+
+function Cracker.is_in_consumeables(key)
+    for _, card in ipairs(G.consumeables.cards) do
+        if card.config.center_key == key then
+            return true
+        end
+    end
+    return false
+end
+
+function Cracker.is_in_array(key, current_index, array)
+    for k, v in ipairs(array) do
+        if k ~= current_index and v == key then
+            return true
+        end
+    end
+    return false
+end
+
 
 -- Code modified from Paperback 
 ---@param card table | string a center key or a card
