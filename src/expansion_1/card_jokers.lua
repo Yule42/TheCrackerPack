@@ -251,7 +251,6 @@ SMODS.Joker{ --Orange Card
     key = "orangecard",
     config = {
         extra = {
-            booster = nil
         }
     },
     pos = {
@@ -273,10 +272,9 @@ SMODS.Joker{ --Orange Card
     end,
     
     calculate = function(self, card, context)
-        if context.open_booster then
-            card.ability.extra.booster = context.card
-        elseif context.skipping_booster then
-            if card.ability.extra.booster.ability.name:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+        if context.skipping_booster then
+			local booster = context.booster.kind
+            if booster:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                 G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
@@ -292,7 +290,7 @@ SMODS.Joker{ --Orange Card
                             G.GAME.joker_buffer = 0
                         return true
                     end)}))
-            elseif card.ability.extra.booster.ability.name:find("Standard") then
+            elseif booster:find("Standard") then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.45,
@@ -329,7 +327,7 @@ SMODS.Joker{ --Orange Card
                 local short_names = { "tarot", "planet", "spectral" }
                 local short_names_why_is_there_a_seperate_shorthand = { "Tarot", "Planet", "Spectral" }
                 for i = 1, #consum_names do
-                    if card.ability.extra.booster.ability.name:find(consum_names[i]) then
+                    if booster:find(consum_names[i]) then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
                             trigger = 'before',
