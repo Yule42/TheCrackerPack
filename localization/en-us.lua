@@ -122,9 +122,10 @@ return {
                 name = 'Life Support',
                 text = {
                     'On {C:attention}final hand{} of the round,',
-                    'sets money to {C:money}$0{} and',
-                    '{C:mult}Mult{} and {C:chips}Chips{} to the higher value',
-                    '{S:1.1,C:red,E:2}Self destructs{}'
+                    'set {C:chips}Chips{} and {C:mult}Mult{} to the higher value',
+                    'and lose {C:money}$50',
+                    '{S:1.1,C:red,E:2}Self destructs{} if cost puts you in debt',
+                    '{C:inactive}(Money lost doubles each use)',
                 }
             },
             j_cracker_curry = {
