@@ -544,8 +544,7 @@ SMODS.Joker{ --Life Support
     key = "lifesupport",
     config = {
         extra = {
-            rounds = 3,
-            active = false,
+            price = 50,
         }
     },
     pos = {
@@ -563,7 +562,7 @@ SMODS.Joker{ --Life Support
 
     loc_vars = function(self, info_queue, card)
         if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.rounds}}
+        return {vars = {card.ability.extra.price}}
     end,
     
     calculate = function(self, card, context)
@@ -582,18 +581,21 @@ SMODS.Joker{ --Life Support
                 func = (function()
                     ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
                     ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-                    ease_dollars(-G.GAME.dollars, true)
-                    play_sound('tarot1')
-                    card.T.r = -0.2
+                    ease_dollars(-card.ability.extra.price, true)
+                    card.ability.extra.price = card.ability.extra.price * 2
                     card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                        func = function()
-                            G.jokers:remove_card(card)
-                            card:remove()
-                            card = nil
-                        return true; end})) 
+                    if G.GAME.dollars < 0 then
+                        play_sound('tarot1')
+                        card.T.r = -0.2
+                        card.states.drag.is = true
+                        card.children.center.pinch.x = true
+                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                            func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                            return true; end})) 
+                    end
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         blockable = false,
