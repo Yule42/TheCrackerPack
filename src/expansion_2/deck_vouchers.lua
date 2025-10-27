@@ -198,7 +198,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 15,
+    cost = 10,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
