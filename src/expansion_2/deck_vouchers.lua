@@ -715,7 +715,6 @@ SMODS.Voucher {
         current_amount = 50,
     },
     patchwork = true,
-    atlas = 'Decks',
     
     loc_vars = function(self, info_queue, center)
         return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
