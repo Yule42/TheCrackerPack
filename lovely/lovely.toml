@@ -95,6 +95,26 @@ end
 match_indent = true
 times = 1
 
+
+
+    # boss always shows up on multiplies of 8 in endless, as well as the winning ante
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = res and true or nil
+elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = res and true or nil
+end'''
+position = "at"
+payload = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%thunk ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = res and true or nil
+elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = res and true or nil
+'''
+match_indent = true
+times = 1
+
     # New scoring context
 [[patches]]
 [patches.pattern]
