@@ -123,7 +123,7 @@ return {
                 text = {
                     'On {C:attention}final hand{} of the round,',
                     'set {C:chips}Chips{} and {C:mult}Mult{} to the higher value',
-                    'and lose {C:money}$50',
+                    'and lose {C:money}$#1#',
                     '{S:1.1,C:red,E:2}Self destructs{} if cost puts you in debt',
                     '{C:inactive}(Money lost doubles each use)',
                 }
