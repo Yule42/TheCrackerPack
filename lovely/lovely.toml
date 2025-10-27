@@ -95,25 +95,6 @@ end
 match_indent = true
 times = 1
 
-
-
-    # boss always shows up on multiplies of 8 in endless, as well as the winning ante
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
-elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true'''
-position = "at"
-payload = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%thunk ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
-elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true
-'''
-match_indent = true
-times = 1
-
     # New scoring context
 [[patches]]
 [patches.pattern]
@@ -167,17 +148,3 @@ if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
 end
 """
 match_indent = true
-
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local center = G.P_CENTERS.b_red"
-position = "before"
-payload = """
-if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
-    _type = "Spectral"
-end
-"""
-match_indent = true
-times = 1
