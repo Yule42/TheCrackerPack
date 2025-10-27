@@ -15,7 +15,7 @@ return {
                 text = {
                     'For every {C:money}$#2#{} {C:inactive}[#3#]',
                     'spent while in the shop,',
-                    'get an {C:attention}#1#',
+                    'get {C:money}$#1#',
                 }
             },
             b_cracker_blitz = {
@@ -423,7 +423,7 @@ return {
                     'each round',
                 }
             },
-            v_cracker_pw_red = {
+            v_pw_red = {
                 name = "Red Deck",
                 text = {
                     'Permanently',
@@ -431,7 +431,7 @@ return {
                     'each round',
                 },
             },
-            v_cracker_pw_blue = {
+            v_pw_blue = {
                 name = "Blue Deck",
                 text = {
                     'Permanently',
@@ -439,13 +439,13 @@ return {
                     'per round',
                 },
             },
-            v_cracker_pw_yellow = {
+            v_pw_yellow = {
                 name = "Yellow Deck",
                 text = {
                     'Gain {C:money}$#1#',
                 },
             },
-            v_cracker_pw_green = {
+            v_pw_green = {
                 name = "Green Deck",
                 text = {
                     "At end of round, earn an additional",
@@ -453,13 +453,13 @@ return {
                     "and {C:money}$#2#{s:0.85} per remaining {C:red}Discard",
                 },
             },
-            v_cracker_pw_black = {
+            v_pw_black = {
                 name = "Black Deck",
                 text = {
                     '{C:attention}+1{} Joker Slot',
                 },
             },
-            v_cracker_pw_magic = {
+            v_pw_magic = {
                 name = "Magic Deck",
                 text = {
                     "Get {C:tarot,T:v_crystal_ball}#1#{} and {C:attention}2{} copies",
@@ -468,14 +468,14 @@ return {
                     "{C:inactive}(Must have room)",
                 }
             },
-            v_cracker_pw_nebula = {
+            v_pw_nebula = {
                 name = "Nebula Deck",
                 text = {
                     "Get {C:planet,T:v_telescope}#1#{}",
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
-            v_cracker_pw_ghost = {
+            v_pw_ghost = {
                 name = "Ghost Deck",
                 text = {
                     "{C:spectral}Spectral{} cards may",
@@ -484,21 +484,21 @@ return {
                     "{C:inactive}(Must have room)",
                 },
             },
-            v_cracker_pw_abandoned = {
+            v_pw_abandoned = {
                 name = "Abandoned Deck",
                 text = {
                     "Destroy all {C:attention}Face Cards",
                     "in deck",
                 },
             },
-            v_cracker_pw_checkered = {
+            v_pw_checkered = {
                 name = "Checkered Deck",
                 text = {
                     "Convert all {C:clubs}Clubs{} to {C:spades}Spades",
                     "and all {C:diamonds}Diamonds{} to {C:hearts}Hearts",
                 },
             },
-            v_cracker_pw_zodiac = {
+            v_pw_zodiac = {
                 name = "Zodiac Deck",
                 text = {
                     "Get {C:tarot,T:v_tarot_merchant}#1#{},",
@@ -507,13 +507,13 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
-            v_cracker_pw_painted = {
+            v_pw_painted = {
                 name = "Painted Deck",
                 text = {
                     "{C:attention}+#1#{} Hand Size",
                 },
             },
-            v_cracker_pw_anaglyph = {
+            v_pw_anaglyph = {
                 name = "Anaglyph Deck",
                 text = {
                     "After defeating each",
@@ -521,7 +521,7 @@ return {
                     "{C:attention,T:tag_double}#1#",
                 },
             },
-            v_cracker_pw_plasma = {
+            v_pw_plasma = {
                 name = "Plasma Deck",
                 text = {
                     "Balance {C:blue}Chips{} and",
@@ -530,7 +530,7 @@ return {
                     --"{C:red}X2{} base Blind size",
                 },
             },
-            v_cracker_pw_erratic = {
+            v_pw_erratic = {
                 name = "Erratic Deck",
                 text = {
                     "Get {C:attention}#1#{} random Vouchers",
@@ -546,12 +546,11 @@ return {
                 },
             },
             v_cracker_pw_consumer = {
-                name = "Consumer Deck",
+                name = 'Consumer Deck',
                 text = {
-                    'Get {C:attention,T:v_directors_cut}#1#{},',
-                    '{C:attention,T:v_reroll_surplus}#2#{},',
-                    'and {C:uncommon,T:v_cracker_clowncar}#3#',
-                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                    'For every {C:money}$#2#{} {C:inactive}[#3#]',
+                    'spent while in the shop,',
+                    'get {C:money}$#1#',
                 },
             },
             v_cracker_pw_blitz = {

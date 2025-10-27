@@ -815,16 +815,14 @@ SMODS.Voucher {
             self.config.current_amount = self.config.current_amount + context.amount
             if self.config.current_amount <= 0 then
                 repeat
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            add_tag(Tag('tag_investment'))
-                            play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                            play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                            return true
-                        end)
-                    }))
+                    ease_dollars(self.config.money)
                     self.config.current_amount = self.config.current_amount + self.config.requirement
                 until self.config.current_amount > 0
+            else
+                return {
+                    message = ''..self.config.current_amount,
+                    colour = G.C.FILTER
+                }
             end
         end
     end,
