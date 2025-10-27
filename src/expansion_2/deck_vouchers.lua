@@ -12,7 +12,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             discards = 1,
@@ -33,8 +39,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_blue',
     pos = {
-        x = 1,
-        y = 0
+        x = 0,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -44,7 +50,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             hands = 1,
@@ -65,8 +77,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_yellow',
     pos = {
-        x = 2,
-        y = 0
+        x = 1,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -76,7 +88,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             money = 20,
@@ -96,8 +114,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_green',
     pos = {
-        x = 3,
-        y = 0
+        x = 2,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -107,7 +125,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             hand_money = 1,
@@ -129,8 +153,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_black',
     pos = {
-        x = 4,
-        y = 0
+        x = 3,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -140,7 +164,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
         }
@@ -163,8 +193,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_magic',
     pos = {
-        x = 5,
-        y = 0
+        x = 0,
+        y = 3
     },
     unlocked = true,
     discovered = true,
@@ -174,7 +204,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             fools = 2,
@@ -232,7 +268,7 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_nebula',
     pos = {
-        x = 6,
+        x = 3,
         y = 0
     },
     unlocked = true,
@@ -243,7 +279,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             voucher = "v_telescope",
@@ -284,8 +326,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_ghost',
     pos = {
-        x = 7,
-        y = 0
+        x = 6,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -295,7 +337,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             spectral_boost = 2,
@@ -328,8 +376,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_abandoned',
     pos = {
-        x = 8,
-        y = 0
+        x = 3,
+        y = 3
     },
     unlocked = true,
     discovered = true,
@@ -339,7 +387,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
         }
@@ -371,8 +425,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_checkered',
     pos = {
-        x = 9,
-        y = 0
+        x = 1,
+        y = 3
     },
     unlocked = true,
     discovered = true,
@@ -382,7 +436,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
         }
@@ -407,8 +467,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_zodiac',
     pos = {
-        x = 0,
-        y = 1
+        x = 3,
+        y = 4
     },
     unlocked = true,
     discovered = true,
@@ -418,7 +478,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             voucher = { "v_tarot_merchant", "v_planet_merchant", "v_overstock_norm" },
@@ -461,8 +527,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_painted',
     pos = {
-        x = 1,
-        y = 1
+        x = 4,
+        y = 3
     },
     unlocked = true,
     discovered = true,
@@ -472,7 +538,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             hand_size = 2,
@@ -493,7 +565,7 @@ SMODS.Voucher {
     key = 'pw_anaglyph',
     pos = {
         x = 2,
-        y = 1
+        y = 4
     },
     unlocked = true,
     discovered = true,
@@ -503,7 +575,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
         }
@@ -531,8 +609,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_plasma',
     pos = {
-        x = 3,
-        y = 1
+        x = 5,
+        y = 2
     },
     unlocked = true,
     discovered = true,
@@ -542,7 +620,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
         }
@@ -561,8 +645,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_erratic',
     pos = {
-        x = 4,
-        y = 1
+        x = 2,
+        y = 3
     },
     unlocked = true,
     discovered = true,
@@ -572,7 +656,13 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'centers',
     config = {
         extra = {
             vouchers = 2
@@ -644,8 +734,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_golden',
     pos = {
-        x = 5,
-        y = 1
+        x = 0,
+        y = 0
     },
     unlocked = true,
     discovered = true,
@@ -655,7 +745,7 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    atlas = 'Backs',
     config = {
         extra = {
             voucher = { "v_seed_money", "v_cracker_silver_spoon", "v_hone" },
@@ -698,8 +788,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_consumer',
     pos = {
-        x = 6,
-        y = 1
+        x = 1,
+        y = 0
     },
     unlocked = true,
     discovered = true,
@@ -709,15 +799,16 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    atlas = 'Backs',
     config = {
-        requirement = 50,
-        current_amount = 50,
+        requirement = 100,
+        current_amount = 100,
+        money = 25,
     },
     patchwork = true,
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {localize{type = 'name_text', key = 'tag_investment', set = 'Tag'}, self.config.requirement, self.config.current_amount}}
+        return {vars = {self.config.money, self.config.requirement, self.config.current_amount}}
     end,
     calculate = function(self, back, context)
         if context.money_altered and context.from_shop and context.amount < 0 then
@@ -742,8 +833,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_blitz',
     pos = {
-        x = 7,
-        y = 1
+        x = 2,
+        y = 0
     },
     unlocked = true,
     discovered = true,
@@ -753,7 +844,7 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    atlas = 'Backs',
     config = {
         extra = {
         }
@@ -772,8 +863,8 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_catalog',
     pos = {
-        x = 8,
-        y = 1
+        x = 4,
+        y = 0
     },
     unlocked = true,
     discovered = true,
@@ -783,7 +874,7 @@ SMODS.Voucher {
             return true
         end
     end,
-    atlas = 'pw_vouchers',
+    atlas = 'Backs',
     config = {
         extra = {
         }
