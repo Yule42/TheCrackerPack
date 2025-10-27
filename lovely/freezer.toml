@@ -36,7 +36,10 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
 position = "at"
-payload = "if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then"
+payload = '''if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.ice_cream_eaten = true
+end'''
 match_indent = true
 times = 1
 
@@ -47,7 +50,10 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then"
 position = "at"
-payload = "if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier) <= 0 then"
+payload = '''if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier) <= 0 then
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.turtle_bean_eaten = true
+end'''
 match_indent = true
 times = 1
 
@@ -57,7 +63,10 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.mult - self.ability.extra <= 0 then"
 position = "at"
-payload = "if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) <= 0 then "
+payload = '''if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) <= 0 then 
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.popcorn_eaten = true
+end'''
 match_indent = true
 times = 1
 
@@ -68,7 +77,10 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.x_mult - self.ability.extra <= 1 then"
 position = "at"
-payload = "if self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier) <= 1 then"
+payload = '''if self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier) <= 1 then
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.ramen_eaten = true
+end'''
 match_indent = true
 times = 1
 
@@ -78,7 +90,10 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.extra - 1 <= 0 then "
 position = "at"
-payload = "if self.ability.extra - (1 * G.GAME.food_multiplier) <= 0 then "
+payload = '''if self.ability.extra - (1 * G.GAME.food_multiplier) <= 0 then 
+if not CrackerConfig.disable_upgradedfood then
+    G.GAME.pool_flags.seltzer_drank = true
+end'''
 match_indent = true
 times = 1
 

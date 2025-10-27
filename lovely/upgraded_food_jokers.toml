@@ -29,20 +29,6 @@ times = 1
     # Buttered Popcorn
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Popcorn' and not context.blueprint then
-if self.ability.mult - self.ability.extra <= 0 then '''
-position = "after"
-payload = '''
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.popcorn_eaten = true
-end
-'''
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
 target = "game.lua"
 pattern = '''j_popcorn=          {order = 97,   unlocked = true, discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 1, cost = 5, name = "Popcorn",set = "Joker", config = {mult = 20, extra = 4}, pos = {x=1,y=15}},'''
 position = "at"
@@ -53,20 +39,6 @@ match_indent = true
 times = 1
 
     # Frozen Custard
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ice Cream' and not context.blueprint then
-if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then '''
-position = "after"
-payload = '''
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.ice_cream_eaten = true
-end
-'''
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "game.lua"
@@ -82,20 +54,6 @@ times = 1
     # Hard Seltzer
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Seltzer' and not context.blueprint then
-if self.ability.extra - 1 <= 0 then '''
-position = "after"
-payload = '''
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.seltzer_drank = true
-end
-'''
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
 target = "game.lua"
 pattern = '''j_selzer=           {order = 102,  unlocked = true, discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 2, cost = 6, name = "Seltzer",set = "Joker", config = {extra = 10}, pos = {x=3,y=15}},'''
 position = "at"
@@ -109,20 +67,6 @@ times = 1
     # Turtle Bean
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Turtle Bean' and not context.blueprint then
-if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then '''
-position = "after"
-payload = '''
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.turtle_bean_eaten = true
-end
-'''
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
 target = "game.lua"
 pattern = '''j_turtle_bean=      {order = 80,  unlocked = true,  discovered = false, blueprint_compat = false, perishable_compat = true, eternal_compat = false, rarity = 2, cost = 6, name = "Turtle Bean",set = "Joker", config = {extra = {h_size = 5, h_mod = 1}}, pos = {x=4,y=13}},'''
 position = "at"
@@ -134,20 +78,6 @@ times = 1
 
 
     # Tsukemen
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ramen' and not context.blueprint then
-if self.ability.x_mult - self.ability.extra <= 1 then '''
-position = "after"
-payload = '''
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.ramen_eaten = true
-end
-'''
-match_indent = true
-times = 1
-
 [[patches]]
 [patches.pattern]
 target = "game.lua"
