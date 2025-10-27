@@ -1,0 +1,183 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+    # Start
+[[patches]]
+[patches.pattern]
+target = "main.lua"
+pattern = '''function love.load()'''
+position = "before"
+payload = '''
+Cracker = {}
+Cracker.food = {}
+'''
+match_indent = true
+times = 1
+
+    # New scoring context
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Red' then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement then'''
+position = 'after'
+payload = '''
+for i=1, #G.jokers.cards do
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+end
+'''
+
+    # The End challenge
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "elseif v.id == 'no_shop_jokers' then"
+position = "before"
+payload = """
+elseif v.id == 'ante_39' then
+    self.GAME.win_ante = 38
+    self.GAME.modifiers['forced_boss'] = 8
+elseif v.id == 'plasma_2' then
+    G.GAME.starting_params.ante_scaling = 2
+"""
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local eligible_bosses = {}
+for k, v in pairs(G.P_BLINDS) do'''
+position = "before"
+payload = '''local thunk = G.GAME.win_ante
+if G.GAME.modifiers['forced_boss'] then
+    thunk = G.GAME.modifiers['forced_boss']
+end
+'''
+match_indent = true
+times = 1
+
+
+
+    # boss always shows up on multiplies of 8 in endless, as well as the winning ante
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = true
+elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = true'''
+position = "at"
+payload = '''elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%thunk ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = true
+elseif v.boss.showdown and (G.GAME.round_resets.ante)%thunk == 0 and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = true
+'''
+match_indent = true
+times = 1
+
+    # New scoring context
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = '''if card.children.use_button then card.children.use_button:remove(); card.children.use_button = nil end'''
+match_indent = true
+position = 'before'
+payload = '''
+if card.area == G.pack_cards then
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {taking_booster_card = true})
+    end
+end'''
+
+    # Circus Act challenge
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "elseif v.id == 'no_shop_jokers' then"
+position = "before"
+payload = """
+elseif v.id == 'onlyjokers' then
+    self.GAME.tarot_rate = 0
+    self.GAME.planet_rate = 0
+"""
+match_indent = true
+times = 1
+
+    # Ghost in a Pack challenge
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if G.GAME.modifiers.all_eternal then"
+position = "before"
+payload = """
+if G.GAME.modifiers.all_perishable then
+    card:set_perishable(true)
+end
+"""
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local center = G.P_CENTERS.b_red"
+position = "before"
+payload = """
+if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
+    _type = "Spectral"
+end
+"""
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local center = G.P_CENTERS.b_red"
+position = "before"
+payload = """
+if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
+    _type = "Spectral"
+end
+"""
+match_indent = true
+times = 1

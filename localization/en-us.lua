@@ -355,7 +355,7 @@ return {
                 text = {
                     'This Joker gains',
                     '{X:mult,C:white}X#2#{} Mult when a',
-                    '{C:attention}Food Joker{} destroys itself',
+                    '{C:attention}Food Joker{} is destroyesd',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },

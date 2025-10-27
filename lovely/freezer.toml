@@ -1,0 +1,101 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})'''
+position = "at"
+payload = '''
+if G.GAME.food_multiplier > 0 then
+    self.ability.perish_tally = self.ability.perish_tally - 1
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.ability.perish_tally == 1 then'''
+position = "at"
+payload = '''
+if self.ability.perish_tally == 1 and G.GAME.food_multiplier > 0 then
+'''
+match_indent = true
+times = 1
+
+
+    # Freezer - Ice Cream
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
+position = "at"
+payload = "if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then"
+match_indent = true
+times = 1
+
+    # Freezer - Turtle Bean
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then"
+position = "at"
+payload = "if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier) <= 0 then"
+match_indent = true
+times = 1
+
+    # Freezer - Popcorn
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.mult - self.ability.extra <= 0 then"
+position = "at"
+payload = "if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) <= 0 then "
+match_indent = true
+times = 1
+
+    # Freezer - Ramen
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.x_mult - self.ability.extra <= 1 then"
+position = "at"
+payload = "if self.ability.x_mult - (self.ability.extra * G.GAME.food_multiplier) <= 1 then"
+match_indent = true
+times = 1
+
+    # Freezer - Seltzer
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra - 1 <= 0 then "
+position = "at"
+payload = "if self.ability.extra - (1 * G.GAME.food_multiplier) <= 0 then "
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "self.ability.extra = self.ability.extra - 1"
+position = "at"
+payload = "self.ability.extra = self.ability.extra - (1 * G.GAME.food_multiplier)"
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "message = self.ability.extra..'',"
+position = "at"
+payload = "message = self.ability.extra * G.GAME.food_multiplier..'',"
+match_indent = true
+times = 1

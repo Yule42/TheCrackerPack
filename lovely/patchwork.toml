@@ -1,0 +1,98 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+    # Patchwork deck requires voucher override
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if v.requires then '''
+position = "at"
+payload = '''
+if not G.GAME.modifiers.voucher_override and v.patchwork then
+    include = false
+elseif G.GAME.modifiers.voucher_override and not v.patchwork then 
+    include = false
+elseif v.requires then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif _type == 'Voucher' then _pool[#_pool + 1] = "v_blank"'''
+position = "at"
+payload = '''
+elseif _type == 'Voucher' then _pool[#_pool + 1] = ((G.GAME.modifiers.voucher_override and "v_cracker_pw_erratic") or "v_blank")
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+    SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+end
+for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+    if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+        SMODS.add_voucher_to_shop(key)
+    end
+end'''
+position = "at"
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
+        for _,_ in pairs(G.GAME.current_round.voucher.spawn) do vouchers_to_spawn = vouchers_to_spawn + 1 end
+        if vouchers_to_spawn < G.GAME.starting_params.vouchers_in_shop + (G.GAME.modifiers.extra_vouchers or 0) then
+            SMODS.get_next_vouchers(G.GAME.current_round.voucher)
+        end
+    end
+    for _, key in ipairs(G.GAME.current_round.voucher or {}) do
+        if G.P_CENTERS[key] and G.GAME.current_round.voucher.spawn[key] then
+            SMODS.add_voucher_to_shop(key)
+        end
+    end
+end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.GAME.current_round.voucher = SMODS.get_next_vouchers()'''
+position = "at"
+payload = '''
+if (G.GAME.modifiers.voucher_restock_antes == nil or G.GAME.round_resets.ante % G.GAME.modifiers.voucher_restock_antes == 1) then
+    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end'''
+position = "at"
+payload = '''
+if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+    if self.shop_voucher then G.GAME.current_round.voucher.spawn[self.config.center_key] = false end 
+    if self.from_tag then G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = false end
+end
+'''
+match_indent = true
+times = 1
+
+    # patchwork plasma deck
+[[patches]]
+[patches.pattern]
+target = "back.lua"
+pattern = '''if self.name == 'Plasma Deck' and args.context == 'final_scoring_step' then'''
+position = "at"
+payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma'] or G.GAME.used_vouchers['v_cracker_pw_plasma']) and args.context == 'final_scoring_step' then'''
+match_indent = true
+times = 1
