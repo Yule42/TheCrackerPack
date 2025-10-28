@@ -156,6 +156,7 @@ SMODS.Challenge{
     },
     rules = {
         custom = {
+            {id = 'debuff_played_unsealed_cards'}
         }
     },
     deck = {

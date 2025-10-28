@@ -145,6 +145,24 @@ elseif v.id == 'onlyjokers' then
 match_indent = true
 times = 1
 
+    # Mail Call challenge
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if G.GAME.modifiers.debuff_played_cards then"
+position = "before"
+payload = """
+if G.GAME.modifiers.debuff_played_unsealed_cards then 
+    for i = 1, #scoring_hand do
+        if not scoring_hand[i].seal then
+            scoring_hand[i].ability.perma_debuff = true
+        end
+    end
+end
+"""
+match_indent = true
+times = 1
+
     # Ghost in a Pack challenge
 [[patches]]
 [patches.pattern]

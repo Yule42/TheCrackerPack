@@ -656,10 +656,13 @@ return {
                 "{C:spectral}Spectral{} cards replace {C:tarot}Tarot{} cards",
             },
             ch_c_all_perishable = {
-                "All Jokers are Perishable",
+                "All Jokers are {C:attention}Perishable",
             },
             ch_c_testing = {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
+            },
+            ch_c_debuff_played_unsealed_cards = {
+                "{C:attention}Played{} cards without a seal become {C:attention}debuffed",
             },
         },
     }
