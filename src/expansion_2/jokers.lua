@@ -592,7 +592,7 @@ SMODS.Joker{ --Postman
     config = {
         extra = {
             mult = 0,
-            mult_add = 2,
+            mult_add = 1,
         }
     },
     pos = {
@@ -600,7 +600,7 @@ SMODS.Joker{ --Postman
         y = 3,
     },
     cost = 6,
-    rarity = 2,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
