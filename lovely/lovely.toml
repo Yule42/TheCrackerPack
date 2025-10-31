@@ -24,8 +24,10 @@ match_indent = true
 pattern = '''if self.seal == 'Red' then'''
 position = 'after'
 payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+if not context.end_of_round or next(self:get_end_of_round_effect(context)) then
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true})
+    end
 end
 '''
 
