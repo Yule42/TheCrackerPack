@@ -203,7 +203,7 @@ SMODS.Joker{ --Shrimp Cocktail
         x = 4,
         y = 3,
     },
-    cost = 3,
+    cost = 4,
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = false,
@@ -231,7 +231,7 @@ SMODS.Joker{ --Shrimp Cocktail
     end,
     
     calculate = function(self, card, context)
-        if context.pre_discard and not context.blueprint then
+        if context.pre_discard and G.GAME.current_round.discards_used > 2 and not context.blueprint then
             card.ability.extra.discards = card.ability.extra.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
             G.GAME.round_resets.discards = G.GAME.round_resets.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
             if card.ability.extra.discards <= 0 then

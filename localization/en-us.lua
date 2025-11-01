@@ -331,7 +331,8 @@ return {
                 text = {
                     '{C:red}+#1#{} discard#3# each round',
                     'This Joker loses {C:red}#2#{} discard',
-                    'when a discard is used',
+                    'when more than {C:attention}3{} discards are',
+                    'used in a single round'
                 }
             },
             j_cracker_hamburger = {
