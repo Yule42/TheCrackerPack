@@ -25,6 +25,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.discards}}
@@ -63,6 +66,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hands}}
@@ -101,6 +107,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.money}}
@@ -139,6 +148,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hand_money, card.ability.extra.discard_money}}
@@ -176,6 +188,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
@@ -219,6 +234,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_crystal_ball', set = 'Voucher'}, card.ability.extra.fools, localize{type = 'name_text', key = 'c_fool', set = 'Tarot'}}}
@@ -293,6 +311,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_telescope', set = 'Voucher'}}}
@@ -350,6 +371,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'c_hex', set = 'Spectral'}}}
@@ -399,6 +423,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
@@ -448,6 +475,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
@@ -492,6 +522,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_tarot_merchant', set = 'Voucher'}, localize{type = 'name_text', key = 'v_planet_merchant', set = 'Voucher'}, localize{type = 'name_text', key = 'v_overstock_norm', set = 'Voucher'}}}
@@ -551,6 +584,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.hand_size}}
@@ -587,6 +623,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'tag_double', set = 'Tag'}}}
@@ -632,6 +671,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
@@ -669,6 +711,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {card.ability.extra.vouchers}}
@@ -753,6 +798,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'v_seed_money', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_silver_spoon', set = 'Voucher'}, localize{type = 'name_text', key = 'v_hone', set = 'Voucher'}}}
@@ -806,6 +854,9 @@ SMODS.Voucher {
         money = 25,
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     
     loc_vars = function(self, info_queue, center)
         return {vars = {self.config.money, self.config.requirement, self.config.current_amount}}
@@ -848,6 +899,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
@@ -878,6 +932,9 @@ SMODS.Voucher {
         }
     },
     patchwork = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {}}
