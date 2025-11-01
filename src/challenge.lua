@@ -136,6 +136,9 @@ local challenge = SMODS.Challenge{
         }
     },
     rules = {
+        modifiers = {
+            {id = 'consumable_slots', value = 0},
+        },
         custom = {
             {id = 'onlyjokers'}
         }
