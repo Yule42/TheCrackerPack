@@ -374,7 +374,7 @@ SMODS.Joker{ --Cracker Barrel
     calculate = function(self, card, context)
         if context.setting_blind and not self.getting_sliced and not (context.blueprint_card or card).getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
             local jokers_to_create = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-            if jokers_to_create > 0 then
+            if jokers_to_create > 0 and not context.blueprint then
                 card.ability.extra.jokersleft = card.ability.extra.jokersleft - 1
             end
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
