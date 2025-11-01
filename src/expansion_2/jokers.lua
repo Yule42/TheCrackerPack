@@ -20,7 +20,7 @@ SMODS.Joker{ --Royal Decree
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {}}
     end,
 }
@@ -123,7 +123,7 @@ SMODS.Joker{ --Snail
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
     end,
     calculate = function(self, card, context)
@@ -165,7 +165,7 @@ SMODS.Joker{ --Prosopagnosia
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'palestjade'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
@@ -217,7 +217,7 @@ SMODS.Joker{ --Shrimp Cocktail
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.discards, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s"}}
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -294,7 +294,7 @@ SMODS.Joker{ --Hamburger
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax, palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax, palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.hands, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", card.ability.extra.discard_cards_required, card.ability.extra.discard_cards_left}}
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -379,7 +379,7 @@ SMODS.Joker{ --Potato Chips
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove * G.GAME.food_multiplier}}
     end,
     
@@ -445,7 +445,7 @@ SMODS.Joker{ --Ants
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
     
@@ -493,7 +493,7 @@ SMODS.Joker{ --High Roller
     enhancement_gate = 'm_lucky',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
     end,
@@ -539,7 +539,7 @@ SMODS.Joker{ --The Falcon
     atlas = 'falcon',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thefalcon')
         return {vars = {new_numerator, new_denominator}}
     end,
@@ -596,7 +596,7 @@ SMODS.Joker{ --Postman
     end,
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
     end,
     
