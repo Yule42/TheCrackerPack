@@ -387,18 +387,15 @@ JokerDisplay.Definitions.j_cracker_ants = {
 }
 JokerDisplay.Definitions.j_cracker_thefalcon = {
     text = {
-        { ref_table = "card.joker_display_values", ref_value = "txt", colour = G.C.MULT },
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "odds" },
+        { text = ")" },
     },
+    text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        card.joker_display_values.active = #G.hand.highlighted == 5
-        card.joker_display_values.txt = card.joker_display_values.active and "!" or "-"
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thefalcon')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
-    style_function = function(card, text, reminder_text, extra)
-        if text and text.children[1] then
-            text.children[1].config.colour = card.joker_display_values.active and G.C.MULT or G.C.UI.TEXT_INACTIVE
-        end
-        return false
-    end
 }
 JokerDisplay.Definitions.j_cracker_postman = {
     text = {

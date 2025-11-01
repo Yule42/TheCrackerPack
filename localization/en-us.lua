@@ -355,7 +355,7 @@ return {
                 text = {
                     'This Joker gains',
                     '{X:mult,C:white}X#2#{} Mult when a',
-                    '{C:attention}Food Joker{} is destroyesd',
+                    '{C:attention}Food Joker{} is destroyed',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },
@@ -372,8 +372,8 @@ return {
             j_cracker_thefalcon = {
                 name = 'The Falcon',
                 text = {
-                    'If {C:attention}#1#{} cards are discarded,',
-                    'destroy {C:attention}#2#{} random card in discard'
+                    '{C:green}#1# in #2#{} chance for',
+                    'each discarded card to be destroyed'
                 }
             },
             j_cracker_postman = {
