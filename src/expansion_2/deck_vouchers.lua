@@ -609,7 +609,7 @@ SMODS.Voucher {
 SMODS.Voucher {
     key = 'pw_plasma',
     pos = {
-        x = 5,
+        x = 4,
         y = 2
     },
     unlocked = true,
