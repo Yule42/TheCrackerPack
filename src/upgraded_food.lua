@@ -377,7 +377,7 @@ SMODS.Joker{ --Tsukemen
         extra = {
             x_mult = 2,
             x_mult_add = 0.1,
-            x_mult_remove = 0.75,
+            x_mult_remove = 0.5,
         }
     },
     pos = {
