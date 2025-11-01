@@ -663,7 +663,7 @@ return {
                 "This challenge is here for testing and will be {C:attention}removed/changed later{}",
             },
             ch_c_debuff_played_unsealed_cards = {
-                "{C:attention}Played{} cards without a seal become {C:attention}debuffed",
+                "{C:attention}Scored{} cards without a seal become {C:attention}debuffed",
             },
         },
     }
