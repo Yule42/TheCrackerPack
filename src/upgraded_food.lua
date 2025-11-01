@@ -25,7 +25,7 @@ SMODS.Joker{ --Cybernana MK920
     yes_pool_flag = 'cavendish_extinct',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Cybernana MK920')
         return {vars = {card.ability.extra.x_mult_add, new_numerator, new_denominator, card.ability.extra.x_mult}}
     end,
@@ -108,7 +108,7 @@ SMODS.Joker{ --Buttered Popcorn
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_remove}}
     end,
     
@@ -183,7 +183,7 @@ SMODS.Joker{ --Sundae
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove}}
     end,
     
@@ -258,7 +258,7 @@ SMODS.Joker{ --Hard Seltzer
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'None', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds, card.ability.extra.rounds_remove}}
     end,
     
@@ -331,7 +331,7 @@ SMODS.Joker{ --Can of Beans
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds, card.ability.extra.rounds_remove, card.ability.extra.hand_size}}
     end,
     
@@ -405,7 +405,7 @@ SMODS.Joker{ --Tsukemen
     
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add, card.ability.extra.x_mult_remove}}
     end,
     
