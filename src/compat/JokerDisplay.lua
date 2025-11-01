@@ -124,9 +124,19 @@ JokerDisplay.Definitions.j_cracker_curry = {
 JokerDisplay.Definitions.j_cracker_northstar = {
     text = {
         { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
     },
     text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        local hand, highest = G.GAME.hands["High Card"], to_big(0)
+        for k, v in pairs(G.GAME.hands) do
+            if v.visible and v.level > highest then
+                hand = v
+                highest = v.level
+            end
+        end
+        card.joker_display_values.chips = highest * card.ability.extra.chips_add
+    end
 }
 JokerDisplay.Definitions.j_cracker_thedealer = {
     text = {
