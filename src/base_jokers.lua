@@ -546,7 +546,7 @@ SMODS.Joker{ --Life Support
     key = "lifesupport",
     config = {
         extra = {
-            price = 50,
+            price = 25,
         }
     },
     pos = {
