@@ -393,7 +393,7 @@ SMODS.Joker{ --Cracker Barrel
                     return true
                 end}))   
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE}) 
-            if card.ability.extra.jokersleft < 1 then
+            if card.ability.extra.jokersleft < 1 and not context.blueprint then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
