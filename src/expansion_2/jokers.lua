@@ -112,7 +112,7 @@ SMODS.Joker{ --Snail
         x = 2,
         y = 3,
     },
-    cost = 4,
+    cost = 6,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
