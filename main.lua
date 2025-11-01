@@ -61,18 +61,11 @@ Cracker.vanilla_food = {
 -- Any joker can add itself to this pool by adding pools = { Food = true } to its code
 -- Credits to Cryptid for the idea and Paperback for this code
 if not SMODS.ObjectTypes.Food then
-  SMODS.ObjectType {
-    key = 'Food',
-    default = 'j_joker',
-    cards = {},
-    inject = function(self)
-      SMODS.ObjectType.inject(self)
-      -- Insert base game food jokers
-      for k, _ in pairs(Cracker.vanilla_food) do
-        self:inject_card(G.P_CENTERS[k])
-      end
-    end
-  }
+    SMODS.ObjectType {
+        key = 'Food',
+        default = 'j_joker',
+        cards = copy_table(Cracker.vanilla_food)
+    }
 end
 
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
