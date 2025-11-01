@@ -155,9 +155,9 @@ pattern = "if G.GAME.modifiers.debuff_played_cards then"
 position = "before"
 payload = """
 if G.GAME.modifiers.debuff_played_unsealed_cards then 
-    for i = 1, #scoring_hand do
-        if not scoring_hand[i].seal then
-            scoring_hand[i].ability.perma_debuff = true
+    for i = 1, #full_hand do
+        if not full_hand[i].seal then
+            full_hand[i].ability.perma_debuff = true
         end
     end
 end

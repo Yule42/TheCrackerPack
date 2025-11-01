@@ -380,11 +380,14 @@ SMODS.Joker{ --Cracker Barrel
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
                 func = function() 
-                    for i = 1, jokers_to_create do
-                        local card = create_card('Food', G.jokers, nil, nil, nil, nil)
-                        card:add_to_deck()
-                        G.jokers:emplace(card)
-                        card:start_materialize()
+                    for _ = 1, jokers_to_create do
+                        card = SMODS.add_card {
+                            set = 'Food',
+                            key_append = 'crackerbarrel'
+                        }
+                        if G.GAME.modifiers.all_perishable then
+                            card:set_perishable(true)
+                        end
                         G.GAME.joker_buffer = 0
                     end
                     return true
