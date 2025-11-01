@@ -437,6 +437,7 @@ SMODS.Joker{ --Black Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.tag_negative
         return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed}}
     end,
     
@@ -521,6 +522,7 @@ SMODS.Joker{ --White Card
                 }}
             }
         end
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'brook03'}, key = 'concept_credits_cracker'} end
         return {vars = {}, main_end = info}
     end,
