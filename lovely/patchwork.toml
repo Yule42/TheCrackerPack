@@ -25,7 +25,7 @@ target = "functions/common_events.lua"
 pattern = '''elseif _type == 'Voucher' then _pool[#_pool + 1] = "v_blank"'''
 position = "at"
 payload = '''
-elseif _type == 'Voucher' then _pool[#_pool + 1] = ((G.GAME.modifiers.voucher_override and "v_cracker_pw_erratic") or "v_blank")
+elseif _type == 'Voucher' then _pool[#_pool + 1] = ((G.GAME.modifiers.voucher_override and "v_pw_erratic") or "v_blank")
 '''
 match_indent = true
 times = 1
