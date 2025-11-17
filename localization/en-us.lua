@@ -615,6 +615,24 @@ return {
                 }
             },
         },
+        Partner={
+			pnr_cracker_pride = {
+				name = "Pride",
+				text = {
+					"If less than {C:money}$#2#{} {C:inactive}[#3#]",
+					"was spent in shop last round,",
+					"each played card gives {C:mult}+#1#{} Mult",
+				},
+			},
+			pnr_cracker_pride_1 = {
+				name = "Pride",
+				text = {
+					"If less than {C:money}$#2#{} {C:inactive}[#3#]",
+					"was spent in shop last round,",
+					"each played card gives {X:mult,C:white}X#1#{} Mult",
+				},
+			},
+        },
     },
     misc = {
         dictionary = {

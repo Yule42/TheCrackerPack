@@ -361,4 +361,14 @@ if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
 end
 
+if next(SMODS.find_mod('partner')) then
+	SMODS.Atlas {
+		key = 'Partner',
+		path = "Partners.png",
+		px = 46,
+		py = 58
+	}
+	assert(SMODS.load_file('src/compat/Partner.lua'))()
+end
+
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
