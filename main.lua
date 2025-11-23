@@ -32,13 +32,6 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = 'pw_vouchers',
-    path = "pw_vouchers.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
     key = 'falcon',
     path = "falcon.png",
     px = 71,
