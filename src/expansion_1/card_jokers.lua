@@ -576,7 +576,7 @@ SMODS.Joker{ --Rainbow Card
     key = "rainbowcard",
     config = {
         extra = {
-            retriggers = 2,
+            retriggers = 1,
             active = true,
         }
     },
@@ -631,7 +631,7 @@ SMODS.Joker{ --Rainbow Card
                         return true
                     end)
                 }))
-        elseif context.cardarea == G.play and context.repetition and not context.repetition_only and card.ability.extra.active then
+        elseif context.repetition and (context.cardarea == G.play or (context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1))) and not context.repetition_only and card.ability.extra.active then
             return {
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.retriggers,

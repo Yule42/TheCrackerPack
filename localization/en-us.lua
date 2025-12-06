@@ -290,15 +290,15 @@ return {
                 text = {
                     'Fills {C:attention}empty consumable slots{}',
                     'with {C:tarot}The Fool{} at the end of the {C:attention}shop',
-                    'if no {C:attention}Booster Packs{} opened this round',
+                    'if no {C:attention}Booster Packs{} opened last round',
                 }
             },
             j_cracker_rainbowcard = {
                 name = 'Rainbow Card',
                 text = {
-                    'Retrigger all played cards {C:attention}#1#{} times',
+                    'Retrigger {C:attention}played{} and {C:attention}held in hand{} cards',
                     'if no {C:attention}Booster Packs{} opened in shop',
-                    'during this round',
+                    'during last round',
                 }
             },
             j_cracker_royaldecree = {
