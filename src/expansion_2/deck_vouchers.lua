@@ -849,8 +849,8 @@ SMODS.Voucher {
     end,
     atlas = 'Backs',
     config = {
-        requirement = 100,
-        current_amount = 100,
+        requirement = 75,
+        current_amount = 75,
         money = 25,
     },
     patchwork = true,
