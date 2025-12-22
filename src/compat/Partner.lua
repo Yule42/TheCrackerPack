@@ -6,7 +6,7 @@ Partner_API.Partner{
     pos = {x = 0, y = 0},
     loc_txt = {},
     atlas = "Partner",
-    config = {extra = {mult = 2, x_mult = 1.1, active = true, spend = 9, spent = 0}},
+    config = {extra = {active = true, spend = 9, spent = 0}},
     link_config = {j_cracker_rainbowcard = 1},
     loc_vars = function(self, info_queue, card)
         local link_level = self:get_link_level()
@@ -15,18 +15,12 @@ Partner_API.Partner{
         return { key = key, vars = {link_level == 1 and card.ability.extra.x_mult or card.ability.extra.mult, card.ability.extra.spend, card.ability.extra.spent} }
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and card.ability.extra.active then
-			local link_level = self:get_link_level()
-			if link_level == 1 then
-				return {
-					xmult = card.ability.extra.x_mult
-				}
-			else
-				return {
-					mult = card.ability.extra.mult
-				}
-			end
-        elseif card.ability.extra.active and context.money_altered and context.from_shop and context.amount < 0 and not context.blueprint then
+        if context.repetition and ((context.cardarea == G.play and context.other_card == context.scoring_hand[1]) or (context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1) and context.other_card == G.hand.cards[1])) and not context.repetition_only and (card.ability.extra.active or self:get_link_level() == 1) then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = 1,
+            }
+        elseif card.ability.extra.active and not self:get_link_level() == 1 and context.money_altered and context.from_shop and context.amount < 0 and not context.blueprint then
 			card.ability.extra.spent = card.ability.extra.spent - context.amount
 			if card.ability.extra.spent >= card.ability.extra.spend then
 				card.ability.extra.active = false
@@ -42,7 +36,7 @@ Partner_API.Partner{
 					end)
 				}))
 			end
-		elseif context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+		elseif context.end_of_round and not self:get_link_level() == 1 and not context.repetition and not context.individual and not context.blueprint then
             card.ability.extra.active = true
             card.ability.extra.spent = 0
             return {

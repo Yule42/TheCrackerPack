@@ -621,15 +621,15 @@ return {
 				text = {
 					"If less than {C:money}$#2#{} {C:inactive}[#3#]",
 					"was spent in shop last round,",
-					"each played card gives {C:mult}+#1#{} Mult",
+					"retrigger first {C:attention}scored{}",
+                    "and first {C:attention}held in hand{} card",
 				},
 			},
 			pnr_cracker_pride_1 = {
 				name = "Pride",
 				text = {
-					"If less than {C:money}$#2#{} {C:inactive}[#3#]",
-					"was spent in shop last round,",
-					"each played card gives {X:mult,C:white}X#1#{} Mult",
+					"Retrigger first {C:attention}scored{}",
+                    "and first {C:attention}held in hand{} card",
 				},
 			},
         },
