@@ -616,22 +616,29 @@ return {
             },
         },
         Partner={
-			pnr_cracker_pride = {
-				name = "Pride",
-				text = {
-					"If less than {C:money}$#2#{} {C:inactive}[#3#]",
-					"was spent in shop last round,",
-					"retrigger first {C:attention}scored{}",
+            pnr_cracker_pride = {
+                name = "Pride",
+                text = {
+                    "If less than {C:money}$#1#{} {C:inactive}[#2#]",
+                    "was spent in shop last round,",
+                    "retrigger first {C:attention}scored{}",
                     "and first {C:attention}held in hand{} card",
-				},
-			},
-			pnr_cracker_pride_1 = {
-				name = "Pride",
-				text = {
-					"Retrigger first {C:attention}scored{}",
+                },
+            },
+            pnr_cracker_pride_1 = {
+                name = "Pride",
+                text = {
+                    "Retrigger first {C:attention}scored{}",
                     "and first {C:attention}held in hand{} card",
-				},
-			},
+                },
+            },
+            pnr_cracker_performer = {
+                name = "Performer",
+                text = {
+                    "If previous round ended with {C:attention}0{} hands left,",
+                    "gain {C:blue}+#1#{} hands when {C:attention}Blind{} is selected"
+                }
+            },
         },
     },
     misc = {
