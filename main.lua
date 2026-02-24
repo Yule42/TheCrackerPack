@@ -38,6 +38,15 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = 'dx_blinds',
+    path = "dxblinds.png",
+    px = 34,
+    py = 34,
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS'
+}
+
 Cracker.vanilla_food = {
   j_gros_michel = true,
   j_ice_cream = true,
@@ -75,33 +84,6 @@ function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round
     end
     chosen_hand = _handname
     return chosen_hand
-end
-
-function Cracker.get_ordered_list_of_hands()
-    local hands = {}
-
-    for _, v in ipairs(G.P_CENTER_POOLS.Planet) do
-        if v.config and v.config.hand_type then
-            local hand = G.GAME.hands[v.config.hand_type]
-
-            if hand and hand.visible then
-                hands[#hands+1] = {
-                    key = v.config.hand_type,
-                    hand = hand,
-                    planet_key = v.key
-                }
-            end
-        end
-    end
-
-    table.sort(hands, function(a, b)
-        if a.hand.played ~= b.hand.played then
-            return a.hand.played > b.hand.played
-        end
-        return a.hand.order < b.hand.order
-    end)
-
-     return hands
 end
 
 function Cracker.is_in_consumeables(key)
@@ -142,6 +124,14 @@ function Cracker.is_food(card)
             return true
         end
     end
+end
+
+function Cracker.dx_blinds_enabled()
+    return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
+end
+
+function Cracker.force_dx_blind()
+    return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
 end
 
 local remove_ref = Card.remove
@@ -353,6 +343,9 @@ assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
 end
+
+assert(SMODS.load_file('src/new_additions/decks.lua'))()
+assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
 
 if next(SMODS.find_mod('partner')) then
 	SMODS.Atlas {

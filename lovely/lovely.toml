@@ -190,3 +190,140 @@ if G.GAME.modifiers.spectral_replace_arcana and _type == "Tarot" then
 end
 """
 match_indent = true
+
+
+
+    # DX Blinds
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''for k, v in pairs(G.GAME.bosses_used) do'''
+position = "before"
+match_indent = true
+payload = '''
+if Cracker.force_dx_blind() then
+    if G.GAME.round_resets.ante%2 == 1 then
+        return 'bl_cracker_major'
+    else
+        for k, v in pairs(eligible_bosses) do
+            if eligible_bosses[k] and not (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.dx) then
+                eligible_bosses[k] = nil
+            end
+        end
+    end
+end
+'''
+
+
+    # New Context
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.current_round.discards_used = G.GAME.current_round.discards_used + 1"
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({ after_discard = true })
+'''
+
+
+    # "First hand played this ante"
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.hands[text].played_this_ante = G.GAME.hands[text].played_this_ante + 1"
+position = "after"
+match_indent = true
+payload = '''
+if not G.GAME.first_hand_played then
+    G.GAME.first_hand_played = text
+end
+'''
+
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.voucher_restock = nil"
+position = "after"
+match_indent = true
+payload = '''
+G.GAME.first_hand_played = nil
+'''
+
+    # Track if card has been played
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.hand.highlighted[i].ability.played_this_ante = true"
+position = "after"
+match_indent = true
+payload = '''
+G.hand.highlighted[i].ability.played_ever = true
+'''
+
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "if self.name == 'Crimson Heart' and not self.disabled and card.area == G.jokers then "
+position = "at"
+match_indent = true
+payload = '''
+if (self.name == 'Crimson Heart' or self.name == 'The Head DX') and not self.disabled and card.area == G.jokers then 
+'''
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+match_indent = true
+position = 'after'
+pattern = '''
+if (key == 'chips' or key == 'h_chips' or key == 'chip_mod') and amount then
+'''
+payload = '''
+if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_flint_dx' and not G.GAME.blind.disabled then
+    amount = math.floor(amount/2)
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+match_indent = true
+position = 'after'
+pattern = '''
+if (key == 'mult' or key == 'h_mult' or key == 'mult_mod') and amount then
+'''
+payload = '''
+if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_flint_dx' and not G.GAME.blind.disabled then
+    amount = math.floor(amount/2)
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+match_indent = true
+position = 'after'
+pattern = '''
+if (key == 'x_mult' or key == 'xmult' or key == 'Xmult' or key == 'x_mult_mod' or key == 'Xmult_mod') and amount ~= 1 then
+'''
+payload = '''
+if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_flint_dx' and not G.GAME.blind.disabled then
+    amount = math.max(1, math.floor(amount/2))
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+match_indent = true
+position = 'at'
+pattern = '''
+if G.GAME.modifiers.no_blind_reward and (G.GAME.blind and G.GAME.modifiers.no_blind_reward[G.GAME.blind:get_type()]) then
+'''
+payload = '''
+if G.GAME.modifiers.no_blind_reward and (G.GAME.blind and G.GAME.modifiers.no_blind_reward[G.GAME.blind:get_type()] and not G.GAME.modifiers.extra_reward) then
+'''

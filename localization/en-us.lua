@@ -44,6 +44,219 @@ return {
                     '{C:attention}-1{} card slot',
                 }
             },
+            b_cracker_showdown = {
+                name = 'Catalog Deck',
+                text = {
+                    'Blind rewards are increased by {C:money}$2',
+                    'Every odd boss blind is a {C:attention}Major Blind',
+                    'Every even boss blind is a more powerful Boss Blind',
+                }
+            },
+        },
+        Blind = {
+            bl_cracker_ox_dx = {
+				name = "The Ox DX",
+				text = {
+					"Playing a hand containing",
+					"#1# sets money to $-5"
+				},
+			},
+			bl_cracker_hook_dx = {
+				name = "The Hook DX",
+				text = {
+					"Discards 2 random cards per",
+					"hand and discard played"
+				},
+			},
+            bl_cracker_house_dx = {
+				name = "The House DX",
+				text = {
+					"Cards drawn face down",
+					"until 0 discards remaning"
+				},
+			},
+            bl_cracker_wall_dx = {
+				name = "The Wall DX",
+				text = {
+					"Very large blind",
+				},
+			},
+            bl_cracker_wheel_dx = {
+				name = "The Wheel DX",
+				text = {
+					"#1# in #2# cards drawn face down,",
+                    "+1 chance per card played,",
+                    "-1 chance per 2 [#3#] cards discarded",
+				},
+			},
+            bl_cracker_arm_dx = {
+				name = "The Arm DX",
+				text = {
+					"Decrease level of played",
+                    "poker hand by 2,",
+                    "to a minimum of 0",
+				},
+			},
+            bl_cracker_club_dx = {
+				name = "The Club DX",
+				text = {
+					"Scoring a Club card",
+                    "sets Mult to 1"
+				},
+			},
+            bl_cracker_fish_dx = {
+				name = "The Fish DX",
+				text = {
+					"Cards drawn face down",
+                    "after each hand played",
+                    "and every 2 [#1#] discards",
+				},
+			},
+            bl_cracker_pyschic_dx = {
+				name = "The Pyschic DX",
+				text = {
+					"Must play or discard",
+                    "5 cards",
+				},
+			},
+            bl_cracker_goad_dx = {
+				name = "The Goad DX",
+				text = {
+					"Playing a scoring Spade card",
+                    "sets hand level to 1",
+				},
+			},
+            bl_cracker_water_dx = {
+				name = "The Water DX",
+				text = {
+					"Uses discards",
+                    "on random cards",
+				},
+			},
+            bl_cracker_window_dx = {
+				name = "The Window DX",
+				text = {
+					"-$5 when a Diamond",
+                    "card is scored",
+				},
+			},
+            bl_cracker_manacle_dx = {
+				name = "The Manacle DX",
+				text = {
+					"-1 Hand Size,",
+                    "-1 Hand Size per discard used",
+				},
+			},
+            bl_cracker_eye_dx = {
+				name = "The Eye DX",
+				text = {
+					"No hand types",
+                    "played this ante",
+				},
+			},
+            bl_cracker_mouth_dx = {
+				name = "The Mouth DX",
+				text = {
+					"Play only first hand type",
+                    "played this ante",
+				},
+			},
+            bl_cracker_plant_dx = {
+				name = "The Plant DX",
+				text = {
+					"Set final score to 1",
+                    "if a face card is scored",
+				},
+			},
+            bl_cracker_serpent_dx = {
+				name = "The Serpent DX",
+				text = {
+					"Draws a third of your deck,",
+                    "discards the rest",
+				},
+			},
+            bl_cracker_pillar_dx = {
+                name = "The Pillar DX",
+                text = {
+                    "Cards played previously",
+                    "are debuffed",
+                },
+            },
+            bl_cracker_needle_dx = {
+                name = "The Needle DX",
+                text = {
+                    "Start with 2 hands",
+                    "and 0 discards",
+                },
+            },
+            bl_cracker_head_dx = {
+                name = "The Head DX",
+                text = {
+                    "Each scored Heart card",
+                    "disables a random Joker",
+                },
+            },
+            bl_cracker_tooth_dx = {
+                name = "The Tooth DX",
+                text = {
+                    "Lose $1 per card",
+                    "played and discarded",
+                },
+            },
+            bl_cracker_flint_dx = {
+                name = "The Flint DX",
+                text = {
+                    "Scoring Mult, Chips, and XMult",
+                    "is halved"
+                },
+            },
+            bl_cracker_mark_dx = {
+                name = "The Mark DX",
+                text = {
+                    "Kings, Queens, and Jacks",
+                    "are discarded",
+                },
+            },
+            bl_cracker_major = {
+                name = "Major Blind",
+                text = {
+                },
+            },
+            bl_cracker_final_acorn_dx = {
+                name = "Amber Acorn DX",
+                text = {
+                    "Flips and shuffles all Joker cards,",
+                    "Joker effects are hidden",
+                },
+            },
+            bl_cracker_final_leaf_dx = {
+                name = "Verdant Leaf DX",
+                text = {
+                    "All Jokers are debuffed,",
+                    "selling a Joker will remove",
+                    "debuffs for one hand"
+                },
+            },
+            bl_cracker_final_vessel_dx = {
+                name = "Violet Vessel DX",
+                text = {
+                    "Gargantuan blind"
+                },
+            },
+            bl_cracker_final_heart_dx = {
+                name = "Crimson Heart DX",
+                text = {
+                    "Debuffs leftmost and rightmost",
+                    "jokers each hand",
+                },
+            },
+            bl_cracker_final_bell_dx = {
+                name = "Cerulean Bell DX",
+                text = {
+                    "Forces 2 cards to",
+                    "always be selected",
+                },
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
