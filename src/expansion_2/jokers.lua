@@ -358,7 +358,7 @@ SMODS.Joker{ --Potato Chips
     config = {
         extra = {
             chips = 200,
-            chips_remove = 50,
+            chips_remove = 100,
         }
     },
     pos = {
