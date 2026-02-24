@@ -45,11 +45,12 @@ return {
                 }
             },
             b_cracker_showdown = {
-                name = 'Catalog Deck',
+                name = 'Showdown Deck',
                 text = {
                     'Blind rewards are increased by {C:money}$2',
                     'Every odd boss blind is a {C:attention}Major Blind',
-                    'Every even boss blind is a more powerful Boss Blind',
+                    'Every even boss blind is an',
+                    '{C:attention}upgraded{} Boss Blind'
                 }
             },
         },
