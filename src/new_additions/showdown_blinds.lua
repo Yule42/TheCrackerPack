@@ -630,13 +630,13 @@ SMODS.Blind { -- The Eye
         if not blind.disabled then
             if context.debuff_hand then
                 if context.check then
-                    if G.GAME.hands[context.scoring_name].played_this_ante > 0 then
+                    if G.GAME.hands[context.scoring_name].played_this_ante and G.GAME.hands[context.scoring_name].played_this_ante > 0 then
                         blind.triggered = true
                         return {
                             debuff = true
                         }
                     end
-                elseif G.GAME.hands[context.scoring_name].played_this_ante > 1 then
+                elseif G.GAME.hands[context.scoring_name].played_this_ante and G.GAME.hands[context.scoring_name].played_this_ante > 1 then
                     blind.triggered = true
                     return {
                         debuff = true
