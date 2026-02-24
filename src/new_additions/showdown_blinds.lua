@@ -19,7 +19,7 @@ SMODS.Blind { -- The Hook
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled()
+        return Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante <= 2 or G.GAME.round_resets.ante >= G.GAME.win_ante)
     end,
     mult = 2,
     boss_colour = HEX("7f311c"),
@@ -126,14 +126,13 @@ SMODS.Blind { -- The Hook
 }
 
 SMODS.Blind { -- The Ox
-
     object_type = "Blind",
     key = 'ox_dx',
     boss = {
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 4
     end,
     mult = 2,
     boss_colour = HEX("8c4507"),
@@ -211,7 +210,7 @@ SMODS.Blind { -- The Wall
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
     end,
     mult = 6,
     boss_colour = HEX("68447d"),
@@ -334,7 +333,17 @@ SMODS.Blind { -- The Club
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled()
+        if not Cracker.dx_blinds_enabled() then return false end
+        if G.playing_cards then
+            local count = 0
+            for k, v in ipairs(G.playing_cards) do
+                if v:is_suit('Clubs') then
+                    count = count + 1
+                end
+            end
+            return count >= math.floor(#G.playing_cards/3)
+        end
+        return false
     end,
     mult = 2,
     boss_colour = HEX("8c996e"),
@@ -371,7 +380,7 @@ SMODS.Blind { -- The Fish
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 4
     end,
     mult = 2,
     boss_colour = HEX("6da3cd"),
@@ -471,7 +480,17 @@ SMODS.Blind { -- The Goad
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        if not Cracker.dx_blinds_enabled() then return false end
+        if G.playing_cards then
+            local count = 0
+            for k, v in ipairs(G.playing_cards) do
+                if v:is_suit('Spades') then
+                    count = count + 1
+                end
+            end
+            return count >= math.floor(#G.playing_cards/3)
+        end
+        return false
     end,
     mult = 2,
     boss_colour = HEX("673353"),
@@ -507,7 +526,7 @@ SMODS.Blind { -- The Water
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() 
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
     end,
     mult = 2,
     boss_colour = HEX("d4e7ef"),
@@ -540,7 +559,17 @@ SMODS.Blind { -- The Window
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled()
+        if not Cracker.dx_blinds_enabled() then return false end
+        if G.playing_cards then
+            local count = 0
+            for k, v in ipairs(G.playing_cards) do
+                if v:is_suit('Diamonds') then
+                    count = count + 1
+                end
+            end
+            return count >= math.floor(#G.playing_cards/3)
+        end
+        return false
     end,
     mult = 2,
     boss_colour = HEX("807a71"),
@@ -577,7 +606,7 @@ SMODS.Blind { -- The Manacle
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled()
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 4
     end,
     mult = 2,
     boss_colour = HEX("808080"),
@@ -619,7 +648,7 @@ SMODS.Blind { -- The Eye
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 3
+        return Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante >= G.GAME.win_ante)
     end,
     mult = 2,
     boss_colour = HEX("3956ac"),
@@ -684,7 +713,7 @@ SMODS.Blind { -- The Plant
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 4
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
     end,
     mult = 2,
     boss_colour = HEX("3e5149"),
@@ -776,7 +805,7 @@ SMODS.Blind { -- The Needle
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
     end,
     mult = 1,
     boss_colour = HEX("465325"),
@@ -807,7 +836,17 @@ SMODS.Blind { -- The Head
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled()
+        if not Cracker.dx_blinds_enabled() then return false end
+        if G.playing_cards then
+            local count = 0
+            for k, v in ipairs(G.playing_cards) do
+                if v:is_suit('Hearts') then
+                    count = count + 1
+                end
+            end
+            return count >= math.floor(#G.playing_cards/3)
+        end
+        return false
     end,
     mult = 2,
     boss_colour = HEX("605764"),
@@ -859,7 +898,7 @@ SMODS.Blind { -- The Tooth
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 3
+        return Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante == 2 or G.GAME.round_resets.ante >= G.GAME.win_ante)
     end,
     mult = 2,
     boss_colour = HEX("892222"),
@@ -922,7 +961,7 @@ SMODS.Blind { -- The Flint
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 6
     end,
     mult = 1,
     boss_colour = HEX("ad5024"),
@@ -939,7 +978,7 @@ SMODS.Blind { -- The Mark
         dx = true,
     },
     in_pool = function(self)
-        return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
+        return Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante == 4 or G.GAME.round_resets.ante >= G.GAME.win_ante)
     end,
     mult = 2,
     boss_colour = HEX("502b36"),
