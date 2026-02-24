@@ -327,3 +327,15 @@ if G.GAME.modifiers.no_blind_reward and (G.GAME.blind and G.GAME.modifiers.no_bl
 payload = '''
 if G.GAME.modifiers.no_blind_reward and (G.GAME.blind and G.GAME.modifiers.no_blind_reward[G.GAME.blind:get_type()] and not G.GAME.modifiers.extra_reward) then
 '''
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+match_indent = true
+position = 'after'
+pattern = '''
+if G.GAME.modifiers.no_blind_reward and G.GAME.modifiers.no_blind_reward[self:get_type()] then self.dollars = 0 end
+'''
+payload = '''
+if G.GAME.modifiers.extra_reward then self.dollars = self.dollars + G.GAME.modifiers.extra_reward end
+'''
