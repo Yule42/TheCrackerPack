@@ -241,7 +241,7 @@ return {
             bl_cracker_final_vessel_dx = {
                 name = "Violet Vessel DX",
                 text = {
-                    "Gargantuan blind"
+                    "Titanic blind"
                 },
             },
             bl_cracker_final_heart_dx = {
