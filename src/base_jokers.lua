@@ -3,9 +3,9 @@ SMODS.Joker{ --Saltine Cracker
     key = "saltinecracker",
     config = {
         extra = {
-            chips = 50,
-            chip_mod = 10,
-            max_chips = 100
+            chips = 0,
+            chip_mod = 3,
+            odds = 30
         }
     },
     pos = {
@@ -25,13 +25,14 @@ SMODS.Joker{ --Saltine Cracker
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chip_mod, card.ability.extra.max_chips}}
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'DistantMind'}, key = 'artist_credits_cracker'} end
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
+        return {vars = {card.ability.extra.chips, card.ability.extra.chip_mod, numerator, denominator}}
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.chips + (card.ability.extra.chip_mod * G.GAME.food_multiplier) >= card.ability.extra.max_chips then
+        if context.after and not context.blueprint and not context.repetition
+            if SMODS.pseudorandom_probability(card, 'Saltine Cracker', 1, card.ability.extra.odds, 'Saltine Cracker') then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -52,17 +53,16 @@ SMODS.Joker{ --Saltine Cracker
                     message = localize('k_eaten_crumble'),
                     colour = G.C.CHIPS
                 }
-            else
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "chips",
-                    scalar_value = "chip_mod",
-                    operation = "+",
-                    message_key = 'a_chips',
-                    message_colour = G.C.BLUE
-                })
             end
-        
+        elseif context.before and context.cardarea == G.jokers and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_value = "chip_mod",
+                operation = "+",
+                message_key = 'a_chips',
+                message_colour = G.C.BLUE
+            })
         elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
                 chips = card.ability.extra.chips, 
