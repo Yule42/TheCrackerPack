@@ -75,16 +75,3 @@ j_turtle_bean=      {order = 80,  unlocked = true,  discovered = false, blueprin
 '''
 match_indent = true
 times = 1
-
-
-    # Tsukemen
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = '''j_ramen=            {order = 100,  unlocked = true, discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 2, cost = 6, name = "Ramen",set = "Joker", config = {Xmult = 2, extra = 0.01}, pos = {x=2,y=15}},'''
-position = "at"
-payload = '''
-j_ramen=            {order = 100,  unlocked = true, discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 2, cost = 6, name = "Ramen",set = "Joker", config = {Xmult = 2, extra = 0.01}, pos = {x=2,y=15}, no_pool_flag = 'ramen_eaten'},
-'''
-match_indent = true
-times = 1

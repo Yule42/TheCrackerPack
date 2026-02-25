@@ -376,8 +376,8 @@ SMODS.Joker{ --Tsukemen
     config = {
         extra = {
             x_mult = 2,
-            x_mult_add = 0.1,
-            x_mult_remove = 0.5,
+            x_mult_add = 0.05,
+            x_mult_remove = 0.35,
         }
     },
     pos = {
@@ -387,16 +387,14 @@ SMODS.Joker{ --Tsukemen
     pools = {
         Food = true,
     },
-    cost = 6,
-    rarity = 2,
+    cost = 8,
+    rarity = 3,
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-    yes_pool_flag = 'ramen_eaten',
-    
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
