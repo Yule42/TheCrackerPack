@@ -1,4 +1,4 @@
-SMODS.Joker{ --Cybernana MK920
+--[[SMODS.Joker{ --Cybernana MK920
     name = "Cybernana MK920",
     key = "cybernana",
     config = {
@@ -76,7 +76,7 @@ SMODS.Joker{ --Cybernana MK920
             
         end
     end
-}
+}]]
 
 SMODS.Joker{ --Buttered Popcorn
     name = "Buttered Popcorn",

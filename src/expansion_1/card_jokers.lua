@@ -186,7 +186,7 @@ SMODS.Joker{ --Indigo Card
     end
 }
 
-SMODS.Joker{ --Pink Card
+--[[SMODS.Joker{ --Pink Card
     name = "Pink Card",
     key = "pinkcard",
     config = {
@@ -244,7 +244,7 @@ SMODS.Joker{ --Pink Card
             }
         end
     end
-}
+}]]
 
 SMODS.Joker{ --Orange Card
     name = "Orange Card",
