@@ -31,7 +31,7 @@ SMODS.Joker{ --Saltine Cracker
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.blueprint and not context.repetition
+        if context.after and not context.blueprint and not context.repetition then
             if SMODS.pseudorandom_probability(card, 'Saltine Cracker', 1, card.ability.extra.odds, 'Saltine Cracker') then
                 G.E_MANAGER:add_event(Event({
                     func = function()

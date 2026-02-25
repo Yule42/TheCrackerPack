@@ -38,12 +38,6 @@ if blastoff then
     table.insert(blastoff.restrictions.banned_cards, {id = 'j_cracker_hamburger'})
 end
 
-if fivecard then
-    if not disable_card then
-        table.insert(fivecard.restrictions.banned_cards, {id = 'j_cracker_pinkcard'})
-    end
-end
-
 if goldenneedle then
     table.insert(goldenneedle.restrictions.banned_cards, {id = 'j_cracker_knifethrower'})
     table.insert(goldenneedle.restrictions.banned_cards, {id = 'j_cracker_hamburger'})
@@ -256,6 +250,7 @@ challenge = SMODS.Challenge{
             {id = 'j_wee'},
             {id = 'j_cracker_grahamcracker'},
             {id = 'j_cracker_sacramentalkatana'},
+            {id = 'j_cracker_tsukemen'},
             {id = 'j_cracker_snail'},
             {id = 'j_cracker_prosopagnosia'},
             {id = 'j_cracker_ants'},
@@ -269,11 +264,6 @@ if not disable_card then
     table.insert(challenge.restrictions.banned_cards, 19, {id = 'j_cracker_yellowcard'})
     table.insert(challenge.restrictions.banned_cards, 20, {id = 'j_cracker_bluecard'})
     table.insert(challenge.restrictions.banned_cards, 21, {id = 'j_cracker_violetcard'})
-end
-
-if not disable_upgradedfood then
-    table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_cybernana'})
-    table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_tsukemen'})
 end
 
 SMODS.Challenge{
