@@ -3,6 +3,13 @@ JokerDisplay.Definitions.j_cracker_saltinecracker = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
     },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
     text_config = { colour = G.C.CHIPS },
 }
 JokerDisplay.Definitions.j_cracker_chocolatecoin = {

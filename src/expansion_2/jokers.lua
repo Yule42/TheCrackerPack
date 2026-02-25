@@ -195,7 +195,7 @@ SMODS.Joker{ --Shrimp Cocktail
     key = "shrimpcocktail",
     config = {
         extra = {
-            discards = 6,
+            discards = 3,
             discards_reduction = 1,
         }
     },
@@ -218,22 +218,18 @@ SMODS.Joker{ --Shrimp Cocktail
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.discards, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s"}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
-        ease_discard(card.ability.extra.discards)
-    end,
-    
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
-        ease_discard(-card.ability.extra.discards)
-    end,
-    
+        return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction, (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", G.GAME.round_resets.discards}}
+    end,    
     calculate = function(self, card, context)
-        if context.pre_discard and G.GAME.current_round.discards_used > 2 and not context.blueprint then
-            card.ability.extra.discards = card.ability.extra.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
-            G.GAME.round_resets.discards = G.GAME.round_resets.discards - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+        if context.pre_discard and G.GAME.current_round.discards_used >= G.GAME.round_resets.discards and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "discards",
+                scalar_value = "discards_reduction",
+                operation = "-",
+                message_key = 'a_discards_minus',
+                message_colour = G.C.MULT
+            })
             if card.ability.extra.discards <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -255,12 +251,17 @@ SMODS.Joker{ --Shrimp Cocktail
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
-            else
-                return {
-                    message = localize{type='variable',key='a_discards_minus',vars={math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)}},
-                    colour = G.C.MULT
-                }
             end
+        elseif context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_discard(card.ability.extra.discards, nil, true)
+                    SMODS.calculate_effect(
+                        { message = localize { type = 'variable', key = 'a_discards', vars = { card.ability.extra.hands } } }, context.blueprint_card or card)
+                    return true
+                end
+            }))
+            return nil, true
         end
     end
 }

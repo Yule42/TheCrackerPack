@@ -544,9 +544,10 @@ return {
             j_cracker_shrimpcocktail = {
                 name = 'Shrimp Cocktail',
                 text = {
-                    '{C:red}+#1#{} discard#3# each round',
+                    'When {C:attention}Blind{} is selected,',
+                    'gain {C:red}+#1#{} discard#3#',
                     'This Joker loses {C:red}#2#{} discard',
-                    'when more than {C:attention}3{} discards are',
+                    'when more than {C:attention}#4#{} discards are',
                     'used in a single round'
                 }
             },
