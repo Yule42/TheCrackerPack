@@ -10,12 +10,12 @@ return {
                     'and {C:dark_edition,T:v_hone}#3#',
                 },
             },
-            b_cracker_consumer = {
-                name = 'Consumer Deck',
+            b_cracker_rebate = {
+                name = 'Rebate Deck',
                 text = {
-                    'For every {C:money}$#2#{} {C:inactive}[#3#]',
-                    'spent while in the shop,',
-                    'get {C:money}$#1#',
+                    'For every {C:money}$#1#{} {C:inactive}[#2#]',
+                    'spent while in the shop, get a',
+                    '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
                 }
             },
             b_cracker_blitz = {
@@ -766,8 +766,8 @@ return {
                 name = 'Consumer Deck',
                 text = {
                     'For every {C:money}$#2#{} {C:inactive}[#3#]',
-                    'spent while in the shop,',
-                    'get {C:money}$#1#',
+                    'spent while in the shop, get a',
+                    '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
                 },
             },
             v_cracker_pw_blitz = {
