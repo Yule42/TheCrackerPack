@@ -744,16 +744,15 @@ SMODS.Joker{ --Northern Star
     key = "northstar",
     config = {
         extra = {
-            chips_add = 10,
-            chips = 10,
+            odds = 2,
         }
     },
     pos = {
         x = 8,
         y = SMODS.current_mod.config.starlo and 2 or 1
     },
-    cost = 5,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -762,34 +761,19 @@ SMODS.Joker{ --Northern Star
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local hand, highest = G.GAME.hands["High Card"], to_big(0)
-        for k, v in pairs(G.GAME.hands) do
-            if v.visible and v.level > highest then
-                hand = v
-                highest = v.level
-            end
-        end
-        card.ability.extra.chips = highest * card.ability.extra.chips_add
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips_add, card.ability.extra.chips}}
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
+        return {vars = {new_numerator, new_denominator}}
     end,
     
     calculate = function(self, card, context)
-        if context.level_up_hand and not context.blueprint then
-            local hand, highest = G.GAME.hands["High Card"], to_big(0)
-            for k, v in pairs(G.GAME.hands) do
-                if v.visible and v.level > highest then
-                    hand = v
-                    highest = v.level
-                end
-            end
-            card.ability.extra.chips = highest * card.ability.extra.chips_add
-        elseif context.scoring_hand and context.joker_main and context.cardarea == G.jokers then
-            return {
-                chips = card.ability.extra.chips,
-            }
+        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'indigo', 1, card.ability.extra.odds, 'indigocard') then
+            local hand = Cracker.mostplayedhand()
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'), chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
+            level_up_hand(card, hand)
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
         end
-    end,
+    end
 }
 
 SMODS.Joker{ --The Dealer

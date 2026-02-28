@@ -135,20 +135,15 @@ JokerDisplay.Definitions.j_cracker_curry = {
 }
 JokerDisplay.Definitions.j_cracker_northstar = {
     text = {
-        { text = "+" },
-        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "odds" },
+        { text = ")" },
     },
-    text_config = { colour = G.C.CHIPS },
+    text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local hand, highest = G.GAME.hands["High Card"], to_big(0)
-        for k, v in pairs(G.GAME.hands) do
-            if v.visible and v.level > highest then
-                hand = v
-                highest = v.level
-            end
-        end
-        card.joker_display_values.chips = highest * card.ability.extra.chips_add
-    end
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end,
 }
 JokerDisplay.Definitions.j_cracker_thedealer = {
     text = {
@@ -265,18 +260,6 @@ JokerDisplay.Definitions.j_cracker_violetcard = {
             }
         }
     },
-}
-JokerDisplay.Definitions.j_cracker_indigocard = {
-    text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "odds" },
-        { text = ")" },
-    },
-    text_config = { colour = G.C.GREEN, scale = 0.3 },
-    calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'indigo')
-        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
-    end,
 }
 JokerDisplay.Definitions.j_cracker_pinkcard = {
     text = {

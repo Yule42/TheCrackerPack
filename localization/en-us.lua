@@ -360,9 +360,9 @@ return {
             j_cracker_northstar = {
                 name = 'Northern Star',
                 text = {
-                    '{C:chips}+#1#{} Chips per',
-                    'level from {C:attention}most leveled hand{}',
-                    '{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)',
+                    '{C:green}#1# in #2#{} chance to upgrade level of',
+                    '{C:attention}most played poker hand',
+                    'when {C:attention}Booster Pack{} is skipped',
                 }
             },
             j_cracker_thedealer = {
@@ -455,14 +455,6 @@ return {
                     '{X:mult,C:white}X#2#{} Mult when any',
                     '{C:attention}Booster Pack{} is skipped',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
-                }
-            },
-            j_cracker_indigocard = {
-                name = 'Indigo Card',
-                text = {
-                    '{C:green}#1# in #2#{} chance to upgrade level of',
-                    '{C:attention}most played poker hand',
-                    'when {C:attention}Booster Pack{} is skipped',
                 }
             },
             j_cracker_pinkcard = {
