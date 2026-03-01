@@ -257,7 +257,7 @@ SMODS.Joker{ --Shrimp Cocktail
                 func = function()
                     ease_discard(card.ability.extra.discards, nil, true)
                     SMODS.calculate_effect(
-                        { message = localize { type = 'variable', key = 'a_discards', vars = { card.ability.extra.hands } } }, context.blueprint_card or card)
+                        { message = localize { type = 'variable', key = 'a_discards', vars = { card.ability.extra.discards } } }, context.blueprint_card or card)
                     return true
                 end
             }))
