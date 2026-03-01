@@ -132,11 +132,15 @@ SMODS.Joker{ --Snail
                 mult = card.ability.extra.mult, 
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
-            return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult_add}},
-                colour = G.C.MULT
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_add",
+                operation = "+",
+                message_key = 'a_mult',
+                message_colour = G.C.MULT
+            })
+            return nil, true
         end
     end
 }
@@ -221,7 +225,7 @@ SMODS.Joker{ --Shrimp Cocktail
         return {vars = {card.ability.extra.discards, card.ability.extra.discards_reduction, (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", G.GAME.round_resets.discards}}
     end,    
     calculate = function(self, card, context)
-        if context.pre_discard and G.GAME.current_round.discards_used >= G.GAME.round_resets.discards and not context.blueprint then
+        if context.pre_discard and not context.hook and G.GAME.current_round.discards_used >= G.GAME.round_resets.discards and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "discards",
@@ -252,6 +256,7 @@ SMODS.Joker{ --Shrimp Cocktail
                     colour = G.C.RED
                 }
             end
+            return nil, true
         elseif context.setting_blind then
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -381,7 +386,7 @@ SMODS.Joker{ --Potato Chips
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove * G.GAME.food_multiplier}}
+        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove}}
     end,
     
     calculate = function(self, card, context)
@@ -390,7 +395,15 @@ SMODS.Joker{ --Potato Chips
                 chips = card.ability.extra.chips,
             }
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual and G.GAME.current_round.hands_played == 1 then
-            if card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier <= 0 then 
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_value = "chips_remove",
+                operation = "-",
+                message_key = 'a_chips_minus',
+                message_colour = G.C.CHIPS
+            })
+            if card.ability.extra.chips <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         play_sound('tarot1')
@@ -411,13 +424,8 @@ SMODS.Joker{ --Potato Chips
                     message = localize('k_eaten_ex'),
                     colour = G.C.CHIPS
                 }
-            else
-                card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chips_remove * G.GAME.food_multiplier
-                return {
-                    message = localize{type='variable',key='a_chips_minus',vars={card.ability.extra.chips_remove * G.GAME.food_multiplier}},
-                    colour = G.C.CHIPS
-                }
             end
+            return nil, true
         end
     end
 }
@@ -466,6 +474,7 @@ SMODS.Joker{ --Ants
 					colour = G.C.RED
 				}
 			})
+            return nil, true
         end
     end
 }
@@ -504,7 +513,17 @@ SMODS.Joker{ --High Roller
             card.ability.extra.x_mult = 1
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if context.other_card.lucky_trigger and not context.blueprint then
-                card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
+                SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "x_mult",
+				scalar_value = "x_mult_add",
+				operation = "+",
+				scaling_message = {
+					message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult+card.ability.extra.x_mult_add}},
+					colour = G.C.RED
+				}
+			})
+            return nil, true
             end
             if card.ability.extra.x_mult > 1 then
                 return {
@@ -607,8 +626,13 @@ SMODS.Joker{ --Postman
                 mult = card.ability.extra.mult,
             }
         elseif context.seal_trigger and not context.blueprint then
-            card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize('k_upgrade_ex')})
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_add
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_add",
+                operation = "+",
+                message_colour = G.C.MULT
+            })
         end
     end
 }

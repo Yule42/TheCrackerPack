@@ -60,9 +60,9 @@ SMODS.Joker{ --Saltine Cracker
                 ref_value = "chips",
                 scalar_value = "chip_mod",
                 operation = "+",
-                message_key = 'a_chips',
                 message_colour = G.C.BLUE
             })
+            return nil, true
         elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
                 chips = card.ability.extra.chips, 
@@ -222,6 +222,7 @@ SMODS.Joker{ --Graham Cracker
                         message_key = 'a_xmult',
                         message_colour = G.C.RED
                     })
+                    return nil, true
                 end
             end
         end
@@ -310,6 +311,7 @@ SMODS.Joker{ --Cheese
                     message_key = 'a_xmult_minus',
                     message_colour = G.C.RED
                 })
+                return nil, true
             else
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -334,7 +336,6 @@ SMODS.Joker{ --Cheese
             end
         elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
             card.ability.extra.x_mult = card.ability.extra.x_mult_base
-            
             return {
                 message = localize('k_reset'),
                 colour = G.C.FILTER
@@ -481,6 +482,7 @@ SMODS.Joker{ --Sacramental Katana
                         no_juice = true
                     }
                 })
+                return nil, true
             end
         end
     end
@@ -676,6 +678,7 @@ SMODS.Joker{ --Curry
                     message_key = 'a_mult_minus',
                     message_colour = G.C.RED
                 })
+                return nil, true
             else
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -767,7 +770,7 @@ SMODS.Joker{ --Northern Star
     end,
     
     calculate = function(self, card, context)
-        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'indigo', 1, card.ability.extra.odds, 'indigocard') then
+        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'northstar', 1, card.ability.extra.odds, 'northstar') then
             local hand = Cracker.mostplayedhand()
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'), chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
             level_up_hand(card, hand)
