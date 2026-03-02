@@ -382,7 +382,8 @@ SMODS.Joker{ --Black Card
     config = {
         extra = {
             skips = 0,
-            skips_needed = 4,
+            skips_needed = 2,
+            skips_needed_base = 2,
         }
     },
     pos = {
@@ -400,8 +401,16 @@ SMODS.Joker{ --Black Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
-        info_queue[#info_queue + 1] = G.P_CENTERS.tag_negative
-        return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed}}
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
+        local negative_count = 0
+        if G.jokers then
+            for k, v in ipairs(G.jokers.cards) do
+                if v and v.edition and v.edition.negative then
+                    negative_count = negative_count + 1
+                end
+            end
+        end
+        return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed_base + negative_count}}
     end,
     
     calculate = function(self, card, context)
@@ -420,7 +429,16 @@ SMODS.Joker{ --Black Card
         elseif context.open_booster then
             card.ability.extra.skips = card.ability.extra.skips + 1
             if card.ability.extra.skips >= card.ability.extra.skips_needed then
+                local negative_count = 0
+                if G.jokers then
+                    for k, v in ipairs(G.jokers.cards) do
+                        if v and v.edition and v.edition.negative then
+                            negative_count = negative_count + 1
+                        end
+                    end
+                end
                 card.ability.extra.skips = 0
+                card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {

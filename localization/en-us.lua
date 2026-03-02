@@ -487,9 +487,10 @@ return {
             j_cracker_blackcard = {
                 name = 'Black Card',
                 text = {
-                    'Create a {C:spectral}Negative Tag{} every #2# {C:attention}Booster Packs{} opened,',
+                    'Creates a {C:dark_edition}Negative Tag{} every',
+                    '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened,',
+                    'increases by 1 every {C:dark_edition}Negative{} {C:attention}Joker{} owned,',
                     'resets when {C:attention}Booster Pack{} is skipped',
-                    '{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#){}',
                 }
             },
             j_cracker_whitecard = {
