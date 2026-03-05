@@ -149,7 +149,7 @@ SMODS.Blind { -- The Ox
         if not blind.disabled then
             if context.debuff_hand then
                 blind.triggered = false
-                if not context.check and next(context.poker_hands[card.ability.extra.type]) then
+                if not context.check and next(context.poker_hands[G.GAME.current_round.most_played_poker_hand]) then
                     blind.triggered = true
                     if not context.check then
                         ease_dollars(-G.GAME.dollars - 5, true)
@@ -1059,7 +1059,7 @@ SMODS.Blind { -- Amber Acorn
 
 local eval_status_text_ref = card_eval_status_text
 function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
-    if card.ability and card.ability.set == 'Joker' and G.GAME.blind and G.GAME.blind.name == 'bl_cracker_final_acorn_dx' and not G.GAME.blind.disabled then
+    if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_final_acorn_dx' and card and card.ability and card.ability.set == 'Joker' and not G.GAME.blind.disabled then
         return true
     else
         eval_status_text_ref(card, eval_type, amt, percent, dir, extra)
