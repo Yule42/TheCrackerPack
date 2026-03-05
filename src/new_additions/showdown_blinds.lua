@@ -1107,6 +1107,16 @@ SMODS.Blind { -- Verdant Leaf
             SMODS.debuff_card(joker, true, 'leaf_dx')
         end
     end,
+    disable = function(self)
+        for _, joker in ipairs(G.jokers.cards) do
+            SMODS.debuff_card(joker, false, 'leaf_dx')
+        end
+    end,
+    defeat = function(self)
+        for _, joker in ipairs(G.jokers.cards) do
+            SMODS.debuff_card(joker, false, 'leaf_dx')
+        end
+    end
 }
 
 SMODS.Blind { -- Violet Vessel
