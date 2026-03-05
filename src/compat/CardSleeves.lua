@@ -4,7 +4,7 @@ CardSleeves.Sleeve {
     atlas = "sleeves",
     pos = { x = 1, y = 0 },
     unlocked = true,
-    config = { requirement = 10, current_amount = 10 },
+    config = { requirement = 15, current_amount = 15 },
     --unlock_condition = { deck = "b_cracker_rebate", stake = "stake_blue" },
     loc_vars = function(self)
         local amt = self.config.current_amount
@@ -21,8 +21,8 @@ CardSleeves.Sleeve {
         if context.money_altered and context.from_shop and context.amount < 0 then
             G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + context.amount
             if G.GAME.sleeve_key.rebate.current_amount <= 0 then
-                G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + self.config.requirement
                 repeat
+                    G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + self.config.requirement
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
@@ -45,7 +45,6 @@ CardSleeves.Sleeve {
                         }))
                         return nil, true
                     end
-                G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + context.amount
                 until G.GAME.sleeve_key.rebate.current_amount > 0
                 return {
                     message = localize('k_rebate'),
