@@ -849,6 +849,16 @@ return {
                 }
             },
         },
+        Sleeve={
+            sleeve_cracker_rebate = {
+                name = "Rebate Sleeve",
+                text = {
+                    'For every {C:money}$#1#{} {C:inactive}[#2#]',
+                    'spent while in the shop,',
+                    'create a {C:attention}Tarot{} card',
+                },
+            },
+        },
     },
     misc = {
         dictionary = {

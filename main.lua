@@ -340,12 +340,12 @@ assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 
+assert(SMODS.load_file('src/new_additions/decks.lua'))()
+assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
+
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
 end
-
-assert(SMODS.load_file('src/new_additions/decks.lua'))()
-assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
 
 if next(SMODS.find_mod('partner')) then
 	SMODS.Atlas {
@@ -355,6 +355,16 @@ if next(SMODS.find_mod('partner')) then
 		py = 58
 	}
 	assert(SMODS.load_file('src/compat/Partner.lua'))()
+end
+
+if CardSleeves then
+	SMODS.Atlas {
+		key = 'sleeves',
+		path = "sleeves.png",
+		px = 73,
+		py = 95
+	}
+	assert(SMODS.load_file('src/compat/CardSleeves.lua'))()
 end
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
