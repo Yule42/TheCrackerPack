@@ -514,16 +514,11 @@ SMODS.Joker{ --High Roller
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             if context.other_card.lucky_trigger and not context.blueprint then
                 SMODS.scale_card(card, {
-				ref_table = card.ability.extra,
-				ref_value = "x_mult",
-				scalar_value = "x_mult_add",
-				operation = "+",
-				scaling_message = {
-					message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult+card.ability.extra.x_mult_add}},
-					colour = G.C.RED
-				}
-			})
-            return nil, true
+                    ref_table = card.ability.extra,
+                    ref_value = "x_mult",
+                    scalar_value = "x_mult_add",
+                    operation = "+",
+                })
             end
             if card.ability.extra.x_mult > 1 then
                 return {
