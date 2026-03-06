@@ -403,7 +403,7 @@ return {
                     'Each hand, cycles between',
                     '{C:chips}+#1#{} Chips, {C:inactive}+#2# Mult{}, and',
                     '{C:inactive}creating a random Planet card',
-                    'Will dissapear after creating',
+                    'Destroyed after creating',
                     '{C:attention}#3#{} Planet cards'
                 }
             },
