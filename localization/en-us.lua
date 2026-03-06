@@ -4,10 +4,10 @@ return {
             b_cracker_golden = {
                 name = 'Golden Deck',
                 text = {
-                    'Start run with',
-                    '{C:money,T:v_seed_money}#1#{},',
-                    '{C:money,T:v_cracker_silver_spoon}#2#{},',
-                    'and {C:dark_edition,T:v_hone}#3#',
+                    'All {C:attention}Skip Tags{} are',
+                    'tags that give money,',
+                    'All {C:attention}Blinds{} give',
+                    'no reward money',
                 },
             },
             b_cracker_rebate = {
@@ -755,13 +755,13 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
-            v_cracker_pw_consumer = {
-                name = 'Consumer Deck',
+            v_cracker_pw_rebate = {
+                name = 'Rebate Deck',
                 text = {
-                    'For every {C:money}$#2#{} {C:inactive}[#3#]',
+                    'For every {C:money}$#1#{} {C:inactive}[#2#]',
                     'spent while in the shop, get a',
                     '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
-                },
+                }
             },
             v_cracker_pw_blitz = {
                 name = "Blitz Deck",

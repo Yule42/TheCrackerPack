@@ -15,13 +15,13 @@ SMODS.Back{ -- Golden Deck
             localize{type = 'name_text', key = 'v_hone', set = 'Voucher'},
         }}
     end,
-    config = {
-        vouchers = {
-            "v_seed_money",
-            "v_cracker_silver_spoon",
-            "v_hone",
-        }
-    },
+    apply = function(self, back)
+        G.GAME.modifiers.no_blind_reward = G.GAME.modifiers.no_blind_reward or {}
+        G.GAME.modifiers.no_blind_reward.Small = true
+        G.GAME.modifiers.no_blind_reward.Big = true
+        G.GAME.modifiers.no_blind_reward.Boss = true
+        G.GAME.modifiers.money_tags_only = true
+    end,
 }
 
 SMODS.Back{ -- Rebate Deck

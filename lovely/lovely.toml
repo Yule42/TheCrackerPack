@@ -339,3 +339,13 @@ if G.GAME.modifiers.no_blind_reward and G.GAME.modifiers.no_blind_reward[self:ge
 payload = '''
 if G.GAME.modifiers.extra_reward then self.dollars = self.dollars + G.GAME.modifiers.extra_reward end
 '''
+
+    # Golden Deck
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].discovered)) and"
+position = "after"
+payload = '''(not G.GAME.modifiers.money_tags_only or Cracker.money_tags[v.key]) and'''
+match_indent = true
+times = 1

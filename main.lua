@@ -48,15 +48,15 @@ SMODS.Atlas {
 }
 
 Cracker.vanilla_food = {
-  j_gros_michel = true,
-  j_ice_cream = true,
-  j_cavendish = true,
-  j_turtle_bean = true,
-  j_diet_cola = true,
-  j_popcorn = true,
-  j_ramen = true,
-  j_selzer = true,
-  j_egg = true,
+    j_gros_michel = true,
+    j_ice_cream = true,
+    j_cavendish = true,
+    j_turtle_bean = true,
+    j_diet_cola = true,
+    j_popcorn = true,
+    j_ramen = true,
+    j_selzer = true,
+    j_egg = true,
 }
 
 -- Initialize pool of food jokers if it doesn't exist already, which may be created by other mods.
@@ -69,6 +69,16 @@ if not SMODS.ObjectTypes.Food then
         cards = copy_table(Cracker.vanilla_food)
     }
 end
+
+Cracker.money_tags = {
+    tag_investment = true,
+    tag_handy = true,
+    tag_garbage = true,
+    tag_coupon = true,
+    tag_d_six = true,
+    tag_skip = true,
+    tag_economy = true,
+}
 
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
     if not G.GAME or not G.GAME.current_round then 
