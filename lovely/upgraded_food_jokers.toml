@@ -38,19 +38,6 @@ j_popcorn=          {order = 97,   unlocked = true, discovered = false, blueprin
 match_indent = true
 times = 1
 
-    # Frozen Custard
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = '''j_ice_cream=        {order = 50,  unlocked = true,  discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 1, cost = 5, name = 'Ice Cream', pos = {x = 4, y = 10}, set = 'Joker', config = {extra = {chips = 100, chip_mod = 5}}},'''
-position = "at"
-payload = '''
-j_ice_cream=        {order = 50,  unlocked = true,  discovered = false, blueprint_compat = true, perishable_compat = true, eternal_compat = false, rarity = 1, cost = 5, name = 'Ice Cream', pos = {x = 4, y = 10}, set = 'Joker', config = {extra = {chips = 100, chip_mod = 5}}, no_pool_flag = 'ice_cream_eaten'},
-'''
-match_indent = true
-times = 1
-
-
     # Hard Seltzer
 [[patches]]
 [patches.pattern]

@@ -301,7 +301,7 @@ SMODS.Joker{ --Hamburger
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax, palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.hands, math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier), (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", card.ability.extra.discard_cards_required, card.ability.extra.discard_cards_left}}
+        return {vars = {card.ability.extra.hands, card.ability.extra.discards_reduction, (card.ability.extra.discards == 1 --[[and G.SETTINGS.language == "en-us"]]) and "" or "s", card.ability.extra.discard_cards_required, card.ability.extra.discard_cards_left}}
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
@@ -317,6 +317,13 @@ SMODS.Joker{ --Hamburger
     end,
     
     calculate = function(self, card, context)
+        if context.pre_discard and not context.blueprint then
+            if G.GAME.food_multiplier <= 0 then
+                return {
+                    message = localize('k_frozen')
+                }
+            end
+        end
         if context.discard and not context.blueprint then
             card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - math.floor(1 * G.GAME.food_multiplier)
             if card.ability.extra.discard_cards_left <= 0 then
@@ -520,7 +527,7 @@ SMODS.Joker{ --High Roller
                     operation = "+",
                 })
             end
-            if card.ability.extra.x_mult > 1 then
+            if card.ability.extra.x_mult > 0 then
                 return {
                     xmult = card.ability.extra.x_mult,
                 }

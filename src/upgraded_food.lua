@@ -153,11 +153,13 @@ SMODS.Joker{ --Buttered Popcorn
 
 SMODS.Joker{ --Sundae
     name = "Sundae",
-    key = "frozencustard",
+    key = "sundae",
     config = {
         extra = {
-            chips = 250,
-            chips_remove = 5,
+            chips = 75,
+            mult = 15,
+            left = 4,
+            state = 0,
         }
     },
     pos = {
@@ -167,57 +169,94 @@ SMODS.Joker{ --Sundae
     pools = {
         Food = true,
     },
-    cost = 5,
-    rarity = 1,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-    yes_pool_flag = 'ice_cream_eaten',
-    
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_remove}}
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        local key = "j_cracker_sundae_chips"
+        if card.ability.extra.state == 1 then key = "j_cracker_sundae_mult"
+        elseif card.ability.extra.state == 2 then key = "j_cracker_sundae_planet" end
+        return {key = key, vars = {card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.left}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
-            return {
-                chips = card.ability.extra.chips,
-            }
-        elseif context.after and not context.blueprint and not context.repetition then
-            if card.ability.extra.chips - (card.ability.extra.chips_remove * G.GAME.food_multiplier) > 0 then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "chips",
-                    scalar_value = "chips_remove",
-                    operation = "-",
-                    message_key = 'a_chips_minus',
-                    message_colour = G.C.BLUE
-                })
-            else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand then
+            if card.ability.extra.state == 0 then
                 return {
-                    message = localize('k_melted_ex'),
+                    chips = card.ability.extra.chips,
+                }
+            elseif card.ability.extra.state == 1 then
+                return {
+                    mult = card.ability.extra.mult,
+                }
+            else
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        SMODS.add_card {
+                            set = 'Planet',
+                            key_append = 'sundae'
+                        }
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end)
+                }))
+                return {
+                    message = localize('k_plus_planet'),
+                    colour = G.C.SECONDARY_SET.Planet,
+                }
+            end
+        elseif context.after and not context.blueprint and not context.repetition then
+            if card.ability.extra.state == 2 then
+                if card.ability.extra.left - math.floor(1 * G.GAME.food_multiplier) > 0 then
+                    card.ability.extra.left = card.ability.extra.left - math.floor(1 * G.GAME.food_multiplier)
+                    SMODS.calculate_effect({message = G.GAME.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_frozen'), colour = G.C.FILTER}, card)
+                else
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot1')
+                            card.T.r = -0.2
+                            card:juice_up(0.3, 0.4)
+                            card.states.drag.is = true
+                            card.children.center.pinch.x = true
+                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                                func = function()
+                                        G.jokers:remove_card(card)
+                                        card:remove()
+                                        card = nil
+                                    return true; end})) 
+                            return true
+                        end
+                    })) 
+                    return {
+                        message = localize('k_melted_ex'),
+                        colour = G.C.CHIPS
+                    }
+                end
+            end
+            card.ability.extra.state = card.ability.extra.state + 1
+            if card.ability.extra.state > 2 then
+                card.ability.extra.state = 0
+                return {
+                    message = localize('k_chips'),
                     colour = G.C.CHIPS
+                }
+            elseif card.ability.extra.state == 1 then
+                return {
+                    message = localize('k_mult'),
+                    colour = G.C.MULT
+                }
+            else
+                return {
+                    message = localize('k_planet'),
+                    colour = G.C.SECONDARY_SET.Planet 
                 }
             end
         end

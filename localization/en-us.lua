@@ -397,12 +397,34 @@ return {
                     '{C:mult}-#2#{} Mult per round played',
                 }
             },
-            j_cracker_frozencustard = {
+            j_cracker_sundae_chips = {
                 name = 'Sundae',
                 text = {
-                    '{C:chips}+#1#{} Chips',
-                    '{C:chips}-#2#{} Chips for',
-                    'every hand played'
+                    'Each hand, cycles between',
+                    '{C:chips}+#1#{} Chips, {C:inactive}+#2# Mult{}, and',
+                    '{C:inactive}creating a random Planet card',
+                    'Will dissapear after creating',
+                    '{C:attention}#3#{} Planet cards'
+                }
+            },
+            j_cracker_sundae_mult = {
+                name = 'Sundae',
+                text = {
+                    'Each hand, cycles between',
+                    '{C:inactive}+#1# Chips{}, {C:mult}+#2#{} Mult, and',
+                    '{C:inactive}creating a random Planet card',
+                    'Will dissapear after creating',
+                    '{C:attention}#3#{} Planet cards'
+                }
+            },
+            j_cracker_sundae_planet = {
+                name = 'Sundae',
+                text = {
+                    'Each hand, cycles between',
+                    '{C:inactive}+#1# Chips{}, {C:inactive}+#2# Mult{}, and',
+                    'creating a random {C:planet}Planet{} card',
+                    'Will dissapear after creating',
+                    '{C:attention}#3#{} Planet cards'
                 }
             },
             j_cracker_hardseltzer = {
@@ -867,6 +889,7 @@ return {
             k_eaten_crumble="Crumbled!",
             k_eaten_barrel="Emptied!",
             k_bomb_explode='Boom!',
+            k_chips='Chips',
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
             k_discard_falcon='Clawed!',
