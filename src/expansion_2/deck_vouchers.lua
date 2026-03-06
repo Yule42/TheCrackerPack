@@ -834,14 +834,14 @@ SMODS.Voucher {
 }
 
 SMODS.Voucher {
-    key = 'pw_consumer',
+    key = 'pw_rebate',
     pos = {
         x = 1,
         y = 0
     },
     unlocked = true,
     discovered = true,
-    cost = 15,
+    cost = 10,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -849,9 +849,8 @@ SMODS.Voucher {
     end,
     atlas = 'Backs',
     config = {
-        requirement = 75,
-        current_amount = 75,
-        money = 25,
+        requirement = 30,
+        current_amount = 30,
     },
     patchwork = true,
     set_card_type_badge = function(self, card, badges)
@@ -859,16 +858,40 @@ SMODS.Voucher {
     end,
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {self.config.money, self.config.requirement, self.config.current_amount}}
+        return {vars = {rself.config.requirement, self.config.current_amount}}
     end,
     calculate = function(self, back, context)
         if context.money_altered and context.from_shop and context.amount < 0 then
             self.config.current_amount = self.config.current_amount + context.amount
             if self.config.current_amount <= 0 then
                 repeat
-                    ease_dollars(self.config.money)
+                    local center = get_pack('rebate_deck')
+                    local count = 0
+                    local found = nil
+                    
+                    while count <= 1000 and not found do
+                        if not center.name:find('Jumbo') or center.name:find('Mega') then
+                            center = get_pack('rebate_deck')
+                        else
+                            found = true
+                        end
+                        count = count + 1
+                    end
+                    local i = #G.GAME.current_round.used_packs + 1
+                    local booster = Card(G.shop_booster.T.x + G.shop_booster.T.w/2, G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, center, { bypass_discovery_center = true, bypass_discovery_ui = true })
+                    create_shop_card_ui(booster, 'Booster', G.shop_booster)
+                    G.GAME.current_round.used_packs[i] = center.key
+                    booster.ability.booster_pos = i
+                    booster:start_materialize()
+                    G.shop_booster:emplace(booster)
+                    booster.ability.couponed = true
+                    booster:set_cost()
                     self.config.current_amount = self.config.current_amount + self.config.requirement
                 until self.config.current_amount > 0
+                return {
+                    message = localize('k_rebate'),
+                    colour = G.C.FILTER
+                }
             else
                 return {
                     message = ''..self.config.current_amount,
