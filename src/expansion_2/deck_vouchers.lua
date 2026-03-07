@@ -858,7 +858,7 @@ SMODS.Voucher {
     end,
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {rself.config.requirement, self.config.current_amount}}
+        return {vars = {self.config.requirement, self.config.current_amount}}
     end,
     calculate = function(self, back, context)
         if context.money_altered and context.from_shop and context.amount < 0 then
