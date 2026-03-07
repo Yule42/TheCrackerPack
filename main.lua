@@ -74,8 +74,6 @@ Cracker.money_tags = {
     tag_investment = true,
     tag_handy = true,
     tag_garbage = true,
-    tag_coupon = true,
-    tag_d_six = true,
     tag_skip = true,
     tag_economy = true,
 }
