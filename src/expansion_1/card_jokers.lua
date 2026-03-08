@@ -318,8 +318,7 @@ SMODS.Joker{ --Paycheck
     key = "paycheck",
     config = {
         extra = {
-            dollars_gain = 20,
-            dollars = 0,
+            dollars = 20,
         }
     },
     pos = {
@@ -337,21 +336,15 @@ SMODS.Joker{ --Paycheck
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.dollars_gain}}
+        return {vars = {card.ability.extra.dollars}}
     end,
     
     calculate = function(self, card, context)
         if context.skip_blind and not context.blueprint then
+            ease_dollars(card.ability.extra.dollars)
             return {
-                dollars = card.ability.extra.dollars.gain,
-                func = function()
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            G.GAME.dollar_buffer = 0
-                            return true
-                        end
-                    }))
-                end
+                message = ''..card.ability.extra.dollars,
+                colour = G.C.MONEY,
             }
         end
     end
