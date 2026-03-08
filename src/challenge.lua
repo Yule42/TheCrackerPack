@@ -16,9 +16,6 @@ if omelette then
     table.insert(omelette.restrictions.banned_cards, 2, {id = 'v_cracker_silver_spoon'})
     table.insert(omelette.restrictions.banned_cards, 2, {id = 'v_cracker_heirloom'})
     table.insert(omelette.restrictions.banned_cards, {id = 'j_cracker_chocolatecoin'})
-    if not disable_card then
-        table.insert(omelette.restrictions.banned_cards, {id = 'j_cracker_yellowcard'})
-    end
 end
 
 if nonperishable then
@@ -261,7 +258,6 @@ challenge = SMODS.Challenge{
 }
 
 if not disable_card then
-    table.insert(challenge.restrictions.banned_cards, 19, {id = 'j_cracker_yellowcard'})
     table.insert(challenge.restrictions.banned_cards, 20, {id = 'j_cracker_bluecard'})
     table.insert(challenge.restrictions.banned_cards, 21, {id = 'j_cracker_violetcard'})
 end

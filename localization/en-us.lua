@@ -274,7 +274,7 @@ return {
             j_cracker_chocolatecoin = {
                 name = 'Chocolate Coin',
                 text = {
-                    'Earn {C:attention}$#1#{} at',
+                    'Earn {C:money}$#1#{} at',
                     'end of round',
                     'for the next',
                     '{C:attention}#2#{} rounds'
@@ -465,8 +465,8 @@ return {
                 name = 'Blue Card',
                 text = {
                     'This Joker gains {C:chips}+#2#{} Chips',
-                    'when a card is taken from a {C:attention}Booster Pack{},',
-                    'loses {C:chips}-#3#{} Chips when a card is {C:attention}purchased{}',
+                    'when a card is {C:attention}added{},',
+                    'loses {C:chips}-#3#{} Chips when a card is {C:attention}sold{}',
                     '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
                 }
             },
@@ -497,22 +497,20 @@ return {
                     '{C:inactive}(Must have room)',
                 }
             },
-            j_cracker_yellowcard = {
-                name = 'Yellow Card',
+            j_cracker_paycheck = {
+                name = 'Paycheck',
                 text = {
-                    'Earn {C:money}$#1#{} at end of round',
-                    'Payout set to {C:money}$#2#{}',
-                    'when {C:attention}Blind{} is skipped',
-                    'Decreases by {C:money}$#3#{} each payout',
+                    'Earn {C:money}$#1#{} when a',
+                    '{C:attention}Blind{} is skipped',
                 }
             },
-            j_cracker_blackcard = {
-                name = 'Black Card',
+            j_cracker_darkroom = {
+                name = 'Darkroom',
                 text = {
                     'Creates a {C:dark_edition}Negative Tag{} every',
                     '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened,',
-                    'increases by 1 every {C:dark_edition}Negative{} {C:attention}Joker{} owned,',
-                    'resets when {C:attention}Booster Pack{} is skipped',
+                    'resets when {C:attention}Booster Pack{} is skipped,',
+                    'requirement increases for every {C:dark_edition}Negative{} {C:attention}Joker',
                 }
             },
             j_cracker_whitecard = {
