@@ -313,14 +313,13 @@ SMODS.Joker{ --Orange Card
     end
 }
 
-SMODS.Joker{ --Yellow Card
-    name = "Yellow Card",
-    key = "yellowcard",
+SMODS.Joker{ --Paycheck
+    name = "Paycheck",
+    key = "paycheck",
     config = {
         extra = {
-            dollars_gain = 15,
+            dollars_gain = 20,
             dollars = 0,
-            dollars_lose = 2,
         }
     },
     pos = {
@@ -337,48 +336,30 @@ SMODS.Joker{ --Yellow Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
-        return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_gain, card.ability.extra.dollars_lose}}
-    end,
-    
-    calc_dollar_bonus = function(self, card)
-        local bonus = card.ability.extra.dollars
-        if bonus > 0 then
-            card.ability.extra.dollars = math.max(card.ability.extra.dollars - card.ability.extra.dollars_lose, 0)
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.0,
-                func = (function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize{type = 'variable', key = 'a_money_minus', vars = {card.ability.extra.dollars_lose}},
-                            colour = G.C.MONEY
-                        })
-                    return true
-                end)}))
-        end
-        if bonus > 0 then return bonus end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.dollars_gain}}
     end,
     
     calculate = function(self, card, context)
         if context.skip_blind and not context.blueprint then
-            card.ability.extra.dollars = card.ability.extra.dollars_gain
-            G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_upgrade_ex'),
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
-                        return true
-                    end}))
+            return {
+                dollars = card.ability.extra.dollars.gain,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
         end
     end
 }
 
-SMODS.Joker{ --Black Card
-    name = "Black Card",
-    key = "blackcard",
+SMODS.Joker{ --Darkroom
+    name = "Darkroom",
+    key = "darkroom",
     config = {
         extra = {
             skips = 0,
@@ -400,7 +381,7 @@ SMODS.Joker{ --Black Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
         local negative_count = 0
         if G.jokers then
