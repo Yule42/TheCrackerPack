@@ -109,6 +109,11 @@ JokerDisplay.Definitions.j_cracker_sacramentalkatana = {
     },
 }
 JokerDisplay.Definitions.j_cracker_lifesupport = {
+    text = {
+        { text = "-$" },
+        { ref_table = "card.ability.extra", ref_value = "price" },
+    },
+    text_config = { colour = G.C.GOLD },
     reminder_text = {
         { text = "(" },
         { ref_table = "card.joker_display_values", ref_value = "active" },
@@ -198,12 +203,30 @@ JokerDisplay.Definitions.j_cracker_buttpopcorn = {
     },
     text_config = { colour = G.C.MULT },
 }
-JokerDisplay.Definitions.j_cracker_frozencustard = {
+JokerDisplay.Definitions.j_cracker_sundae = {
     text = {
         { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+        { ref_table = "card.joker_display_values", ref_value = "adding", retrigger_type = "mult" },
+        { ref_table = "card.joker_display_values", ref_value = "added_text" }
     },
-    text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        card.joker_display_values.added_text = ""
+        card.joker_display_values.adding = card.ability.extra.chips
+        if card.ability.extra.state == 1 then
+            card.joker_display_values.adding = card.ability.extra.mult
+        elseif card.ability.extra.state == 2 then
+            card.joker_display_values.adding = 1
+            card.joker_display_values.added_text = " "..localize('k_planet')
+        end
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children then
+            local colour = card.ability.extra.state == 1 and G.C.MULT or (card.ability.extra.state == 2 and G.C.SECONDARY_SET.Planet or G.C.CHIPS)
+            if text.children[1] then text.children[1].config.colour = colour end
+            if text.children[2] then text.children[2].config.colour = colour end
+            if text.children[3] then text.children[3].config.colour = colour end
+        end
+    end
 }
 JokerDisplay.Definitions.j_cracker_hardseltzer = {
     reminder_text = {
@@ -278,14 +301,20 @@ JokerDisplay.Definitions.j_cracker_pinkcard = {
         card.joker_display_values.h_size = card.joker_display_values.active and ("+" .. (card.ability.extra.current_add and JokerDisplay.number_format(card.ability.extra.current_add) or 0)) or "-"
     end,
 }
-JokerDisplay.Definitions.j_cracker_yellowcard = {
+JokerDisplay.Definitions.j_cracker_paycheck = {
     text = {
-        { text = "+$" },
-        { ref_table = "card.ability.extra", ref_value = "dollars" },
-    },
-    text_config = { colour = G.C.GOLD },
+            { text = "+$" },
+            { ref_table = "card.ability.extra", ref_value = "dollars" },
+        },
+        text_config = { colour = G.C.GOLD },
+        reminder_text = {
+            { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+        },
+        calc_function = function(card)
+            card.joker_display_values.localized_text = "(" .. localize("b_skip") .. ")"
+        end
 }
-JokerDisplay.Definitions.j_cracker_blackcard = {
+JokerDisplay.Definitions.j_cracker_darkroom = {
     reminder_text = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "skips" },

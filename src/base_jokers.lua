@@ -53,6 +53,11 @@ SMODS.Joker{ --Saltine Cracker
                     message = localize('k_eaten_crumble'),
                     colour = G.C.CHIPS
                 }
+            else
+                return {
+                    message = localize('k_safe_ex'),
+                    colour = G.C.CHIPS
+                }
             end
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
             SMODS.scale_card(card, {
