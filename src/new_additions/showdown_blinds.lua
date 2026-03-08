@@ -1025,6 +1025,11 @@ SMODS.Blind { -- Amber Acorn
                             func = function()
                                 G.E_MANAGER:add_event(Event({
                                     func = function()
+                                        if G.CONTROLLER.dragging.target then 
+                                            G.CONTROLLER.dragging.target:stop_drag()
+                                            G.CONTROLLER.dragging.target.states.drag.is = false
+                                            G.CONTROLLER.dragging.target = nil
+                                        end
                                         G.jokers:shuffle('aajk')
                                         play_sound('cardSlide1', 0.85)
                                         return true
