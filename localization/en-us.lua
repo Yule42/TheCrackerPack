@@ -458,7 +458,7 @@ return {
                 text = {
                     'This Joker gains',
                     '{C:money}$#1#{} of {C:attention}sell value{} when',
-                    'a card is {C:attention}purchased',
+                    'a {C:attention}purchase{} is made in shop',
                 }
             },
             j_cracker_bluecard = {
@@ -466,7 +466,8 @@ return {
                 text = {
                     'This Joker gains {C:chips}+#2#{} Chips',
                     'when a card is {C:attention}added{},',
-                    'loses {C:chips}-#3#{} Chips when a card is {C:attention}sold{}',
+                    'loses {C:chips}-#3#{} Chips when a card is',
+                    '{C:attention}sold{} or {C:attention}destroyed',
                     '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
                 }
             },

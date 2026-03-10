@@ -37,24 +37,15 @@ CardSleeves.Sleeve {
                                         return true
                                     end
                                 }))
-                                return {
-                                    message = localize('k_plus_tarot'),
-                                    colour = G.C.FILTER
-                                }
+                                SMODS.calculate_effect({message = localize("k_plus_tarot"), colour = G.C.FILTER}, self)
                             end)
                         }))
                         return nil, true
                     end
                 until G.GAME.sleeve_key.rebate.current_amount > 0
-                return {
-                    message = localize('k_rebate'),
-                    colour = G.C.FILTER
-                }
+                SMODS.calculate_effect({message = localize("k_rebate"), colour = G.C.FILTER}, self)
             else
-                return {
-                    message = ''..G.GAME.sleeve_key.rebate.current_amount,
-                    colour = G.C.FILTER
-                }
+                SMODS.calculate_effect({message = ''..G.GAME.sleeve_key.rebate.current_amount, colour = G.C.FILTER}, self)
             end
         end
     end

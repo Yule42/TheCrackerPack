@@ -10,7 +10,7 @@ SMODS.Joker{ --Green Card
         x = 1,
         y = 2
     },
-    cost = 6,
+    cost = 4,
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
@@ -26,7 +26,7 @@ SMODS.Joker{ --Green Card
     end,
     
     calculate = function(self, card, context)
-        if context.buying_card and not context.blueprint and not (context.card == card) and not (context.card.ability.set == "Voucher") then
+        if (context.buying_card or (context.open_booster and G.shop)) and not context.blueprint and not context.buying_self then
             card.ability.extra_value = card.ability.extra_value + card.ability.extra.money
             card:set_cost()
             G.E_MANAGER:add_event(Event({
@@ -48,15 +48,15 @@ SMODS.Joker{ --Blue Card
     config = {
         extra = {
             chips = 0,
-            chips_add = 10,
-            chips_remove = 10,
+            chips_add = 5,
+            chips_remove = 5,
         }
     },
     pos = {
         x = 2,
         y = 2
     },
-    cost = 4,
+    cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -66,32 +66,43 @@ SMODS.Joker{ --Blue Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.chips_remove}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 1 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
             return {
                 chips = card.ability.extra.chips,
             }
-        elseif context.taking_booster_card and not context.blueprint then
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add, 0
+        elseif context.card_added or context.playing_card_added and not context.blueprint then
+            local str = card.ability.extra.chips_add
+            if context.cards then -- playing cards added
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add * #context.cards
+                str = card.ability.extra.chips_add * #context.cards
+            else
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
+            end
             G.E_MANAGER:add_event(Event({
                 func = function() 
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips_add}},
+                        message = localize{type = 'variable', key = 'a_chips', vars = {str}},
                         colour = G.C.CHIPS,
                         delay = 0.45,
                         card = card
                     }) 
                     return true
                 end}))
-        elseif context.buying_card and not context.blueprint and not (context.card == card) and not (context.card.ability.set == "Voucher") then
-            card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove, 0)
+        elseif (context.selling_card and not context.blueprint and not (context.card == card)) or context.remove_playing_cards or context.joker_type_destroyed then
+            local str = card.ability.extra.chips_remove
+            if context.remove_playing_cards then
+                card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove * #context.removed, 0)
+                str = card.ability.extra.chips_remove * #context.removed
+            else
+                card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove, 0)
+            end
             card_eval_status_text(card, 'extra', nil, nil, nil, {
-                message = localize{type = 'variable', key = 'a_chips_minus', vars = {card.ability.extra.chips_remove}},
+                message = localize{type = 'variable', key = 'a_chips_minus', vars = {str}},
                 colour = G.C.CHIPS,
                 delay = 0.45,
                 card = card
