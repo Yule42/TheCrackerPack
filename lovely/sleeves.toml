@@ -1,0 +1,29 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+    # Blitz Deck
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "G.GAME.blind_on_deck = 'Small'"
+position = "at"
+payload = "G.GAME.blind_on_deck = G.GAME.modifiers.no_small_blind and 'Big' or 'Small'"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_states.Small = 'Upcoming'"
+position = "at"
+payload = "G.GAME.round_resets.blind_states.Small = G.GAME.modifiers.no_small_blind and 'Hide' or 'Upcoming'"
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.blind_on_deck = 'Small'"
+position = "at"
+payload = "G.GAME.blind_on_deck = G.GAME.modifiers.no_small_blind and 'Big' or 'Small'"
+match_indent = true

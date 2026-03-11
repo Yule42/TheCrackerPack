@@ -1,4 +1,22 @@
 CardSleeves.Sleeve {
+    key = "blitz",
+    name = "Blitz Sleeve",
+    atlas = "sleeves",
+    pos = { x = 2, y = 0 },
+    unlocked = true,
+    config = { },
+    --unlock_condition = { deck = "b_cracker_rebate", stake = "stake_blue" },
+    loc_vars = function(self)
+        return { vars = { } }
+    end,
+    apply = function(self)
+        G.GAME.modifiers.no_small_blind = true
+        G.GAME.win_ante = G.GAME.win_ante - 2
+        G.GAME.round_resets.blind_states["Small"] = "Hide"
+    end,
+}
+
+CardSleeves.Sleeve {
     key = "rebate",
     name = "Rebate Sleeve",
     atlas = "sleeves",

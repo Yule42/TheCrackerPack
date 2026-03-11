@@ -879,6 +879,13 @@ return {
                     'create a {C:attention}Tarot{} card',
                 },
             },
+            sleeve_cracker_blitz = {
+                name = "Blitz Sleeve",
+                text = {
+                    '{C:attention}-2{} Ante Requirement,',
+                    '{C:attention}Small Blind{} is removed',
+                },
+            },
         },
     },
     misc = {
