@@ -13,6 +13,6 @@ SMODS.Back{ -- Showdown Deck
     end,
     
     apply = function(self, back)
-        G.GAME.modifiers.extra_reward = 2
+        G.GAME.modifiers.extra_reward = 1
     end,
 }

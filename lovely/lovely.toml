@@ -338,6 +338,7 @@ if G.GAME.modifiers.no_blind_reward and G.GAME.modifiers.no_blind_reward[self:ge
 '''
 payload = '''
 if G.GAME.modifiers.extra_reward then self.dollars = self.dollars + G.GAME.modifiers.extra_reward end
+if G.GAME.modifiers.reduced_reward then self.dollars = math.max(0, self.dollars - G.GAME.modifiers.reduced_reward) end
 '''
 
     # Golden Deck

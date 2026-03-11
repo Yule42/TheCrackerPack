@@ -16,10 +16,7 @@ SMODS.Back{ -- Golden Deck
         }}
     end,
     apply = function(self, back)
-        G.GAME.modifiers.no_blind_reward = G.GAME.modifiers.no_blind_reward or {}
-        G.GAME.modifiers.no_blind_reward.Small = true
-        G.GAME.modifiers.no_blind_reward.Big = true
-        G.GAME.modifiers.no_blind_reward.Boss = true
+        G.GAME.modifiers.reduced_reward = 2
         G.GAME.modifiers.money_tags_only = true
     end,
 }

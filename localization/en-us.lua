@@ -6,8 +6,8 @@ return {
                 text = {
                     'Only economic',
                     '{C:attention}Skip Tags{} can appear,',
-                    'All {C:attention}Blinds{} give',
-                    'no reward money',
+                    'Blind rewards are decreased',
+                    'by {C:money}$2',
                 },
             },
             b_cracker_rebate = {
