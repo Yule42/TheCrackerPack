@@ -882,7 +882,7 @@ return {
             sleeve_cracker_blitz = {
                 name = "Blitz Sleeve",
                 text = {
-                    '{C:attention}-2{} Ante Requirement,',
+                    'Required score scales a bit slower,',
                     '{C:attention}Small Blind{} is removed',
                 },
             },

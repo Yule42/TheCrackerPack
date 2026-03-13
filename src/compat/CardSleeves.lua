@@ -11,7 +11,8 @@ CardSleeves.Sleeve {
     end,
     apply = function(self)
         G.GAME.modifiers.no_small_blind = true
-        G.GAME.win_ante = G.GAME.win_ante - 2
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) - 0.25
+        if G.GAME.modifiers.scaling < 1 then G.GAME.modifiers.scaling = 1 end
         G.GAME.round_resets.blind_states["Small"] = "Hide"
     end,
 }
