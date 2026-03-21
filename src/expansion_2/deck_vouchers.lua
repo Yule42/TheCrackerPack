@@ -24,7 +24,8 @@ SMODS.Voucher {
             discards = 1,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -65,7 +66,8 @@ SMODS.Voucher {
             hands = 1,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -106,7 +108,8 @@ SMODS.Voucher {
             money = 20,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -147,7 +150,8 @@ SMODS.Voucher {
             discard_money = 1,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -187,7 +191,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -233,7 +238,8 @@ SMODS.Voucher {
             upgrade_voucher = "v_omen_globe"
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -310,7 +316,8 @@ SMODS.Voucher {
             upgrade_voucher = "v_observatory"
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -370,7 +377,8 @@ SMODS.Voucher {
             spectral_boost = 2,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -422,7 +430,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -474,7 +483,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -521,7 +531,8 @@ SMODS.Voucher {
             upgrade_voucher = { "v_tarot_tycoon", "v_planet_tycoon", "v_overstock_plus" },
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -583,7 +594,8 @@ SMODS.Voucher {
             hand_size = 2,
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -622,7 +634,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -670,7 +683,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -710,7 +724,8 @@ SMODS.Voucher {
             vouchers = 2
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -797,7 +812,8 @@ SMODS.Voucher {
             upgrade_voucher = { "v_money_tree", "v_cracker_heirloom", "v_glow_up" },
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -852,7 +868,8 @@ SMODS.Voucher {
         requirement = 30,
         current_amount = 30,
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -921,7 +938,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,
@@ -954,7 +972,8 @@ SMODS.Voucher {
         extra = {
         }
     },
-    patchwork = true,
+    pools = { DeckVoucher = true },
+    no_collection = true,
     set_card_type_badge = function(self, card, badges)
         badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
     end,

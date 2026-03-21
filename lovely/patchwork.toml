@@ -10,9 +10,9 @@ target = "functions/common_events.lua"
 pattern = '''if v.requires then '''
 position = "at"
 payload = '''
-if not G.GAME.modifiers.voucher_override and v.patchwork then
+if not G.GAME.modifiers.voucher_override and G.P_CENTERS[v.key] and G.P_CENTERS[v.key].discovered and G.P_CENTERS[v.key].pools and G.P_CENTERS[v.key].pools.DeckVoucher then
     include = false
-elseif G.GAME.modifiers.voucher_override and not v.patchwork then 
+elseif G.GAME.modifiers.voucher_override and not (G.P_CENTERS[v.key] and G.P_CENTERS[v.key].discovered and G.P_CENTERS[v.key].pools and G.P_CENTERS[v.key].pools.DeckVoucher) then
     include = false
 elseif v.requires then
 '''

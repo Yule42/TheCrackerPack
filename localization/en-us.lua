@@ -901,6 +901,7 @@ return {
             k_discard_falcon='Clawed!',
             k_frozen='Frozen!',
             k_rebate='Rebate!',
+            b_deck_vouchers='Deck Vouchers',
             k_open_url='Open URL',
             k_copy_url='Copy URL',
             jdis_before='Before',
