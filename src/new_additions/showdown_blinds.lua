@@ -73,7 +73,7 @@ SMODS.Blind { -- The Hook
                     end)
                 }))
                 delay(0.4)
-            elseif context.after_discard and G.GAME.blind.effect.extra and not G.GAME.blind.effect.extra.pause_triggering then
+            elseif context.cracker_after_discard and G.GAME.blind.effect.extra and not G.GAME.blind.effect.extra.pause_triggering then
                 G.GAME.blind.effect.extra.pause_triggering = true
                 G.E_MANAGER:add_event(Event({
                     func = function()

@@ -737,16 +737,14 @@ SMODS.Voucher {
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
         G.GAME.modifiers.voucher_override = false
         local usable_vouchers = {}
-        for k, v in ipairs(G.vouchers.cards) do
+        for _, v in ipairs(G.vouchers.cards) do
             local can_use = true
-            for kk, vv in ipairs(G.vouchers.cards) do
-                local center = G.P_CENTERS[vv.config.center.key]
-                if center.requires and not center.requires == 'patchwork_enabled' then
-                    for _, vvv in pairs(center.requires) do
-                        if vvv == v.config.center.key then
-                            can_use = false
-                            break
-                        end
+            local center = G.P_CENTERS[v.config.center.key]
+            if center.requires and not center.requires == 'patchwork_enabled' then
+                for _, vv in pairs(center.requires) do
+                    if vv == v.config.center.key then
+                        can_use = false
+                        break
                     end
                 end
             end

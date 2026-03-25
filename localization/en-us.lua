@@ -915,12 +915,11 @@ return {
             a_discards_minus="-#1# Discards",
         },
         v_text = {
-            ch_c_ante_39 = {
-                "Beat {C:attention}Ante 38{} to win"
+            ch_c_high_score = {
+                "Score {C:attention}1e40{} or higher in a single round to win"
             },
             ch_c_plasma = {
                 "Balance {C:blue}Chips{} and {C:red}Mult{} when calculating score for played hand",
-                
             },
             ch_c_plasma_2 = {
                 "{C:red}X2{} base Blind size",

@@ -212,7 +212,7 @@ SMODS.Challenge{
     }
 }
 
-challenge = SMODS.Challenge{
+SMODS.Challenge{
     loc_txt = {name = "Ghost in a Pack"},
     key = "ghostinapack",
     jokers = {
@@ -226,7 +226,16 @@ challenge = SMODS.Challenge{
         }
     },
     restrictions = {
-        banned_cards = {
+        banned_cards = function()
+            local nonperishables = {}
+            for k, v in ipairs(G.P_CENTER_POOLS.Joker) do
+                if not v.perishable_compat then
+                    table.insert(nonperishables, {id = v.key})
+                end
+            end
+            return nonperishables
+        end
+        --[[banned_cards = {
             {id = 'j_ceremonial'},
             {id = 'j_ride_the_bus'},
             {id = 'j_runner'},
@@ -253,27 +262,20 @@ challenge = SMODS.Challenge{
             {id = 'j_cracker_ants'},
             {id = 'j_cracker_postman'},
             {id = 'j_cracker_freezer'},
-        },
+        },]]
     }
 }
 
-if not disable_card then
-    table.insert(challenge.restrictions.banned_cards, 20, {id = 'j_cracker_bluecard'})
-    table.insert(challenge.restrictions.banned_cards, 21, {id = 'j_cracker_violetcard'})
-end
-
 SMODS.Challenge{
-    loc_txt = {name = "The End"},
-    key = "theend2",
+    loc_txt = {name = "High Score!"},
+    key = "highscore",
     jokers = {
-        {id = 'j_perkeo', edition = "negative"},
-        {id = 'j_diet_cola'},
     },
     vouchers = {
     },
     rules = {
         custom = {
-            {id = 'ante_39'},
+            {id = 'high_score'},
             {id = 'plasma'},
             {id = 'plasma_2'},
         }

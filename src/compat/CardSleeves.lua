@@ -56,15 +56,15 @@ CardSleeves.Sleeve {
                                         return true
                                     end
                                 }))
-                                SMODS.calculate_effect({message = localize("k_plus_tarot"), colour = G.C.FILTER}, self)
+                                SMODS.calculate_effect({message = localize("k_plus_tarot"), colour = G.C.FILTER}, G.GAME.selected_back)
                             end)
                         }))
                         return nil, true
                     end
                 until G.GAME.sleeve_key.rebate.current_amount > 0
-                SMODS.calculate_effect({message = localize("k_rebate"), colour = G.C.FILTER}, self)
+                SMODS.calculate_effect({message = localize("k_rebate"), colour = G.C.FILTER}, G.GAME.selected_back)
             else
-                SMODS.calculate_effect({message = ''..G.GAME.sleeve_key.rebate.current_amount, colour = G.C.FILTER}, self)
+                SMODS.calculate_effect({message = ''..G.GAME.sleeve_key.rebate.current_amount, colour = G.C.FILTER}, G.GAME.selected_back)
             end
         end
     end
