@@ -254,8 +254,6 @@ SMODS.Joker{ --Thrifty Joker
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-    
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
@@ -525,7 +523,9 @@ SMODS.Joker{ --Freezer
     end,
     
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.food_multiplier = 1
+        if not next(SMODS.find_card("j_cracker_freezer")) then
+            G.GAME.food_multiplier = 1
+        end
     end,
     
     calculate = function(self, card, context)
@@ -583,11 +583,7 @@ SMODS.Joker{ --Life Support
             hand_chips = maxim
             mult = maxim
             update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-            
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_maximized'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
-            
-            
-            
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = (function()
@@ -730,17 +726,14 @@ SMODS.Joker{ --Knife Thrower
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.hands}}
     end,
-    
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
     end,
-    
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
         ease_hands_played(-card.ability.extra.hands)
