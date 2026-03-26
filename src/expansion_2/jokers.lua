@@ -379,7 +379,7 @@ SMODS.Joker{ --Potato Chips
         y = 3,
     },
     cost = 6,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = true,
