@@ -47,7 +47,7 @@ return {
             b_cracker_showdown = {
                 name = 'Showdown Deck',
                 text = {
-                    'Blind rewards are increased by {C:money}$2',
+                    'Blind rewards are increased by {C:money}$1',
                     'Every odd boss blind is a {C:attention}Major Blind',
                     'Every even boss blind is an',
                     '{C:attention}upgraded{} Boss Blind'
@@ -256,6 +256,30 @@ return {
                 text = {
                     "Forces 2 cards to",
                     "always be selected",
+                },
+            },
+            bl_cracker_aij_the_heart_dx = {
+                name = "The Heart DX",
+                text = {
+                    'Must play a hand',
+                    'containing a #1#',
+                    'before hands score'
+                },
+            },
+            bl_cracker_aij_the_rains_dx = {
+                name = "The Rains DX",
+                text = {
+                    'If played hand wins',
+                    'the blind, played and',
+                    'held in hand cards lose',
+                    'all enhancements, editions, and seals'
+                },
+            },
+            bl_cracker_aij_the_child_dx = {
+                name = "The Child DX",
+                text = {
+                    'Randomize the rank',
+                    'of all scoring cards'
                 },
             },
         },

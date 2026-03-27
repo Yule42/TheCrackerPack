@@ -201,6 +201,12 @@ pattern = '''for k, v in pairs(G.GAME.bosses_used) do'''
 position = "before"
 match_indent = true
 payload = '''
+for k, v in pairs(eligible_bosses) do
+    if v and G.GAME.bosses_used[k] == nil then
+        G.GAME.bosses_used[k] = 0
+    end
+end
+
 if Cracker.force_dx_blind() then
     if G.GAME.round_resets.ante%2 == 1 then
         return 'bl_cracker_major'

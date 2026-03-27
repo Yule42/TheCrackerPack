@@ -517,6 +517,10 @@ if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
 end
 
+if next(SMODS.find_mod('allinjest')) then
+    assert(SMODS.load_file('src/compat/AllInJest.lua'))()
+end
+
 if next(SMODS.find_mod('partner')) then
 	SMODS.Atlas {
 		key = 'Partner',
