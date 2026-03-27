@@ -217,6 +217,12 @@ if Cracker.force_dx_blind() then
             end
         end
     end
+else
+    for k, v in pairs(eligible_bosses) do
+        if eligible_bosses[k] and (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.dx) then
+            eligible_bosses[k] = nil
+        end
+    end
 end
 '''
 
