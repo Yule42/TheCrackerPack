@@ -750,7 +750,7 @@ SMODS.Joker{ --Northern Star
     },
     pos = {
         x = 8,
-        y = SMODS.current_mod.config.starlo and 2 or 1
+        y = (SMODS.current_mod.config.starlo or (os.date("*t").month == 4 and os.date("*t").day == 1)) and 2 or 1
     },
     cost = 6,
     rarity = 2,

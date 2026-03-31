@@ -170,7 +170,8 @@ SMODS.Blind {
     min = 4,
     all_in_jest = {
       pit = true
-    }
+    },
+    dx = true,
   },
   in_pool = function(self)
     return All_in_Jest.pit_blinds_in_play()
