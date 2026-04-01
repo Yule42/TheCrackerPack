@@ -156,8 +156,8 @@ SMODS.Joker{ --Sundae
     key = "sundae",
     config = {
         extra = {
-            chips = 75,
-            mult = 15,
+            chips = 125,
+            mult = 25,
             left = 4,
             state = 0,
         }
