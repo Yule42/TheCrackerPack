@@ -42,7 +42,7 @@
                     colour = G.C.FILTER
                 }
             else
-                if SMODS.pseudorandom_probability(card, 'Cybernana MK920', 1, card.ability.extra.odds * G.GAME.food_multiplier, 'Cybernana MK920') then 
+                if SMODS.pseudorandom_probability(card, 'Cybernana MK920', 1, card.ability.extra.odds, 'Cybernana MK920') then 
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
@@ -263,13 +263,12 @@ SMODS.Joker{ --Sundae
     end
 }
 
-SMODS.Joker{ --Hard Seltzer
-    name = "Hard Seltzer",
-    key = "hardseltzer",
+SMODS.Joker{ --Alcoholic Soda
+    name = "Alcoholic Soda",
+    key = "alcoholicsoda",
     config = {
         extra = {
-            rounds = 10,
-            rounds_remove = 1
+            odds = 3
         }
     },
     pos = {
@@ -279,20 +278,25 @@ SMODS.Joker{ --Hard Seltzer
     pools = {
         Food = true,
     },
-    cost = 8,
+    cost = 6,
     rarity = 2,
     blueprint_compat = true,
-    eternal_compat = false,
+    eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-    yes_pool_flag = 'seltzer_drank',
-    
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.rounds, card.ability.extra.rounds_remove}}
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Alcoholic Soda')
+        return {vars = {new_numerator, new_denominator}}
+    end,
+    
+    remove_from_deck = function(self, card, from_debuff)
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, 'Alcoholic Soda')
+        end
     end,
     
     calculate = function(self, card, context)
@@ -302,40 +306,21 @@ SMODS.Joker{ --Hard Seltzer
                 repetitions = 1,
                 card = card
             }
-        elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_remove * G.GAME.food_multiplier)
-            if card.ability.extra.rounds <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
-                return {
-                    message = localize('k_drank_ex'),
-                    colour = G.C.FILTER
-                }
-            else
-                return {
-                    message = card.ability.extra.rounds..'',
-                    colour = G.C.FILTER
-                }
+        elseif context.setting_blind and not context.blueprint then
+            for k, v in pairs(G.playing_cards) do
+                if SMODS.pseudorandom_probability(card, 'Alcoholic Soda', 1, card.ability.extra.odds, 'Alcoholic Soda')  then
+                    SMODS.debuff_card(v, true, 'Alcoholic Soda')
+                end
+            end
+        elseif context.end_of_round and not context.blueprint then
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, false, 'Alcoholic Soda')
             end
         end
     end
 }
 
-SMODS.Joker{ --Can of Beans
+--[[SMODS.Joker{ --Can of Beans
     name = "Can of Beans",
     key = "canofbeans",
     config = {
@@ -407,7 +392,7 @@ SMODS.Joker{ --Can of Beans
             end
         end
     end
-}
+}]]
 
 SMODS.Joker{ --Tsukemen
     name = "Tsukemen",

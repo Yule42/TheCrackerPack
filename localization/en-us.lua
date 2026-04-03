@@ -424,9 +424,9 @@ return {
             j_cracker_sundae_chips = {
                 name = 'Sundae',
                 text = {
-                    'Each hand, cycles between',
-                    '{C:chips}+#1#{} Chips, {C:inactive}+#2# Mult{}, and',
-                    '{C:inactive}creating a random Planet card',
+                    'Cycles between {C:chips}+#1#{} Chips,',
+                    '{C:inactive}+#2# Mult{}, and {C:inactive}creating a random',
+                    '{C:inactive} Planet card{} after each hand',
                     'Destroyed after creating',
                     '{C:attention}#3#{} Planet cards'
                 }
@@ -434,9 +434,9 @@ return {
             j_cracker_sundae_mult = {
                 name = 'Sundae',
                 text = {
-                    'Each hand, cycles between',
-                    '{C:inactive}+#1# Chips{}, {C:mult}+#2#{} Mult, and',
-                    '{C:inactive}creating a random Planet card',
+                    'Cycles between {C:inactive}+#1# Chips{},',
+                    '{C:mult}+#2#{} Mult, and {C:inactive}creating a random',
+                    '{C:inactive} Planet card{} after each hand',
                     'Will dissapear after creating',
                     '{C:attention}#3#{} Planet cards'
                 }
@@ -444,18 +444,19 @@ return {
             j_cracker_sundae_planet = {
                 name = 'Sundae',
                 text = {
-                    'Each hand, cycles between',
-                    '{C:inactive}+#1# Chips{}, {C:inactive}+#2# Mult{}, and',
-                    'creating a random {C:planet}Planet{} card',
+                    'Cycles between {C:inactive}+#1# Chips{},',
+                    '{C:inactive}+#2# Mult{}, and {C:inactive}creating a random',
+                    '{C:planet}Planet{} card after each hand',
                     'Will dissapear after creating',
                     '{C:attention}#3#{} Planet cards'
                 }
             },
-            j_cracker_hardseltzer = {
-                name = 'Hard Seltzer',
+            j_cracker_alcoholicsoda = {
+                name = 'Alcoholic Soda',
                 text = {
-                    'Retrigger all cards played',
-                    'for the next {C:attention}#1#{} rounds',
+                    'Retrigger all played cards,',
+                    '{C:green}#1# in #2#{} cards are',
+                    '{C:attention}debuffed{} during {C:attention}Blinds'
                 }
             },
             j_cracker_canofbeans = {
