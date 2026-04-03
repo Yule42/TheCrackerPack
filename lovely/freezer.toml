@@ -64,9 +64,7 @@ target = "card.lua"
 pattern = "if self.ability.mult - self.ability.extra <= 0 then"
 position = "at"
 payload = '''if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) <= 0 then 
-if not CrackerConfig.disable_upgradedfood then
-    G.GAME.pool_flags.popcorn_eaten = true
-end'''
+G.GAME.pool_flags.popcorn_eaten = true'''
 match_indent = true
 times = 1
 

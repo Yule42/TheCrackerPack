@@ -5,7 +5,7 @@ SMODS.Joker{ --Saltine Cracker
         extra = {
             chips = 0,
             chip_mod = 3,
-            odds = 30
+            odds = 60
         }
     },
     pos = {

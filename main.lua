@@ -478,16 +478,6 @@ SMODS.current_mod.config_tab = function() --Config
             ref_value = "disable_card",
         }),
         create_toggle({
-            label = "Disable Upgraded Food Jokers",
-            ref_table = CrackerConfig,
-            ref_value = "disable_upgradedfood",
-        }),
-        create_toggle({
-            label = "Disable Tier 3 Vouchers",
-            ref_table = CrackerConfig,
-            ref_value = "disable_tier3",
-        }),
-        create_toggle({
             label = "Dev Textures",
             ref_table = CrackerConfig,
             ref_value = "starlo",
@@ -497,9 +487,7 @@ SMODS.current_mod.config_tab = function() --Config
 end
 
 assert(SMODS.load_file('src/base_jokers.lua'))()
-if not CrackerConfig.disable_upgradedfood then
-    assert(SMODS.load_file('src/upgraded_food.lua'))()
-end
+assert(SMODS.load_file('src/upgraded_food.lua'))()
 assert(SMODS.load_file('src/voucher.lua'))()
 
 if not CrackerConfig.disable_card then

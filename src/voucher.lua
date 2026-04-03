@@ -100,7 +100,7 @@ SMODS.Voucher {
     end,
 }
 
-if not CrackerConfig.disable_tier3 then
+--[[if not CrackerConfig.disable_tier3 then
     SMODS.Voucher {
         key = 'cheese_touch',
         pos = {
@@ -153,3 +153,4 @@ if not CrackerConfig.disable_tier3 then
         end
     }
 end
+]]

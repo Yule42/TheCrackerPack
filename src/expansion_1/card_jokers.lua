@@ -66,9 +66,11 @@ SMODS.Joker{ --Blue Card
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
         local count = 0
-        for k, v in pairs(G.playing_cards) do
-            if next(SMODS.get_enhancements(v)) then
-                count = count + 1
+        if G.playing_cards then
+            for k, v in pairs(G.playing_cards) do
+                if next(SMODS.get_enhancements(v)) then
+                    count = count + 1
+                end
             end
         end
         local chips = count * card.ability.extra.chips_add
@@ -78,9 +80,11 @@ SMODS.Joker{ --Blue Card
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand then
             local count = 0
-            for k, v in pairs(G.playing_cards) do
-                if next(SMODS.get_enhancements(v)) then
-                    count = count + 1
+            if G.playing_cards then
+                for k, v in pairs(G.playing_cards) do
+                    if next(SMODS.get_enhancements(v)) then
+                        count = count + 1
+                    end
                 end
             end
             if count > 0 then
