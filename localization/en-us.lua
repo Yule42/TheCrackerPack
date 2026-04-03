@@ -489,10 +489,8 @@ return {
             j_cracker_bluecard = {
                 name = 'Blue Card',
                 text = {
-                    'This Joker gains {C:chips}+#2#{} Chips',
-                    'when a card is {C:attention}added{},',
-                    'loses {C:chips}-#3#{} Chips when a card is',
-                    '{C:attention}sold{} or {C:attention}destroyed',
+                    '{C:chips}+#2#{} Chips for each',
+                    '{C:attention}enhanced{} card in your full deck',
                     '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
                 }
             },

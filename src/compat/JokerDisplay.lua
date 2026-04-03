@@ -228,20 +228,20 @@ JokerDisplay.Definitions.j_cracker_sundae = {
         end
     end
 }
-JokerDisplay.Definitions.j_cracker_hardseltzer = {
+JokerDisplay.Definitions.j_cracker_alcoholicsoda = {
     reminder_text = {
         { text = "(" },
-        { ref_table = "card.ability.extra", ref_value = "rounds" },
-        { text = "/" },
-        { ref_table = "card.joker_display_values", ref_value = "start_count" },
+        { ref_table = "card.joker_display_values", ref_value = "odds" },
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.start_count = card.joker_display_values.start_count or card.ability.extra.rounds
+        local numerator, denominator = 1, card.ability.extra.odds
+        if SMODS then numerator, denominator = SMODS.get_probability_vars(card, numerator, denominator, 'Alcoholic Soda') end
+        card.joker_display_values.odds = localize{ type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
-        return JokerDisplay.calculate_joker_triggers(joker_card)
+        return JokerDisplay.in_scoring(playing_card, scoring_hand) and JokerDisplay.calculate_joker_triggers(joker_card)
     end
 }
 JokerDisplay.Definitions.j_cracker_canofbeans = {
@@ -270,9 +270,18 @@ JokerDisplay.Definitions.j_cracker_tsukemen = {
 JokerDisplay.Definitions.j_cracker_bluecard = {
     text = {
         { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
     },
     text_config = { colour = G.C.CHIPS },
+    calc_function = function(card)
+        local count = 0
+        for k, v in pairs(G.playing_cards) do
+            if next(SMODS.get_enhancements(v)) then
+                count = count + 1
+            end
+        end
+        card.joker_display_values.chips = count * card.ability.extra.chips_add
+    end
 }
 JokerDisplay.Definitions.j_cracker_violetcard = {
     text = {

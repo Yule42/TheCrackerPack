@@ -47,9 +47,7 @@ SMODS.Joker{ --Blue Card
     key = "bluecard",
     config = {
         extra = {
-            chips = 0,
-            chips_add = 5,
-            chips_remove = 5,
+            chips_add = 4,
         }
     },
     pos = {
@@ -67,47 +65,30 @@ SMODS.Joker{ --Blue Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.chips_add, card.ability.extra.chips_remove}}
+        local count = 0
+        for k, v in pairs(G.playing_cards) do
+            if next(SMODS.get_enhancements(v)) then
+                count = count + 1
+            end
+        end
+        local chips = count * card.ability.extra.chips_add
+        return {vars = {chips, card.ability.extra.chips_add}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
-            return {
-                chips = card.ability.extra.chips,
-            }
-        elseif context.card_added or context.playing_card_added and not context.blueprint then
-            local str = card.ability.extra.chips_add
-            if context.cards then -- playing cards added
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add * #context.cards
-                str = card.ability.extra.chips_add * #context.cards
-            else
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_add
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand then
+            local count = 0
+            for k, v in pairs(G.playing_cards) do
+                if next(SMODS.get_enhancements(v)) then
+                    count = count + 1
+                end
             end
-            G.E_MANAGER:add_event(Event({
-                func = function() 
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize{type = 'variable', key = 'a_chips', vars = {str}},
-                        colour = G.C.CHIPS,
-                        delay = 0.45,
-                        card = card
-                    }) 
-                    return true
-                end}))
-        elseif (context.selling_card and not context.blueprint and not (context.card == card)) or context.remove_playing_cards or context.joker_type_destroyed then
-            local str = card.ability.extra.chips_remove
-            if context.remove_playing_cards then
-                card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove * #context.removed, 0)
-                str = card.ability.extra.chips_remove * #context.removed
-            else
-                card.ability.extra.chips = math.max(card.ability.extra.chips - card.ability.extra.chips_remove, 0)
+            if count > 0 then
+                local chips = count * card.ability.extra.chips_add
+                return {
+                    chips = chips,
+                }
             end
-            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                message = localize{type = 'variable', key = 'a_chips_minus', vars = {str}},
-                colour = G.C.CHIPS,
-                delay = 0.45,
-                card = card
-            }) 
-            return nil, true
         end
     end
 }
