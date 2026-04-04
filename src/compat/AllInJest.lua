@@ -101,6 +101,7 @@ SMODS.Blind {
     pos = { y = 1 },
     order = 502,
     dollars = 6,
+    dependencies = "allinjest",
 
     calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
@@ -174,7 +175,7 @@ SMODS.Blind {
     dx = true,
   },
   in_pool = function(self)
-    return All_in_Jest.pit_blinds_in_play()
+    return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
   end,
   mult = 2,
   boss_colour = HEX("c1b297"),
@@ -182,6 +183,7 @@ SMODS.Blind {
   pos = { y = 2 },
   order = 503,
   dollars = 6,
+  dependencies = "allinjest",
 
   calculate = function(self, blind, context)
     local temp = G.GAME.blind and G.GAME.blind.disabled
@@ -248,3 +250,64 @@ SMODS.Blind {
     end
   end
 }
+
+SMODS.Blind {
+    object_type = "Blind",
+    key = 'aij_the_moon_dx',
+    boss = {
+      min = 4,
+      all_in_jest = {
+          pit = true
+      },
+      dx = true,
+    },
+    in_pool = function(self)
+        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+    end,
+    mult = 2,
+    boss_colour = HEX("95a8a9"),
+    atlas = 'dxpitblinds',
+    pos = { y = 3 },
+    order = 504,
+    dollars = 6,
+    dependencies = "allinjest",
+
+    calculate = function(self, blind, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
+        if context.setting_blind and not temp then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = (function()
+                    local debuff = false
+                    for k, v in pairs(G.playing_cards) do
+                        if context.setting_blind then
+                            if debuff then
+                                SMODS.debuff_card(v, true, 'the_moon_dx')
+                                debuff = false
+                            else
+                                debuff = true
+                            end
+                        end
+                    end
+                    return true 
+                end
+            )}))
+        end
+    end,
+
+    disable = function(self)
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, 'the_moon_dx')
+        end
+    end,
+
+    defeat = function(self)
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, 'the_moon_dx')
+        end
+    end
+}
+

@@ -282,6 +282,13 @@ return {
                     'of all scoring cards'
                 },
             },
+            bl_cracker_aij_the_moon_dx = {
+                name = "The Moon DX",
+                text = {
+                    'Every other card',
+                    'in deck is debuffed'
+                },
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {

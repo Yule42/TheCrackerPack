@@ -308,7 +308,7 @@ SMODS.Joker{ --Alcoholic Soda
             }
         elseif context.setting_blind and not context.blueprint then
             for k, v in pairs(G.playing_cards) do
-                if SMODS.pseudorandom_probability(card, 'Alcoholic Soda', 1, card.ability.extra.odds, 'Alcoholic Soda')  then
+                if SMODS.pseudorandom_probability(card, 'Alcoholic Soda', 1, card.ability.extra.odds, 'Alcoholic Soda') then
                     SMODS.debuff_card(v, true, 'Alcoholic Soda')
                 end
             end
