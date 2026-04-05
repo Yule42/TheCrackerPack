@@ -567,7 +567,7 @@ SMODS.Blind {
     in_pool = function(self)
         return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
     end,
-    mult = 2,
+    mult = 1,
     boss_colour = HEX("754c4c"),
     atlas = 'dxpitblinds',
     pos = { y = 8 },
@@ -616,7 +616,7 @@ SMODS.Blind {
     in_pool = function(self)
         return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
     end,
-    mult = 1,
+    mult = 2,
     boss_colour = HEX("634b6a"),
     atlas = 'dxpitblinds',
     pos = { y = 9 },
