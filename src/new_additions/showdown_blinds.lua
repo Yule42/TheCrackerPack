@@ -9,6 +9,7 @@ SMODS.Blind {
     in_pool = function(self)
         return false
     end,
+    no_collection = true,
 }
 
 SMODS.Blind { -- The Hook
@@ -1064,7 +1065,7 @@ SMODS.Blind { -- Amber Acorn
 
 local eval_status_text_ref = card_eval_status_text
 function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
-    if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_final_acorn_dx' and card and card.ability and card.ability.set == 'Joker' and not G.GAME.blind.disabled then
+    if G.GAME.blind and (G.GAME.blind.name == 'bl_cracker_final_acorn_dx' or G.GAME.blind.name == 'bl_cracker_aij_the_bird_dx') and card and card.ability and card.ability.set == 'Joker' and not G.GAME.blind.disabled then
         return true
     else
         eval_status_text_ref(card, eval_type, amt, percent, dir, extra)
@@ -1165,7 +1166,6 @@ SMODS.Blind { -- Crimson Heart
             if context.before then
                 local card_count = #G.jokers.cards
                 for i, joker in ipairs(G.jokers.cards) do
-                    print(i)
                     if i == 1 or i == card_count then
                         SMODS.debuff_card(joker, true, 'heart_dx')
                     else

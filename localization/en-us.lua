@@ -289,6 +289,88 @@ return {
                     'in deck is debuffed'
                 },
             },
+            bl_cracker_aij_the_shell_dx = {
+                name = "The Shell DX",
+                text = {
+                    '#1# in #2# cards',
+                    'in deck are drawn',
+                    'face down and debuffed,',
+                    '#3# in #4# cards are discarded'
+                },
+            },
+            bl_cracker_aij_the_earth_dx = {
+                name = "The Earth DX",
+                text = {
+                    'Shuffle a deck',
+                    'of Stone Cards',
+                    'into your deck',
+                    'for this Blind'
+                },
+            },
+            bl_cracker_aij_the_dragon_dx = {
+                name = "The Dragon DX",
+                text = {
+                    'Discard all but',
+                    '#1# cards',
+                },
+            },
+            bl_cracker_aij_the_mountain_dx = {
+                name = "The Mountain DX",
+                text = {
+                    'Titanic Blind',
+                    '+2 Hand Size',
+                },
+            },
+            bl_cracker_aij_the_conflaguration_dx = {
+                name = "The Conflaguration DX",
+                text = {
+                    'All cards drawn',
+                    'will be destroyed',
+                    'at end of round'
+                },
+            },
+            bl_cracker_aij_the_umbilical_dx = {
+                name = "The Umbilical DX",
+                text = {
+                    'Mark three random cards',
+                    'in your deck,',
+                    'marked cards cannot',
+                    'be played or discarded'
+                },
+            },
+            bl_cracker_aij_the_divine_dx = {
+                name = "The Divine DX",
+                text = {
+                    'Can only play enhanced',
+                    'cards every odd hand,',
+                    'Cannot play enhanced',
+                    'cards every even hand'
+                },
+            },
+            bl_cracker_aij_the_bird_dx = {
+                name = "The Bird DX",
+                text = {
+                    'Shuffles two Jokers',
+                    'and turns them face down,',
+                    'cannot view Joker effects',
+                    'during this Blind'
+                },
+            },
+            bl_cracker_aij_the_arrow_dx = {
+                name = "The Arrow DX",
+                text = {
+                    'Played hand must',
+                    'have highest score',
+                    'this run',
+                },
+            },
+            bl_cracker_aij_the_brilliance_dx = {
+                name = "The Brilliance DX",
+                text = {
+                    'Must meet the score',
+                    'requirement twice',
+                },
+            },
         },
         Joker = {
             j_cracker_saltinecracker = {
