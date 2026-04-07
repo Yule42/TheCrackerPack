@@ -785,7 +785,11 @@ return {
             v_pw_yellow = {
                 name = "Yellow Deck",
                 text = {
-                    'Gain {C:money}$#1#',
+                    'When redeemed:',
+                    '{C:attention}Everything{} in shop',
+                    'becomes free this Ante',
+                    '{C:inactive}(Excludes rerolls)'
+                    
                 },
             },
             v_pw_green = {

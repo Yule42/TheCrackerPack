@@ -90,7 +90,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 10,
+    cost = 20,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -105,7 +105,7 @@ SMODS.Voucher {
     atlas = 'centers',
     config = {
         extra = {
-            money = 20,
+            currently_active = true,
         }
     },
     pools = { DeckVoucher = true },
@@ -119,8 +119,45 @@ SMODS.Voucher {
     end,
     
     redeem = function(self)
-        ease_dollars(self.config.extra.money)
-    end
+        if G.shop_jokers and G.shop_booster then
+            for _, card in pairs(G.shop_jokers.cards) do
+                card.ability.couponed = true
+                card:set_cost()
+            end
+            for _, booster in pairs(G.shop_booster.cards) do
+                booster.ability.couponed = true
+                booster:set_cost()
+            end
+        end
+        if G.shop_vouchers then
+            for _, voucher in pairs(G.shop_vouchers.cards) do
+                voucher.cost = 0
+            end
+        end
+    end,
+    
+    calculate = function(self, card, context)
+        if context.end_of_round and context.beat_boss then
+            self.config.currently_active = false
+        elseif self.config.currently_active and context.starting_shop or context.reroll_shop then
+            if G.shop_jokers and G.shop_booster then
+                for _, card in pairs(G.shop_jokers.cards) do
+                    card.ability.couponed = true
+                    card:set_cost()
+                end
+                for _, booster in pairs(G.shop_booster.cards) do
+                    booster.ability.couponed = true
+                    booster:set_cost()
+                end
+            end
+            if G.shop_vouchers then
+                for _, voucher in pairs(G.shop_vouchers.cards) do
+                    voucher.cost = 0
+                end
+            end
+            return true
+        end
+    end,
 }
 
 SMODS.Voucher {

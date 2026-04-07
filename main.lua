@@ -112,6 +112,7 @@ G.FUNCS.your_collection_deckvouchers = function(e)
     }
 end
 
+-- this is so stupid please figure out a better way to do this eventually
 local function cracker_card_collection_UIBox_raw(_pool, rows, args) -- copied from smods code, modified for deck vouchers.
     args = args or {}
     args.w_mod = args.w_mod or 1
