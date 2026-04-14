@@ -567,8 +567,8 @@ return {
                 }
             },
             
-            j_cracker_greencard = {
-                name = 'Green Card',
+            j_cracker_membershipcard = {
+                name = 'Membership Card',
                 text = {
                     'This Joker gains',
                     '{C:money}$#1#{} of {C:attention}sell value{} when',

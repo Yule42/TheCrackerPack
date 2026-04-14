@@ -1,6 +1,6 @@
-SMODS.Joker{ --Green Card
-    name = "Green Card",
-    key = "greencard",
+SMODS.Joker{ --Membership Card
+    name = "Membership Card",
+    key = "membershipcard",
     config = {
         extra = {
             money = 1,
@@ -21,7 +21,7 @@ SMODS.Joker{ --Green Card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.money}}
     end,
     
