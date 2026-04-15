@@ -273,9 +273,10 @@ SMODS.Joker{ --Cheese
     key = "cheese",
     config = {
         extra = {
-            x_mult = 3,
-            x_mult_remove = 1,
-            x_mult_base = 3,
+            x_mult = 2.5,
+            x_mult_remove = 0.5,
+            x_mult_base = 2.5,
+            x_mult_min = 1,
         }
     },
     pos = {
@@ -296,7 +297,7 @@ SMODS.Joker{ --Cheese
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_remove, card.ability.extra.x_mult_base}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_remove, card.ability.extra.x_mult_min}}
     end,
     
     calculate = function(self, card, context)
@@ -305,7 +306,7 @@ SMODS.Joker{ --Cheese
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
-            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier > 0 then
+            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier > card.ability.extra.x_mult_min then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",

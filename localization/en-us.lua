@@ -416,7 +416,9 @@ return {
                 text = {
                     '{X:mult,C:white}X#1#{} Mult, decreases by',
                     '{X:mult,C:white}X#2#{} every hand played',
-                    '{s:0.8}resets at end of round',
+                    'that does not win',
+                    '{s:0.8}resets at end of round,',
+                    '{s:0.8}destroyed at {X:mult,C:white,s:0.8}X#3#{}{s:0.8} Mult'
                 }
             },
             j_cracker_crackerbarrel = {
