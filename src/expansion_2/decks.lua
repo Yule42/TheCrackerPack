@@ -77,7 +77,7 @@ SMODS.Back{ -- Blitz Deck
     },
     apply = function(self, back)
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
-        G.GAME.win_ante = 6
+        G.GAME.win_ante = (G.GAME.win_ante or 8) - 2
     end,
 }
 

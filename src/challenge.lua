@@ -275,21 +275,3 @@ if not disable_upgradedfood then
     table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_cybernana'})
     table.insert(challenge.restrictions.banned_cards, #challenge.restrictions.banned_cards+1, {id = 'j_cracker_tsukemen'})
 end
-
-SMODS.Challenge{
-    loc_txt = {name = "The End"},
-    key = "theend2",
-    jokers = {
-        {id = 'j_perkeo', edition = "negative"},
-        {id = 'j_diet_cola'},
-    },
-    vouchers = {
-    },
-    rules = {
-        custom = {
-            {id = 'ante_39'},
-            {id = 'plasma'},
-            {id = 'plasma_2'},
-        }
-    }
-}
