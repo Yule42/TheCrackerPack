@@ -321,7 +321,7 @@ return {
                     '+2 Hand Size',
                 },
             },
-            bl_cracker_aij_the_conflaguration_dx = {
+            bl_cracker_aij_the_conflagration_dx = {
                 name = "The Conflagration DX",
                 text = {
                     'All cards drawn',
