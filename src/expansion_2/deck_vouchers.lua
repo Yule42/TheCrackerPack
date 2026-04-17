@@ -6,7 +6,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 10,
+    cost = 15,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -21,7 +21,7 @@ SMODS.Voucher {
     atlas = 'centers',
     config = {
         extra = {
-            discards = 1,
+            discards = 2,
         }
     },
     pools = { DeckVoucher = true },
@@ -48,7 +48,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 10,
+    cost = 15,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -63,7 +63,7 @@ SMODS.Voucher {
     atlas = 'centers',
     config = {
         extra = {
-            hands = 1,
+            hands = 2,
         }
     },
     pools = { DeckVoucher = true },
@@ -334,7 +334,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 10,
+    cost = 15,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -350,7 +350,8 @@ SMODS.Voucher {
     config = {
         extra = {
             voucher = "v_telescope",
-            upgrade_voucher = "v_observatory"
+            upgrade_voucher = "v_observatory",
+            consumable_slots = 1
         }
     },
     pools = { DeckVoucher = true },
@@ -360,9 +361,10 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {localize{type = 'name_text', key = 'v_telescope', set = 'Voucher'}}}
+        return {vars = {localize{type = 'name_text', key = 'v_telescope', set = 'Voucher'}, self.config.extra.consumable_slots}}
     end,
     redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit + self.config.extra.consumable_slots
         if not G.GAME.used_vouchers[self.config.extra.upgrade_voucher] or not G.GAME.used_vouchers[self.config.extra.voucher] then
             G.E_MANAGER:add_event(Event({
                 delay = 0.5,

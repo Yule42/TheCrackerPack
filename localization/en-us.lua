@@ -828,7 +828,8 @@ return {
             v_pw_nebula = {
                 name = "Nebula Deck",
                 text = {
-                    "Get {C:planet,T:v_telescope}#1#{}",
+                    "Get {C:planet,T:v_telescope}#1#{},",
+                    "{C:attention}+#2#{} consumable slot",
                     "{C:inactive}(Gives upgrade if voucher already owned)",
                 },
             },
