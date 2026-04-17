@@ -556,7 +556,7 @@ SMODS.Blind {
 }
 
 SMODS.Blind { 
-    key = 'aij_the_conflaguration_dx',
+    key = 'aij_the_conflagration_dx',
     boss = {
       min = 4,
       all_in_jest = {
