@@ -322,7 +322,7 @@ return {
                 },
             },
             bl_cracker_aij_the_conflaguration_dx = {
-                name = "The Conflaguration DX",
+                name = "The Conflagration DX",
                 text = {
                     'All cards drawn',
                     'will be destroyed',
@@ -631,9 +631,9 @@ return {
             j_cracker_whitecard = {
                 name = 'White Card',
                 text = {
-                    'Fills {C:attention}empty consumable slots{}',
-                    'with {C:tarot}The Fool{} at the end of the {C:attention}shop',
-                    'if no {C:attention}Booster Packs{} opened last round',
+                    'Creates a {C:tarot}Tarot{} card at the end of the {C:attention}shop',
+                    'for each {C:attention}card{} sold this round',
+                    '{C:inactive}(Must have room, {C:attention}#1#{}{C:inactive} cards)'
                 }
             },
             j_cracker_rainbowcard = {
@@ -727,6 +727,14 @@ return {
                     'This Joker gains',
                     '{C:mult}+#2#{} Mult when a seal is triggered',
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
+                },
+            },
+            j_cracker_sophia = {
+                name = 'Sophia',
+                text = {
+                    'This Joker gains {X:mult,C:white}X#2#{} Mult',
+                    'when an {C:attention}enhanced{} card is scored',
+                    '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
                 },
             },
         },

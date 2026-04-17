@@ -444,7 +444,7 @@ SMODS.Joker{ --White Card
     key = "whitecard",
     config = {
         extra = {
-            active = true,
+            solds = 0
         }
     },
     pos = {
@@ -461,34 +461,20 @@ SMODS.Joker{ --White Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        local has_message = (G.GAME and card.area and (card.area == G.jokers))
-        info = nil
-        if has_message then
-            local active = card.ability.extra.active
-            info = {
-                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
-                    }}
-                }}
-            }
-        end
-        info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'brook03'}, key = 'concept_credits_cracker'} end
-        return {vars = {}, main_end = info}
+        return {vars = { card.ability.extra.solds }}
     end,
     
     calculate = function(self, card, context)
-        if context.ending_shop and not context.blueprint and card.ability.extra.active then
-            card.ability.extra.active = false
-            for i=1, (G.consumeables.config.card_limit) do
+        if context.ending_shop and not context.blueprint and card.ability.extra.solds then
+            for i=1, card.ability.extra.solds do
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
                         delay = 0.0,
                         func = (function()
-                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_fool')
+                                local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil)
                                 card:add_to_deck()
                                 G.consumeables:emplace(card)
                                 G.GAME.consumeable_buffer = 0
@@ -498,26 +484,12 @@ SMODS.Joker{ --White Card
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
                 end
             end
-        elseif context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
-            card.ability.extra.active = true
+            card.ability.extra.solds = 0
+        elseif context.selling_card and not context.blueprint then
+            card.ability.extra.solds = card.ability.extra.solds + 1
             return {
-                message = localize('k_reset'),
-                colour = G.C.FILTER,
-                card = card,
+                message = localize('k_upgrade_ex')
             }
-        elseif context.open_booster  and card.ability.extra.active and G.shop and not context.blueprint then
-            card.ability.extra.active = false
-            G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_inactive_ex'),
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
-                        return true
-                    end)
-                }))
         end
     end
 }

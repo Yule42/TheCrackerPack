@@ -334,19 +334,11 @@ JokerDisplay.Definitions.j_cracker_darkroom = {
 }
 JokerDisplay.Definitions.j_cracker_whitecard = {
     text = {
-        { ref_table = "card.joker_display_values", ref_value = "tarot_count", colour = G.C.SECONDARY_SET.Tarot, retrigger_type = "mult" },
+        { ref_table = "card.joker_display_values", ref_value = "tarot_count", retrigger_type = "mult" },
     },
-    text_config = { colour = G.C.FILTER },
-    style_function = function(card, text, reminder_text, extra)
-        if text and text.children[1] then
-            text.children[1].config.colour = card.joker_display_values.active and G.C.SECONDARY_SET.Tarot or
-                G.C.UI.TEXT_INACTIVE
-        end
-        return false
-    end,
+    text_config = { colour = G.C.SECONDARY_SET.Tarot },
     calc_function = function(card)
-        card.joker_display_values.active = card.ability.extra.active
-        card.joker_display_values.tarot_count = card.joker_display_values.active and ("+" .. (G.consumeables.config.card_limit and JokerDisplay.number_format(G.consumeables.config.card_limit - #G.consumeables.cards) or 0)) or "-"
+        card.joker_display_values.tarot_count = "+" .. card.ability.extra.solds
     end,
 }
 JokerDisplay.Definitions.j_cracker_rainbowcard = {
