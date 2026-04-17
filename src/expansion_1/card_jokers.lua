@@ -234,7 +234,7 @@ SMODS.Joker{ --Pink Card
                         })
                         return true
                     end}))
-        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+        elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint and not card.debuff then
             G.hand:change_size(-card.ability.extra.current_add)
             card.ability.extra.current_add = 0
             return {
