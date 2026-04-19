@@ -8,307 +8,308 @@ SMODS.Atlas {
     atlas_table = 'ANIMATION_ATLAS'
 }
 
-SMODS.Blind {
+if not Cracker.All_in_Jest_conf or not Cracker.All_in_Jest_conf.aij_lite then
+    SMODS.Blind {
+        key = 'aij_the_heart_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+          return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante >= 4)
+        end,
+        mult = 2,
+        dependencies = "allinjest",
+        boss_colour = HEX("664a4a"),
+        atlas = 'dxpitblinds',
+        pos = { y = 0 },
+        order = 501,
+        dollars = 6,
+        config = {extra = {trigger = false,  hand = "[hand]"}},
 
-    key = 'aij_the_heart_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true
-    },
-    in_pool = function(self)
-      return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante >= 4)
-    end,
-    mult = 2,
-    dependencies = "allinjest",
-    boss_colour = HEX("664a4a"),
-    atlas = 'dxpitblinds',
-    pos = { y = 0 },
-    order = 501,
-    dollars = 6,
-    config = {extra = {trigger = false,  hand = "[hand]"}},
-
-    loc_vars = function(self)
-        return {
-            vars = {
-                G.GAME.current_round.aij_the_heart_dx and G.GAME.current_round.aij_the_heart_dx.hand or "[hand]"
+        loc_vars = function(self)
+            return {
+                vars = {
+                    G.GAME.current_round.aij_the_heart_dx and G.GAME.current_round.aij_the_heart_dx.hand or "[hand]"
+                }
             }
-        }
-    end,
+        end,
 
-    collection_loc_vars = function(self)
-        local hand_text = "[hand]"
-        return {
-            vars = {
-                hand_text
+        collection_loc_vars = function(self)
+            local hand_text = "[hand]"
+            return {
+                vars = {
+                    hand_text
+                }
             }
+        end,
+
+        defeat = function(self)
+            self.boss.hand = "[hand]"
+        end,
+
+        debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)
+            local blind_exists = G.GAME.blind and G.GAME.blind.ability
+            if blind_exists then
+                G.GAME.current_round.aij_the_heart_dx = {hand = G.GAME.current_round.aij_the_heart_dx and G.GAME.current_round.aij_the_heart_dx.hand or "Four of a Kind"}
+                local current_hand_is_matching = next(poker_hands[G.GAME.current_round.aij_the_heart_dx.hand])
+                local previous_hand_matched = G.GAME.hands[G.GAME.current_round.aij_the_heart_dx.hand].played_this_round > 0
+                if current_hand_is_matching or previous_hand_matched then
+                    return false
+                end
+            end
+            G.GAME.blind.triggered = true
+            return true
+        end,
+    }
+
+    SMODS.current_mod.reset_game_globals = function(run_start)
+        if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
+            reset_the_heart_dx_blind()
+        end
+    end
+
+    function reset_the_heart_dx_blind()
+        local hands = {
+            "Full House",
+            "Four of a Kind",
+            "Straight Flush",
         }
-    end,
+        local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_dx_blind'..G.GAME.round_resets.ante))
+        G.GAME.current_round.aij_the_heart_dx = {hand = chosen_hand or "Four of a Kind"}
+    end
 
-    defeat = function(self)
-        self.boss.hand = "[hand]"
-    end,
+    SMODS.Blind {
 
-    debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        local blind_exists = G.GAME.blind and G.GAME.blind.ability
-        if blind_exists then
-            G.GAME.current_round.aij_the_heart_dx = {hand = G.GAME.current_round.aij_the_heart_dx and G.GAME.current_round.aij_the_heart_dx.hand or "Four of a Kind"}
-            local current_hand_is_matching = next(poker_hands[G.GAME.current_round.aij_the_heart_dx.hand])
-            local previous_hand_matched = G.GAME.hands[G.GAME.current_round.aij_the_heart_dx.hand].played_this_round > 0
-            if current_hand_is_matching or previous_hand_matched then
-                return false
+        key = 'aij_the_rains_dx',
+        boss = {
+          min = 4,
+          trigger = false,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+          return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante >= 4)
+        end,
+        mult = 2,
+        boss_colour = HEX("565b67"),
+        atlas = 'dxpitblinds',
+        pos = { y = 1 },
+        order = 502,
+        dollars = 6,
+        dependencies = "allinjest",
+
+        calculate = function(self, blind, context)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+
+            if context.before and G.hand.cards and not temp then
+                for i = 1, #G.play.cards do
+                    if G.play.cards[i].config.center ~= G.P_CENTERS.c_base or G.play.cards[i].edition ~= nil or G.play.cards[i].seal ~= nil  then
+                        blind.triggered = true
+                        break
+                    end
+                end
+            end
+
+            if context.all_in_jest and context.all_in_jest.before_after then
+                local chipsthing = G.GAME.chips + context.total_chips >= G.GAME.blind.chips
+                if chipsthing then
+                    for i = 1, #G.play.cards do
+                        if G.play.cards[i].config.center ~= G.P_CENTERS.c_base then
+                            G.play.cards[i]:set_ability(G.P_CENTERS.c_base, nil, true)
+                        end
+                    end
+                    for i = 1, #G.hand.cards do
+                        if G.hand.cards[i].config.center ~= G.P_CENTERS.c_base then
+                            G.hand.cards[i]:set_ability(G.P_CENTERS.c_base, nil, true)
+                        end
+                    end
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        func = (function() 
+                            local removed_edition = false
+                            blind:wiggle()
+                            for i = 1, #G.play.cards do
+                                G.play.cards[i]:set_seal(nil, nil, true)
+                                if G.play.cards[i].edition ~= nil then
+                                    removed_edition = true
+                                end
+                                G.play.cards[i]:set_edition(nil, true, true)
+                                G.play.cards[i]:juice_up()
+                            end
+                            for i = 1, #G.hand.cards do
+                                G.hand.cards[i]:set_seal(nil, nil, true)
+                                if G.hand.cards[i].edition ~= nil then
+                                    removed_edition = true
+                                end
+                                G.hand.cards[i]:set_edition(nil, true, true)
+                                G.hand.cards[i]:juice_up()
+                            end
+                            if removed_edition then
+                                play_sound('whoosh2', 1.2, 0.6)
+                            end
+                            return true
+                        end)
+                    }))
+                    blind.triggered = false
+                end
             end
         end
-        G.GAME.blind.triggered = true
-        return true
-    end,
-}
-
-SMODS.current_mod.reset_game_globals = function(run_start)
-    if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
-        reset_the_heart_dx_blind()
-    end
-end
-
-function reset_the_heart_dx_blind()
-    local hands = {
-        "Full House",
-        "Four of a Kind",
-        "Straight Flush",
     }
-    local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_dx_blind'..G.GAME.round_resets.ante))
-    G.GAME.current_round.aij_the_heart_dx = {hand = chosen_hand or "Four of a Kind"}
-end
 
-SMODS.Blind {
-
-    key = 'aij_the_rains_dx',
-    boss = {
-      min = 4,
-      trigger = false,
-      all_in_jest = {
+    SMODS.Blind {
+      key = 'aij_the_child_dx',
+      boss = {
+        min = 4,
+        all_in_jest = {
           pit = true
+        },
+        dx = true,
       },
-      dx = true
-    },
-    in_pool = function(self)
-      return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() and (G.GAME.round_resets.ante >= 4)
-    end,
-    mult = 2,
-    boss_colour = HEX("565b67"),
-    atlas = 'dxpitblinds',
-    pos = { y = 1 },
-    order = 502,
-    dollars = 6,
-    dependencies = "allinjest",
+      in_pool = function(self)
+        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+      end,
+      mult = 2,
+      boss_colour = HEX("796f5b"),
+      atlas = 'dxpitblinds',
+      pos = { y = 2 },
+      order = 503,
+      dollars = 6,
+      dependencies = "allinjest",
 
-    calculate = function(self, blind, context)
+      calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
-            return
+          return
         end
 
         if context.before and G.hand.cards and not temp then
-            for i = 1, #G.play.cards do
-                if G.play.cards[i].config.center ~= G.P_CENTERS.c_base or G.play.cards[i].edition ~= nil or G.play.cards[i].seal ~= nil  then
-                    blind.triggered = true
-                    break
-                end
+          for i = 1, #context.scoring_hand do
+            if context.scoring_hand[i].base ~= 2 then
+              blind.triggered = true
+              break
             end
+          end
         end
 
-        if context.all_in_jest and context.all_in_jest.before_after then
-            local chipsthing = G.GAME.chips + context.total_chips >= G.GAME.blind.chips
-            if chipsthing then
-                for i = 1, #G.play.cards do
-                    if G.play.cards[i].config.center ~= G.P_CENTERS.c_base then
-                        G.play.cards[i]:set_ability(G.P_CENTERS.c_base, nil, true)
-                    end
+        if context.after and context.scoring_hand and not temp and blind.triggered then
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              blind:wiggle()
+              return true
+            end
+          }))
+          for i = 1, #context.scoring_hand do
+            local percent = 1.15 - (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+              trigger = 'after',
+              delay = 0.15,
+              func = function()
+                context.scoring_hand[i]:flip()
+                play_sound('card1', percent)
+                context.scoring_hand[i]:juice_up(0.3, 0.3)
+                return true
+              end
+            }))
+          end
+          for i = 1, #context.scoring_hand do
+            G.E_MANAGER:add_event(Event({
+              trigger = 'after',
+              delay = 0.1,
+              func = function()
+                assert(SMODS.change_base(context.scoring_hand[i], nil, pseudorandom_element(SMODS.Ranks, pseudoseed('jest_the_child_dx'..G.GAME.round_resets.ante)).key))
+                return true
+              end
+            }))
+          end
+          for i = 1, #context.scoring_hand do
+            local percent = 0.85 + (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
+            G.E_MANAGER:add_event(Event({
+              trigger = 'after',
+              delay = 0.15,
+              func = function()
+                if context.scoring_hand[i].facing == "back" then
+                  context.scoring_hand[i]:flip()
+                  play_sound('tarot2', percent, 0.6)
+                  context.scoring_hand[i]:juice_up(0.3, 0.3)
                 end
-                for i = 1, #G.hand.cards do
-                    if G.hand.cards[i].config.center ~= G.P_CENTERS.c_base then
-                        G.hand.cards[i]:set_ability(G.P_CENTERS.c_base, nil, true)
-                    end
-                end
+                return true
+              end
+            }))
+          end
+          delay(0.5)
+          blind.triggered = false
+        end
+      end
+    }
+
+    SMODS.Blind {
+        key = 'aij_the_moon_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true,
+        },
+        in_pool = function(self)
+            return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+        end,
+        mult = 2,
+        boss_colour = HEX("796f5b"),
+        atlas = 'dxpitblinds',
+        pos = { y = 3 },
+        order = 504,
+        dollars = 6,
+        dependencies = "allinjest",
+
+        calculate = function(self, blind, context)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+            if context.setting_blind and not temp then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
-                    func = (function() 
-                        local removed_edition = false
-                        blind:wiggle()
-                        for i = 1, #G.play.cards do
-                            G.play.cards[i]:set_seal(nil, nil, true)
-                            if G.play.cards[i].edition ~= nil then
-                                removed_edition = true
-                            end
-                            G.play.cards[i]:set_edition(nil, true, true)
-                            G.play.cards[i]:juice_up()
-                        end
-                        for i = 1, #G.hand.cards do
-                            G.hand.cards[i]:set_seal(nil, nil, true)
-                            if G.hand.cards[i].edition ~= nil then
-                                removed_edition = true
-                            end
-                            G.hand.cards[i]:set_edition(nil, true, true)
-                            G.hand.cards[i]:juice_up()
-                        end
-                        if removed_edition then
-                            play_sound('whoosh2', 1.2, 0.6)
-                        end
-                        return true
-                    end)
-                }))
-                blind.triggered = false
-            end
-        end
-    end
-}
-
-SMODS.Blind {
-  key = 'aij_the_child_dx',
-  boss = {
-    min = 4,
-    all_in_jest = {
-      pit = true
-    },
-    dx = true,
-  },
-  in_pool = function(self)
-    return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-  end,
-  mult = 2,
-  boss_colour = HEX("796f5b"),
-  atlas = 'dxpitblinds',
-  pos = { y = 2 },
-  order = 503,
-  dollars = 6,
-  dependencies = "allinjest",
-
-  calculate = function(self, blind, context)
-    local temp = G.GAME.blind and G.GAME.blind.disabled
-    if temp then
-      return
-    end
-
-    if context.before and G.hand.cards and not temp then
-      for i = 1, #context.scoring_hand do
-        if context.scoring_hand[i].base ~= 2 then
-          blind.triggered = true
-          break
-        end
-      end
-    end
-
-    if context.after and context.scoring_hand and not temp and blind.triggered then
-      G.E_MANAGER:add_event(Event({
-        func = function()
-          blind:wiggle()
-          return true
-        end
-      }))
-      for i = 1, #context.scoring_hand do
-        local percent = 1.15 - (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
-        G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.15,
-          func = function()
-            context.scoring_hand[i]:flip()
-            play_sound('card1', percent)
-            context.scoring_hand[i]:juice_up(0.3, 0.3)
-            return true
-          end
-        }))
-      end
-      for i = 1, #context.scoring_hand do
-        G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.1,
-          func = function()
-            assert(SMODS.change_base(context.scoring_hand[i], nil, pseudorandom_element(SMODS.Ranks, pseudoseed('jest_the_child_dx'..G.GAME.round_resets.ante)).key))
-            return true
-          end
-        }))
-      end
-      for i = 1, #context.scoring_hand do
-        local percent = 0.85 + (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
-        G.E_MANAGER:add_event(Event({
-          trigger = 'after',
-          delay = 0.15,
-          func = function()
-            if context.scoring_hand[i].facing == "back" then
-              context.scoring_hand[i]:flip()
-              play_sound('tarot2', percent, 0.6)
-              context.scoring_hand[i]:juice_up(0.3, 0.3)
-            end
-            return true
-          end
-        }))
-      end
-      delay(0.5)
-      blind.triggered = false
-    end
-  end
-}
-
-SMODS.Blind {
-    key = 'aij_the_moon_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true,
-    },
-    in_pool = function(self)
-        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-    end,
-    mult = 2,
-    boss_colour = HEX("796f5b"),
-    atlas = 'dxpitblinds',
-    pos = { y = 3 },
-    order = 504,
-    dollars = 6,
-    dependencies = "allinjest",
-
-    calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        if context.setting_blind and not temp then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = (function()
-                    local debuff = false
-                    for k, v in pairs(G.playing_cards) do
-                        if context.setting_blind then
-                            if debuff then
-                                SMODS.debuff_card(v, true, 'the_moon_dx')
-                                debuff = false
-                            else
-                                debuff = true
+                    func = (function()
+                        local debuff = false
+                        for k, v in pairs(G.playing_cards) do
+                            if context.setting_blind then
+                                if debuff then
+                                    SMODS.debuff_card(v, true, 'the_moon_dx')
+                                    debuff = false
+                                else
+                                    debuff = true
+                                end
                             end
                         end
+                        return true 
                     end
-                    return true 
-                end
-            )}))
-        end
-    end,
+                )}))
+            end
+        end,
 
-    disable = function(self)
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, 'the_moon_dx')
-        end
-    end,
+        disable = function(self)
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, false, 'the_moon_dx')
+            end
+        end,
 
-    defeat = function(self)
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, 'the_moon_dx')
+        defeat = function(self)
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, false, 'the_moon_dx')
+            end
         end
-    end
-}
+    }
+end
 
 SMODS.Blind {
     key = 'aij_the_shell_dx',
@@ -401,70 +402,72 @@ SMODS.Blind {
     end,
 }
 
-SMODS.Blind {
-    key = 'aij_the_earth_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true
-    },
-    in_pool = function(self)
-        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-    end,
-    mult = 2,
-    boss_colour = HEX("b5aaa4"),
-    atlas = 'dxpitblinds',
-    pos = { y = 5 },
-    order = 506,
-    dollars = 6,
+if not Cracker.All_in_Jest_conf or not Cracker.All_in_Jest_conf.aij_lite then 
+    SMODS.Blind {
+        key = 'aij_the_earth_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+            return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+        end,
+        mult = 2,
+        boss_colour = HEX("b5aaa4"),
+        atlas = 'dxpitblinds',
+        pos = { y = 5 },
+        order = 506,
+        dollars = 6,
 
-    set_blind = function(self)
-        for i=1, G.GAME.starting_deck_size do
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    local card = SMODS.add_card({ set = 'Base', area = G.deck, enhancement = "m_stone" })
-                    card.ability.aij_the_earth_dx = true
-                    return true
+        set_blind = function(self)
+            for i=1, G.GAME.starting_deck_size do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    func = function()
+                        local card = SMODS.add_card({ set = 'Base', area = G.deck, enhancement = "m_stone" })
+                        card.ability.aij_the_earth_dx = true
+                        return true
+                    end
+                }))
+            end
+        end,
+        disable = function(self)
+            for _, card in pairs(G.hand.cards) do
+                if card.ability.aij_the_earth_dx then
+                    if SMODS.shatters(card) then -- if it's been enhanced to glass for some reason
+                        card:shatter()
+                    else
+                        card:start_dissolve()
+                    end
                 end
-            }))
-        end
-    end,
-    disable = function(self)
-        for _, card in pairs(G.hand.cards) do
-            if card.ability.aij_the_earth_dx then
-                if SMODS.shatters(card) then -- if it's been enhanced to glass for some reason
-                    card:shatter()
-                else
-                    card:start_dissolve()
+            end
+            G:update_draw_to_hand()
+        end,
+        defeat = function(self)
+            for _, card in pairs(G.deck.cards) do
+                if card.ability.aij_the_earth_dx then
+                    if SMODS.shatters(card) then
+                        card:shatter()
+                    else
+                        card:start_dissolve()
+                    end
+                end
+            end
+            for _, card in pairs(G.discard.cards) do
+                if card.ability.aij_the_earth_dx then
+                    if SMODS.shatters(card) then
+                        card:shatter()
+                    else
+                        card:start_dissolve()
+                    end
                 end
             end
         end
-        G:update_draw_to_hand()
-    end,
-    defeat = function(self)
-        for _, card in pairs(G.deck.cards) do
-            if card.ability.aij_the_earth_dx then
-                if SMODS.shatters(card) then
-                    card:shatter()
-                else
-                    card:start_dissolve()
-                end
-            end
-        end
-        for _, card in pairs(G.discard.cards) do
-            if card.ability.aij_the_earth_dx then
-                if SMODS.shatters(card) then
-                    card:shatter()
-                else
-                    card:start_dissolve()
-                end
-            end
-        end
-    end
-}
+    }
+end
 
 SMODS.Blind {
     key = 'aij_the_dragon_dx',
@@ -511,215 +514,217 @@ SMODS.Blind {
     end,
 }
 
-SMODS.Blind {
-    key = 'aij_the_mountain_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true
-    },
-    in_pool = function(self)
-        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-    end,
-    mult = 10,
-    boss_colour = HEX("696969"),
-    atlas = 'dxpitblinds',
-    pos = { y = 7 },
-    order = 508,
-    dollars = 6,
+if not Cracker.All_in_Jest_conf or not Cracker.All_in_Jest_conf.aij_lite then
+    SMODS.Blind {
+        key = 'aij_the_mountain_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+            return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+        end,
+        mult = 10,
+        boss_colour = HEX("696969"),
+        atlas = 'dxpitblinds',
+        pos = { y = 7 },
+        order = 508,
+        dollars = 6,
 
-    set_blind = function(self)
-        G.hand:change_size(2)
-    end,
+        set_blind = function(self)
+            G.hand:change_size(2)
+        end,
 
-    disable = function(self)
-        if G.hand.config.card_limit > 1 then
-            G.hand:change_size(-2)
-        end
-        G.GAME.blind.chips = G.GAME.blind.chips/5
-        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-    end,
-
-    defeat = function(self)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        if not temp then
+        disable = function(self)
             if G.hand.config.card_limit > 1 then
                 G.hand:change_size(-2)
             end
-        end
-    end
-}
+            G.GAME.blind.chips = G.GAME.blind.chips/5
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+        end,
 
-SMODS.Blind { 
-    key = 'aij_the_conflagration_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true,
-    },
-    in_pool = function(self)
-        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-    end,
-    mult = 1,
-    boss_colour = HEX("754c4c"),
-    atlas = 'dxpitblinds',
-    pos = { y = 8 },
-    order = 509,
-    dollars = 6,
-
-    calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        if context.hand_drawn and not temp then
-            for i = 1, #G.hand.cards do
-                G.hand.cards[i].ability.aij_the_conflaguration_dx = true
+        defeat = function(self)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
             end
-        end
-    end,
-    defeat = function(self)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        if not temp then
-            for _, card in pairs(G.deck.cards) do
-                if card.ability.aij_the_conflaguration_dx then
-                    if SMODS.shatters(card) then
-                        card:shatter()
-                    else
-                        card:start_dissolve()
-                    end
+            if not temp then
+                if G.hand.config.card_limit > 1 then
+                    G.hand:change_size(-2)
                 end
             end
         end
-    end
-}
+    }
 
-SMODS.Blind {
-    key = 'aij_the_umbilical_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true
-    },
-    in_pool = function(self)
-        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-    end,
-    mult = 2,
-    boss_colour = HEX("634b6a"),
-    atlas = 'dxpitblinds',
-    pos = { y = 9 },
-    order = 510,
-    dollars = 6,
+    SMODS.Blind { 
+        key = 'aij_the_conflagration_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true,
+        },
+        in_pool = function(self)
+            return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+        end,
+        mult = 1,
+        boss_colour = HEX("754c4c"),
+        atlas = 'dxpitblinds',
+        pos = { y = 8 },
+        order = 509,
+        dollars = 6,
 
-    calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        if context.setting_blind and not temp then
-            for i = 1, 3 do
-                local hand_card = pseudorandom_element(G.deck.cards, pseudoseed('jest_the_umbilical_dx'..G.GAME.round_resets.ante))
-                if hand_card then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            hand_card.ability.aij_marked = true
-                            hand_card:juice_up()
-                            return true
+        calculate = function(self, blind, context)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+            if context.hand_drawn and not temp then
+                for i = 1, #G.hand.cards do
+                    G.hand.cards[i].ability.aij_the_conflaguration_dx = true
+                end
+            end
+        end,
+        defeat = function(self)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+            if not temp then
+                for _, card in pairs(G.deck.cards) do
+                    if card.ability.aij_the_conflaguration_dx then
+                        if SMODS.shatters(card) then
+                            card:shatter()
+                        else
+                            card:start_dissolve()
                         end
-                    })) 
-                end
-            end
-        end
-    end,
-
-    disable = function(self)
-        for k, v in pairs(G.playing_cards) do
-            if v.ability.aij_marked then
-                v.ability.aij_marked = false
-            end
-        end
-    end,
-
-    defeat = function(self)
-        for k, v in pairs(G.playing_cards) do
-            if v.ability.aij_marked then
-                v.ability.aij_marked = false
-            end
-        end
-    end
-}
-
-
-SMODS.Blind {
-    key = 'aij_the_divine_dx',
-    boss = {
-      min = 4,
-      all_in_jest = {
-          pit = true
-      },
-      dx = true
-    },
-    in_pool = function(self)
-        if All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() then
-            if G.playing_cards then
-                local count = 0
-                for k, v in ipairs(G.playing_cards) do
-                    if next(SMODS.get_enhancements(v)) then
-                        count = count + 1
-                    end
-                end
-                return count >= 4
-            end
-        end
-    end,
-    mult = 2,
-    boss_colour = HEX("959595"),
-    atlas = 'dxpitblinds',
-    pos = { y = 10 },
-    order = 511,
-    dollars = 6,
-
-    debuff_hand = function(self, cards, hand, handname, check)
-        if cards then
-            if G.GAME.blind.only_unenhanced then
-                for k, v in ipairs(cards) do
-                    if not next(SMODS.get_enhancements(v)) then
-                        return false
-                    end
-                end
-            else
-                for k, v in ipairs(cards) do
-                    if next(SMODS.get_enhancements(v)) then
-                        return false
                     end
                 end
             end
-            G.GAME.blind.triggered = true
-            return true
         end
-    end,
-    calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
+    }
+
+    SMODS.Blind {
+        key = 'aij_the_umbilical_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+            return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+        end,
+        mult = 2,
+        boss_colour = HEX("634b6a"),
+        atlas = 'dxpitblinds',
+        pos = { y = 9 },
+        order = 510,
+        dollars = 6,
+
+        calculate = function(self, blind, context)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+            if context.setting_blind and not temp then
+                for i = 1, 3 do
+                    local hand_card = pseudorandom_element(G.deck.cards, pseudoseed('jest_the_umbilical_dx'..G.GAME.round_resets.ante))
+                    if hand_card then
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                hand_card.ability.aij_marked = true
+                                hand_card:juice_up()
+                                return true
+                            end
+                        })) 
+                    end
+                end
+            end
+        end,
+
+        disable = function(self)
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.aij_marked then
+                    v.ability.aij_marked = false
+                end
+            end
+        end,
+
+        defeat = function(self)
+            for k, v in pairs(G.playing_cards) do
+                if v.ability.aij_marked then
+                    v.ability.aij_marked = false
+                end
+            end
         end
-        if context.after and not temp then
-            G.GAME.blind.only_unenhanced = not G.GAME.blind.only_unenhanced
-        end
-    end,
-}
+    }
+
+
+    SMODS.Blind {
+        key = 'aij_the_divine_dx',
+        boss = {
+          min = 4,
+          all_in_jest = {
+              pit = true
+          },
+          dx = true
+        },
+        in_pool = function(self)
+            if All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled() then
+                if G.playing_cards then
+                    local count = 0
+                    for k, v in ipairs(G.playing_cards) do
+                        if next(SMODS.get_enhancements(v)) then
+                            count = count + 1
+                        end
+                    end
+                    return count >= 4
+                end
+            end
+        end,
+        mult = 2,
+        boss_colour = HEX("959595"),
+        atlas = 'dxpitblinds',
+        pos = { y = 10 },
+        order = 511,
+        dollars = 6,
+
+        debuff_hand = function(self, cards, hand, handname, check)
+            if cards then
+                if G.GAME.blind.only_unenhanced then
+                    for k, v in ipairs(cards) do
+                        if not next(SMODS.get_enhancements(v)) then
+                            return false
+                        end
+                    end
+                else
+                    for k, v in ipairs(cards) do
+                        if next(SMODS.get_enhancements(v)) then
+                            return false
+                        end
+                    end
+                end
+                G.GAME.blind.triggered = true
+                return true
+            end
+        end,
+        calculate = function(self, blind, context)
+            local temp = G.GAME.blind and G.GAME.blind.disabled
+            if temp then
+                return
+            end
+            if context.after and not temp then
+                G.GAME.blind.only_unenhanced = not G.GAME.blind.only_unenhanced
+            end
+        end,
+    }
+end
 
 SMODS.Blind {
     key = 'aij_the_bird_dx',
@@ -794,76 +799,80 @@ SMODS.Blind {
     end,
 }
 
+print(Cracker)
+print(Cracker.All_in_Jest_conf)
 
-SMODS.Blind {
-  key = 'aij_the_arrow_dx',
-  boss = {
-    min = 4,
-    all_in_jest = {
-      pit = true
-    },
-    dx = true
-  },
-  in_pool = function(self)
-    return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
-  end,
-  mult = 2,
-  boss_colour = HEX("574d48"),
-  atlas = 'dxpitblinds',
-  pos = { y = 12 },
-  order = 513,
-  dollars = 6,
+if not Cracker.All_in_Jest_conf or not Cracker.All_in_Jest_conf.aij_lite then
+    SMODS.Blind {
+      key = 'aij_the_arrow_dx',
+      boss = {
+        min = 4,
+        all_in_jest = {
+          pit = true
+        },
+        dx = true
+      },
+      in_pool = function(self)
+        return All_in_Jest.pit_blinds_in_play() and Cracker.dx_blinds_enabled()
+      end,
+      mult = 2,
+      boss_colour = HEX("574d48"),
+      atlas = 'dxpitblinds',
+      pos = { y = 12 },
+      order = 513,
+      dollars = 6,
 
-  calculate = function(self, blind, context)
-    local temp = G.GAME.blind and G.GAME.blind.disabled
-    if temp then
-      return
-    end
-    if context.all_in_jest and context.all_in_jest.before_after and not temp then
-      local bool = false
-      if context.total_chips <= G.GAME.round_scores.hand.amt then
-        bool = true
-      end
-      if bool then
-        mult = mod_mult(0)
-        hand_chips = mod_chips(0)
-        SMODS.displayed_hand = nil
-        G.E_MANAGER:add_event(Event({
-          trigger = 'immediate',
-          func = (function()
-            blind:wiggle()
+      calculate = function(self, blind, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+          return
+        end
+        if context.all_in_jest and context.all_in_jest.before_after and not temp then
+          local bool = false
+          if context.total_chips <= G.GAME.round_scores.hand.amt then
+            bool = true
+          end
+          if bool then
+            mult = mod_mult(0)
+            hand_chips = mod_chips(0)
+            SMODS.displayed_hand = nil
             G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.06 * G.SETTINGS.GAMESPEED,
-              blockable = false,
-              blocking = false,
-              func = function()
-                play_sound('tarot2', 0.76, 0.4); return true
-              end
+              trigger = 'immediate',
+              func = (function()
+                blind:wiggle()
+                G.E_MANAGER:add_event(Event({
+                  trigger = 'after',
+                  delay = 0.06 * G.SETTINGS.GAMESPEED,
+                  blockable = false,
+                  blocking = false,
+                  func = function()
+                    play_sound('tarot2', 0.76, 0.4); return true
+                  end
+                }))
+                play_sound('tarot2', 1, 0.4)
+                return true
+              end)
             }))
-            play_sound('tarot2', 1, 0.4)
-            return true
-          end)
-        }))
 
-        play_area_status_text(localize('k_not_allowed_ex'))
-        
-        SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, debuffed_hand = true})
+            play_area_status_text(localize('k_not_allowed_ex'))
+            
+            SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, debuffed_hand = true})
 
-        -- G.E_MANAGER:add_event(Event({
-        --   trigger = 'after',
-        --   delay = 0.4,
-        --   func = function()
-        --     update_hand_text({ delay = 0 }, { mult = 0, chips = 0, chip_total = 0, level = '', handname = "Not Allowed!" })
-        --     play_sound('button', 0.9, 0.6)
-        --     return true
-        --   end
-        -- }))
-        -- G.GAME.all_in_jest.reset_score.chip_total = true
+            -- G.E_MANAGER:add_event(Event({
+            --   trigger = 'after',
+            --   delay = 0.4,
+            --   func = function()
+            --     update_hand_text({ delay = 0 }, { mult = 0, chips = 0, chip_total = 0, level = '', handname = "Not Allowed!" })
+            --     play_sound('button', 0.9, 0.6)
+            --     return true
+            --   end
+            -- }))
+            -- G.GAME.all_in_jest.reset_score.chip_total = true
+          end
+        end
       end
-    end
-  end
-}
+    }
+end
 
 SMODS.Blind {
     key = 'aij_the_brilliance_dx',

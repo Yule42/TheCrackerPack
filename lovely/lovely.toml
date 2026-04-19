@@ -345,3 +345,17 @@ payload = "if not G.GAME.won and (G.GAME.round_resets.ante >= G.GAME.win_ante an
 match_indent = true
 times = 1
 
+
+    # code from Entropy
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "local settings = get_compressed('settings.jkr')"
+position = "after"
+payload = '''Cracker.All_in_Jest_conf = nil
+local aij_conf = get_compressed("config/allinjest.jkr")
+if aij_conf then
+  Cracker.All_in_Jest_conf = STR_UNPACK(aij_conf)
+end
+'''
+match_indent = true
