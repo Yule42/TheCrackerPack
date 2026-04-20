@@ -461,7 +461,7 @@ SMODS.Joker{ --White Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'brook03'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl'}, key = 'concept_credits_cracker'} end
         return {vars = { card.ability.extra.solds }}
     end,
     

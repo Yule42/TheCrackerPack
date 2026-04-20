@@ -119,7 +119,7 @@ SMODS.Voucher {
     end,
     
     redeem = function(self)
-        self.config.currently_active = true
+        self.config.extra.currently_active = true
         if G.shop_jokers and G.shop_booster then
             for _, card in pairs(G.shop_jokers.cards) do
                 card.ability.couponed = true
@@ -139,8 +139,8 @@ SMODS.Voucher {
     
     calculate = function(self, card, context)
         if context.end_of_round and context.beat_boss then
-            self.config.currently_active = false
-        elseif self.config.currently_active and (context.starting_shop or context.reroll_shop) then
+            self.config.extra.currently_active = false
+        elseif self.config.extra.currently_active and (context.starting_shop or context.reroll_shop) then
             if G.shop_jokers and G.shop_booster then
                 for _, card in pairs(G.shop_jokers.cards) do
                     card.ability.couponed = true

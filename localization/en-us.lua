@@ -926,6 +926,30 @@ return {
                     '{C:attention}+1{} Booster Pack slot',
                 }
             },
+            v_aij_pw_fabled = {
+                name = 'Fabled Deck',
+                text = {
+                    '{C:legendary,E:1}Legendary{} Jokers may',
+                    'appear in the {C:attention}Shop',
+                }
+            },
+            v_aij_pw_branching = {
+                name = 'Branching Deck',
+                text = {
+                    'Skips offer a choice',
+                    'between {C:attention}3{} Tags',
+                }
+            },
+            v_aij_pw_patchwork = {
+                name = {
+                    'Patchwork Deck (But not that one)',
+                },
+                text = {
+                    'All playing cards in {C:attention}deck{},',
+                    'as well as all {C:attention}future{} playing cards',
+                    'recieve a {C:attention}random{} suit patch'
+                },
+            },
         },
         Other = {
             artist_credits_cracker = {

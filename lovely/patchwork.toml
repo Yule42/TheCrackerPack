@@ -96,3 +96,42 @@ position = "at"
 payload = '''if (self.name == 'Plasma Deck' or G.GAME.modifiers['plasma'] or G.GAME.used_vouchers['v_pw_plasma']) and args.context == 'final_scoring_step' then'''
 match_indent = true
 times = 1
+
+
+    # patch for All In Jest patchwork deck (will need to be modified when cracker's patchwork deck gets a decksleeve)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''for k, v in pairs(self.ANIMATIONS) do'''
+position = "before"
+payload = '''
+if G.GAME.modifiers.suit_patcher then
+    if G then
+        for k, v in pairs(G) do
+            if G[k] and type(G[k]) == 'table' and G[k].cards then
+                for _, cur_card in pairs(G[k].cards) do
+                    if cur_card.ability and not cur_card.ability.patches and cur_card.ability.set and (cur_card.ability.set == 'Default' or cur_card.ability.set == 'Enhanced') then
+                        local keys = {}
+		                    for key, val in pairs(SMODS.Suits) do
+                            if val.in_pool and val.in_pool(val, nil) then
+                                keys[#keys+1] = key
+                            elseif not val.in_pool then
+			                          keys[#keys+1] = key
+                            end
+		                    end
+		                    local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                        local temp_index = 0
+                        while cur_suit == cur_card.base.suit do
+                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            temp_index = temp_index + 1
+                        end
+			                  All_in_Jest.add_patch(cur_card, cur_suit, true);
+                    end
+                end
+            end
+        end
+    end
+end
+'''
+match_indent = true
+times = 1

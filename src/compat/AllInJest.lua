@@ -799,9 +799,6 @@ SMODS.Blind {
     end,
 }
 
-print(Cracker)
-print(Cracker.All_in_Jest_conf)
-
 if not Cracker.All_in_Jest_conf or not Cracker.All_in_Jest_conf.aij_lite then
     SMODS.Blind {
       key = 'aij_the_arrow_dx',
@@ -944,6 +941,201 @@ SMODS.Blind {
                 
                 G.GAME.blind.ability.extra.score_met = true
                 blind.triggered = false
+            end
+        end
+    end
+}
+
+SMODS.Voucher {
+    key = 'pw_blitz',
+    pos = {
+        x = 2,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 20,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    atlas = 'Backs',
+    config = {
+        extra = {
+        }
+    },
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    redeem = function(self)
+        G.GAME.win_ante = G.GAME.win_ante - 1
+        ease_ante(-1)
+    end
+}
+
+SMODS.Voucher {
+    key = 'aij_pw_fabled',
+    pos = {
+        x = 0,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 15,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    config = {
+        extra = {
+            should_increase = true,
+            remove_amt = 0,
+            counterbalance = 0
+        }
+    },
+    dependencies = 'allinjest',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'aij_deck_atlas',
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.repetition and not context.individual and self.config.extra.should_increase then
+             G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.003
+             self.config.extra.remove_amt = self.config.extra.remove_amt + 0.003
+        end
+        if context.buying_card then
+            if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
+                self.config.extra.should_increase = false
+                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + self.config.extra.remove_amt
+                G.GAME.selected_back.effect.config.extra.remove_amt = 0
+            end
+        end
+    end,
+    redeem = function(self, card)
+        G.GAME.jest_legendary_pool.in_shop = true
+        G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.008 -- 0.8%
+    end
+}
+
+SMODS.Voucher {
+    key = 'aij_pw_branching',
+    pos = {
+        x = 1,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    config = {
+        extra = {
+        }
+    },
+    dependencies = 'allinjest',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'aij_deck_atlas',
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    redeem = function(self, card)
+        G.GAME.all_in_jest.blind_tags.has_multiple = true
+        G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
+    end
+}
+
+SMODS.Voucher {
+    key = 'aij_pw_patchwork',
+    pos = {
+        x = 3,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    config = {
+        extra = {
+        }
+    },
+    dependencies = 'allinjest',
+    prefix_config = {
+        key = { 
+            mod = false
+        },
+        atlas = false,
+    },
+    atlas = 'aij_deck_atlas',
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    redeem = function(self, card)
+        G.GAME.modifiers.suit_patcher = true
+        for k, v in pairs(G) do
+            if G[k] and type(G[k]) == 'table' and G[k].cards then
+                for _, cur_card in pairs(G[k].cards) do
+                    if cur_card.ability and not cur_card.ability.patches and cur_card.ability.set and (cur_card.ability.set == 'Default' or cur_card.ability.set == 'Enhanced') then
+                        local keys = {}
+                        for key, val in pairs(SMODS.Suits) do
+                        if val.in_pool and val.in_pool(val, nil) then
+                            keys[#keys+1] = key
+                        elseif not val.in_pool then
+                                  keys[#keys+1] = key
+                        end
+                        end
+                        local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                        local temp_index = 0
+                        while cur_suit == cur_card.base.suit do
+                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            temp_index = temp_index + 1
+                        end
+                        All_in_Jest.add_patch(cur_card, cur_suit, true);
+                    end
+                end
             end
         end
     end
