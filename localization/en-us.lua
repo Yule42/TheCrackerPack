@@ -962,7 +962,7 @@ return {
             },
         },
         Tag = {
-            tag_crystal = {
+            tag_cracker_crystal = {
                 name = "Crystal Tag",
                 text = {
                     "Gives {C:money}$#1#{} per {C:tarot}Tarot{}",
@@ -970,7 +970,7 @@ return {
                     "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
                 },
             },
-            tag_rocket = {
+            tag_cracker_rocket = {
                 name = "Rocket Tag",
                 text = {
                     "Gives {C:money}$#1#{} per {C:planet}Planet{}",

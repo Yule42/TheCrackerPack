@@ -4,16 +4,12 @@ SMODS.Tag {
         dollars_per_tarot = 2
     },
     pos = { 
-        x = 3,
-        y = 4
+        x = 0,
+        y = 0
     },
     min_ante = 2,
     discovered = true,
-    prefix_config = {
-        key = { 
-            mod = false
-        },
-    },
+    atlas = 'tags',
     loc_vars = function(self, info_queue, tag)
         return {vars = {tag.config.dollars_per_tarot, tag.config.dollars_per_tarot * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot or 0)}}
     end,
@@ -39,16 +35,12 @@ SMODS.Tag {
         dollars_per_planet = 2
     },
     pos = { 
-        x = 3,
-        y = 4
+        x = 1,
+        y = 0
     },
     min_ante = 2,
     discovered = true,
-    prefix_config = {
-        key = { 
-            mod = false
-        },
-    },
+    atlas = 'tags',
     loc_vars = function(self, info_queue, tag)
         return {vars = {tag.config.dollars_per_planet, tag.config.dollars_per_planet * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.planet or 0)}}
     end,

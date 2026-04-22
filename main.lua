@@ -47,6 +47,13 @@ SMODS.Atlas {
     atlas_table = 'ANIMATION_ATLAS'
 }
 
+SMODS.Atlas {
+    key = 'tags',
+    path = "tags.png",
+    px = 34,
+    py = 34,
+}
+
 Cracker.vanilla_food = {
     j_gros_michel = true,
     j_ice_cream = true,
