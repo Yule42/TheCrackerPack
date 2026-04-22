@@ -978,6 +978,13 @@ return {
                     "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
                 },
             },
+            tag_cracker_wheel = {
+                name = "Wheel Tag",
+                text = {
+                    "Add a random {C:dark_edition}edition",
+                    "to an owned Joker"
+                },
+            },
         },
         Other = {
             artist_credits_cracker = {
