@@ -947,40 +947,6 @@ SMODS.Blind {
 }
 
 SMODS.Voucher {
-    key = 'pw_blitz',
-    pos = {
-        x = 2,
-        y = 0
-    },
-    unlocked = true,
-    discovered = true,
-    cost = 20,
-    in_pool = function(self, args)
-        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
-            return true
-        end
-    end,
-    atlas = 'Backs',
-    config = {
-        extra = {
-        }
-    },
-    pools = { DeckVoucher = true },
-    no_collection = true,
-    set_card_type_badge = function(self, card, badges)
-        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {}}
-    end,
-    redeem = function(self)
-        G.GAME.win_ante = G.GAME.win_ante - 1
-        ease_ante(-1)
-    end
-}
-
-SMODS.Voucher {
     key = 'aij_pw_fabled',
     pos = {
         x = 0,

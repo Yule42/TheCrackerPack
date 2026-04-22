@@ -501,6 +501,7 @@ assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 
 assert(SMODS.load_file('src/new_additions/decks.lua'))()
 assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
+assert(SMODS.load_file('src/new_additions/tags.lua'))()
 
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
@@ -508,6 +509,10 @@ end
 
 if next(SMODS.find_mod('allinjest')) then
     assert(SMODS.load_file('src/compat/AllInJest.lua'))()
+end
+
+if next(SMODS.find_mod('paperback')) then
+    assert(SMODS.load_file('src/compat/Paperback.lua'))()
 end
 
 if next(SMODS.find_mod('partner')) then

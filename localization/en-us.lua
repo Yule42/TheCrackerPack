@@ -950,6 +950,34 @@ return {
                     'recieve a {C:attention}random{} suit patch'
                 },
             },
+            v_paperback_pw_proud = {
+                name = {
+                    'Proud Deck',
+                },
+                text = {
+                    'Add a full set of',
+                    '{C:paperback_crowns}Crowns{} and {C:paperback_stars}Stars',
+                    'to deck'
+                },
+            },
+        },
+        Tag = {
+            tag_crystal = {
+                name = "Crystal Tag",
+                text = {
+                    "Gives {C:money}$#1#{} per {C:tarot}Tarot{}",
+                    "card used this run",
+                    "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
+                },
+            },
+            tag_rocket = {
+                name = "Rocket Tag",
+                text = {
+                    "Gives {C:money}$#1#{} per {C:planet}Planet{}",
+                    "card used this run",
+                    "{C:inactive}(Will give {C:money}$#2#{C:inactive})",
+                },
+            },
         },
         Other = {
             artist_credits_cracker = {
