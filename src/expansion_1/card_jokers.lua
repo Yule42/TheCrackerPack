@@ -47,7 +47,7 @@ SMODS.Joker{ --Blue Card
     key = "bluecard",
     config = {
         extra = {
-            chips_add = 4,
+            chips_add = 6,
         }
     },
     pos = {
