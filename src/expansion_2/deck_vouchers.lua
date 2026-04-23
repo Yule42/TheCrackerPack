@@ -309,7 +309,7 @@ SMODS.Voucher {
             end}))
         end
         for i=1, math.min(G.consumeables.config.card_limit, 2) do
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            if (#G.consumeables.cards-1) + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
