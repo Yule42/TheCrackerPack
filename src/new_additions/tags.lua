@@ -133,7 +133,7 @@ SMODS.Tag {
     discovered = true,
     atlas = 'tags',
     in_pool = function(self, args)
-        return #Cracker.get_available_voucher_upgrades() > 0
+        return #get_available_voucher_upgrades() > 0
     end,
     loc_vars = function(self, info_queue, tag)
         return {vars = {}}
