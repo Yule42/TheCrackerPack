@@ -1,3 +1,30 @@
+local function Cracker.get_available_voucher_upgrades()
+    local available_upgrades = {}
+    local seen_upgrades = {}
+
+    if not (G and G.GAME and G.GAME.used_vouchers and G.P_CENTERS) then
+        return available_upgrades
+    end
+
+    for owned_voucher_key, owned in pairs(G.GAME.used_vouchers) do
+        if owned then
+            for center_key, center in pairs(G.P_CENTERS) do
+                if center.set == 'Voucher' and type(center.requires) == 'table' and not G.GAME.used_vouchers[center_key] then
+                    for _, requirement in ipairs(center.requires) do
+                        if requirement == owned_voucher_key and not seen_upgrades[center_key] then
+                            seen_upgrades[center_key] = true
+                            available_upgrades[#available_upgrades + 1] = center_key
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return available_upgrades
+end
+
 SMODS.Tag {
     key = 'crystal',
     config = {
@@ -13,7 +40,6 @@ SMODS.Tag {
     loc_vars = function(self, info_queue, tag)
         return {vars = {tag.config.dollars_per_tarot, tag.config.dollars_per_tarot * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.tarot or 0)}}
     end,
-
     apply = function(self, tag, context)
         if context.type == 'immediate' then
             local lock = tag.ID
@@ -44,7 +70,6 @@ SMODS.Tag {
     loc_vars = function(self, info_queue, tag)
         return {vars = {tag.config.dollars_per_planet, tag.config.dollars_per_planet * (G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.planet or 0)}}
     end,
-
     apply = function(self, tag, context)
         if context.type == 'immediate' then
             local lock = tag.ID
@@ -74,7 +99,6 @@ SMODS.Tag {
     loc_vars = function(self, info_queue, tag)
         return {vars = {}}
     end,
-
     apply = function(self, tag, context)
         if context.type == 'immediate' then
             local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
@@ -89,6 +113,43 @@ SMODS.Tag {
                     }))
                     return true
                 end)
+                tag.triggered = true
+            else
+                tag:nope()
+            end
+        end
+    end
+}
+
+SMODS.Tag {
+    key = 'gift',
+    config = {
+    },
+    pos = { 
+        x = 3,
+        y = 0
+    },
+    min_ante = 2,
+    discovered = true,
+    atlas = 'tags',
+    in_pool = function(self, args)
+        return #Cracker.get_available_voucher_upgrades() > 0
+    end,
+    loc_vars = function(self, info_queue, tag)
+        return {vars = {}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == 'voucher_add' then
+            local available_upgrades = Cracker.get_available_voucher_upgrades()
+            if #available_upgrades > 0 then
+                tag:yep('+', G.C.SECONDARY_SET.Voucher, function()
+                    local voucher = SMODS.add_voucher_to_shop(pseudorandom_element(available_upgrades, pseudoseed('cracker_gift_tag')))
+                    voucher.from_tag = true
+                    voucher.couponed = true
+                    voucher:set_cost()
+                    return true
+                end)
+
                 tag.triggered = true
             else
                 tag:nope()

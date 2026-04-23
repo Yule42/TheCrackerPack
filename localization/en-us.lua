@@ -985,6 +985,14 @@ return {
                     "to an owned Joker"
                 },
             },
+            tag_cracker_gift = {
+                name = "Gift Tag",
+                text = {
+                    "Adds a {C:money}free{} {C:attention}upgraded{} version",
+                    "of an owned {C:attention}Voucher",
+                    "in next shop"
+                },
+            },
         },
         Other = {
             artist_credits_cracker = {
