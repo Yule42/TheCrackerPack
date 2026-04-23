@@ -1,4 +1,4 @@
-local function Cracker.get_available_voucher_upgrades()
+local function get_available_voucher_upgrades()
     local available_upgrades = {}
     local seen_upgrades = {}
 
@@ -140,7 +140,7 @@ SMODS.Tag {
     end,
     apply = function(self, tag, context)
         if context.type == 'voucher_add' then
-            local available_upgrades = Cracker.get_available_voucher_upgrades()
+            local available_upgrades = get_available_voucher_upgrades()
             if #available_upgrades > 0 then
                 tag:yep('+', G.C.SECONDARY_SET.Voucher, function()
                     local voucher = SMODS.add_voucher_to_shop(pseudorandom_element(available_upgrades, pseudoseed('cracker_gift_tag')))
