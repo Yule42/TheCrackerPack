@@ -34,14 +34,14 @@ CardSleeves.Sleeve {
     end,
     apply = function(self)
         G.GAME.sleeve_key = G.GAME.sleeve_key or {}
-        G.GAME.sleeve_key.rebate = G.GAME.sleeve_key.rebate or { current_amount = self.config.current_amount }
+        G.GAME.sleeve_key.rebate = G.GAME.sleeve_key.rebate or { current_amount = self.config.current_amount, requirement = self.config.requirement }
     end,
     trigger_effect = function(self, context)
         if context.money_altered and context.from_shop and context.amount < 0 then
             G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + context.amount
             if G.GAME.sleeve_key.rebate.current_amount <= 0 then
-                repeat
-                    G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + self.config.requirement
+                while G.GAME.sleeve_key.rebate.current_amount <= 0 do
+                    G.GAME.sleeve_key.rebate.current_amount = G.GAME.sleeve_key.rebate.current_amount + G.GAME.sleeve_key.rebate.requirement
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
@@ -56,15 +56,13 @@ CardSleeves.Sleeve {
                                         return true
                                     end
                                 }))
-                                SMODS.calculate_effect({message = localize("k_plus_tarot"), colour = G.C.FILTER}, G.GAME.selected_back)
+                                --SMODS.calculate_effect({message = localize("k_plus_tarot"), colour = G.C.FILTER}, G.GAME.selected_back)
+                                return true
                             end)
                         }))
                         return nil, true
                     end
-                until G.GAME.sleeve_key.rebate.current_amount > 0
-                --SMODS.calculate_effect({message = localize("k_rebate"), colour = G.C.FILTER}, G.GAME.selected_back)
-            else
-                --SMODS.calculate_effect({message = ''..G.GAME.sleeve_key.rebate.current_amount, colour = G.C.FILTER}, G.GAME.selected_back)
+                end
             end
         end
     end
