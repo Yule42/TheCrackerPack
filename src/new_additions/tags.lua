@@ -149,7 +149,6 @@ SMODS.Tag {
                     voucher:set_cost()
                     return true
                 end)
-
                 tag.triggered = true
             else
                 tag:nope()

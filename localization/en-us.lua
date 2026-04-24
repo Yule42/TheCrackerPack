@@ -53,6 +53,14 @@ return {
                     '{C:attention}upgraded{} Boss Blind'
                 }
             },
+            b_cracker_astronomy = {
+                name = 'Astronomy Deck',
+                text = {
+                    '{C:planet}Planet{} cards are stronger,',
+                    '{C:planet}Planet{} cards and {C:planet}Celestial Packs{}',
+                    'are {C:money}50%{} more expensive'
+                }
+            },
         },
         Blind = {
             bl_cracker_ox_dx = {
@@ -958,6 +966,16 @@ return {
                     'Add a full set of',
                     '{C:paperback_crowns}Crowns{} and {C:paperback_stars}Stars',
                     'to deck'
+                },
+            },
+            v_paperback_pw_silver = {
+                name = {
+                    'Silver Deck',
+                },
+                text = {
+                    'Get {C:attention,T:v_paperback_celtic_cross}#1#',
+                    'and a copy of {C:attention,t:c_paperback_nine_of_cups}#2#',
+                    '{C:inactive}(Gives upgrade if voucher already owned)'
                 },
             },
         },

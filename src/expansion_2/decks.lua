@@ -1,5 +1,4 @@
 SMODS.Back{ -- Golden Deck
-    name = "Golden Deck",
     key = "golden",
     
     pos = {
@@ -22,7 +21,6 @@ SMODS.Back{ -- Golden Deck
 }
 
 SMODS.Back{ -- Rebate Deck
-    name = "Rebate Deck",
     key = "rebate",
     
     pos = {
@@ -81,7 +79,6 @@ SMODS.Back{ -- Rebate Deck
 }
 
 SMODS.Back{ -- Blitz Deck
-    name = "Blitz Deck",
     key = "blitz",
     
     pos = {
@@ -102,7 +99,6 @@ SMODS.Back{ -- Blitz Deck
 }
 
 SMODS.Back{ -- Catalog Deck
-    name = "Catalog Deck",
     key = "catalog",
     
     pos = {

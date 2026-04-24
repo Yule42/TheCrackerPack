@@ -359,3 +359,17 @@ if aij_conf then
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if (self.ability.set == 'Planet' or (self.ability.set == 'Booster' and self.ability.name:find('Celestial'))) and #find_joker('Astronomer') > 0 then self.cost = 0 end"
+position = "before"
+payload = '''
+if G.GAME.selected_back and G.GAME.selected_back.name == 'b_cracker_astronomy' then
+	if self.ability.set == 'Planet' or (self.ability.set == 'Booster' and self.ability.name:find('Celestial')) then
+		self.cost = math.floor(self.cost * 1.5)
+	end
+end
+'''
+match_indent = true
