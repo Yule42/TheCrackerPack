@@ -351,7 +351,7 @@ JokerDisplay.Definitions.j_cracker_rainbowcard = {
         card.joker_display_values.active = card.ability.extra.active and localize("jdis_active") or localize("jdis_inactive")
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
-        return JokerDisplay.calculate_joker_triggers(joker_card) or 0
+        return joker_card.ability.extra.active and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 JokerDisplay.Definitions.j_cracker_snail = {

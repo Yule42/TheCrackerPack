@@ -1,9 +1,19 @@
-local function get_available_voucher_upgrades()
+local function get_available_voucher_upgrades(reserved_upgrades)
     local available_upgrades = {}
     local seen_upgrades = {}
+    local in_shop = {}
 
     if not (G and G.GAME and G.GAME.used_vouchers and G.P_CENTERS) then
         return available_upgrades
+    end
+
+    if G.shop_vouchers and G.shop_vouchers.cards then
+        for _, voucher_card in ipairs(G.shop_vouchers.cards) do
+            local center = voucher_card and voucher_card.config and voucher_card.config.center
+            if center and center.key then
+                in_shop[center.key] = true
+            end
+        end
     end
 
     for owned_voucher_key, owned in pairs(G.GAME.used_vouchers) do
@@ -13,7 +23,9 @@ local function get_available_voucher_upgrades()
                     for _, requirement in ipairs(center.requires) do
                         if requirement == owned_voucher_key and not seen_upgrades[center_key] then
                             seen_upgrades[center_key] = true
-                            available_upgrades[#available_upgrades + 1] = center_key
+                            if not in_shop[center_key] and not (reserved_upgrades and reserved_upgrades[center_key]) then
+                                available_upgrades[#available_upgrades + 1] = center_key
+                            end
                             break
                         end
                     end
@@ -140,10 +152,26 @@ SMODS.Tag {
     end,
     apply = function(self, tag, context)
         if context.type == 'voucher_add' then
-            local available_upgrades = get_available_voucher_upgrades()
-            if #available_upgrades > 0 then
+            if not G.shop_vouchers then
+                tag:nope()
+                return
+            end
+
+            G.shop_vouchers.cracker_gift_reserved_upgrades = G.shop_vouchers.cracker_gift_reserved_upgrades or {}
+            local reserved_upgrades = G.shop_vouchers.cracker_gift_reserved_upgrades
+
+            if #get_available_voucher_upgrades(reserved_upgrades) > 0 then
                 tag:yep('+', G.C.SECONDARY_SET.Voucher, function()
-                    local voucher = SMODS.add_voucher_to_shop(pseudorandom_element(available_upgrades, pseudoseed('cracker_gift_tag')))
+                    local live_available_upgrades = get_available_voucher_upgrades(reserved_upgrades)
+                    if #live_available_upgrades == 0 then
+                        return true
+                    end
+
+                    print(tag.ID)
+                    local chosen_key = pseudorandom_element(live_available_upgrades, pseudoseed('cracker_gift_tag' .. tostring(tag.ID)))
+                    reserved_upgrades[chosen_key] = true
+
+                    local voucher = SMODS.add_voucher_to_shop(chosen_key)
                     voucher.from_tag = true
                     voucher.couponed = true
                     voucher:set_cost()
