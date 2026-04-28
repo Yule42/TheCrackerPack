@@ -4,6 +4,8 @@ return {
             b_cracker_golden = {
                 name = 'Golden Deck',
                 text = {
+                    '{C:attention}Skip Tags{}',
+                    'appear in shop,',
                     'Only economic',
                     '{C:attention}Skip Tags{} can appear,',
                     'Blind rewards are decreased',

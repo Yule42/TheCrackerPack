@@ -318,18 +318,18 @@ SMODS.Joker{ --Hamburger
     
     calculate = function(self, card, context)
         if context.pre_discard and not context.blueprint then
-            if G.GAME.food_multiplier <= 0 then
+            if G.GAME.Cracker.food_multiplier <= 0 then
                 return {
                     message = localize('k_frozen')
                 }
             end
         end
         if context.discard and not context.blueprint then
-            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - math.floor(1 * G.GAME.food_multiplier)
+            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - math.floor(1 * G.GAME.Cracker.food_multiplier)
             if card.ability.extra.discard_cards_left <= 0 then
                 card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_required
-                card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
-                G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.food_multiplier)
+                card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier)
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier)
                 if G.GAME.current_round.hands_left < 1 then
                     G.GAME.current_round.hands_left = 1
                 end
@@ -356,7 +356,7 @@ SMODS.Joker{ --Hamburger
                     }
                 else
                     return {
-                        message = localize{type='variable',key='a_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.food_multiplier}},
+                        message = localize{type='variable',key='a_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier}},
                         colour = G.C.BLUE
                     }
                 end

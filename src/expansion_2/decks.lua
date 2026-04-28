@@ -17,6 +17,8 @@ SMODS.Back{ -- Golden Deck
     apply = function(self, back)
         G.GAME.modifiers.reduced_reward = 2
         G.GAME.modifiers.money_tags_only = true
+        G.GAME.Cracker = G.GAME.Cracker or {}
+        G.GAME.Cracker.tags_in_shop = 4
     end,
 }
 

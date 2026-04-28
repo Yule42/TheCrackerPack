@@ -339,7 +339,9 @@ end
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
-    ret.food_multiplier = 1
+    ret.Cracker = {}
+    ret.Cracker.food_multiplier = 1
+    ret.Cracker.tags_in_shop = 0
     
     return ret
 end

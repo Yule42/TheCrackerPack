@@ -36,7 +36,7 @@
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if G.GAME.food_multiplier == 0 then
+            if G.GAME.Cracker.food_multiplier == 0 then
                 return {
                     message = localize('k_frozen'),
                     colour = G.C.FILTER
@@ -116,7 +116,7 @@ SMODS.Joker{ --Buttered Popcorn
                 mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier > 0 then
+            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.Cracker.food_multiplier > 0 then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
@@ -215,9 +215,9 @@ SMODS.Joker{ --Sundae
             end
         elseif context.after and not context.blueprint and not context.repetition then
             if card.ability.extra.state == 2 then
-                if card.ability.extra.left - math.floor(1 * G.GAME.food_multiplier) > 0 then
-                    card.ability.extra.left = card.ability.extra.left - math.floor(1 * G.GAME.food_multiplier)
-                    SMODS.calculate_effect({message = G.GAME.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_frozen'), colour = G.C.FILTER}, card)
+                if card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier) > 0 then
+                    card.ability.extra.left = card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier)
+                    SMODS.calculate_effect({message = G.GAME.Cracker.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_frozen'), colour = G.C.FILTER}, card)
                 else
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -362,7 +362,7 @@ SMODS.Joker{ --Alcoholic Soda
     
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.rounds = card.ability.extra.rounds - card.ability.extra.rounds_remove * G.GAME.food_multiplier
+            card.ability.extra.rounds = card.ability.extra.rounds - card.ability.extra.rounds_remove * G.GAME.Cracker.food_multiplier
             if card.ability.extra.rounds <= 0 then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -431,21 +431,21 @@ SMODS.Joker{ --Tsukemen
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.discard and not context.blueprint then
-            if G.GAME.food_multiplier > 0 then
+            if G.GAME.Cracker.food_multiplier > 0 then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
                     scalar_value = "x_mult_add",
                     operation = "+",
                     scaling_message = {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_add * G.GAME.food_multiplier}},
+                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_add * G.GAME.Cracker.food_multiplier}},
                         colour = G.C.RED,
                         delay = 0.2
                     }
                 })
             end
         elseif context.after and context.cardarea == G.jokers and not context.blueprint then
-            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier >= 1 then
+            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier >= 1 then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
@@ -454,7 +454,7 @@ SMODS.Joker{ --Tsukemen
                     scaling_message = {
                         card = card,
                         focus = card,
-                        message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.x_mult_remove * G.GAME.food_multiplier}},
+                        message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier}},
                         colour = G.C.RED
                     }
                 })

@@ -10,7 +10,7 @@ pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1
 card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})'''
 position = "at"
 payload = '''
-if G.GAME.food_multiplier > 0 then
+if G.GAME.Cracker.food_multiplier > 0 then
     self.ability.perish_tally = self.ability.perish_tally - 1
     card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})
 end
@@ -24,7 +24,7 @@ target = "card.lua"
 pattern = '''if self.ability.perish_tally == 1 then'''
 position = "at"
 payload = '''
-if self.ability.perish_tally == 1 and G.GAME.food_multiplier > 0 then
+if self.ability.perish_tally == 1 and G.GAME.Cracker.food_multiplier > 0 then
 '''
 match_indent = true
 times = 1
@@ -36,7 +36,7 @@ times = 1
 #target = "card.lua"
 #pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
 #position = "at"
-#payload = '''if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.food_multiplier) <= 0 then
+#payload = '''if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.Cracker.food_multiplier) <= 0 then
 #if not CrackerConfig.disable_upgradedfood then
 #    G.GAME.pool_flags.ice_cream_eaten = true
 #end'''
@@ -50,7 +50,7 @@ times = 1
 #target = "card.lua"
 #pattern = "if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then"
 #position = "at"
-#payload = '''if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.food_multiplier) <= 0 then
+#payload = '''if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.Cracker.food_multiplier) <= 0 then
 #if not CrackerConfig.disable_upgradedfood then
 #    G.GAME.pool_flags.turtle_bean_eaten = true
 #end'''
@@ -63,7 +63,7 @@ times = 1
 target = "card.lua"
 pattern = "if self.ability.mult - self.ability.extra <= 0 then"
 position = "at"
-payload = '''if self.ability.mult - (self.ability.extra * G.GAME.food_multiplier) <= 0 then 
+payload = '''if self.ability.mult - (self.ability.extra * G.GAME.Cracker.food_multiplier) <= 0 then 
 G.GAME.pool_flags.popcorn_eaten = true'''
 match_indent = true
 times = 1
@@ -74,7 +74,7 @@ times = 1
 #target = "card.lua"
 #pattern = "if self.ability.extra - 1 <= 0 then "
 #position = "at"
-#payload = '''if self.ability.extra - (1 * G.GAME.food_multiplier) <= 0 then 
+#payload = '''if self.ability.extra - (1 * G.GAME.Cracker.food_multiplier) <= 0 then 
 #if not CrackerConfig.disable_upgradedfood then
 #    G.GAME.pool_flags.seltzer_drank = true
 #end'''
@@ -86,7 +86,7 @@ times = 1
 target = "card.lua"
 pattern = "self.ability.extra = self.ability.extra - 1"
 position = "at"
-payload = "self.ability.extra = self.ability.extra - (1 * G.GAME.food_multiplier)"
+payload = "self.ability.extra = self.ability.extra - (1 * G.GAME.Cracker.food_multiplier)"
 match_indent = true
 times = 1
 
@@ -95,6 +95,6 @@ times = 1
 target = "card.lua"
 pattern = "message = self.ability.extra..'',"
 position = "at"
-payload = "message = self.ability.extra * G.GAME.food_multiplier..'',"
+payload = "message = self.ability.extra * G.GAME.Cracker.food_multiplier..'',"
 match_indent = true
 times = 1

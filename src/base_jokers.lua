@@ -132,13 +132,13 @@ SMODS.Joker{ --Chocolate Coin
     
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if G.GAME.food_multiplier == 0 then
+            if G.GAME.Cracker.food_multiplier == 0 then
                 return {
                     message = localize('k_frozen'),
                     colour = G.C.FILTER
                 }
             else
-                card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_mod * G.GAME.food_multiplier)
+                card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_mod * G.GAME.Cracker.food_multiplier)
                 if card.ability.extra.rounds <= 0 then
                     return {
                         message = localize('k_eaten_ex'),
@@ -194,7 +194,7 @@ SMODS.Joker{ --Graham Cracker
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand) * G.GAME.food_multiplier)
+            card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand) * G.GAME.Cracker.food_multiplier)
             if card.ability.extra.cards_left <= 0 then
                 card.ability.extra.cards_left = card.ability.extra.cards_require
                 if card.ability.extra.x_mult + (card.ability.extra.x_mult_add) >= card.ability.extra.x_mult_max then 
@@ -306,7 +306,7 @@ SMODS.Joker{ --Cheese
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
-            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.food_multiplier > card.ability.extra.x_mult_min then
+            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier > card.ability.extra.x_mult_min then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
@@ -520,12 +520,12 @@ SMODS.Joker{ --Freezer
     end,
     
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.food_multiplier = card.ability.extra.multiply
+        G.GAME.Cracker.food_multiplier = card.ability.extra.multiply
     end,
     
     remove_from_deck = function(self, card, from_debuff)
         if not next(SMODS.find_card("j_cracker_freezer")) then
-            G.GAME.food_multiplier = 1
+            G.GAME.Cracker.food_multiplier = 1
         end
     end,
     
@@ -671,7 +671,7 @@ SMODS.Joker{ --Curry
                 mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.food_multiplier > 0 then
+            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.Cracker.food_multiplier > 0 then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",

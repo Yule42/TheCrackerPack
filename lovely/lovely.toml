@@ -324,6 +324,7 @@ if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].disco
     add = true
 end
 '''
+
 position = "after"
 match_indent = true
 payload = '''
@@ -339,6 +340,229 @@ position = "after"
 payload = '''(not G.GAME.modifiers.money_tags_only or Cracker.money_tags[v.key]) and'''
 match_indent = true
 times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+for _, v in ipairs(rates) do
+'''
+payload = '''
+table.insert(rates, { type = 'Tag', val = (G.GAME.Cracker and G.GAME.Cracker.tags_in_shop) or 0 })
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+local polled_rate = pseudorandom(pseudoseed('cdt'..G.GAME.round_resets.ante))*total_rate
+'''
+payload = '''
+total_rate = total_rate + ((G.GAME.Cracker and G.GAME.Cracker.tags_in_shop) or 0)
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+center = G.P_CENTERS[center]
+'''
+payload = '''
+if _type == 'Tag' then
+    center = G.P_TAGS[center]
+    center.pixel_size = {w = 32, h = 32}
+else
+    center = G.P_CENTERS[center]
+end
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+center = G.P_CENTERS[forced_key]
+'''
+payload = '''
+if _type == 'Tag' then
+    center = G.P_TAGS[forced_key]
+    center.pixel_size = {w = 32, h = 32}
+else
+    center = G.P_CENTERS[forced_key]
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if card.ability.consumeable and not skip_materialize then card:start_materialize() end
+'''
+payload = '''
+if _type == 'Tag' then
+    card.tag = Tag(center.key, false, pseudorandom_element({'Small','Big'}, 'tag_in_shop'))
+    card.ability = card.tag.ability
+    card.ability.set = 'Tag'
+    SMODS.merge_defaults(card.config, card.tag.config)
+    card.base_cost = 6
+    card:set_cost()
+    card.children.center = Sprite(0,0, 0.8, 0.8, G.ASSET_ATLAS[center.atlas or "tags"], center.pos)
+    card.children.center.states.hover = card.states.hover
+    card.children.center.states.click = card.states.click
+    card.children.center.states.drag = card.states.drag
+    card.children.center.states.collide.can = false
+    card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+elseif e.config.id ~= 'buy_and_use' then
+'''
+payload = '''
+elseif c1.tag or (c1.config.center and c1.config.center.set == 'Tag') then
+    add_tag(c1.tag or Tag(c1.config.center.key, false, pseudorandom_element({'Small','Big'}, 'tag_in_shop')))
+    c1:remove()
+    for i = 1, #G.GAME.tags do
+        G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+    end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+c1:add_to_deck()
+'''
+payload = '''
+if not (c1.tag or c1.ability.set == 'Tag' or (c1.config.center and c1.config.center.set == 'Tag')) then
+    c1:add_to_deck()
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if card.ability.set ~= 'Voucher' and
+'''
+payload = '''
+if card.tag or card.ability.set == 'Tag' or (card.config.center and card.config.center.set == 'Tag') then
+    return true
+end
+'''
+# Tooltip fix
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+self.ability_UIBox_table = self:generate_UIBox_ability_table()
+'''
+payload = '''
+self.ability_UIBox_table = self.tag and self.tag:get_uibox_table({}).ability_UIBox_table or self:generate_UIBox_ability_table()
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self.config.center = G.P_CENTERS[self.config.center_key]
+'''
+payload = '''
+if cardTable.tag then self.config.center = G.P_TAGS[cardTable.tag] end
+if cardTable.tag and self.config.center then
+    self.config.center.pixel_size = self.config.center.pixel_size or {w = 32, h = 32}
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self:set_sprites(self.config.center, self.config.card)
+'''
+payload = '''
+self:set_sprites(self.config.center, self.config.card)
+if cardTable.tag and self.config.center and self.children.center then
+    self.children.center.atlas = G.ASSET_ATLAS[self.config.center.atlas or 'tags']
+    self.children.center:set_sprite_pos(self.config.center.pos)
+    self.children.center.states.hover = self.states.hover
+    self.children.center.states.click = self.states.click
+    self.children.center.states.drag = self.states.drag
+    self.children.center.states.collide.can = false
+    self.children.center:set_role({major = self, role_type = 'Glued', draw_major = self})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self.seal = cardTable.seal
+'''
+payload = '''
+if cardTable.tag and self.config.center and self.config.center.set == 'Tag' then
+    local _tag_tally = G.GAME.tag_tally
+    local _tagid = G.tagid
+    self.tag = Tag(cardTable.tag, false, pseudorandom_element({'Small','Big'}, 'tag_in_shop'))
+    G.GAME.tag_tally = _tag_tally
+    G.tagid = _tagid
+    self.ability = self.tag.ability
+    self.ability.set = 'Tag'
+    SMODS.merge_defaults(self.config, self.tag.config)
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+seal = self.seal,
+'''
+payload = '''
+tag = self.tag and self.tag.key,
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local W = G.CARD_W
+'''
+payload = '''
+if cardTable.tag then
+    H = G.CARD_H
+    W = G.CARD_W
+end
+'''
 
     # High Score challenge HUD ante text
 [[patches]]
