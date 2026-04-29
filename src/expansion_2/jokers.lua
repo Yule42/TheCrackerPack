@@ -547,7 +547,7 @@ SMODS.Joker{ --The Falcon
     key = "thefalcon",
     config = {
         extra = {
-            odds = 10,
+            odds = 5,
             FPS = 10,
             delay = 0,
             x_pos = 0,
