@@ -525,6 +525,7 @@ assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
 assert(SMODS.load_file('src/new_additions/tags.lua'))()
 
 assert(SMODS.load_file('src/ever_stuffer/decks.lua'))()
+assert(SMODS.load_file('src/ever_stuffer/jokers.lua'))()
 
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()

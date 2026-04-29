@@ -764,6 +764,19 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
                 },
             },
+            j_cracker_knight = {
+                name = 'Knight',
+                text = {
+                    '{C:attention}Face{} cards always score'
+                }
+            },
+            j_cracker_skillet = {
+                name = 'Skillet',
+                text = {
+                    '{C:attention}Food{} Jokers',
+                    'each give {X:mult,C:white} X#1# {} Mult'
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
