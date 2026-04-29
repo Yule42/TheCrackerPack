@@ -915,8 +915,11 @@ SMODS.Voucher {
     loc_vars = function(self, info_queue, center)
         return {vars = {self.config.requirement, self.config.current_amount}}
     end,
+    redeem = function(self, card)
+        self.config.current_amount = self.config.current_amount - self.cost
+    end,
     calculate = function(self, back, context)
-        if context.money_altered and context.from_shop and context.amount < 0 then
+        if context.money_altered and context.from_shop and context.amount < 0 and not self.area.config.type == 'shop' then
             self.config.current_amount = self.config.current_amount + context.amount
             if self.config.current_amount <= 0 then
                 repeat
