@@ -4,10 +4,9 @@ return {
             b_cracker_golden = {
                 name = 'Golden Deck',
                 text = {
-                    '{C:attention}Skip Tags{}',
-                    'appear in shop,',
-                    'Only economic',
-                    '{C:attention}Skip Tags{} can appear,',
+                    '{C:attention}Skip Tags{} appear in shop,',
+                    'Only economic {C:attention}Skip Tags{}',
+                    'appear naturally,',
                     'Blind rewards are decreased',
                     'by {C:money}$2',
                 },
@@ -1011,6 +1010,14 @@ return {
                     "Adds a {C:money}free{} {C:attention}upgraded{} version",
                     "of an owned {C:attention}Voucher",
                     "in next shop"
+                },
+            },
+            tag_cracker_loan = {
+                name = "Loan Tag",
+                text = {
+                    "Earn {C:money}$30{} immediately,",
+                    "set money to {C:money}$0",
+                    "at end of next shop"
                 },
             },
         },

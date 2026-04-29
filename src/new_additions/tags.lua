@@ -167,7 +167,6 @@ SMODS.Tag {
                         return true
                     end
 
-                    print(tag.ID)
                     local chosen_key = pseudorandom_element(live_available_upgrades, pseudoseed('cracker_gift_tag' .. tostring(tag.ID)))
                     reserved_upgrades[chosen_key] = true
 
@@ -182,5 +181,36 @@ SMODS.Tag {
                 tag:nope()
             end
         end
+    end
+}
+
+SMODS.Tag {
+    key = 'loan',
+    config = {
+        money = 30
+    },
+    pos = { 
+        x = 4,
+        y = 0
+    },
+    min_ante = 1,
+    discovered = true,
+    atlas = 'tags',
+    loc_vars = function(self, info_queue, tag)
+        return {vars = {tag.config.money}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == 'shop_end' then
+            tag:yep('+', G.C.GOLD, function()
+                if G.GAME.dollars ~= 0 then
+                    ease_dollars(-G.GAME.dollars, true)
+                end
+                return true
+            end)
+            tag.triggered = true
+        end
+    end,
+    set_ability = function(self, tag)
+        ease_dollars(tag.config.money)
     end
 }
