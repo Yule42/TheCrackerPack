@@ -62,6 +62,24 @@ return {
                     'are {C:money}50%{} more expensive'
                 }
             },
+            b_cracker_white = {
+                name = 'White Deck',
+                text = {
+                    'Recieve a {C:tarot}Tarot{} card when',
+                    '{C:attention}Blind{} is selected',
+                    '{C:inactive}(Must have room)',
+                    '{C:blue}-1{} hand every round'
+                }
+            },
+            b_cracker_white_2 = {
+                name = 'White Deck 2',
+                text = {
+                    'Recieve a {C:dark_edition}Negative {C:spectral}Spectral{} card',
+                    'when {C:attention}Boss Blind{} is selected',
+                    '{C:blue}-1{} hand every round',
+                    '{C:red}+1{} discard every round'
+                }
+            },
         },
         Blind = {
             bl_cracker_ox_dx = {
