@@ -246,6 +246,8 @@ Cracker.money_tags = {
     tag_garbage = true,
     tag_skip = true,
     tag_economy = true,
+    tag_cracker_rocket = true,
+    tag_cracker_crystal = true,
 }
 
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
