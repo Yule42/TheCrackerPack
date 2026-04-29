@@ -314,6 +314,16 @@ function Cracker.force_dx_blind()
     return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
 end
 
+function Cracker.tag_is_in_shop(tag)
+    if not tag or not G.shop_jokers then return false end
+    for _, card in ipairs(G.shop_jokers.cards or {}) do
+        if card.tag == tag or (card.config.center and card.config.center.key == tag.key) then
+            return true
+        end
+    end
+    return false
+end
+
 local remove_ref = Card.remove
 function Card.remove(self)
     if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and Cracker.is_food(self.config.center_key) then

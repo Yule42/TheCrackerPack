@@ -22,6 +22,15 @@ SMODS.Back{ -- Golden Deck
     end,
 }
 
+SMODS.Tag:take_ownership('skip', -- make skip tag appear properly in the shop on Golden Deck
+    {
+        loc_vars = function(self, info_queue, tag)
+            return { vars = { tag.config.skip_bonus, tag.config.skip_bonus * ((G.GAME.skips or 0) + (Cracker.tag_is_in_shop(tag) and 0 or 1)) } }
+        end,
+    },
+    true
+)
+
 SMODS.Back{ -- Rebate Deck
     key = "rebate",
     
