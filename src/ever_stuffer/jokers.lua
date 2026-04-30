@@ -1,5 +1,4 @@
 SMODS.Joker{ --Knight
-    name = "knight",
     key = "knight",
     config = {
         extra = {
@@ -40,7 +39,6 @@ SMODS.Joker{ --Knight
 }
 
 SMODS.Joker{ --Skillet
-    name = "skillet",
     key = "skillet",
     config = {
         extra = {
@@ -74,7 +72,6 @@ SMODS.Joker{ --Skillet
 }
 
 SMODS.Joker{ --Sophia
-    name = "Sophia",
     key = "sophia",
     config = {
         extra = {
@@ -118,6 +115,54 @@ SMODS.Joker{ --Sophia
                 colour = G.C.MULT,
                 message_card = card
             }
+        end
+    end
+}
+
+SMODS.Joker{ --LegendaryTest
+    key = "testLegendary",
+    config = {
+        extra = {
+            retriggers = 0,
+            retriggers_increase = 1,
+            cards_require = 50,
+            cards_left = 50,
+        }
+    },
+    pos = {
+        x = 2,
+        y = 4
+    },
+    cost = 20,
+    rarity = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'who do you think', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.retriggers, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.retriggers_increase, (card.ability.extra.retriggers ~= 1 and "s" or "")}}
+    end,
+    
+    calculate = function(self, card, context)
+        if card.ability.extra.retriggers > 0 and context.repetition and (context.cardarea == G.play or (context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1))) and not context.repetition_only then
+            return {
+                message = localize('k_again_ex'),
+                repetitions = card.ability.extra.retriggers,
+                card = card,
+            }
+        elseif context.before and context.cardarea == G.jokers and not context.blueprint then
+            card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand))
+            if card.ability.extra.cards_left <= 0 then
+                card.ability.extra.cards_left = card.ability.extra.cards_require
+                card.ability.extra.retriggers = card.ability.extra.retriggers + card.ability.extra.retriggers_increase
+                return {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.ATTENTION
+                }
+            end
         end
     end
 }

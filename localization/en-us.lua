@@ -777,6 +777,14 @@ return {
                     'each give {X:mult,C:white} X#1# {} Mult'
                 }
             },
+            j_cracker_testLegendary = {
+                name = 'Lolbit why not atp',
+                text = {
+                    'Retrigger all cards {C:attention}#1#{} time#5#,',
+                    'increases by #4# every',
+                    '{C:attention}#2#{C:inactive} [#3#]{} scoring cards played',
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
