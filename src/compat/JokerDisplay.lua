@@ -444,3 +444,19 @@ JokerDisplay.Definitions.j_cracker_student = {
         return playing_card.config.center.key == 'm_cracker_sequenced' or playing_card.config.center.key == 'm_cracker_multi' and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
+JokerDisplay.Definitions.j_cracker_testLegendary = {
+    text = {
+        { ref_table = "card.ability.extra", ref_value = "retriggers", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.FILTER },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "cards_left" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "cards_require" },
+        { text = ")" },
+    },
+    retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+        return joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
+    end
+}
