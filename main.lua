@@ -557,3 +557,9 @@ if CardSleeves then
 end
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
+
+SMODS.current_mod.calculate = function(self, context)
+    if context.tag_added and context.tag_added.key == "tag_cracker_loan" then
+        ease_dollars(30)
+    end
+end
