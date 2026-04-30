@@ -210,7 +210,4 @@ SMODS.Tag {
             tag.triggered = true
         end
     end,
-    set_ability = function(self, tag)
-        ease_dollars(tag.config.money)
-    end
 }
