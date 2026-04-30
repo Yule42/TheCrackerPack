@@ -1,7 +1,7 @@
 SMODS.Back{ -- White Deck
     key = "white",
     pos = {
-        x = 5,
+        x = 7,
         y = 0,
     },
     atlas = 'Backs',
@@ -35,7 +35,7 @@ SMODS.Back{ -- White Deck
 SMODS.Back{ -- White Deck 2
     key = "white_2",
     pos = {
-        x = 5,
+        x = 7,
         y = 0,
     },
     atlas = 'Backs',
