@@ -233,6 +233,7 @@ SMODS.Joker{ --Orange Card
     calculate = function(self, card, context)
         if context.skipping_booster then
 			local booster = context.booster.kind
+            local booster_real = context.booster
             if booster:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
                 G.GAME.joker_buffer = G.GAME.joker_buffer + 1
                 G.E_MANAGER:add_event(Event({
@@ -302,7 +303,34 @@ SMODS.Joker{ --Orange Card
                                     G.GAME.consumeable_buffer = 0
                                 return true
                             end)}))
+                        return true, nil
                     end
+                end
+                if booster_real.create_card and type(booster_real.create_card) == "function" then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        delay = 0.45,
+                        func = (function()
+                                --card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                --    message = localize('k_plus_'..short_names[i]),
+                                --    colour = G.C.SECONDARY_SET[short_names_why_is_there_a_seperate_shorthand[i]]
+                                --})
+                                local _card_to_spawn = booster_real:create_card(booster_real, 1)
+                                print(_card_to_spawn)
+                                if type((_card_to_spawn or {}).is) == 'function' and _card_to_spawn:is(Card) then
+                                    card = _card_to_spawn
+                                    if card.ability and card.ability.consumeable and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                                        _card_to_spawn.area = G.consumeables
+                                        card:add_to_deck()
+                                        G.consumeables:emplace(card)
+                                        G.GAME.consumeable_buffer = 0
+                                    end
+                                else
+                                    _card_to_spawn.area = nil
+                                    SMODS.add_card(_card_to_spawn)
+                                end
+                            return true
+                        end)}))
                 end
             end
         end

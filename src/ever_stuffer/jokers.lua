@@ -166,3 +166,57 @@ SMODS.Joker{ --LegendaryTest
         end
     end
 }
+
+SMODS.Joker{ --U.F.O.
+    key = "ufo",
+    config = {
+        extra = {
+            chips = 0,
+            mult = 0,
+        }
+    },
+    pos = {
+        x = 3,
+        y = 4
+    },
+    cost = 6,
+    rarity = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari', 'sophiedeergirl, sugariimari'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.chips, card.ability.extra.mult}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.before and G.GAME.hands[context.scoring_name].level > 1 and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_table = G.GAME.hands[context.scoring_name],
+                scalar_value = "l_mult",
+            })
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_table = G.GAME.hands[context.scoring_name],
+                scalar_value = "l_chips",
+                no_message = true
+            })
+            return {
+                level_up = -1,
+                no_retrigger = true
+            }
+		end
+		if context.joker_main then
+			return {
+                chips = card.ability.extra.chips,
+                mult = card.ability.extra.mult,
+            }
+		end
+    end
+}

@@ -444,6 +444,40 @@ JokerDisplay.Definitions.j_cracker_student = {
         return playing_card.config.center.key == 'm_cracker_sequenced' or playing_card.config.center.key == 'm_cracker_multi' and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
+JokerDisplay.Definitions.j_cracker_skillet = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "count",          colour = G.C.ORANGE },
+        { text = "x" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.FILTER },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        local count = 0
+        if G.jokers then
+            for _, joker_card in ipairs(G.jokers.cards) do
+                if joker_card and Cracker.is_food(joker_card) then
+                    count = count + 1
+                end
+            end
+        end
+        card.joker_display_values.count = count
+        card.joker_display_values.localized_text = localize("k_food")
+    end,
+    mod_function = function(card, mod_joker)
+        return { x_mult = (Cracker.is_food(card) and mod_joker.ability.extra.x_mult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+    end
+}
+JokerDisplay.Definitions.j_cracker_sophia = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+        }
+    },
+}
 JokerDisplay.Definitions.j_cracker_testLegendary = {
     text = {
         { ref_table = "card.ability.extra", ref_value = "retriggers", retrigger_type = "mult" }
@@ -459,4 +493,12 @@ JokerDisplay.Definitions.j_cracker_testLegendary = {
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         return joker_card.ability.extra.retriggers * JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
+}
+JokerDisplay.Definitions.j_cracker_ufo = {
+    text = {
+        { text = "+",                              colour = G.C.CHIPS },
+        { ref_table = "card.ability.extra",        ref_value = "chips", colour = G.C.CHIPS, retrigger_type = "mult" },
+        { text = " +",                             colour = G.C.MULT },
+        { ref_table = "card.ability.extra",        ref_value = "mult",  colour = G.C.MULT,  retrigger_type = "mult" }
+    },
 }

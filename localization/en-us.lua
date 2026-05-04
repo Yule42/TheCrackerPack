@@ -15,7 +15,7 @@ return {
                 name = 'Rebate Deck',
                 text = {
                     'For every {C:money}$#1#{} {C:inactive}[#2#]',
-                    'spent while in the shop, get a',
+                    'spent while in the shop, get a {C:money}free',
                     '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
                 }
             },
@@ -49,9 +49,9 @@ return {
                 name = 'Showdown Deck',
                 text = {
                     'Blind rewards are increased by {C:money}$1',
-                    'Every odd boss blind is a {C:attention}Major Blind',
-                    'Every even boss blind is an',
-                    '{C:attention}upgraded{} Boss Blind'
+                    'Every odd ante\'s boss blind is {C:attention}Major Blind',
+                    'Every even ante\'s boss blind',
+                    'is an {C:attention}upgraded{} Boss Blind'
                 }
             },
             b_cracker_astronomy = {
@@ -785,6 +785,15 @@ return {
                     '{C:attention}#2#{C:inactive} [#3#]{} scoring cards played',
                 }
             },
+            j_cracker_ufo = {
+                name = "U.F.O.",
+                text = {
+                    "Decrease level of played",
+                    "{C:attention}poker hand{} and add lost",
+                    "{C:chips}Chips{} and {C:red}Mult{} to this Joker",
+                    "{C:inactive}(Currently {C:chips}#1#{C:inactive} Chips, {C:red}#2#{C:inactive} Mult{C:inactive})"
+                }
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
@@ -1164,6 +1173,7 @@ return {
             k_open_url='Open URL',
             k_copy_url='Copy URL',
             jdis_before='Before',
+            k_food='Food',
         },
         v_dictionary = {
             a_money="+$#1#",
