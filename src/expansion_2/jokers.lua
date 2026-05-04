@@ -639,8 +639,13 @@ SMODS.Joker{ --Postman
                 ref_value = "mult",
                 scalar_value = "mult_add",
                 operation = "+",
-                message_colour = G.C.MULT
+                no_mesage = true
             })
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT,
+                message_card = card
+            }
         end
     end
 }
