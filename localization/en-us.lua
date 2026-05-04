@@ -791,7 +791,7 @@ return {
                     "Decrease level of played",
                     "{C:attention}poker hand{} and add lost",
                     "{C:chips}Chips{} and {C:red}Mult{} to this Joker",
-                    "{C:inactive}(Currently {C:chips}#1#{C:inactive} Chips, {C:red}#2#{C:inactive} Mult{C:inactive})"
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips, {C:red}+#2#{C:inactive} Mult{C:inactive})"
                 }
             },
         },
