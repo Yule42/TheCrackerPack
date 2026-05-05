@@ -789,9 +789,9 @@ return {
                 name = "U.F.O.",
                 text = {
                     "Decrease level of played",
-                    "{C:attention}poker hand{} and add lost",
-                    "{C:chips}Chips{} and {C:red}Mult{} to this Joker",
-                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips, {C:red}+#2#{C:inactive} Mult{C:inactive})"
+                    "{C:attention}poker hand{} and add",
+                    "triple the lost {C:red}Mult{} to this Joker",
+                    "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult{C:inactive})"
                 }
             },
         },

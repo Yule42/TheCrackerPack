@@ -171,7 +171,6 @@ SMODS.Joker{ --U.F.O.
     key = "ufo",
     config = {
         extra = {
-            chips = 0,
             mult = 0,
         }
     },
@@ -189,7 +188,7 @@ SMODS.Joker{ --U.F.O.
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari', 'sophiedeergirl, sugariimari'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.chips, card.ability.extra.mult}}
+        return {vars = {card.ability.extra.mult}}
     end,
     
     calculate = function(self, card, context)
@@ -199,13 +198,9 @@ SMODS.Joker{ --U.F.O.
                 ref_value = "mult",
                 scalar_table = G.GAME.hands[context.scoring_name],
                 scalar_value = "l_mult",
-            })
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "chips",
-                scalar_table = G.GAME.hands[context.scoring_name],
-                scalar_value = "l_chips",
-                no_message = true
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + change*3
+                end,
             })
             return {
                 level_up = -1,
@@ -214,7 +209,6 @@ SMODS.Joker{ --U.F.O.
 		end
 		if context.joker_main then
 			return {
-                chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult,
             }
 		end
