@@ -755,6 +755,13 @@ return {
                     'at end of round',
                 }
             },
+            v_cracker_heirloom = {
+                name = 'Heirloom',
+                text = {
+                    'Earn {C:money}$#1#{}',
+                    'at end of round',
+                }
+            },
             v_cracker_clowncar = {
                 name = 'Clown Car',
                 text = {
