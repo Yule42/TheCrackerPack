@@ -24,13 +24,6 @@ SMODS.Voucher {
 
 SMODS.Voucher {
     key = 'heirloom',
-    loc_txt = {
-        ['name'] = 'Heirloom',
-        ['text'] = {
-            [1] = 'Earn {C:money}$#1#{}',
-            [2] = 'at end of round',
-        }
-    },
     pos = {
         x = 1,
         y = 0
