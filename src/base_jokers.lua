@@ -15,6 +15,7 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
+    attributes = { 'chips', 'scaling', 'chance', 'food' },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -378,9 +379,9 @@ SMODS.Joker{ --Cracker Barrel
     
     calculate = function(self, card, context)
         if context.setting_blind and not self.getting_sliced and not (context.blueprint_card or card).getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-            local jokers_to_create = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            local jokers_to_create = math.min(card.ability.extra.creation, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
             if jokers_to_create > 0 and not context.blueprint then
-                card.ability.extra.jokersleft = card.ability.extra.jokersleft - 1
+                card.ability.extra.jokersleft = card.ability.extra.jokersleft - card.ability.extra.creation
             end
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
@@ -540,7 +541,6 @@ SMODS.Joker{ --Freezer
         local stg = card.ability.extra
         if Cracker.is_food(other_card) then
             return {
-                
                 override_scalar_value = {
                     value = scalar_value * 0
                 },

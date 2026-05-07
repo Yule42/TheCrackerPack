@@ -1,0 +1,33 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''local tot = args.chips + args.mult
+args.chips = math.floor(tot/2)
+args.mult = math.floor(tot/2)'''
+position = "before"
+payload = '''
+if self.name == 'Plasma Deck' and G.GAME.used_vouchers['v_cracker_card_pack'] then
+    args.chips = math.max(args.chips, args.mult)
+    args.mult = math.max(args.chips, args.mult)
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''local text = localize('k_balanced')'''
+position = "after"
+payload = '''
+if self.name == 'Plasma Deck' and G.GAME.used_vouchers['v_cracker_card_pack'] then
+    text = localize('k_maximized_lack')
+end
+'''
+match_indent = true
+times = 1

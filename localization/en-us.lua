@@ -840,6 +840,22 @@ return {
                     'each round',
                 }
             },
+            v_cracker_card_pack = {
+                name = 'Card Pack',
+                text = {
+                    'Has a unique',
+                    'effect based on',
+                    'the {C:attention}current deck'
+                },
+            },
+            v_cracker_card_pack_b_plasma = {
+                name = 'Card Pack',
+                text = {
+                    'Replaces {C:attention}balancing{} with',
+                    'setting {C:chips}Chips{} and {C:mult}Mult',
+                    'to the higher value'
+                },
+            },
             v_pw_red = {
                 name = "Red Deck",
                 text = {
@@ -1173,6 +1189,7 @@ return {
             k_chips='Chips',
             k_used_lifesupport='Beep!',
             k_maximized='Maximized!',
+            k_maximized_lack='Maximized',
             k_discard_falcon='Clawed!',
             k_frozen='Frozen!',
             k_rebate='Rebate!',
