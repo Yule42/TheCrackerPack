@@ -519,6 +519,7 @@ SMODS.Joker{ --High Roller
         if context.after then
             card.ability.extra.x_mult = 1
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
+            local returnthis = false
             if context.other_card.lucky_trigger and not context.blueprint then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
@@ -527,13 +528,17 @@ SMODS.Joker{ --High Roller
                     operation = "+",
                     no_message = true,
                 })
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.MULT,
-                    message_card = card
-                }
+                returnthis = true
             end
             if card.ability.extra.x_mult > 0 then
+                if returnthis then
+                    return {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT,
+                        message_card = card,
+                        xmult = card.ability.extra.x_mult
+                    }
+                end
                 return {
                     xmult = card.ability.extra.x_mult,
                 }
