@@ -17,7 +17,7 @@ SMODS.Voucher {
     discovered = true,
     atlas = 'Vouchers',
     loc_vars = function(self, info_queue, card)
-        return {vars = {}, key = G.GAME.selected_back and Cracker.card_pack_supported[G.GAME.selected_back_key.key] and 'v_cracker_card_pack_'..G.GAME.selected_back_key.key or 'v_cracker_card_pack'}
+        return {vars = {}, key = G.GAME.selected_back_key and Cracker.card_pack_supported[G.GAME.selected_back_key.key] and 'v_cracker_card_pack_'..G.GAME.selected_back_key.key or 'v_cracker_card_pack'}
     end,
     in_pool = function(self, args)
         return Cracker.card_pack_supported[G.GAME.selected_back_key.key]

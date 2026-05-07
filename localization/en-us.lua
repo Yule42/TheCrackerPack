@@ -851,6 +851,7 @@ return {
             v_cracker_card_pack_b_plasma = {
                 name = 'Card Pack',
                 text = {
+                    '{C:inactive}(Plasma Deck)',
                     'Replaces {C:attention}balancing{} with',
                     'setting {C:chips}Chips{} and {C:mult}Mult',
                     'to the higher value'
