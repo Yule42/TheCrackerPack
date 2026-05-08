@@ -856,7 +856,7 @@ return {
                     'additional card',
                 },
             },
-            v_cracker_card_pack_b_red = {
+            v_cracker_card_pack_b_blue = {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Blue Deck)',
