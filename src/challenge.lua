@@ -82,7 +82,6 @@ local challenge = SMODS.Challenge{
             {id = 'j_cartomancer'},
             {id = 'j_hallucination'},
             {id = 'j_fortune_teller'},
-            {id = 'j_cracker_northstar'},
             {id = 'j_constellation'},
             {id = 'j_satellite'},
             {id = 'j_astronomer'},
