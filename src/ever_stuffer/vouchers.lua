@@ -1,9 +1,14 @@
 Cracker.card_pack_supported = {
+    b_red = true,
+    b_blue = true,
     b_plasma = true,
 }
-Cracker.card_pack_apply = {
-    b_plasma = function(self, back)
-        
+Cracker.card_pack_redeem = {
+    b_red = function(self, card)
+        SMODS.change_discard_limit(1)
+    end,
+    b_blue = function(self, card)
+        SMODS.change_play_limit(1)
     end,
 }
 
@@ -22,7 +27,9 @@ SMODS.Voucher {
     in_pool = function(self, args)
         return Cracker.card_pack_supported[G.GAME.selected_back_key.key]
     end,
-    apply = function(self, back)
-        Cracker.card_pack_apply(self, back)
+    redeem = function(self, card)
+        if Cracker.card_pack_redeem[G.GAME.selected_back_key.key] then
+            Cracker.card_pack_redeem[G.GAME.selected_back_key.key](self, card)
+        end
     end,
 }

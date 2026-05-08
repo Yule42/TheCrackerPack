@@ -848,6 +848,22 @@ return {
                     'the {C:attention}current deck'
                 },
             },
+            v_cracker_card_pack_b_red = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Red Deck)',
+                    'Can {C:red}discard {C:attention}1',
+                    'additional card',
+                },
+            },
+            v_cracker_card_pack_b_red = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Blue Deck)',
+                    'Can {C:blue}play {C:attention}1',
+                    'additional card',
+                },
+            },
             v_cracker_card_pack_b_plasma = {
                 name = 'Card Pack',
                 text = {
@@ -1176,6 +1192,12 @@ return {
                 text = {
                     'Required score scales a bit slower,',
                     '{C:attention}Small Blind{} is removed',
+                },
+            },
+            sleeve_cracker_card_pack = {
+                name = "Card Pack Testing Sleeve",
+                text = {
+                    "Get the {C:attention,T:v_cracker_card_pack}#1#{} Voucher"
                 },
             },
         },

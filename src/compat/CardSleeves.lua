@@ -67,3 +67,18 @@ CardSleeves.Sleeve {
         end
     end
 }
+
+CardSleeves.Sleeve {
+    key = "card_pack",
+    name = "Card Pack Testing Sleeve",
+    atlas = "sleeves",
+    pos = { x = 0, y = 0 },
+    unlocked = true,
+    config = { },
+    --unlock_condition = { deck = "b_cracker_rebate", stake = "stake_blue" },
+    loc_vars = function(self)
+        self.config = { voucher = 'v_cracker_card_pack' }
+        local vars = { localize{type = 'name_text', key = self.config.voucher, set = 'Voucher'} }
+        return { key = key, vars = vars }
+    end,
+}
