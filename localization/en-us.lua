@@ -658,7 +658,7 @@ return {
             j_cracker_whitecard = {
                 name = 'White Card',
                 text = {
-                    'Creates a {C:tarot}Tarot{} card at the end of the {C:attention}shop',
+                    'Creates a copy of {C:tarot}The Fool{} after the {C:attention}shop',
                     'for each {C:attention}card{} sold this round',
                     '{C:inactive}(Must have room, {C:attention}#1#{}{C:inactive} cards)'
                 }
