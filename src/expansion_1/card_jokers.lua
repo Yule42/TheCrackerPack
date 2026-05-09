@@ -47,7 +47,7 @@ SMODS.Joker{ --Blue Card
     key = "bluecard",
     config = {
         extra = {
-            chips_add = 10,
+            chips_add = 8,
         }
     },
     pos = {
@@ -462,6 +462,7 @@ SMODS.Joker{ --White Card
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl'}, key = 'concept_credits_cracker'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_fool
         return {vars = { card.ability.extra.solds }}
     end,
     
@@ -474,7 +475,7 @@ SMODS.Joker{ --White Card
                         trigger = 'before',
                         delay = 0.0,
                         func = (function()
-                                local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil)
+                                local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_fool')
                                 card:add_to_deck()
                                 G.consumeables:emplace(card)
                                 G.GAME.consumeable_buffer = 0
