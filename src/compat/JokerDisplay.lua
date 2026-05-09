@@ -241,7 +241,7 @@ JokerDisplay.Definitions.j_cracker_alcoholicsoda = {
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
-        return JokerDisplay.in_scoring(playing_card, scoring_hand) and JokerDisplay.calculate_joker_triggers(joker_card)
+        return JokerDisplay.in_scoring(playing_card, scoring_hand) and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
 JokerDisplay.Definitions.j_cracker_canofbeans = {
