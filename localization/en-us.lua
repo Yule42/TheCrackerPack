@@ -864,6 +864,33 @@ return {
                     'additional card',
                 },
             },
+            v_cracker_card_pack_b_yellow = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Yellow Deck)',
+                    'After defeating each',
+                    '{C:attention}Boss Blind{}, gain a',
+                    '{C:money}#1#'
+                },
+            },
+            v_cracker_card_pack_b_green = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Green Deck)',
+                    'Earn an extra {C:money}$2{}',
+                    'per remaning {C:red}discard',
+                    'at the end of each round'
+                },
+            },
+            v_cracker_card_pack_b_black = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Black Deck)',
+                    'After defeating each',
+                    '{C:attention}Boss Blind{}, gain a',
+                    '{C:dark_edition}#1#'
+                },
+            },
             v_cracker_card_pack_b_plasma = {
                 name = 'Card Pack',
                 text = {
