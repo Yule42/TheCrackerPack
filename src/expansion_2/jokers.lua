@@ -231,7 +231,7 @@ SMODS.Joker{ --Shrimp Cocktail
                 ref_value = "discards",
                 scalar_value = "discards_reduction",
                 operation = "-",
-                message_key = 'a_discards_minus',
+                message_key = 'a_cracker_discards_minus',
                 message_colour = G.C.MULT
             })
             if card.ability.extra.discards <= 0 then
@@ -252,7 +252,7 @@ SMODS.Joker{ --Shrimp Cocktail
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.RED
                 }
             end
@@ -262,7 +262,7 @@ SMODS.Joker{ --Shrimp Cocktail
                 func = function()
                     ease_discard(card.ability.extra.discards, nil, true)
                     SMODS.calculate_effect(
-                        { message = localize { type = 'variable', key = 'a_discards', vars = { card.ability.extra.discards } } }, context.blueprint_card or card)
+                        { message = localize { type = 'variable', key = 'a_cracker_discards', vars = { card.ability.extra.discards } } }, context.blueprint_card or card)
                     return true
                 end
             }))
@@ -320,7 +320,7 @@ SMODS.Joker{ --Hamburger
         if context.pre_discard and not context.blueprint then
             if G.GAME.Cracker.food_multiplier <= 0 then
                 return {
-                    message = localize('k_frozen')
+                    message = localize('k_cracker_frozen')
                 }
             end
         end
@@ -351,12 +351,12 @@ SMODS.Joker{ --Hamburger
                         end
                     })) 
                     return {
-                        message = localize('k_eaten_ex'),
+                        message = localize('k_cracker_eaten_ex'),
                         colour = G.C.FILTER
                     }
                 else
                     return {
-                        message = localize{type='variable',key='a_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier}},
+                        message = localize{type='variable',key='a_cracker_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier}},
                         colour = G.C.BLUE
                     }
                 end
@@ -428,7 +428,7 @@ SMODS.Joker{ --Potato Chips
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.CHIPS
                 }
             end
@@ -590,7 +590,7 @@ SMODS.Joker{ --The Falcon
         if context.discard then
 			if SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') then
 				return {
-					message = localize('k_discard_falcon'),
+					message = localize('k_cracker_discard_falcon'),
 					colour = G.C.FILTER,
 					remove = true,
 				}

@@ -104,7 +104,7 @@ SMODS.current_mod.custom_collection_tabs = function()
     return {
         UIBox_button({
             button = 'your_collection_deckvouchers',
-            label = { localize('b_deck_vouchers') },
+            label = { localize('b_cracker_deck_vouchers') },
             count = tally,
             minw = 5,
             id = 'your_collection_deckvouchers'

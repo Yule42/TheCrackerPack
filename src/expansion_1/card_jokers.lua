@@ -255,7 +255,7 @@ SMODS.Joker{ --Orange Card
                     delay = 0.45,
                     func = (function()
                             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                message = localize{type = 'variable', key = 'a_card', vars = {1}},
+                                message = localize{type = 'variable', key = 'a_cracker_card', vars = {1}},
                                 colour = G.FILTER
                             })
                             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
@@ -525,7 +525,7 @@ SMODS.Joker{ --Rainbow Card
             info = {
                 {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
                     {n=G.UIT.C, config={ref_table = card, align = "m", colour = active and G.C.GREEN or G.C.RED, r = 0.05, padding = 0.06}, nodes={
-                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
+                        {n=G.UIT.T, config={text = ' '..localize(active and 'k_active' or 'k_cracker_inactive')..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.9}},
                     }}
                 }}
             }
@@ -547,7 +547,7 @@ SMODS.Joker{ --Rainbow Card
             G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_inactive_ex'),
+                            message = localize('k_cracker_inactive_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
