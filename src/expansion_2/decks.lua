@@ -76,7 +76,7 @@ SMODS.Back{ -- Rebate Deck
                     back.effect.config.current_amount = back.effect.config.current_amount + back.effect.config.requirement
                 until back.effect.config.current_amount > 0
                 return {
-                    message = localize('k_rebate'),
+                    message = localize('k_cracker_rebate'),
                     colour = G.C.FILTER
                 }
             else

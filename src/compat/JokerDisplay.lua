@@ -135,7 +135,7 @@ JokerDisplay.Definitions.j_cracker_curry = {
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.localized_text = localize("jdis_before")
+        card.joker_display_values.localized_text = localize("jdis_cracker_before")
     end
 }
 JokerDisplay.Definitions.j_cracker_northstar = {
@@ -462,7 +462,7 @@ JokerDisplay.Definitions.j_cracker_skillet = {
             end
         end
         card.joker_display_values.count = count
-        card.joker_display_values.localized_text = localize("k_food")
+        card.joker_display_values.localized_text = localize("k_cracker_food")
     end,
     mod_function = function(card, mod_joker)
         return { x_mult = (Cracker.is_food(card) and mod_joker.ability.extra.x_mult ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }

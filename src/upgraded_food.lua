@@ -38,7 +38,7 @@
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if G.GAME.Cracker.food_multiplier == 0 then
                 return {
-                    message = localize('k_frozen'),
+                    message = localize('k_cracker_frozen'),
                     colour = G.C.FILTER
                 }
             else
@@ -143,7 +143,7 @@ SMODS.Joker{ --Buttered Popcorn
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.RED
                 }
             end
@@ -217,7 +217,7 @@ SMODS.Joker{ --Sundae
             if card.ability.extra.state == 2 then
                 if card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier) > 0 then
                     card.ability.extra.left = card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier)
-                    SMODS.calculate_effect({message = G.GAME.Cracker.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_frozen'), colour = G.C.FILTER}, card)
+                    SMODS.calculate_effect({message = G.GAME.Cracker.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_cracker_frozen'), colour = G.C.FILTER}, card)
                 else
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -245,7 +245,7 @@ SMODS.Joker{ --Sundae
             if card.ability.extra.state > 2 then
                 card.ability.extra.state = 0
                 return {
-                    message = localize('k_chips'),
+                    message = localize('k_cracker_chips'),
                     colour = G.C.CHIPS
                 }
             elseif card.ability.extra.state == 1 then
@@ -381,7 +381,7 @@ SMODS.Joker{ --Alcoholic Soda
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
@@ -476,7 +476,7 @@ SMODS.Joker{ --Tsukemen
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.FILTER
                 }
             end

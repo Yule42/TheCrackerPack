@@ -51,7 +51,7 @@ SMODS.Joker{ --Saltine Cracker
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_crumble'),
+                    message = localize('k_cracker_eaten_crumble'),
                     colour = G.C.CHIPS
                 }
             else
@@ -135,14 +135,14 @@ SMODS.Joker{ --Chocolate Coin
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if G.GAME.Cracker.food_multiplier == 0 then
                 return {
-                    message = localize('k_frozen'),
+                    message = localize('k_cracker_frozen'),
                     colour = G.C.FILTER
                 }
             else
                 card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_mod * G.GAME.Cracker.food_multiplier)
                 if card.ability.extra.rounds <= 0 then
                     return {
-                        message = localize('k_eaten_ex'),
+                        message = localize('k_cracker_eaten_ex'),
                         colour = G.C.FILTER
                     }
                 else
@@ -216,7 +216,7 @@ SMODS.Joker{ --Graham Cracker
                         end
                     })) 
                     return {
-                        message = localize('k_eaten_crumble'),
+                        message = localize('k_cracker_eaten_crumble'),
                         colour = G.C.RED
                     }
                 else
@@ -335,7 +335,7 @@ SMODS.Joker{ --Cheese
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.RED
                 }
             end
@@ -417,7 +417,7 @@ SMODS.Joker{ --Cracker Barrel
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_barrel'),
+                    message = localize('k_cracker_eaten_barrel'),
                     colour = G.C.FILTER
                 }
             end
@@ -545,7 +545,7 @@ SMODS.Joker{ --Freezer
                     value = scalar_value * 0
                 },
                 override_message = {
-                    message = localize('k_frozen'),
+                    message = localize('k_cracker_frozen'),
                 }
             }
         end
@@ -584,7 +584,7 @@ SMODS.Joker{ --Life Support
             hand_chips = maxim
             mult = maxim
             update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_maximized'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_cracker_maximized'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = (function()
@@ -699,7 +699,7 @@ SMODS.Joker{ --Curry
                     end
                 })) 
                 return {
-                    message = localize('k_eaten_ex'),
+                    message = localize('k_cracker_eaten_ex'),
                     colour = G.C.RED
                 }
             end
@@ -851,7 +851,7 @@ SMODS.Joker{ --Bomb Joker
                 G.STATE = G.STATES.GAME_OVER
                 G.STATE_COMPLETE = false
                 return {
-                    message = localize('k_bomb_explode'),
+                    message = localize('k_cracker_bomb_explode'),
                     colour = G.C.FILTER
                 }
             else

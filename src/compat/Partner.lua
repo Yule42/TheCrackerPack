@@ -27,7 +27,7 @@ Partner_API.Partner{
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_inactive_ex'),
+                            message = localize('k_cracker_inactive_ex'),
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
