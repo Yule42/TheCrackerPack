@@ -454,7 +454,7 @@ return {
                 text = {
                     '{C:attention}Food Jokers{}',
                     'and other {C:attention}perishables{}',
-                    'are {C:spectral}frozen{}',
+                    'cannot scale or decay',
                 }
             },
             j_cracker_lifesupport = {
@@ -599,7 +599,8 @@ return {
                 text = {
                     'This Joker gains',
                     '{X:mult,C:white}X#2#{} Mult when any',
-                    '{C:attention}Booster Pack{} is skipped',
+                    '{C:attention}Booster Pack{} is skipped,',
+                    'resets after {C:attention}#3#{} {C:inactive}[#4#]{} skips',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },

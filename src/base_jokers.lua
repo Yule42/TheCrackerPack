@@ -23,13 +23,11 @@ SMODS.Joker{ --Saltine Cracker
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'DistantMind'}, key = 'artist_credits_cracker'} end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
         return {vars = {card.ability.extra.chips, card.ability.extra.chip_mod, numerator, denominator}}
     end,
-
     calculate = function(self, card, context)
         if context.after and not context.blueprint and not context.repetition then
             if SMODS.pseudorandom_probability(card, 'Saltine Cracker', 1, card.ability.extra.odds, 'Saltine Cracker') then
@@ -93,6 +91,7 @@ SMODS.Joker{ --Chocolate Coin
     pools = {
         Food = true,
     },
+    attributes = { 'economy', 'scaling', 'food' },
     cost = 3,
     rarity = 1,
     blueprint_compat = false,
@@ -101,12 +100,10 @@ SMODS.Joker{ --Chocolate Coin
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
     if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'lumahoneyy', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.money, card.ability.extra.rounds}}
     end,
-    
     calc_dollar_bonus = function(self, card)
         local bonus = card.ability.extra.money
         if card.ability.extra.rounds <= 0 then
@@ -129,7 +126,6 @@ SMODS.Joker{ --Chocolate Coin
         end
         if bonus > 0 then return bonus end
     end,
-    
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if G.GAME.Cracker.food_multiplier == 0 then
@@ -174,6 +170,7 @@ SMODS.Joker{ --Graham Cracker
     pools = {
         Food = true,
     },
+    attributes = { 'xmult', 'scaling', 'food' },
     cost = 7,
     rarity = 3,
     blueprint_compat = true,
@@ -182,12 +179,10 @@ SMODS.Joker{ --Graham Cracker
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult_add, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.x_mult, card.ability.extra.x_mult_max}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
@@ -246,6 +241,7 @@ SMODS.Joker{ --Thrifty Joker
         x = 4,
         y = 0
     },
+    attributes = { 'mult' },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -258,7 +254,6 @@ SMODS.Joker{ --Thrifty Joker
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'palestjade'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
@@ -286,6 +281,7 @@ SMODS.Joker{ --Cheese
     pools = {
         Food = true,
     },
+    attributes = { 'xmult', 'scaling', 'food' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -294,12 +290,10 @@ SMODS.Joker{ --Cheese
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_remove, card.ability.extra.x_mult_min}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
@@ -362,6 +356,7 @@ SMODS.Joker{ --Cracker Barrel
         x = 2,
         y = 1
     },
+    attributes = { 'generation', 'scaling', 'joker' },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -370,12 +365,10 @@ SMODS.Joker{ --Cracker Barrel
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.creation, card.ability.extra.jokersleft}}
     end,
-    
     calculate = function(self, card, context)
         if context.setting_blind and not self.getting_sliced and not (context.blueprint_card or card).getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
             local jokers_to_create = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
@@ -436,6 +429,7 @@ SMODS.Joker{ --Sacramental Katana
         x = 3,
         y = 1
     },
+    attributes = { 'xmult', 'sell_value', 'destroy_card', 'scaling' },
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
@@ -444,13 +438,11 @@ SMODS.Joker{ --Sacramental Katana
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_sacrifice'}
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
@@ -504,6 +496,7 @@ SMODS.Joker{ --Freezer
         x = 4,
         y = 1
     },
+    attributes = { 'passive', 'joker', 'mod_chance' },
     cost = 7,
     rarity = 2,
     blueprint_compat = false,
@@ -512,23 +505,18 @@ SMODS.Joker{ --Freezer
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {set='Other',key='d_frozen'}
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.multiply}}
     end,
-    
     add_to_deck = function(self, card, from_debuff)
         G.GAME.Cracker.food_multiplier = card.ability.extra.multiply
     end,
-    
     remove_from_deck = function(self, card, from_debuff)
         if not next(SMODS.find_card("j_cracker_freezer")) then
             G.GAME.Cracker.food_multiplier = 1
         end
     end,
-    
     calculate = function(self, card, context)
         if context.mod_probability and Cracker.is_food(context.trigger_obj) then
             return {
@@ -564,6 +552,7 @@ SMODS.Joker{ --Life Support
         x = 5,
         y = 1
     },
+    attributes = { 'mult', 'chips', 'scaling', 'hands' },
     cost = 7,
     rarity = 3,
     blueprint_compat = false,
@@ -572,12 +561,10 @@ SMODS.Joker{ --Life Support
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.price}}
     end,
-    
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 and not context.blueprint then
             local maxim = math.max(to_big(hand_chips), to_big(mult))
@@ -651,6 +638,7 @@ SMODS.Joker{ --Curry
     pools = {
         Food = true,
     },
+    attributes = { 'mult', 'scaling', 'food' },
     cost = 4,
     rarity = 1,
     blueprint_compat = true,
@@ -659,12 +647,10 @@ SMODS.Joker{ --Curry
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_remove}}
     end,
-    
     calculate = function(self, card, context)
         if context.initial_scoring_step then
             return {
@@ -719,6 +705,7 @@ SMODS.Joker{ --Knife Thrower
         x = 7,
         y = 1
     },
+    attributes = { 'hands', 'passive' },
     cost = 4,
     rarity = 1,
     blueprint_compat = false,
@@ -753,6 +740,7 @@ SMODS.Joker{ --Northern Star
         x = 8,
         y = (SMODS.current_mod.config.starlo or (os.date("*t").month == 4 and os.date("*t").day == 1)) and 2 or 1
     },
+    attributes = { 'chance', 'hand_type' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -761,13 +749,11 @@ SMODS.Joker{ --Northern Star
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
         return {vars = {new_numerator, new_denominator}}
     end,
-    
     calculate = function(self, card, context)
         if context.skipping_booster and SMODS.pseudorandom_probability(card, 'northstar', 1, card.ability.extra.odds, 'northstar') then
             local hand = Cracker.mostplayedhand()
@@ -790,6 +776,7 @@ SMODS.Joker{ --The Dealer
         x = SMODS.current_mod.config.starlo and 1 or 9,
         y = SMODS.current_mod.config.starlo and 3 or 1
     },
+    attributes = { 'chance', 'retrigger' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -798,13 +785,11 @@ SMODS.Joker{ --The Dealer
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thedealer')
         return {vars = {new_numerator, new_denominator}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.repetition and not context.repetition_only and SMODS.pseudorandom_probability(card, 'thedealer', 1, card.ability.extra.odds, 'thedealer') then
             return {
@@ -828,6 +813,7 @@ SMODS.Joker{ --Bomb Joker
         x = 0,
         y = 2
     },
+    attributes = { 'scaling' },
     cost = 0,
     rarity = 2,
     blueprint_compat = false,
@@ -838,12 +824,10 @@ SMODS.Joker{ --Bomb Joker
     discovered = true,
     atlas = 'Jokers',
     yes_pool_flag = 'bomb_enabled',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'vyletbunni', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds}}
     end,
-    
     calculate = function(self, card, context)
         if context.setting_blind then
             card.ability.extra.rounds = card.ability.extra.rounds - 1
