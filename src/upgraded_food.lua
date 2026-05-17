@@ -94,6 +94,7 @@ SMODS.Joker{ --Buttered Popcorn
     pools = {
         Food = true,
     },
+    attributes = { 'mult', 'scaling', 'food' },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -169,6 +170,7 @@ SMODS.Joker{ --Sundae
     pools = {
         Food = true,
     },
+    attributes = { 'mult', 'chips', 'planet', 'scaling', 'food' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -177,7 +179,6 @@ SMODS.Joker{ --Sundae
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         local key = "j_cracker_sundae_chips"
@@ -185,7 +186,6 @@ SMODS.Joker{ --Sundae
         elseif card.ability.extra.state == 2 then key = "j_cracker_sundae_planet" end
         return {key = key, vars = {card.ability.extra.chips, card.ability.extra.mult, card.ability.extra.left}}
     end,
-    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand then
             if card.ability.extra.state == 0 then
@@ -278,6 +278,7 @@ SMODS.Joker{ --Alcoholic Soda
     pools = {
         Food = true,
     },
+    attributes = { 'chance' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -411,6 +412,7 @@ SMODS.Joker{ --Tsukemen
     pools = {
         Food = true,
     },
+    attributes = { 'xmult', 'scaling', 'discard', 'food' },
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
