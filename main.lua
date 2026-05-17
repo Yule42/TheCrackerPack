@@ -11,7 +11,7 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = 'modicon',
+    key = 'mods_modicon',
     px = 34,
     py = 34,
     path = 'modicon.png'
