@@ -612,7 +612,7 @@ SMODS.Joker{ --Postman
         x = 9,
         y = 3,
     },
-    cost = 6,
+    cost = 4,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
