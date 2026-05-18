@@ -358,6 +358,16 @@ Game.init_game_object = function(self)
     return ret
 end
 
+local calculate_seal_ref = Card.calculate_seal
+function Card:calculate_seal(context, ...)
+    local ret, ret2 = calculate_seal_ref(self, context, ...)
+    if (ret or ret2) and (self.seal ~= "Red" or not context.repetition) then
+        for i=1, #G.jokers.cards do
+            eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = self.seal or nil})
+        end
+    end
+end
+
 SMODS.current_mod.extra_tabs = function() --Credits
     local scale = 0.4
     return {

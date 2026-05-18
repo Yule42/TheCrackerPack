@@ -638,7 +638,7 @@ SMODS.Joker{ --Postman
             return {
                 mult = card.ability.extra.mult,
             }
-        elseif context.seal_trigger and not context.blueprint then
+        elseif context.cracker_seal_trigger and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "mult",
