@@ -10,6 +10,7 @@ SMODS.Joker{ --Membership Card
         x = 1,
         y = 2
     },
+    attributes = { 'scaling', 'economy', 'sell_value' },
     cost = 4,
     rarity = 1,
     blueprint_compat = false,

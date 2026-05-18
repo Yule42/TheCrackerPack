@@ -21,37 +21,11 @@ times = 1
 [patches.pattern]
 target = 'card.lua'
 match_indent = true
-pattern = '''if self.seal == 'Red' then'''
-position = 'after'
-payload = '''
-if not context.end_of_round or next(self:get_end_of_round_effect(context)) then
-    for i=1, #G.jokers.cards do
-        eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true, seal = 'Red'})
-    end
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-pattern = '''if self.seal == 'Purple' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then'''
-position = 'after'
-payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true, seal = 'Purple'})
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
 pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
 position = 'after'
 payload = '''
 for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true, seal = 'Blue'})
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Blue'})
 end
 '''
 
@@ -63,7 +37,21 @@ pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement t
 position = 'after'
 payload = '''
 for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, seal_trigger = true, seal = 'Gold'})
+    eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Gold'})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+pattern = '''if self.seal == 'Red' then'''
+position = 'after'
+payload = '''
+if not context.end_of_round or next(self:get_end_of_round_effect(context)) then
+    for i=1, #G.jokers.cards do
+        eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Red'})
+    end
 end
 '''
 
