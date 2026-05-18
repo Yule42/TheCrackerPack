@@ -796,6 +796,14 @@ return {
                 }
             },
         },
+        Edition = {
+            e_cracker_prismatic = {
+                name = "Prismatic",
+                text = {
+                    "{C:attention}+#1#{} hand size",
+                },
+            },
+        },
         Voucher = {
             v_cracker_silver_spoon = {
                 name = 'Silver Spoon',
@@ -1135,6 +1143,24 @@ return {
                     "at end of next shop"
                 },
             },
+            tag_cracker_prismatic = {
+                name = "Prismatic Tag",
+                text = {
+                    "Next base edition shop",
+                    "Joker is free and",
+                    "becomes {C:dark_edition}Prismatic",
+                },
+            },
+        },
+        Spectral = {
+            c_cracker_abyss = {
+                name = "Abyss",
+                text = {
+                    "Add {C:dark_edition}Prismatic{} to",
+                    "a random {C:attention}Joker{},",
+                    "{C:red}-#1#{} consumable slot",
+                },
+            },
         },
         Other = {
             artist_credits_cracker = {
@@ -1278,5 +1304,8 @@ return {
                 "{C:attention}Scored{} cards without a seal become {C:attention}debuffed",
             },
         },
+        labels = {
+            cracker_prismatic = "Prismatic",
+        }
     }
 }

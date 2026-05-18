@@ -54,6 +54,13 @@ SMODS.Atlas {
     py = 34,
 }
 
+SMODS.Atlas {
+    key = 'spectral',
+    path = "spectral.png",
+    px = 71,
+    py = 95,
+}
+
 Cracker.vanilla_food = {
     j_gros_michel = true,
     j_ice_cream = true,
@@ -533,6 +540,7 @@ assert(SMODS.load_file('src/new_additions/tags.lua'))()
 assert(SMODS.load_file('src/ever_stuffer/decks.lua'))()
 assert(SMODS.load_file('src/ever_stuffer/jokers.lua'))()
 assert(SMODS.load_file('src/ever_stuffer/vouchers.lua'))()
+assert(SMODS.load_file('src/ever_stuffer/editions.lua'))()
 
 if JokerDisplay then
     assert(SMODS.load_file('src/compat/JokerDisplay.lua'))()
