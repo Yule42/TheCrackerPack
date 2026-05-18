@@ -366,6 +366,7 @@ function Card:calculate_seal(context, ...)
             eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = self.seal or nil})
         end
     end
+    return ret, ret2
 end
 
 SMODS.current_mod.extra_tabs = function() --Credits
