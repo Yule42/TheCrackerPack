@@ -387,7 +387,8 @@ SMODS.Joker{ --Darkroom
                 end
             end
         end
-        return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed_base + negative_count}}
+        card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
+        return {vars = {card.ability.extra.skips, card.ability.extra.skips_needed}}
     end,
     
     calculate = function(self, card, context)
@@ -405,21 +406,21 @@ SMODS.Joker{ --Darkroom
                     end}))
         elseif context.open_booster then
             card.ability.extra.skips = card.ability.extra.skips + 1
-            if card.ability.extra.skips >= card.ability.extra.skips_needed then
-                local negative_count = 0
-                if G.jokers then
-                    for k, v in ipairs(G.jokers.cards) do
-                        if v and v.edition and v.edition.negative then
-                            negative_count = negative_count + 1
-                        end
+            local negative_count = 0
+            if G.jokers then
+                for k, v in ipairs(G.jokers.cards) do
+                    if v and v.edition and v.edition.negative then
+                        negative_count = negative_count + 1
                     end
                 end
+            end
+            card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
+            if card.ability.extra.skips >= card.ability.extra.skips_needed then
                 card.ability.extra.skips = 0
-                card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = card.ability.extra.skips_needed..'/'..card.ability.extra.skips_needed,
+                            message = card.ability.extra.skips..'/'..card.ability.extra.skips_needed,
                             colour = G.C.FILTER,
                             delay = 0.45, 
                             card = card
