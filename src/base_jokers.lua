@@ -498,7 +498,7 @@ SMODS.Joker{ --Freezer
         y = 1
     },
     attributes = { 'passive', 'joker', 'mod_chance' },
-    cost = 7,
+    cost = 4,
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
