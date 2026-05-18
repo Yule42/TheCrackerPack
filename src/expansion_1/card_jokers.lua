@@ -136,6 +136,7 @@ SMODS.Joker{ --Violet Card
             card.ability.extra.skips_done = card.ability.extra.skips_done + 1
             if card.ability.extra.skips_done >= card.ability.extra.skips_reset then
                 card.ability.extra.x_mult = 1
+                card.ability.extra.skips_done = 0
                 return {
                     message = localize('k_reset')
                 }

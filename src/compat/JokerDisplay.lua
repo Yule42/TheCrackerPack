@@ -292,6 +292,23 @@ JokerDisplay.Definitions.j_cracker_violetcard = {
             }
         }
     },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "skips_done" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "skips_reset" },
+        { text = ")" },
+    },
+    style_function = function(card, text, reminder_text, extra)
+        local children = reminder_text and reminder_text.children
+        if not children then return end
+
+        local colour = (card.ability.extra.skips_done == card.ability.extra.skips_reset - 1) and G.C.RED or G.C.UI.TEXT_INACTIVE
+        for i = 2, 4 do
+            local child = children[i]
+            if child then child.config.colour = colour end
+        end
+    end,
 }
 JokerDisplay.Definitions.j_cracker_pinkcard = {
     text = {
