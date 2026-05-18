@@ -144,10 +144,16 @@ JokerDisplay.Definitions.j_cracker_northstar = {
         { ref_table = "card.joker_display_values", ref_value = "odds" },
         { text = ")" },
     },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.FILTER },
+        { text = ")" },
+    },
     text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+        card.joker_display_values.localized_text = localize(Cracker.mostplayedhand(), 'poker_hands')
     end,
 }
 JokerDisplay.Definitions.j_cracker_thedealer = {

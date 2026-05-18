@@ -251,19 +251,14 @@ Cracker.money_tags = {
 }
 
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
-    if not G.GAME or not G.GAME.current_round then 
-        return 'High Card'
-    end
-    local chosen_hand = 'High Card'
-    local _handname, _played, _order = 'High Card', -1, 100
-    for k, v in pairs(G.GAME.hands) do
-        if v.played > _played or (v.played == _played and _order > v.order) then 
-            _played = v.played
-            _handname = k
+    local _hand, _tally = 'High Card', 0
+    for _, handname in ipairs(G.handlist) do
+        if SMODS.is_poker_hand_visible(handname) and G.GAME.hands[handname].played > _tally then
+            _hand = handname
+            _tally = G.GAME.hands[handname].played
         end
     end
-    chosen_hand = _handname
-    return chosen_hand
+    return _hand
 end
 
 function Cracker.is_in_consumeables(key)
