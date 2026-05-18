@@ -16,8 +16,8 @@ SMODS.Back{ -- Showdown Deck
     end,
 }
 
-SMODS.Back{ -- Astronomy Deck
-    key = "astronomy",
+SMODS.Back{ -- Solar Deck
+    key = "solar",
     pos = {
         x = 6,
         y = 0,
@@ -50,7 +50,7 @@ SMODS.Back{ -- Astronomy Deck
         G.GAME.hands['Flush House'].l_mult = 8
         G.GAME.hands['Flush Five'].l_chips = 80
         G.GAME.hands['Flush Five'].l_mult = 6
-        if next(SMODS.find_mod('Bunco')) then
+        if next(SMODS.find_mod('Bunco')) and G.GAME.hands['bunc_Spectrum'] then
             G.GAME.hands['bunc_Spectrum'].l_chips = 30
             G.GAME.hands['bunc_Spectrum'].l_mult = 3
             G.GAME.hands['bunc_Straight Spectrum'].l_chips = 80
@@ -59,7 +59,7 @@ SMODS.Back{ -- Astronomy Deck
             G.GAME.hands['bunc_Spectrum House'].l_mult = 8
             G.GAME.hands['bunc_Spectrum Five'].l_chips = 100
             G.GAME.hands['bunc_Spectrum Five'].l_mult = 6
-        elseif next(SMODS.find_mod('paperback')) then
+        elseif next(SMODS.find_mod('paperback')) and G.GAME.hands['paperback_Spectrum'] then
             G.GAME.hands['paperback_Spectrum'].l_chips = 30
             G.GAME.hands['paperback_Spectrum'].l_mult = 3
             G.GAME.hands['paperback_Straight Spectrum'].l_chips = 80
@@ -69,7 +69,7 @@ SMODS.Back{ -- Astronomy Deck
             G.GAME.hands['paperback_Spectrum Five'].l_chips = 100
             G.GAME.hands['paperback_Spectrum Five'].l_mult = 6
         end
-        if next(SMODS.find_mod('allinjest')) then
+        if next(SMODS.find_mod('allinjest')) and G.GAME.hands['aij_Royal Flush'] then
             G.GAME.hands['aij_Royal Flush'].l_chips = 100
             G.GAME.hands['aij_Royal Flush'].l_mult = 12
         end

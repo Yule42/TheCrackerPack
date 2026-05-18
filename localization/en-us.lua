@@ -54,8 +54,8 @@ return {
                     'is an {C:attention}upgraded{} Boss Blind'
                 }
             },
-            b_cracker_astronomy = {
-                name = 'Astronomy Deck',
+            b_cracker_solar = {
+                name = 'Solar Deck',
                 text = {
                     '{C:planet}Planet{} cards are stronger,',
                     '{C:planet}Planet{} cards and {C:planet}Celestial Packs{}',

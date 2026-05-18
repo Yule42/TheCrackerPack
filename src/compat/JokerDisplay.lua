@@ -351,9 +351,20 @@ JokerDisplay.Definitions.j_cracker_darkroom = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "skips" },
         { text = "/" },
-        { ref_table = "card.ability.extra", ref_value = "skips_needed" },
+        { ref_table = "card.joker_display_values", ref_value = "negative_count" },
         { text = ")" },
     },
+    calc_function = function(card)
+        local negative_count = 0
+        if G.jokers then
+            for k, v in ipairs(G.jokers.cards) do
+                if v and v.edition and v.edition.negative then
+                    negative_count = negative_count + 1
+                end
+            end
+        end
+        card.joker_display_values.negative_count = card.ability.extra.skips_needed_base + negative_count
+    end,
 }
 JokerDisplay.Definitions.j_cracker_whitecard = {
     text = {
