@@ -59,7 +59,7 @@ SMODS.Joker{ --Blue Card
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
@@ -98,9 +98,9 @@ SMODS.Joker{ --Blue Card
     end
 }
 
-SMODS.Joker{ --Violet Card
-    name = "Violet Card",
-    key = "violetcard",
+SMODS.Joker{ --Baserunner
+    name = "Baserunner",
+    key = "baserunner",
     config = {
         extra = {
             x_mult = 1,
@@ -117,13 +117,13 @@ SMODS.Joker{ --Violet Card
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl', 'sophiedeergirl, sugariimari'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add, card.ability.extra.skips_reset, card.ability.extra.skips_done}}
     end,
     

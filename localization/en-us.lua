@@ -612,8 +612,8 @@ return {
                     '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
                 }
             },
-            j_cracker_violetcard = {
-                name = 'Violet Card',
+            j_cracker_baserunner = {
+                name = 'Baserunner',
                 text = {
                     'This Joker gains',
                     '{X:mult,C:white}X#2#{} Mult when any',
