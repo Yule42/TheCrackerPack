@@ -228,7 +228,7 @@ SMODS.Challenge{
         banned_cards = function()
             local nonperishables = {}
             for k, v in ipairs(G.P_CENTER_POOLS.Joker) do
-                if not v.perishable_compat then
+                if not v.perishable_compat and not v.no_collection then
                     table.insert(nonperishables, {id = v.key})
                 end
             end
