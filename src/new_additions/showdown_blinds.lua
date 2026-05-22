@@ -1102,9 +1102,15 @@ SMODS.Blind { -- Verdant Leaf
                 }))
             end
             if context.after then
-                for _, joker in ipairs(G.jokers.cards) do
-                    SMODS.debuff_card(joker, true, 'leaf_dx')
-                end
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        for _, joker in ipairs(G.jokers.cards) do
+                            SMODS.debuff_card(joker, true, 'leaf_dx')
+                        end
+                        return true
+                    end
+                }))
             end
         end
     end,
