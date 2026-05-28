@@ -395,7 +395,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                             n = G.UIT.T,
                             config = {
                                 text = "Directors: sugariimarii, sophiedeergirl",
-                                shadow = true,
+                                shadow = false,
                                 scale = scale,
                                 colour = G.C.GREEN
                             }
@@ -412,8 +412,8 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, wombatcountry, sugariimarii",
-                                shadow = true,
+                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, sugariimarii",
+                                shadow = false,
                                 scale = scale,
                                 colour = G.C.BLUE
                             }
@@ -431,7 +431,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                             n = G.UIT.T,
                             config = {
                                 text = "Programming: sophiedeergirl, I'm an issue",
-                                shadow = true,
+                                shadow = false,
                                 scale = scale,
                                 colour = G.C.GREEN
                             }
@@ -449,7 +449,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                             n = G.UIT.T,
                             config = {
                                 text = "Testing: brook03",
-                                shadow = true,
+                                shadow = false,
                                 scale = scale,
                                 colour = G.C.MONEY
                             }
@@ -467,7 +467,25 @@ SMODS.current_mod.extra_tabs = function() --Credits
                             n = G.UIT.T,
                             config = {
                                 text = "Joker Ideas: sophiedeergirl, sugariimarii, palestjade, brook03, plebmiester",
-                                shadow = true,
+                                shadow = false,
+                                scale = scale,
+                                colour = G.C.GREEN
+                            }
+                        }
+                    },
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        padding = 0,
+                        align = "cm"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.T,
+                            config = {
+                                text = "Contribution: DistantMind, wombatcountry, courier",
+                                shadow = false,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
                             }
@@ -500,7 +518,7 @@ SMODS.current_mod.config_tab = function() --Config
                     n = G.UIT.T,
                     config = {
                         text = "All changes require a restart.",
-                        shadow = true,
+                        shadow = false,
                         scale = 0.5,
                         colour = G.C.SECONDARY_SET.Enhanced
                     }
