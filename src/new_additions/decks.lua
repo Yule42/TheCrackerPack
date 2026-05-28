@@ -29,7 +29,7 @@ SMODS.Back{ -- Solar Deck
     
     apply = function(self, back)
         G.GAME.hands['High Card'].l_chips = 15
-        G.GAME.hands['Pair'].l_chips = 25
+        G.GAME.hands['Pair'].l_chips = 20
         G.GAME.hands['Two Pair'].l_chips = 35
         G.GAME.hands['Two Pair'].l_mult = 2
         G.GAME.hands['Three of a Kind'].l_chips = 35
