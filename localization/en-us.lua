@@ -57,9 +57,7 @@ return {
             b_cracker_solar = {
                 name = 'Solar Deck',
                 text = {
-                    '{C:planet}Planet{} cards are stronger,',
-                    '{C:planet}Planet{} cards and {C:planet}Celestial Packs{}',
-                    'are {C:money}50%{} more expensive'
+                    '{C:planet}Planet{} cards are stronger',
                 }
             },
             b_cracker_white = {
