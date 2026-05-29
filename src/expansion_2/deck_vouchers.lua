@@ -761,7 +761,7 @@ SMODS.Voucher {
     atlas = 'centers',
     config = {
         extra = {
-            vouchers = 2
+            vouchers = 3
         }
     },
     pools = { DeckVoucher = true },

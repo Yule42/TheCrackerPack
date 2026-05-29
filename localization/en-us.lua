@@ -906,7 +906,7 @@ return {
             v_pw_erratic = {
                 name = "Erratic Deck",
                 text = {
-                    "Get {C:attention}#1#{} random Vouchers",
+                    "Get {C:attention}#1#{} random regular Vouchers",
                 },
             },
             v_cracker_pw_golden = {
