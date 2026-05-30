@@ -1,11 +1,10 @@
 SMODS.Joker{ --Saltine Cracker
-    name = "Saltine Cracker",
     key = "saltinecracker",
     config = {
         extra = {
             chips = 0,
             chip_mod = 3,
-            odds = 60
+            odds = 30
         }
     },
     pos = {
@@ -15,7 +14,7 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
-    cost = 5,
+    cost = 4,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
@@ -23,6 +22,7 @@ SMODS.Joker{ --Saltine Cracker
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    no_pool_flag = 'saltine_cracker_eaten',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'DistantMind'}, key = 'artist_credits_cracker'} end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
@@ -31,22 +31,8 @@ SMODS.Joker{ --Saltine Cracker
     calculate = function(self, card, context)
         if context.after and not context.blueprint and not context.repetition then
             if SMODS.pseudorandom_probability(card, 'Saltine Cracker', 1, card.ability.extra.odds, 'Saltine Cracker') then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, nil, nil, true)
+                G.GAME.pool_flags.saltine_cracker_eaten = true
                 return {
                     message = localize('k_cracker_eaten_crumble'),
                     colour = G.C.CHIPS
@@ -75,7 +61,6 @@ SMODS.Joker{ --Saltine Cracker
 }
 
 SMODS.Joker{ --Chocolate Coin
-    name = "Chocolate Coin",
     key = "chocolatecoin",
     config = {
         extra = {
@@ -152,7 +137,6 @@ SMODS.Joker{ --Chocolate Coin
 }
 
 SMODS.Joker{ --Graham Cracker
-    name = "Graham Cracker",
     key = "grahamcracker",
     config = {
         extra = {
@@ -230,7 +214,6 @@ SMODS.Joker{ --Graham Cracker
 }
 
 SMODS.Joker{ --Thrifty Joker
-    name = "Thrifty Joker",
     key = "thrifty_joker",
     config = {
         extra = {
@@ -264,7 +247,6 @@ SMODS.Joker{ --Thrifty Joker
 }
 
 SMODS.Joker{ --Cheese
-    name = "Cheese",
     key = "cheese",
     config = {
         extra = {
@@ -344,7 +326,6 @@ SMODS.Joker{ --Cheese
 }
 
 SMODS.Joker{ --Cracker Barrel
-    name = "Cracker Barrel",
     key = "crackerbarrel",
     config = {
         extra = {
@@ -418,7 +399,6 @@ SMODS.Joker{ --Cracker Barrel
 }
 
 SMODS.Joker{ --Sacramental Katana
-    name = "Sacramental Katana",
     key = "sacramentalkatana",
     config = {
         extra = {
@@ -485,7 +465,6 @@ SMODS.Joker{ --Sacramental Katana
 }
 
 SMODS.Joker{ --Freezer
-    name = "Freezer",
     key = "freezer",
     config = {
         extra = {
@@ -541,7 +520,6 @@ SMODS.Joker{ --Freezer
 }
 
 SMODS.Joker{ --Life Support
-    name = "Life Support",
     key = "lifesupport",
     config = {
         extra = {
@@ -623,7 +601,6 @@ SMODS.Joker{ --Life Support
 }
 
 SMODS.Joker{ --Curry
-    name = "Curry",
     key = "curry",
     config = {
         extra = {
@@ -694,7 +671,6 @@ SMODS.Joker{ --Curry
 }
 
 SMODS.Joker{ --Knife Thrower
-    name = "Knife Thrower",
     key = "knifethrower",
     config = {
         extra = {
@@ -729,7 +705,6 @@ SMODS.Joker{ --Knife Thrower
 }
 
 SMODS.Joker{ --Northern Star
-    name = "Northern Star",
     key = "northstar",
     config = {
         extra = {
@@ -765,7 +740,6 @@ SMODS.Joker{ --Northern Star
 }
 
 SMODS.Joker{ --The Dealer
-    name = "The Dealer",
     key = "thedealer",
     config = {
         extra = {
@@ -802,7 +776,6 @@ SMODS.Joker{ --The Dealer
 }
 
 SMODS.Joker{ --Bomb Joker
-    name = "Bomb Joker",
     key = "bomb",
     config = {
         extra = {

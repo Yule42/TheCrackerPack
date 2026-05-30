@@ -43,9 +43,8 @@ SMODS.Joker{ --Membership Card
     end
 }
 
-SMODS.Joker{ --Blue Card
-    name = "Blue Card",
-    key = "bluecard",
+SMODS.Joker{ --Card Binder
+    key = "card_binder",
     config = {
         extra = {
             chips_add = 8,
@@ -65,7 +64,7 @@ SMODS.Joker{ --Blue Card
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'GeorgeTheRat', 'sugariimari'}, key = 'artist_credits_cracker'} end
         local count = 0
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
