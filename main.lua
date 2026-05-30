@@ -412,7 +412,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, sugariimarii",
+                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, sugariimarii, gfsg",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.BLUE
@@ -448,7 +448,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Testing: brook03",
+                                text = "Testing: brook03, plebmiester",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.MONEY
@@ -484,7 +484,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Contribution: DistantMind, wombatcountry, courier",
+                                text = "Contribution: DistantMind, wombatcountry, courier, GeorgeTheRat",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
@@ -554,6 +554,7 @@ assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 assert(SMODS.load_file('src/new_additions/decks.lua'))()
 assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
 assert(SMODS.load_file('src/new_additions/tags.lua'))()
+assert(SMODS.load_file('src/new_additions/joker.lua'))()
 
 assert(SMODS.load_file('src/ever_stuffer/decks.lua'))()
 assert(SMODS.load_file('src/ever_stuffer/jokers.lua'))()

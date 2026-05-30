@@ -602,8 +602,8 @@ return {
                     'a {C:attention}purchase{} is made in shop',
                 }
             },
-            j_cracker_bluecard = {
-                name = 'Blue Card',
+            j_cracker_card_binder = {
+                name = 'Card Binder',
                 text = {
                     '{C:chips}+#2#{} Chips for each',
                     '{C:attention}enhanced{} card in your full deck',
@@ -755,12 +755,13 @@ return {
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
                 },
             },
-            j_cracker_sophia = {
-                name = 'Sophia',
+            j_cracker_charcuterie_board = {
+                name = 'Charcuterie Board',
                 text = {
-                    'This Joker gains {X:mult,C:white}X#2#{} Mult',
-                    'when an {C:attention}enhanced{} card is scored',
-                    '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
+                    '{C:chips}+#1#{} Chips',
+                    '{C:green}#2# in #3#{} chance this',
+                    'card is destroyed',
+                    'when hand is played',
                 },
             },
             j_cracker_knight = {
@@ -1045,7 +1046,7 @@ return {
             v_cracker_pw_blitz = {
                 name = "Blitz Deck",
                 text = {
-                    "{C:attention}-1{} Ante Requirement,",
+                    "{C:attention}-1{} Ante Requirement",
                 },
             },
             v_cracker_pw_catalog = {
