@@ -570,7 +570,7 @@ SMODS.Joker{ --Rainbow Card
     end,
     
     calculate = function(self, card, context)
-        if context.end_of_round and not context.repetition and not context.individual and not context.blueprint then
+        if context.round_eval and not card.ability.extra.active and not context.blueprint then
             card.ability.extra.active = true
             return {
                 message = localize('k_reset'),
