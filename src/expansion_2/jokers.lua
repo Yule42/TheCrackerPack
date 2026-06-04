@@ -556,6 +556,7 @@ SMODS.Joker{ --The Falcon
             FPS = 10,
             delay = 0,
             x_pos = 0,
+            destroyed_cards = {}
         }
     },
     pos = {
@@ -587,14 +588,17 @@ SMODS.Joker{ --The Falcon
     end,
     
     calculate = function(self, card, context)
-        if context.discard then
-			if SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') then
-				return {
-					message = localize('k_cracker_discard_falcon'),
-					colour = G.C.FILTER,
-					remove = true,
-				}
-			end
+        if context.pre_discard and SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') then
+            card.ability.extra.destroyed_cards = {}
+            for _, playing_card in ipairs(context.full_hand) do card.ability.extra.destroyed_cards[#card.ability.extra.destroyed_cards + 1] = playing_card end
+            return {
+                message = localize('k_cracker_discard_falcon'),
+                colour = G.C.FILTER,
+            }
+        elseif context.discard and card.ability.extra.destroyed_cards and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
+            return {
+                remove = true,
+            }
         end
     end
 }
