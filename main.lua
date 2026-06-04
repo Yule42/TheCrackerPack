@@ -278,9 +278,11 @@ function Cracker.is_in_consumeables(key)
 end
 
 function Cracker.is_in_array(key, current_index, array)
-    for k, v in ipairs(array) do
-        if k ~= current_index and v == key then
-            return true
+    if array then
+        for k, v in ipairs(array) do
+            if k ~= current_index and v == key then
+                return true
+            end
         end
     end
     return false
