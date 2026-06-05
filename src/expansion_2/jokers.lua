@@ -565,7 +565,7 @@ SMODS.Joker{ --The Falcon
     },
     cost = 6,
     rarity = 2,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -588,14 +588,14 @@ SMODS.Joker{ --The Falcon
     end,
     
     calculate = function(self, card, context)
-        if context.pre_discard and SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') then
+        if context.pre_discard and SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') and not context.blueprint then
             card.ability.extra.destroyed_cards = {}
             for _, playing_card in ipairs(context.full_hand) do card.ability.extra.destroyed_cards[#card.ability.extra.destroyed_cards + 1] = playing_card end
             return {
                 message = localize('k_cracker_discard_falcon'),
                 colour = G.C.FILTER,
             }
-        elseif context.discard and card.ability.extra.destroyed_cards and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
+        elseif context.discard and not context.blueprint and card.ability.extra.destroyed_cards and Cracker.is_in_array(context.other_card, nil, card.ability.extra.destroyed_cards) then
             return {
                 remove = true,
             }
