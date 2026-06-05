@@ -122,7 +122,7 @@ SMODS.Joker{ --Chocolate Coin
                 card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_mod * G.GAME.Cracker.food_multiplier)
                 if card.ability.extra.rounds <= 0 then
                     return {
-                        message = localize('k_cracker_eaten_ex'),
+                        message = localize('k_eaten_ex'),
                         colour = G.C.FILTER
                     }
                 else
