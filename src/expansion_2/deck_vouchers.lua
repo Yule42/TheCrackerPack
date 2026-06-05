@@ -801,7 +801,14 @@ SMODS.Voucher {
             end
         end
         unredeemed_vouchers[2] = pseudorandom_element(usable_vouchers, pseudoseed("pw_erratic"))
-        for i=1, 2 do
+        for i, v in ipairs(usable_vouchers) do
+            if v == unredeemed_vouchers[2] then
+                table.remove(usable_vouchers, i)
+                break
+            end
+        end
+        unredeemed_vouchers[3] = pseudorandom_element(usable_vouchers, pseudoseed("pw_erratic"))
+        for i=1, 3 do
             G.E_MANAGER:add_event(Event({
                 delay = 0.5,
                 func = function()
