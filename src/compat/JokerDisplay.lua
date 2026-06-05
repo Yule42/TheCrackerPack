@@ -289,7 +289,7 @@ JokerDisplay.Definitions.j_cracker_bluecard = {
         card.joker_display_values.chips = count * card.ability.extra.chips_add
     end
 }
-JokerDisplay.Definitions.j_cracker_violetcard = {
+JokerDisplay.Definitions.j_cracker_baserunner = {
     text = {
         {
             border_nodes = {
