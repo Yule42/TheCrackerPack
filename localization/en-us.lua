@@ -611,8 +611,8 @@ return {
                     '{s:0.8}Resets at end of round',
                 }
             },
-            j_cracker_orangecard = {
-                name = 'Orange Card',
+            j_cracker_goodie_bag = {
+                name = 'Goodie Bag',
                 text = {
                     'When {C:attention}Booster Pack{} is skipped,',
                     'creates a random card',
@@ -725,8 +725,9 @@ return {
             j_cracker_thefalcon = {
                 name = 'The Falcon',
                 text = {
-                    '{C:green}#1# in #2#{} chance for',
-                    'each discarded card to be destroyed'
+                    'When a {C:attention}discard{} is used,',
+                    '{C:green}#1# in #2#{} chance for all discarded',
+                    'cards to be destroyed'
                 }
             },
             j_cracker_postman = {
@@ -1006,7 +1007,8 @@ return {
             tag_cracker_wheel = {
                 name = "Wheel Tag",
                 text = {
-                    "Add a random {C:dark_edition}edition",
+                    "Add {C:dark_edition}Foil{}, {C:dark_edition}Holographic{},",
+                    "or {C:dark_edition}Polychrome{} edition",
                     "to an owned Joker"
                 },
             },
