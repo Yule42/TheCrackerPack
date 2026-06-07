@@ -725,9 +725,8 @@ return {
             j_cracker_thefalcon = {
                 name = 'The Falcon',
                 text = {
-                    'When a {C:attention}discard{} is used,',
-                    '{C:green}#1# in #2#{} chance for all discarded',
-                    'cards to be destroyed'
+                    '{C:green}#1# in #2#{} chance for',
+                    'each discarded card to be destroyed'
                 }
             },
             j_cracker_postman = {
