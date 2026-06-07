@@ -211,9 +211,9 @@ SMODS.Joker{ --Baserunner
     end
 }]]
 
-SMODS.Joker{ --Orange Card
-    name = "Orange Card",
-    key = "orangecard",
+SMODS.Joker{ --Goodie Bag
+    name = "Goodie Bag",
+    key = "goodie_bag",
     config = {
         extra = {
         }
