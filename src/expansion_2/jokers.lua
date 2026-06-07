@@ -564,7 +564,7 @@ SMODS.Joker{ --The Falcon
     },
     cost = 6,
     rarity = 2,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
