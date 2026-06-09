@@ -23,7 +23,7 @@ SMODS.Joker{ --Charcuterie Board
     atlas = 'Jokers',
     yes_pool_flag = 'saltine_cracker_eaten',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'gfs', 'DistantMind'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'gfsg', 'DistantMind'}, key = 'artist_credits_cracker'} end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Charcuterie Board')
         return {vars = {card.ability.extra.chips, numerator, denominator}}
     end,
