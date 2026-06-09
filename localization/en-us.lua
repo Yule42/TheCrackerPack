@@ -777,6 +777,14 @@ return {
                     'each give {X:mult,C:white} X#1# {} Mult'
                 }
             },
+            j_cracker_sophia = {
+                name = 'Sophia',
+                text = {
+                    'This Joker gains {X:mult,C:white}X#2#{} Mult',
+                    'when an {C:attention}enhanced{} card is scored',
+                    '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}',
+                }
+            },
             j_cracker_testLegendary = {
                 name = 'Lolbit why not atp',
                 text = {
