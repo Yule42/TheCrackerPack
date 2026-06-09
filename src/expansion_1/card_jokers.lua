@@ -232,7 +232,7 @@ SMODS.Joker{ --Goodie Bag
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'gfsg', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {}
     end,
     
