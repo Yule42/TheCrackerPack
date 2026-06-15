@@ -1,4 +1,4 @@
-zJokerDisplay.Definitions.j_cracker_saltinecracker = {
+JokerDisplay.Definitions.j_cracker_saltinecracker = {
     text = {
         { text = "+" },
         { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
