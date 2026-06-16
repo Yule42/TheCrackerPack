@@ -15,10 +15,8 @@ SMODS.Back{ -- Golden Deck
         }}
     end,
     apply = function(self, back)
-        G.GAME.modifiers.reduced_reward = 2
         G.GAME.modifiers.money_tags_only = true
         G.GAME.Cracker = G.GAME.Cracker or {}
-        G.GAME.Cracker.tags_in_shop = 4
     end,
 }
 
@@ -31,6 +29,31 @@ SMODS.Tag:take_ownership('skip', -- make skip tag appear properly in the shop on
     true
 )
 
+local function spawn_mega_pack(back)
+    local center = get_pack('rebate_deck')
+    local count = 0
+    local found = nil
+    
+    while count <= 1000 and not found do
+        if not center.name:find('Mega') then
+            center = get_pack('rebate_deck')
+        else
+            found = true
+        end
+        count = count + 1
+    end
+    local booster = SMODS.add_booster_to_shop(center.key)
+    booster.ability.couponed = true
+    booster:set_cost()
+    back.effect.config.current_amount = back.effect.config.requirement
+    back.effect.config.active = false
+    return {
+        message = localize('k_cracker_rebate'),
+        colour = G.C.FILTER,
+        delay = 0.5
+    }
+end
+
 SMODS.Back{ -- Rebate Deck
     key = "rebate",
     
@@ -39,8 +62,9 @@ SMODS.Back{ -- Rebate Deck
         y = 0,
     },
     config = {
-        requirement = 30,
-        current_amount = 30,
+        requirement = 25,
+        current_amount = 0,
+        active = true
     },
     atlas = 'Backs',
     
@@ -48,43 +72,26 @@ SMODS.Back{ -- Rebate Deck
         return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}}
     end,
     calculate = function(self, back, context)
-        if context.money_altered and context.from_shop and context.amount < 0 then
-            back.effect.config.current_amount = back.effect.config.current_amount + context.amount
-            if back.effect.config.current_amount <= 0 then
-                repeat
-                    local center = get_pack('rebate_deck')
-                    local count = 0
-                    local found = nil
-                    
-                    while count <= 1000 and not found do
-                        if not center.name:find('Jumbo') or center.name:find('Mega') then
-                            center = get_pack('rebate_deck')
-                        else
-                            found = true
-                        end
-                        count = count + 1
-                    end
-                    local i = #G.GAME.current_round.used_packs + 1
-                    local booster = Card(G.shop_booster.T.x + G.shop_booster.T.w/2, G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, center, { bypass_discovery_center = true, bypass_discovery_ui = true })
-                    create_shop_card_ui(booster, 'Booster', G.shop_booster)
-                    G.GAME.current_round.used_packs[i] = center.key
-                    booster.ability.booster_pos = i
-                    booster:start_materialize()
-                    G.shop_booster:emplace(booster)
-                    booster.ability.couponed = true
-                    booster:set_cost()
-                    back.effect.config.current_amount = back.effect.config.current_amount + back.effect.config.requirement
-                until back.effect.config.current_amount > 0
-                return {
-                    message = localize('k_cracker_rebate'),
-                    colour = G.C.FILTER
-                }
+        if context.money_altered and context.amount < 0 and back.effect.config.active then
+            back.effect.config.current_amount = back.effect.config.current_amount - context.amount
+            if back.effect.config.current_amount >= back.effect.config.requirement and G.STATE == G.STATES.SHOP then
+                spawn_mega_pack(back)
             else
                 return {
                     message = ''..back.effect.config.current_amount,
-                    colour = G.C.FILTER
+                    colour = G.C.FILTER,
+                    delay = 0.5
                 }
             end
+        elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement then
+            spawn_mega_pack(back)
+        elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
+            back.effect.config.active = true
+            back.effect.config.current_amount = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end,
 }

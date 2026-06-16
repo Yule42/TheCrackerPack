@@ -278,7 +278,7 @@ SMODS.Joker{ --Alcoholic Soda
     pools = {
         Food = true,
     },
-    attributes = { 'chance' },
+    attributes = { 'chance', 'food' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -313,7 +313,7 @@ SMODS.Joker{ --Alcoholic Soda
                     SMODS.debuff_card(v, true, 'Alcoholic Soda')
                 end
             end
-        elseif context.end_of_round and not context.blueprint then
+        elseif context.end_of_round and context.main_eval and not context.blueprint then
             for k, v in pairs(G.playing_cards) do
                 SMODS.debuff_card(v, false, 'Alcoholic Soda')
             end

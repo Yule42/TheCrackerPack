@@ -4,19 +4,16 @@ return {
             b_cracker_golden = {
                 name = 'Golden Deck',
                 text = {
-                    '{C:attention}Skip Tags{} appear in shop,',
                     'Only economic {C:attention}Skip Tags{}',
-                    'appear naturally,',
-                    'Blind rewards are decreased',
-                    'by {C:money}$2',
+                    'appear naturally',
                 },
             },
             b_cracker_rebate = {
                 name = 'Rebate Deck',
                 text = {
-                    'For every {C:money}$#1#{} {C:inactive}[#2#]',
-                    'spent while in the shop, get a',
-                    '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
+                    'If {C:money}$#1#{} {C:inactive}[#2#] is spent',
+                    'during a single ante, create a',
+                    'free {C:attention}Mega{} Booster Pack',
                 }
             },
             b_cracker_blitz = {
@@ -922,9 +919,9 @@ return {
             v_cracker_pw_rebate = {
                 name = 'Rebate Deck',
                 text = {
-                    'For every {C:money}$#1#{} {C:inactive}[#2#]',
-                    'spent while in the shop, get a',
-                    '{C:attention}Jumbo{} or {C:attention}Mega{} Booster Pack',
+                    'If {C:money}$#1#{} {C:inactive}[#2#] is spent',
+                    'during a single ante, create a',
+                    'free {C:attention}Mega{} Booster Pack',
                 }
             },
             v_cracker_pw_blitz = {
