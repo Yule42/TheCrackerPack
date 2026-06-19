@@ -9,7 +9,7 @@
     "priority": 4,
     "badge_colour": "d9af4e",
     "badge_text_colour": "FFFFFF",
-    "version": "0.7.3",
+    "version": "0.0.8.0",
     "icon_path": "disabled_modicon.png",
     "icon_width": 34,
     "dependencies": [

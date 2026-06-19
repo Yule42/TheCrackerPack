@@ -403,6 +403,7 @@ SMODS.Joker{ --Sacramental Katana
     config = {
         extra = {
             x_mult = 1,
+            x_mult_gain = 1,
         }
     },
     pos = {
@@ -421,14 +422,14 @@ SMODS.Joker{ --Sacramental Katana
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_sacrifice'}
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.x_mult}}
+        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_gain}}
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
             return {
                 xmult = card.ability.extra.x_mult,
             }
-        elseif context.end_of_round and not context.blueprint and G.GAME.blind.boss then
+        elseif context.end_of_round and not context.blueprint and context.main_eval and G.GAME.blind.boss then
             local my_pos = nil
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end
@@ -447,18 +448,13 @@ SMODS.Joker{ --Sacramental Katana
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
-                    scalar_table = sliced_card,
-                    scalar_value = "sell_cost",
-                    operation = function(ref_table, ref_value, initial, scaling)
-                        ref_table[ref_value] = initial + 1/4*scaling
-                    end,
-                    scaling_message = {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult+1/4*sliced_card.sell_cost}},
-                        colour = G.C.RED,
-                        no_juice = true
-                    }
+                    scalar_value = "x_mult_gain",
+                    message_key = 'a_xmult'
                 })
                 return nil, true
+            else
+                card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_disabled_ex'), colour = G.C.FILTER, delay = 0.45 })
+                card.ability.perma_debuff = true
             end
         end
     end
@@ -486,6 +482,8 @@ SMODS.Joker{ --Freezer
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue+1] = { set = 'Other', key = 'food_cracker'}
+        info_queue[#info_queue+1] = { key = "perishable", set = "Other", vars = { G.GAME.perishable_rounds or 5, G.GAME.perishable_rounds or 5 } }
         return {vars = {card.ability.extra.multiply}}
     end,
     add_to_deck = function(self, card, from_debuff)
