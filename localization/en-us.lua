@@ -457,8 +457,9 @@ return {
                 text = {
                     'When {C:attention}Boss Blind{} is defeated,',
                     '{S:1.1,C:red,E:2}sacrifice{} and destroy Joker',
-                    'to the right and permanently',
-                    'add 1/4 its sell value as {X:mult,C:white} XMult',
+                    'to the right and add',
+                    '{X:mult,C:white}X1{} Mult to this Joker,',
+                    'otherwise {C:attention}debuff{} this Joker',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult)',
                 }
             },
@@ -1173,6 +1174,13 @@ return {
                 text = {
                     '{C:chips}Art:{} #1#',
                     '{C:money}Design:{} #2#',
+                }
+            },
+            food_cracker = {
+                name = 'Food Joker',
+                text = {
+                    'Jokers {C:attention}themed{}',
+                    'around food or drink',
                 }
             },
             patchwork_only = {

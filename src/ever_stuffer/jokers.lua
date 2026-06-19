@@ -42,7 +42,7 @@ SMODS.Joker{ --Skillet
     key = "skillet",
     config = {
         extra = {
-            x_mult = 2,
+            x_mult = 3,
         }
     },
     pos = {
@@ -60,6 +60,7 @@ SMODS.Joker{ --Skillet
     attributes = { 'xmult' },
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'no on e :(', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        info_queue[#info_queue+1] = { set = 'Other', key = 'food_cracker'}
         return {vars = { card.ability.extra.x_mult }}
     end,
     calculate = function(self, card, context)
