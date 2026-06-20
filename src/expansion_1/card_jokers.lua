@@ -54,6 +54,7 @@ SMODS.Joker{ --Card Binder
         x = 2,
         y = 2
     },
+    attributes = { 'chips', 'enhancements' },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -112,6 +113,7 @@ SMODS.Joker{ --Baserunner
         x = 0,
         y = 1
     },
+    attributes = { 'xmult', 'scaling', 'reset' },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -222,6 +224,7 @@ SMODS.Joker{ --Goodie Bag
         x = 6,
         y = 2
     },
+    attributes = { 'generation' },
     cost = 6,
     rarity = 1,
     blueprint_compat = true,
@@ -238,78 +241,58 @@ SMODS.Joker{ --Goodie Bag
     
     calculate = function(self, card, context)
         if context.skipping_booster then
-			local booster = context.booster.kind
-            if booster:find("Buffoon") and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+			local booster_real = context.booster
+            if booster_real.create_card and type(booster_real.create_card) == "function" then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
                     delay = 0.45,
-                    func = (function()
-                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                message = localize('k_plus_joker'),
-                                colour = G.C.BLUE
-                            })
-                            local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'orangecard')
-                            card:add_to_deck()
-                            G.jokers:emplace(card)
-                            G.GAME.joker_buffer = 0
-                        return true
-                    end)}))
-            elseif booster:find("Standard") then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before',
-                    delay = 0.45,
-                    func = (function()
-                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                message = localize{type = 'variable', key = 'a_cracker_card', vars = {1}},
-                                colour = G.FILTER
-                            })
-                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                            local cardd = create_card((pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'orangecard')
-                            local edition_rate = 2
-                            local edition = poll_edition('orangecard'..G.GAME.round_resets.ante, edition_rate, true)
-                            cardd:set_edition(edition)
-                            local seal_rate = 10
-                            local seal_poll = pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante))
-                            if seal_poll > 1 - 0.02*seal_rate then
-                                local seal_type = pseudorandom(pseudoseed('orangecard'..G.GAME.round_resets.ante))
-                                if seal_type > 0.75 then cardd:set_seal('Red')
-                                elseif seal_type > 0.5 then cardd:set_seal('Blue')
-                                elseif seal_type > 0.25 then cardd:set_seal('Gold')
-                                else cardd:set_seal('Purple')
+                    func = (function() -- consumables vs consumeables makes me hate everything
+                        local _card = booster_real:create_card(booster_real, 1)
+                        message = 'k_plus_cracker_card'
+                        color = G.C.FILTER
+                        if _card.set == 'Joker' or (G.P_CENTERS[_card.config and _card.config.center.key] and G.P_CENTERS[_card.config and _card.config.center.key].set) == 'Joker' then
+                            _card.area = G.jokers
+                            message = 'k_plus_joker'
+                            color = G.C.BLUE
+                        elseif _card.set == 'Base' or _card.set == 'Playing Card' or _card.set == 'Enhanced' then
+                            _card.area = G.hand
+                        elseif (G.P_CENTERS[_card.config and _card.config.center_key or _card.key] and G.P_CENTERS[_card.config and _card.config.center_key or _card.key].consumeable)
+                            or SMODS.ConsumableTypes[_card.set]
+                            or (SMODS.ObjectTypes[_card.set] and SMODS.ObjectTypes[_card.set].select_card == "consumeables")
+                            or (G.P_CENTERS[_card.config and _card.config.center_key or _card.key] and G.P_CENTERS[_card.config and _card.config.center_key or _card.key].set == 'Consumeables') then
+                            _card.area = G.consumeables
+                            local death = _card.set or (G.P_CENTERS[_card.config and _card.config.center_key or _card.key].set) or nil
+                            if death then
+                                local die = string.lower(_card.set or (G.P_CENTERS[_card.config and _card.config.center_key or _card.key].set or ""))
+                                if localize('k_plus_'..die) ~= "ERROR" then
+                                    message = 'k_plus_'..die
                                 end
+                                color = G.C.SECONDARY_SET[_card.set] or G.C.FILTER
                             end
-                            G.deck.config.card_limit = G.deck.config.card_limit + 1
-                            G.play:emplace(cardd)
-                            playing_card_joker_effects({true})
-                            cardd:add_to_deck()
-                            table.insert(G.playing_cards, cardd)
-                            draw_card(G.play,G.deck, 90,'up', nil)
+                        else
+                            return true
+                        end
+                        if _card.area.config.card_limit and (_card.set ~= 'Base' and _card.set ~= 'Playing Card' and _card.set ~= 'Enhanced') then
+                            if #_card.area.cards < _card.area.config.card_limit then
+                                if _card.is and _card:is(Card) then
+                                    SMODS.add_to_deck(_card)
+                                else
+                                    SMODS.add_card(_card)
+                                end
+                                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                    message = localize(message),
+                                    colour = color
+                                })
+                            end
+                        else
+                            SMODS.add_card(_card)
+                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                message = localize(message),
+                                colour = color
+                            })
+                        end
                         return true
                     end)}))
-            elseif #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local consum_names = { "Arcana", "Celestial", "Spectral" }
-                local short_names = { "tarot", "planet", "spectral" }
-                local short_names_why_is_there_a_seperate_shorthand = { "Tarot", "Planet", "Spectral" }
-                for i = 1, #consum_names do
-                    if booster:find(consum_names[i]) then
-                        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.45,
-                            func = (function()
-                                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                                        message = localize('k_plus_'..short_names[i]),
-                                        colour = G.C.SECONDARY_SET[short_names_why_is_there_a_seperate_shorthand[i]]
-                                    })
-                                    local card = create_card(short_names_why_is_there_a_seperate_shorthand[i], G.consumeables, nil, nil, nil, nil, nil, 'orangecard')
-                                    card:add_to_deck()
-                                    G.consumeables:emplace(card)
-                                    G.GAME.consumeable_buffer = 0
-                                return true
-                            end)}))
-                    end
-                end
             end
         end
     end
@@ -327,6 +310,7 @@ SMODS.Joker{ --Paycheck
         x = 7,
         y = 2
     },
+    attributes = { 'economy', 'skip' },
     cost = 6,
     rarity = 2,
     blueprint_compat = false,
@@ -366,6 +350,7 @@ SMODS.Joker{ --Darkroom
         x = 3,
         y = 2
     },
+    attributes = { 'generation', 'scaling', 'reset', 'tag' },
     cost = 8,
     rarity = 3,
     blueprint_compat = false,
@@ -458,6 +443,7 @@ SMODS.Joker{ --White Card
         x = 4,
         y = 2
     },
+    attributes = { 'generation', 'tarot', 'scaling', 'reset' },
     cost = 8,
     rarity = 3,
     blueprint_compat = false,
@@ -515,6 +501,7 @@ SMODS.Joker{ --Rainbow Card
         x = 0,
         y = 3
     },
+    attributes = { 'retrigger' },
     cost = 9,
     rarity = 3,
     blueprint_compat = true,

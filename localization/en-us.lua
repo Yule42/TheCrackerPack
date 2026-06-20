@@ -1133,6 +1133,7 @@ return {
             k_cracker_discard_falcon='Clawed!',
             k_cracker_frozen='Frozen!',
             k_cracker_rebate='Rebate!',
+            k_plus_cracker_card='+1 Card',
             b_cracker_deck_vouchers='Deck Vouchers',
             jdis_cracker_before='Before',
         },
