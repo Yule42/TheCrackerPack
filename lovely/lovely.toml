@@ -613,3 +613,13 @@ payload = '''
 if mod.id == 'TheCrackerPack' then
     tag_atlas = "cracker_mods_modicon"
 end'''
+
+
+    # bell dx patch
+[[patches]]
+[patches.pattern]
+target = '''cardarea.lua'''
+match_indent = true
+position = 'at'
+pattern = '''if v.ability.forced_selection and not self.highlighted[1] then'''
+payload = '''if v.ability.forced_selection and not v.highlighted then'''
