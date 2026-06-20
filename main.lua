@@ -61,6 +61,10 @@ SMODS.Atlas {
     py = 95,
 }
 
+SMODS.Attribute {
+    key = "debuff",
+}
+
 Cracker.vanilla_food = {
     j_gros_michel = true,
     j_ice_cream = true,
@@ -602,3 +606,4 @@ SMODS.current_mod.calculate = function(self, context)
         ease_dollars(30)
     end
 end
+
