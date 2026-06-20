@@ -234,7 +234,7 @@ SMODS.Blind { -- The Wheel
         min = 2,
         dx = true,
     },
-    config = { extra = { odds = 1, cards_discard = 2 } },
+    config = { extra = { odds = 1, cards_play = 3 } },
     in_pool = function(self)
         return Cracker.dx_blinds_enabled() and G.GAME.round_resets.ante >= 2
     end,
@@ -243,7 +243,7 @@ SMODS.Blind { -- The Wheel
         return { vars = { numerator, denominator, G.GAME.blind.effect.extra and G.GAME.blind.effect.extra.cards_discard or 2 } }
     end,
     collection_loc_vars = function(self)
-        return { vars = { '1', '7', '2' } }
+        return { vars = { '1', '7', '3' } }
     end,
     mult = 2,
     boss_colour = HEX("3d905e"),
@@ -259,15 +259,12 @@ SMODS.Blind { -- The Wheel
                     }
                 end
             elseif context.before then
-                G.GAME.blind.effect.extra.odds = G.GAME.blind.effect.extra.odds + #context.full_hand
-                G.GAME.blind:set_text()
-            elseif context.pre_discard then
                 local i = #context.full_hand
                 while i > 0 do
-                    G.GAME.blind.effect.extra.cards_discard = G.GAME.blind.effect.extra.cards_discard - 1
-                    if G.GAME.blind.effect.extra.cards_discard <= 0 then
-                        G.GAME.blind.effect.extra.odds = math.max(0, G.GAME.blind.effect.extra.odds - 1)
-                        G.GAME.blind.effect.extra.cards_discard = 2
+                    G.GAME.blind.effect.extra.cards_play = G.GAME.blind.effect.extra.cards_play - 1
+                    if G.GAME.blind.effect.extra.cards_play <= 0 then
+                        G.GAME.blind.effect.extra.odds = G.GAME.blind.effect.extra.odds + 1
+                        G.GAME.blind.effect.extra.cards_play = 3
                     end
                     i = i - 1
                 end
