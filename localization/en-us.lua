@@ -90,8 +90,7 @@ return {
 				name = "The Wheel DX",
 				text = {
 					"#1# in #2# cards drawn face down,",
-                    "+1 chance per card played,",
-                    "-1 chance per 2 [#3#] cards discarded",
+                    "+1 chance per 3 [#3#] cards played",
 				},
 			},
             bl_cracker_arm_dx = {
