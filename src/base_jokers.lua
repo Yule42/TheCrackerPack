@@ -14,6 +14,7 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
+    attributes = { 'chips', 'scaling', 'chance', 'food' },
     cost = 4,
     rarity = 1,
     blueprint_compat = true,
@@ -410,7 +411,7 @@ SMODS.Joker{ --Sacramental Katana
         x = 3,
         y = 1
     },
-    attributes = { 'xmult', 'sell_value', 'destroy_card', 'scaling' },
+    attributes = { 'xmult', 'destroy_card', 'scaling', 'debuff' },
     cost = 8,
     rarity = 3,
     blueprint_compat = true,

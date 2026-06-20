@@ -278,7 +278,7 @@ SMODS.Joker{ --Alcoholic Soda
     pools = {
         Food = true,
     },
-    attributes = { 'chance', 'food' },
+    attributes = { 'chance', 'debuff', 'food' },
     cost = 6,
     rarity = 2,
     blueprint_compat = true,
@@ -412,7 +412,7 @@ SMODS.Joker{ --Tsukemen
     pools = {
         Food = true,
     },
-    attributes = { 'xmult', 'scaling', 'discard', 'food' },
+    attributes = { 'xmult', 'scaling', 'discard', 'hands', 'food' },
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
