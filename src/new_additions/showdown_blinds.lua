@@ -1213,7 +1213,7 @@ SMODS.Blind { -- Cerulean Bell
                 for _, playing_card in ipairs(G.hand.cards) do
                     temp_hand[#temp_hand + 1] = playing_card
                 end
-                if temp_hand[1] then
+                if temp_hand[1] and temp_hand[2] then
                     pseudoshuffle(temp_hand, 'bell_dx')
                     G.hand:unhighlight_all()
                     temp_hand[1].ability.forced_selection = true
