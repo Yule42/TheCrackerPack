@@ -4,14 +4,33 @@ return {
             b_cracker_golden = {
                 name = 'Golden Deck',
                 text = {
-                    'Only economic {C:attention}Skip Tags{}',
-                    'appear naturally',
+                    'Economic {C:attention}Skip Tags{} appear',
+                    '{C:attention}2X{} more frequently,',
+                    'Enter the shop after every',
+                    '{C:attention}#1#{} {C:inactive}[#2#]{} skips'
+                },
+            },
+            b_cracker_golden_collection = {
+                name = 'Golden Deck',
+                text = {
+                    'Economic {C:attention}Skip Tags{} appear',
+                    '{C:attention}2X{} more frequently,',
+                    'Enter the shop after every',
+                    '{C:attention}#1#{} skips'
                 },
             },
             b_cracker_rebate = {
                 name = 'Rebate Deck',
                 text = {
-                    'If {C:money}$#1#{} {C:inactive}[#2#] is spent',
+                    'If {C:money}$#1#{} {C:inactive}[#2#]{} is spent',
+                    'during a single ante, create a',
+                    'free {C:attention}Mega{} Booster Pack',
+                }
+            },
+            b_cracker_rebate_collection = {
+                name = 'Rebate Deck',
+                text = {
+                    'If {C:money}$#1#{} is spent',
                     'during a single ante, create a',
                     'free {C:attention}Mega{} Booster Pack',
                 }
@@ -919,7 +938,7 @@ return {
             v_cracker_pw_rebate = {
                 name = 'Rebate Deck',
                 text = {
-                    'If {C:money}$#1#{} {C:inactive}[#2#] is spent',
+                    'If {C:money}$#1#{} {C:inactive}[#2#]{} is spent',
                     'during a single ante, create a',
                     'free {C:attention}Mega{} Booster Pack',
                 }

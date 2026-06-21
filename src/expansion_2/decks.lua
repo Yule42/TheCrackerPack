@@ -6,28 +6,89 @@ SMODS.Back{ -- Golden Deck
         y = 0,
     },
     atlas = 'Backs',
+    config = {
+        requirement = 2,
+        current_amount = 2,
+    },
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {
-            localize{type = 'name_text', key = 'v_seed_money', set = 'Voucher'},
-            localize{type = 'name_text', key = 'v_cracker_silver_spoon', set = 'Voucher'},
-            localize{type = 'name_text', key = 'v_hone', set = 'Voucher'},
-        }}
+        key = "b_cracker_golden"
+        if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
+            key = key.."_collection"
+        end
+        return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
     end,
-    apply = function(self, back)
-        G.GAME.modifiers.money_tags_only = true
-        G.GAME.Cracker = G.GAME.Cracker or {}
-    end,
+    calculate = function(self, back, context)
+        if context.skip_blind then
+            back.effect.config.current_amount = back.effect.config.current_amount - 1
+            if back.effect.config.current_amount <= 0 then
+                back.effect.config.current_amount = back.effect.config.requirement
+                G.GAME.no_saved = true
+                return { func = function()
+                    G.E_MANAGER:add_event(Event {
+                        trigger = "after",
+                        blocking = false,
+                        func = function()
+                            G.E_MANAGER:add_event(Event {
+                            trigger = "after",
+                            blocking = false,
+                            func = function()
+                                if G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED then
+                                G.GAME.current_round.reroll_cost = G.GAME.round_resets.reroll_cost
+                                G.GAME.current_round.reroll_cost_increase = 0
+                                G.STATE = G.STATES.SHOP
+                                G.STATE_COMPLETE = false
+                                G.GAME.no_saved = nil
+                                return true
+                            end
+                        end})
+                        if G.blind_select then
+                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.y + G.blind_select.T.h
+                            G.E_MANAGER:add_event(Event{
+                            trigger = "after",
+                            delay = 0.3,
+                            func = function()
+                                G.blind_select:remove()
+                                G.blind_prompt_box:remove()
+                                return true
+                            end})
+                        end
+                        return true
+                    end})
+                end}
+            else
+                return {
+                    message = ''..back.effect.config.current_amount,
+                    colour = G.C.FILTER,
+                    delay = 0.5
+                }
+            end
+        end
+    end
 }
 
-SMODS.Tag:take_ownership('skip', -- make skip tag appear properly in the shop on Golden Deck
+--[[SMODS.Tag:take_ownership('skip', -- make skip tag appear properly in the shop
     {
         loc_vars = function(self, info_queue, tag)
             return { vars = { tag.config.skip_bonus, tag.config.skip_bonus * ((G.GAME.skips or 0) + (Cracker.tag_is_in_shop(tag) and 0 or 1)) } }
         end,
     },
     true
-)
+)]]
+for tag_key, enabled in pairs(Cracker.money_tags) do
+    if enabled then
+        SMODS.Tag:take_ownership(tag_key,
+        {
+            get_weight = function(self, weight)
+                if G.GAME.selected_back_key.key == "b_cracker_golden" then
+                    return 30
+                end
+                return 10
+            end
+        },
+        true)
+    end
+end
 
 local function spawn_mega_pack(back)
     local center = get_pack('rebate_deck')
@@ -45,8 +106,6 @@ local function spawn_mega_pack(back)
     local booster = SMODS.add_booster_to_shop(center.key)
     booster.ability.couponed = true
     booster:set_cost()
-    back.effect.config.current_amount = back.effect.config.requirement
-    back.effect.config.active = false
     return {
         message = localize('k_cracker_rebate'),
         colour = G.C.FILTER,
@@ -69,13 +128,21 @@ SMODS.Back{ -- Rebate Deck
     atlas = 'Backs',
     
     loc_vars = function(self, info_queue, center)
-        return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}}
+        key = "b_cracker_rebate"
+        if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
+            key = key.."_collection"
+        end
+        return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
     end,
     calculate = function(self, back, context)
         if context.money_altered and context.amount < 0 and back.effect.config.active then
             back.effect.config.current_amount = back.effect.config.current_amount - context.amount
-            if back.effect.config.current_amount >= back.effect.config.requirement and G.STATE == G.STATES.SHOP then
-                spawn_mega_pack(back)
+            if back.effect.config.current_amount >= back.effect.config.requirement then
+                back.effect.config.active = false
+                back.effect.config.current_amount = back.effect.config.requirement
+                if G.STATE == G.STATES.SHOP then
+                    return spawn_mega_pack(back)
+                end
             else
                 return {
                     message = ''..back.effect.config.current_amount,
@@ -84,7 +151,7 @@ SMODS.Back{ -- Rebate Deck
                 }
             end
         elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement then
-            spawn_mega_pack(back)
+            return spawn_mega_pack(back)
         elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
             back.effect.config.active = true
             back.effect.config.current_amount = 0

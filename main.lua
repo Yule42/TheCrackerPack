@@ -1,5 +1,11 @@
 CrackerConfig = SMODS.current_mod.config
 
+SMODS.current_mod.optional_features = function()
+    return {
+        object_weights = true,
+    }
+end
+
 SMODS.current_mod.no_marquee = true
 
 --region Atlas
