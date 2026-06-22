@@ -274,6 +274,7 @@ function Cracker.spawn_mega_pack(back)
         count = count + 1
     end
     local booster = SMODS.add_booster_to_shop(center.key)
+    back.effect.config.active = false
     booster.ability.couponed = true
     booster:set_cost()
     return {
