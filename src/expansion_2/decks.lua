@@ -117,7 +117,8 @@ SMODS.Back{ -- Rebate Deck
             if back.effect.config.current_amount >= back.effect.config.requirement then
                 back.effect.config.current_amount = back.effect.config.requirement
                 if context.from_shop then
-                    return Cracker.spawn_mega_pack(back)
+                    self.config.active = false
+                    return Cracker.spawn_mega_pack()
                 end
             else
                 return {
@@ -127,7 +128,8 @@ SMODS.Back{ -- Rebate Deck
                 }
             end
         elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement and back.effect.config.active then
-            return Cracker.spawn_mega_pack(back)
+            self.config.active = false
+            return Cracker.spawn_mega_pack()
         elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
             back.effect.config.active = true
             back.effect.config.current_amount = 0
