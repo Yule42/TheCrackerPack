@@ -90,29 +90,6 @@ for tag_key, enabled in pairs(Cracker.money_tags) do
     end
 end
 
-local function spawn_mega_pack(back)
-    local center = get_pack('rebate_deck')
-    local count = 0
-    local found = nil
-    
-    while count <= 1000 and not found do
-        if not center.name:find('Mega') then
-            center = get_pack('rebate_deck')
-        else
-            found = true
-        end
-        count = count + 1
-    end
-    local booster = SMODS.add_booster_to_shop(center.key)
-    booster.ability.couponed = true
-    booster:set_cost()
-    return {
-        message = localize('k_cracker_rebate'),
-        colour = G.C.FILTER,
-        delay = 0.5
-    }
-end
-
 SMODS.Back{ -- Rebate Deck
     key = "rebate",
     
@@ -141,7 +118,7 @@ SMODS.Back{ -- Rebate Deck
                 back.effect.config.active = false
                 back.effect.config.current_amount = back.effect.config.requirement
                 if G.STATE == G.STATES.SHOP then
-                    return spawn_mega_pack(back)
+                    return Cracker.spawn_mega_pack(back)
                 end
             else
                 return {
@@ -150,8 +127,8 @@ SMODS.Back{ -- Rebate Deck
                     delay = 0.5
                 }
             end
-        elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement then
-            return spawn_mega_pack(back)
+        elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement and back.effect.config.active then
+            return Cracker.spawn_mega_pack(back)
         elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
             back.effect.config.active = true
             back.effect.config.current_amount = 0
