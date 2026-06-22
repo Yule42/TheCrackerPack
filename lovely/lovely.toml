@@ -217,11 +217,11 @@ G.GAME.first_hand_played = nil
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = "G.hand.highlighted[i].ability.played_this_ante = true"
+pattern = "v.ability.played_this_ante = true"
 position = "after"
 match_indent = true
 payload = '''
-G.hand.highlighted[i].ability.played_ever = true
+v.ability.played_ever = true
 '''
 
 
