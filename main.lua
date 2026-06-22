@@ -260,6 +260,29 @@ Cracker.money_tags = {
     tag_cracker_crystal = true,
 }
 
+function Cracker.spawn_mega_pack(back)
+    local center = get_pack('rebate_deck')
+    local count = 0
+    local found = nil
+    
+    while count <= 1000 and not found do
+        if not center.name:find('Mega') then
+            center = get_pack('rebate_deck')
+        else
+            found = true
+        end
+        count = count + 1
+    end
+    local booster = SMODS.add_booster_to_shop(center.key)
+    booster.ability.couponed = true
+    booster:set_cost()
+    return {
+        message = localize('k_cracker_rebate'),
+        colour = G.C.FILTER,
+        delay = 0.5
+    }
+end
+
 function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
     local _hand, _tally = 'High Card', 0
     for _, handname in ipairs(G.handlist) do

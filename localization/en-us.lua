@@ -5,18 +5,18 @@ return {
                 name = 'Golden Deck',
                 text = {
                     'Economic {C:attention}Skip Tags{} appear',
-                    '{C:attention}2X{} more frequently,',
-                    'Enter the shop after every',
-                    '{C:attention}#1#{} {C:inactive}[#2#]{} skips'
+                    '{C:attention}3X{} more frequently,',
+                    'Every {C:attention}#1#{} {C:inactive}[#2#]{} skips,',
+                    'enter the shop'
                 },
             },
             b_cracker_golden_collection = {
                 name = 'Golden Deck',
                 text = {
                     'Economic {C:attention}Skip Tags{} appear',
-                    '{C:attention}2X{} more frequently,',
-                    'Enter the shop after every',
-                    '{C:attention}#1#{} skips'
+                    '{C:attention}3X{} more frequently,',
+                    'Every {C:attention}#1#{} skips,',
+                    'enter the shop'
                 },
             },
             b_cracker_rebate = {
