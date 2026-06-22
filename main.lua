@@ -267,7 +267,7 @@ Cracker.money_tags = {
     tag_cracker_crystal = true,
 }
 
-function Cracker.spawn_mega_pack(back)
+function Cracker.spawn_mega_pack()
     local center = get_pack('rebate_deck')
     local count = 0
     local found = nil
@@ -281,7 +281,6 @@ function Cracker.spawn_mega_pack(back)
         count = count + 1
     end
     local booster = SMODS.add_booster_to_shop(center.key)
-    back.effect.config.active = false
     booster.ability.couponed = true
     booster:set_cost()
     return {

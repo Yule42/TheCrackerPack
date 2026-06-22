@@ -910,8 +910,9 @@ SMODS.Voucher {
     end,
     atlas = 'Backs',
     config = {
-        requirement = 30,
-        current_amount = 30,
+        requirement = 25,
+        current_amount = 0,
+        active = true
     },
     pools = { DeckVoucher = true },
     no_collection = true,
@@ -923,46 +924,34 @@ SMODS.Voucher {
         return {vars = {self.config.requirement, self.config.current_amount}}
     end,
     redeem = function(self, card)
-        self.config.current_amount = self.config.current_amount - self.cost
+        self.config.current_amount = self.config.current_amount + math.max(0, self.cost)
     end,
-    calculate = function(self, back, context)
-        if context.money_altered and context.from_shop and context.amount < 0 and not (self.area and self.area.config.type == 'shop') then
-            self.config.current_amount = self.config.current_amount + context.amount
-            if self.config.current_amount <= 0 then
-                repeat
-                    local center = get_pack('rebate_deck')
-                    local count = 0
-                    local found = nil
-                    
-                    while count <= 1000 and not found do
-                        if not center.name:find('Jumbo') or center.name:find('Mega') then
-                            center = get_pack('rebate_deck')
-                        else
-                            found = true
-                        end
-                        count = count + 1
-                    end
-                    local i = #G.GAME.current_round.used_packs + 1
-                    local booster = Card(G.shop_booster.T.x + G.shop_booster.T.w/2, G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, center, { bypass_discovery_center = true, bypass_discovery_ui = true })
-                    create_shop_card_ui(booster, 'Booster', G.shop_booster)
-                    G.GAME.current_round.used_packs[i] = center.key
-                    booster.ability.booster_pos = i
-                    booster:start_materialize()
-                    G.shop_booster:emplace(booster)
-                    booster.ability.couponed = true
-                    booster:set_cost()
-                    self.config.current_amount = self.config.current_amount + self.config.requirement
-                until self.config.current_amount > 0
-                return {
-                    message = localize('k_cracker_rebate'),
-                    colour = G.C.FILTER
-                }
+    calculate = function(self, card, context)
+        if context.money_altered and context.amount < 0 and self.config.active then
+            self.config.current_amount = self.config.current_amount - context.amount
+            if self.config.current_amount >= self.config.requirement then
+                self.config.current_amount = self.config.requirement
+                if context.from_shop then
+                    self.config.active = false
+                    return Cracker.spawn_mega_pack(self)
+                end
             else
                 return {
                     message = ''..self.config.current_amount,
-                    colour = G.C.FILTER
+                    colour = G.C.FILTER,
+                    delay = 0.5
                 }
             end
+        elseif context.starting_shop and self.config.current_amount >= self.config.requirement and self.config.active then
+            self.config.active = false
+            return Cracker.spawn_mega_pack()
+        elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
+            self.config.active = true
+            self.config.current_amount = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         end
     end,
 }
