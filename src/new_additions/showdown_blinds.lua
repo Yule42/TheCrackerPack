@@ -1212,8 +1212,10 @@ SMODS.Blind { -- Cerulean Bell
                     G.hand:unhighlight_all()
                     temp_hand[1].ability.forced_selection = true
                     G.hand:add_to_highlighted(temp_hand[1])
-                    temp_hand[2].ability.forced_selection = true
-                    G.hand:add_to_highlighted(temp_hand[2])
+                    if temp_hand[2] then
+                        temp_hand[2].ability.forced_selection = true
+                        G.hand:add_to_highlighted(temp_hand[2])
+                    end
                 end
             end
         end
