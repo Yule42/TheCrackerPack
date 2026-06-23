@@ -7,7 +7,7 @@ SMODS.Blind {
     atlas = 'dx_blinds',
     boss_colour = HEX("424242"),
     in_pool = function(self)
-        return true
+        return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
     end,
     no_collection = true,
 }
