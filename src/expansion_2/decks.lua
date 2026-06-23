@@ -6,6 +6,7 @@ SMODS.Back{ -- Golden Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     config = {
         requirement = 2,
         current_amount = 2,
@@ -103,6 +104,7 @@ SMODS.Back{ -- Rebate Deck
         active = true
     },
     atlas = 'Backs',
+    discovered = true,
     
     loc_vars = function(self, info_queue, center)
         key = "b_cracker_rebate"
@@ -149,6 +151,7 @@ SMODS.Back{ -- Blitz Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -169,6 +172,7 @@ SMODS.Back{ -- Catalog Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
@@ -190,6 +194,7 @@ SMODS.Back{ -- Patchwork Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
