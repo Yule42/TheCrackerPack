@@ -431,7 +431,7 @@ SMODS.Joker{ --Darkroom
     end
 }
 
-SMODS.Joker{ --White Card
+--[[SMODS.Joker{ --White Card
     name = "White Card",
     key = "whitecard",
     config = {
@@ -486,7 +486,7 @@ SMODS.Joker{ --White Card
             }
         end
     end
-}
+}]]
 
 SMODS.Joker{ --Rainbow Card
     name = "Rainbow Card",
