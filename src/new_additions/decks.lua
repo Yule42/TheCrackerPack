@@ -14,8 +14,6 @@ SMODS.Back{ -- Showdown Deck
     end,
     
     apply = function(self, back)
-        print(G.GAME.banned_keys)
-        print(getmetatable(G.GAME.banned_keys))
         G.GAME.modifiers.extra_reward = 1
         for k, v in pairs(G.P_BLINDS) do
             if not v.boss or not v.boss.dx then
@@ -30,28 +28,28 @@ SMODS.Back{ -- Showdown Deck
             G.GAME.banned_keys["bl_cracker_major"] = nil
         end
     end,
-calculate = function(self, back, context)
-    if context.modify_ante then
-        if G.GAME.round_resets.ante%2 == 0 then
-            for k, v in pairs(G.P_BLINDS) do
-                if v.boss and v.boss.dx then
-                    G.GAME.banned_keys[k] = true
+    calculate = function(self, back, context)
+        if context.modify_ante then
+            if G.GAME.round_resets.ante%2 == 0 then
+                for k, v in pairs(G.P_BLINDS) do
+                    if v.boss and v.boss.dx then
+                        G.GAME.banned_keys[k] = true
+                    end
                 end
-            end
-            G.GAME.banned_keys["bl_cracker_major"] = nil
-        else
-            for k, v in pairs(G.P_BLINDS) do
-                if v.boss and v.boss.dx then
-                    G.GAME.banned_keys[k] = nil
-                    local pool = v:in_pool()
-                    
-                    G.GAME.banned_keys[k] = pool and true or nil
+                G.GAME.banned_keys["bl_cracker_major"] = nil
+            else
+                for k, v in pairs(G.P_BLINDS) do
+                    if v.boss and v.boss.dx then
+                        G.GAME.banned_keys[k] = nil
+                        local pool = v:in_pool()
+                        
+                        G.GAME.banned_keys[k] = pool and true or nil
+                    end
                 end
+                G.GAME.banned_keys["bl_cracker_major"] = true
             end
-            G.GAME.banned_keys["bl_cracker_major"] = true
         end
-    end
-end,
+    end,
 }
 
 SMODS.Back{ -- Solar Deck
