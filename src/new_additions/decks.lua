@@ -6,6 +6,7 @@ SMODS.Back{ -- Showdown Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     config = {
         unbanned_on_even = {}
     },
@@ -59,6 +60,7 @@ SMODS.Back{ -- Solar Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,

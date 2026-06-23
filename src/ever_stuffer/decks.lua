@@ -5,6 +5,7 @@ SMODS.Back{ -- White Deck
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,
@@ -39,6 +40,7 @@ SMODS.Back{ -- White Deck 2
         y = 0,
     },
     atlas = 'Backs',
+    discovered = true,
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,
