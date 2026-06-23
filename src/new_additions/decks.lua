@@ -6,14 +6,52 @@ SMODS.Back{ -- Showdown Deck
         y = 0,
     },
     atlas = 'Backs',
-    
+    config = {
+        unbanned_on_even = {}
+    },
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,
     
     apply = function(self, back)
+        print(G.GAME.banned_keys)
+        print(getmetatable(G.GAME.banned_keys))
         G.GAME.modifiers.extra_reward = 1
+        for k, v in pairs(G.P_BLINDS) do
+            if not v.boss or not v.boss.dx then
+                if not (k == "bl_small" or k == "bl_large") then
+                    G.GAME.banned_keys[k] = true
+                end
+            elseif G.GAME.round_resets.ante%2 == 1 then
+                G.GAME.banned_keys[k] = true
+            end
+        end
+        if G.GAME.round_resets.ante%2 == 1 then
+            G.GAME.banned_keys["bl_cracker_major"] = nil
+        end
     end,
+calculate = function(self, back, context)
+    if context.modify_ante then
+        if G.GAME.round_resets.ante%2 == 0 then
+            for k, v in pairs(G.P_BLINDS) do
+                if v.boss and v.boss.dx then
+                    G.GAME.banned_keys[k] = true
+                end
+            end
+            G.GAME.banned_keys["bl_cracker_major"] = nil
+        else
+            for k, v in pairs(G.P_BLINDS) do
+                if v.boss and v.boss.dx then
+                    G.GAME.banned_keys[k] = nil
+                    local pool = v:in_pool()
+                    
+                    G.GAME.banned_keys[k] = pool and true or nil
+                end
+            end
+            G.GAME.banned_keys["bl_cracker_major"] = true
+        end
+    end
+end,
 }
 
 SMODS.Back{ -- Solar Deck

@@ -7,7 +7,7 @@ SMODS.Blind {
     atlas = 'dx_blinds',
     boss_colour = HEX("424242"),
     in_pool = function(self)
-        return false
+        return true
     end,
     no_collection = true,
 }
