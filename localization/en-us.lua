@@ -518,7 +518,7 @@ return {
                     'Ticks down when {C:attention}Blind{} is selected',
                 }
             },
-            j_cracker_cybernana = {
+            --[[j_cracker_cybernana = {
                 name = 'Cybernana MK920',
                 text = {
                     'This Joker gains {X:mult,C:white}X#1#{} Mult',
@@ -527,7 +527,7 @@ return {
                     'is destroyed at end of round',
                     '{C:inactive}(Currently {X:mult,C:white} X#4#{C:inactive} Mult)'
                 }
-            },
+            },]]
             j_cracker_buttpopcorn = {
                 name = 'Buttered Popcorn',
                 text = {
@@ -573,14 +573,14 @@ return {
                     '{C:attention}debuffed{} during {C:attention}Blinds'
                 }
             },
-            j_cracker_canofbeans = {
+            --[[j_cracker_canofbeans = {
                 name = 'Can of Beans',
                 text = {
                     '{C:attention}+#3#{} hand size',
                     'for the next',
                     '{C:attention}#1#{} rounds',
                 }
-            },
+            },]]
             j_cracker_tsukemen = {
                 name = 'Tsukemen',
                 text = {
@@ -618,7 +618,7 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },
-            j_cracker_pinkcard = {
+            --[[j_cracker_pinkcard = {
                 name = 'Pink Card',
                 text = {
                     'This Joker gains {C:attention}+#1#{} hand size',
@@ -626,7 +626,7 @@ return {
                     '{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size)',
                     '{s:0.8}Resets at end of round',
                 }
-            },
+            },]]
             j_cracker_goodie_bag = {
                 name = 'Goodie Bag',
                 text = {
@@ -652,14 +652,14 @@ return {
                     'requirement increases for every {C:dark_edition}Negative{} {C:attention}Joker',
                 }
             },
-            j_cracker_whitecard = {
+            --[[j_cracker_whitecard = {
                 name = 'White Card',
                 text = {
                     'Creates a copy of {C:tarot}The Fool{} after the {C:attention}shop',
                     'for each {C:attention}card{} sold this round',
                     '{C:inactive}(Must have room, {C:attention}#1#{}{C:inactive} cards)'
                 }
-            },
+            },]]
             j_cracker_rainbowcard = {
                 name = 'Rainbow Card',
                 text = {
