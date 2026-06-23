@@ -46,7 +46,7 @@ function get_flush(hand)
       if not contains_face then if hand[i]:is_face() then contains_face = true; t[#t+1] = hand[i] end end
       if not contains_ace then if hand[i]:get_id() == 14 then contains_ace = true; t[#t+1] = hand[i] end end
     end
-    if contains_face and contains_ace and next(get_straight(hand, nil, true, true)) then
+    if contains_face and contains_ace and next(get_straight(hand, SMODS.four_fingers('straight'), SMODS.shortcut(), SMODS.wrap_around_straight())) then
       table.insert(ret, t)
       return ret
     end
