@@ -117,7 +117,7 @@ SMODS.Tag {
             if #editionless_jokers > 0 then
                 tag:yep('+', G.C.ATTENTION, function()
                     local eligible_card = pseudorandom_element(editionless_jokers, 'wheel')
-                    local edition = poll_edition('wheel', nil, false, true)
+                    local edition = SMODS.poll_edition { key = "tag_cracker_wheel", guaranteed = true, no_negative = true, options = { 'e_polychrome', 'e_holo', 'e_foil' } }
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                         eligible_card:set_edition(edition, true)
                         check_for_unlock({ type = 'have_edition' })
