@@ -22,7 +22,7 @@ SMODS.Joker{ --Membership Card
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_purchased'}
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.money}}
     end,
     
@@ -47,7 +47,8 @@ SMODS.Joker{ --Card Binder
     key = "card_binder",
     config = {
         extra = {
-            chips_add = 8,
+            enhancements = 9,
+            mult = 20,
         }
     },
     pos = {
@@ -65,7 +66,7 @@ SMODS.Joker{ --Card Binder
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'GeorgeTheRat', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'GeorgeTheRat', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         local count = 0
         if G.playing_cards then
             for k, v in pairs(G.playing_cards) do
@@ -74,8 +75,8 @@ SMODS.Joker{ --Card Binder
                 end
             end
         end
-        local chips = count * card.ability.extra.chips_add
-        return {vars = {chips, card.ability.extra.chips_add}}
+        local mult = card.ability.extra.mult * math.floor(count / 9)
+        return {vars = {card.ability.extra.mult, card.ability.extra.enhancements, mult}}
     end,
     
     calculate = function(self, card, context)
@@ -89,9 +90,9 @@ SMODS.Joker{ --Card Binder
                 end
             end
             if count > 0 then
-                local chips = count * card.ability.extra.chips_add
+                local mult = card.ability.extra.mult * math.floor(count / 9)
                 return {
-                    chips = chips,
+                    mult = mult,
                 }
             end
         end
@@ -124,7 +125,7 @@ SMODS.Joker{ --Baserunner
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl', 'sophiedeergirl, sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sophiedeergirl', 'sophiedeergirl, sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add, card.ability.extra.skips_reset, card.ability.extra.skips_done}}
     end,
     
@@ -176,7 +177,7 @@ SMODS.Joker{ --Baserunner
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimari'}, key = 'concept_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii'}, key = 'concept_credits_cracker'} end
         return {vars = {card.ability.extra.add_hand_size, card.ability.extra.current_add}}
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -321,7 +322,7 @@ SMODS.Joker{ --Paycheck
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.dollars}}
     end,
     
@@ -361,7 +362,7 @@ SMODS.Joker{ --Darkroom
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
         local negative_count = 0
         if G.jokers then
@@ -524,7 +525,7 @@ SMODS.Joker{ --Rainbow Card
                 }}
             }
         end
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.retriggers}, main_end = info}
     end,
     
