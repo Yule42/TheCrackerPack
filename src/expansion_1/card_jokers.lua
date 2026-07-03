@@ -47,7 +47,8 @@ SMODS.Joker{ --Card Binder
     key = "card_binder",
     config = {
         extra = {
-            chips_add = 8,
+            enhancements = 9,
+            mult = 20,
         }
     },
     pos = {
@@ -74,8 +75,8 @@ SMODS.Joker{ --Card Binder
                 end
             end
         end
-        local chips = count * card.ability.extra.chips_add
-        return {vars = {chips, card.ability.extra.chips_add}}
+        local mult = card.ability.extra.mult * math.floor(count / 9)
+        return {vars = {card.ability.extra.mult, card.ability.extra.enhancements, mult}}
     end,
     
     calculate = function(self, card, context)
@@ -89,9 +90,9 @@ SMODS.Joker{ --Card Binder
                 end
             end
             if count > 0 then
-                local chips = count * card.ability.extra.chips_add
+                local mult = card.ability.extra.mult * math.floor(count / 9)
                 return {
-                    chips = chips,
+                    mult = mult,
                 }
             end
         end
