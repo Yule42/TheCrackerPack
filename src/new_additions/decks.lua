@@ -74,7 +74,7 @@ SMODS.Back{ -- Solar Deck
         G.GAME.hands['Three of a Kind'].l_mult = 3
         G.GAME.hands['Straight'].l_chips = 50
         G.GAME.hands['Straight'].l_mult = 5
-        G.GAME.hands['Flush'].l_chips = 30
+        G.GAME.hands['Flush'].l_chips = 25
         G.GAME.hands['Flush'].l_mult = 4
         G.GAME.hands['Full House'].l_chips = 50
         G.GAME.hands['Full House'].l_mult = 5
