@@ -273,12 +273,12 @@ JokerDisplay.Definitions.j_cracker_tsukemen = {
         }
     },
 }
-JokerDisplay.Definitions.j_cracker_bluecard = {
+JokerDisplay.Definitions.j_cracker_card_binder = {
     text = {
         { text = "+" },
-        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+        { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
     },
-    text_config = { colour = G.C.CHIPS },
+    text_config = { colour = G.C.RED },
     calc_function = function(card)
         local count = 0
         for k, v in pairs(G.playing_cards) do
@@ -286,7 +286,7 @@ JokerDisplay.Definitions.j_cracker_bluecard = {
                 count = count + 1
             end
         end
-        card.joker_display_values.chips = count * card.ability.extra.chips_add
+        card.joker_display_values.mult = card.ability.extra.mult * math.floor(count / 9)
     end
 }
 JokerDisplay.Definitions.j_cracker_baserunner = {

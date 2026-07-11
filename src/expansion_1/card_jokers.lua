@@ -55,7 +55,7 @@ SMODS.Joker{ --Card Binder
         x = 2,
         y = 2
     },
-    attributes = { 'chips', 'enhancements' },
+    attributes = { 'mult', 'enhancements' },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -249,8 +249,8 @@ SMODS.Joker{ --Goodie Bag
                     delay = 0.45,
                     func = (function() -- consumables vs consumeables makes me hate everything
                         local _card = booster_real:create_card(booster_real, 1)
-                        message = 'k_plus_cracker_card'
-                        color = G.C.FILTER
+                        local message = 'k_plus_cracker_card'
+                        local color = G.C.FILTER
                         if _card.set == 'Joker' or (G.P_CENTERS[_card.config and _card.config.center.key] and G.P_CENTERS[_card.config and _card.config.center.key].set) == 'Joker' then
                             _card.area = G.jokers
                             message = 'k_plus_joker'
