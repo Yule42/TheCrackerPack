@@ -1006,6 +1006,8 @@ SMODS.Voucher {
     atlas = 'Backs',
     config = {
         extra = {
+            voucher = { "v_overstock_norm" },
+            upgrade_voucher = { "v_overstock_plus" },
         }
     },
     pools = { DeckVoucher = true },
@@ -1015,10 +1017,33 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {}}
+        return {vars = {localize{type = 'name_text', key = 'v_overstock_norm', set = 'Voucher'}}}
     end,
     redeem = function(self)
-        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
-        G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
+        SMODS.change_voucher_limit(1)
+        for i = 1, #self.config.extra.voucher do
+            if not G.GAME.used_vouchers[self.config.extra.upgrade_voucher[i]] or not G.GAME.used_vouchers[self.config.extra.voucher[i]] then
+                G.E_MANAGER:add_event(Event({
+                    delay = 0.5,
+                    func = function()
+                        local voucher = G.GAME.used_vouchers[self.config.extra.voucher[i]] and self.config.extra.upgrade_voucher[i] or self.config.extra.voucher[i]
+                        local area = G.play
+                        local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
+                        card:start_materialize()
+                        area:emplace(card)
+                        card.cost = 0
+                        card.shop_voucher = false
+                        card:redeem()
+                        G.GAME.current_round.voucher = voucher
+                        G.E_MANAGER:add_event(Event({
+                            delay = 0,
+                            func = function() 
+                                card:start_dissolve()
+                            return true
+                        end}))
+                    return true
+                end}))
+            end
+        end
     end
 }

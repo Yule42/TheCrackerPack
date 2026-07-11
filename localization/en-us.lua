@@ -55,10 +55,9 @@ return {
             b_cracker_catalog = {
                 name = 'Catalog Deck',
                 text = {
-                    'In shop:',
+                    'Start with {C:attention,T:v_overstock_norm}#1#',
                     '{C:attention}+1{} Voucher slot',
-                    '{C:attention}+1{} Booster Pack slot',
-                    '{C:attention}-1{} card slot',
+                    '{C:attention}-1{} Booster Pack slot',
                 }
             },
             b_cracker_showdown = {
@@ -1076,9 +1075,9 @@ return {
             v_cracker_pw_catalog = {
                 name = 'Catalog Deck',
                 text = {
-                    'In shop:',
+                    'Get {C:attention,T:v_overstock_norm}#1#',
                     '{C:attention}+1{} Voucher slot',
-                    '{C:attention}+1{} Booster Pack slot',
+                    "{C:inactive}(Gives upgrade if voucher already owned)"
                 }
             },
             v_aij_pw_fabled = {
