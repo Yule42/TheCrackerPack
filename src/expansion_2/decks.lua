@@ -173,15 +173,14 @@ SMODS.Back{ -- Catalog Deck
     },
     atlas = 'Backs',
     discovered = true,
-    
+    config = { vouchers = { 'v_overstock_norm' } },
     loc_vars = function(self, info_queue, center)
-        return {vars = {}}
+        return {vars = { localize { type = 'name_text', key = self.config.vouchers[1], set = 'Voucher' } } }
     end,
     
     apply = function(self, back)
-        G.GAME.modifiers.extra_boosters = (G.GAME.modifiers.extra_boosters or 0) + 1
-        G.GAME.modifiers.extra_vouchers = (G.GAME.modifiers.extra_vouchers or 0) + 1
-        change_shop_size(-1)
+        SMODS.change_booster_limit(-1)
+        SMODS.change_voucher_limit(1)
     end
 }
 
