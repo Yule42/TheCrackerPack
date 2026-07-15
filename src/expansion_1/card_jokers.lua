@@ -304,7 +304,8 @@ SMODS.Joker{ --Paycheck
     key = "paycheck",
     config = {
         extra = {
-            dollars = 20,
+            money = 20,
+            active = false
         }
     },
     pos = {
@@ -323,18 +324,27 @@ SMODS.Joker{ --Paycheck
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.dollars}}
+        return {vars = {card.ability.extra.money}}
     end,
     
-    calculate = function(self, card, context)
-        if context.skip_blind and not context.blueprint then
-            ease_dollars(card.ability.extra.dollars)
-            return {
-                message = ''..card.ability.extra.dollars,
-                colour = G.C.MONEY,
-            }
+    calc_dollar_bonus = function(self, card)
+        local active = card.ability.extra.active
+        local bonus = card.ability.extra.money
+        card.ability.extra.active = false
+        if bonus > 0 and active then
+            return bonus
         end
-    end
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
+            for _, state in pairs(G.GAME.round_resets.blind_states) do
+                if state == 'Skipped' then
+                    card.ability.extra.active = true
+                    return
+                end
+            end
+        end
+    end,
 }
 
 SMODS.Joker{ --Darkroom

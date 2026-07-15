@@ -28,7 +28,7 @@ SMODS.Back{ -- Golden Deck
         if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
             key = key.."_collection"
         end
-        return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
+        return {vars = {G.GAME.selected_back.name == 'b_cracker_golden' and G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.name == 'b_cracker_golden' and G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
     end,
     calculate = function(self, back, context)
         if context.skip_blind then
@@ -92,7 +92,7 @@ for tag_key, enabled in pairs(Cracker.money_tags) do
         SMODS.Tag:take_ownership(tag_key,
         {
             get_weight = function(self, weight)
-                if G.GAME.selected_back_key.key == "b_cracker_golden" then
+                if G.GAME.selected_back_key.key == "b_cracker_golden" or G.GAME.used_vouchers['v_cracker_pw_golden'] then
                     return 30
                 end
                 return 10
@@ -132,7 +132,7 @@ SMODS.Back{ -- Rebate Deck
         if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
             key = key.."_collection"
         end
-        return {vars = {G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
+        return {vars = {G.GAME.selected_back.name == 'b_cracker_rebate' and G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.name == 'b_cracker_rebate' and G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
     end,
     calculate = function(self, back, context)
         if context.money_altered and context.amount < 0 and back.effect.config.active then
@@ -184,11 +184,10 @@ SMODS.Back{ -- Blitz Deck
     check_for_unlock = function(self, args)
         return args.type == 'win_deck' and get_deck_win_stake('b_cracker_golden') > 0
     end,
-    loc_vars = function(self, info_queue, center)
-        return {vars = {}}
+    config = { dollars = 15 },
+    loc_vars = function(self, info_queue, back)
+        return { vars = { G.GAME.selected_back.name == 'b_cracker_blitz' and G.GAME.selected_back.effect.config.dollars or self.config.dollars } }
     end,
-    config = {
-    },
     apply = function(self, back)
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
         G.GAME.win_ante = 6
