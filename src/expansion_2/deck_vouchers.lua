@@ -852,10 +852,8 @@ SMODS.Voucher {
     end,
     atlas = 'Backs',
     config = {
-        extra = {
-            voucher = { "v_seed_money", "v_cracker_silver_spoon", "v_hone" },
-            upgrade_voucher = { "v_money_tree", "v_cracker_heirloom", "v_glow_up" },
-        }
+        requirement = 2,
+        current_amount = 2,
     },
     pools = { DeckVoucher = true },
     no_collection = true,
@@ -864,31 +862,52 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {localize{type = 'name_text', key = 'v_seed_money', set = 'Voucher'}, localize{type = 'name_text', key = 'v_cracker_silver_spoon', set = 'Voucher'}, localize{type = 'name_text', key = 'v_hone', set = 'Voucher'}}}
+        return {vars = {self.config.requirement, self.config.current_amount}}
     end,
-    redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
-        for i = 1, #self.config.extra.voucher do
-            if not G.GAME.used_vouchers[self.config.extra.upgrade_voucher[i]] or not G.GAME.used_vouchers[self.config.extra.voucher[i]] then
-                G.E_MANAGER:add_event(Event({
-                    delay = 0.5,
-                    func = function()
-                        local voucher = G.GAME.used_vouchers[self.config.extra.voucher[i]] and self.config.extra.upgrade_voucher[i] or self.config.extra.voucher[i]
-                        local area = G.play
-                        local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
-                        card:start_materialize()
-                        area:emplace(card)
-                        card.cost = 0
-                        card.shop_voucher = false
-                        card:redeem()
-                        G.GAME.current_round.voucher = voucher
-                        G.E_MANAGER:add_event(Event({
-                            delay = 0,
-                            func = function() 
-                                card:start_dissolve()
-                            return true
-                        end}))
-                    return true
-                end}))
+    calculate = function(self, card, context)
+        if context.skip_blind then
+            self.config.current_amount = self.config.current_amount - 1
+            if self.config.current_amount <= 0 then
+                self.config.current_amount = self.config.requirement
+                G.GAME.no_saved = true
+                return { func = function()
+                    G.E_MANAGER:add_event(Event {
+                        trigger = "after",
+                        blocking = false,
+                        func = function()
+                            G.E_MANAGER:add_event(Event {
+                            trigger = "after",
+                            blocking = false,
+                            func = function()
+                                if G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED then
+                                G.GAME.current_round.reroll_cost = G.GAME.round_resets.reroll_cost
+                                G.GAME.current_round.reroll_cost_increase = 0
+                                G.STATE = G.STATES.SHOP
+                                G.STATE_COMPLETE = false
+                                G.GAME.no_saved = nil
+                                return true
+                            end
+                        end})
+                        if G.blind_select then
+                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.y + G.blind_select.T.h
+                            G.E_MANAGER:add_event(Event{
+                            trigger = "after",
+                            delay = 0.3,
+                            func = function()
+                                G.blind_select:remove()
+                                G.blind_prompt_box:remove()
+                                return true
+                            end})
+                        end
+                        return true
+                    end})
+                end}
+            else
+                return {
+                    message = ''..self.config.current_amount,
+                    colour = G.C.FILTER,
+                    delay = 0.5
+                }
             end
         end
     end
@@ -1043,6 +1062,85 @@ SMODS.Voucher {
                         end}))
                     return true
                 end}))
+            end
+        end
+    end
+}
+
+-- yes, i know showdown isn't here i have an idea for it but it'd be a lot to implement for now
+
+SMODS.Voucher {
+    key = 'pw_catalog',
+    pos = {
+        x = 6,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    atlas = 'Backs',
+    config = {},
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    redeem = function(self)
+        local hand_values = {
+            ["High Card"]      = {chips = 15},
+            ["Pair"]           = {chips = 20},
+            ["Two Pair"]       = {chips = 35, mult = 2},
+            ["Three of a Kind"]= {chips = 35, mult = 3},
+            ["Straight"]       = {chips = 50, mult = 5},
+            ["Flush"]          = {chips = 25, mult = 4},
+            ["Full House"]     = {chips = 50, mult = 5},
+            ["Four of a Kind"] = {chips = 50, mult = 6},
+            ["Straight Flush"] = {chips = 70, mult = 8},
+            ["Five of a Kind"] = {chips = 65, mult = 6},
+            ["Flush House"]    = {chips = 80, mult = 8},
+            ["Flush Five"]     = {chips = 80, mult = 6},
+        }
+        local spec_name
+        if next(SMODS.find_mod('Bunco')) and G.GAME.hands['bunc_Spectrum'] then
+            spec_name = "bunc"
+        elseif next(SMODS.find_mod('paperback')) and G.GAME.hands['paperback_Spectrum'] then
+            spec_name = "paperback"
+        end
+        if spec_name then
+            hand_values[spec_name .. "_Spectrum"] = {chips = 30, mult = 3}
+            hand_values[spec_name .. "_Straight Spectrum"] = {chips = 80, mult = 8}
+            hand_values[spec_name .. "_Spectrum House"] = {chips = 75, mult = 8}
+            hand_values[spec_name .. "_Spectrum Five"] = {chips = 100, mult = 6}
+        end
+        if next(SMODS.find_mod('allinjest')) and G.GAME.hands['aij_Royal Flush'] then
+            hand_values["aij_Royal Flush"] = {chips = 100, mult = 12}
+        end
+        if next(SMODS.find_mod('artbox')) and G.GAME.hands['artb_null'] then
+            hand_values["artb_null"] = {chips = 45, mult = 6}
+        end
+        --[[if next(SMODS.find_mod('Maximus')) and G.GAME.hands['mxms_f_three_pair'] then -- i'll finish this later
+            hand_values["mxms_three_pair"] = {chips = 40, mult = 1}
+            hand_values["mxms_double_triple"] = {chips = 70, mult = 5}
+            hand_values["mxms_6oak"] = {chips = 70, mult = 7}
+            hand_values["mxms_s_straight"] = {chips = 80, mult = 5}
+            hand_values["mxms_s_flush"] = {chips = 35, mult = 5}
+            hand_values["mxms_house_party"] = {chips = 75, mult = 6}
+            hand_values["mxms_f_three_pair"] = {chips = 35, mult = 5}
+            hand_values["mxms_f_double_triple"] = {chips = 100, mult = 9}
+        end]]
+        for hand, values in pairs(hand_values) do
+            if G.GAME.hands[hand] then
+                if values.chips then G.GAME.hands[hand].l_chips = values.chips end
+                if values.mult then G.GAME.hands[hand].l_mult = values.mult end
             end
         end
     end

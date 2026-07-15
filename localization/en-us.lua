@@ -38,6 +38,7 @@ return {
             b_cracker_blitz = {
                 name = 'Blitz Deck',
                 text = {
+                    'Start with {C:money}$#1#',
                     'Win in Ante {C:attention}6',
                     'Required score scales',
                     'faster for each {C:attention}Ante',
@@ -602,9 +603,9 @@ return {
             j_cracker_card_binder = {
                 name = 'Card Binder',
                 text = {
-                    '{C:chips}+#2#{} Chips for each',
-                    '{C:attention}enhanced{} card in your full deck',
-                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
+                    '{C:mult}+#1#{} Mult for each {C:attention}#2#',
+                    '{C:attention}enhanced{} cards in your full deck',
+                    '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
                 }
             },
             j_cracker_baserunner = {
@@ -638,8 +639,10 @@ return {
             j_cracker_paycheck = {
                 name = 'Paycheck',
                 text = {
-                    'Earn {C:money}$#1#{} when a',
-                    '{C:attention}Blind{} is skipped',
+                    'Earn {C:money}$#1#{} after',
+                    'defeating the Boss Blind',
+                    'if a {C:attention}Blind{} was skipped',
+                    'during this ante',
                 }
             },
             j_cracker_darkroom = {

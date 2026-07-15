@@ -575,13 +575,14 @@ if not CrackerConfig.disable_card then
     assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 end
 
+assert(SMODS.load_file('src/new_additions/tags.lua'))() -- guess who needs to be referenced later?
+
 assert(SMODS.load_file('src/expansion_2/jokers.lua'))()
 assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 
 assert(SMODS.load_file('src/new_additions/decks.lua'))()
 assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
-assert(SMODS.load_file('src/new_additions/tags.lua'))()
 assert(SMODS.load_file('src/new_additions/joker.lua'))()
 
 if JokerDisplay then
@@ -592,9 +593,9 @@ if next(SMODS.find_mod('allinjest')) then
     assert(SMODS.load_file('src/compat/AllInJest.lua'))()
 end
 
-if next(SMODS.find_mod('paperback')) then
+--[[if next(SMODS.find_mod('paperback')) then
     assert(SMODS.load_file('src/compat/Paperback.lua'))()
-end
+end]]
 
 if next(SMODS.find_mod('partner')) then
 	SMODS.Atlas {
@@ -606,7 +607,7 @@ if next(SMODS.find_mod('partner')) then
 	assert(SMODS.load_file('src/compat/Partner.lua'))()
 end
 
-if CardSleeves then
+--[[if CardSleeves then
 	SMODS.Atlas {
 		key = 'sleeves',
 		path = "sleeves.png",
@@ -614,7 +615,7 @@ if CardSleeves then
 		py = 95
 	}
 	assert(SMODS.load_file('src/compat/CardSleeves.lua'))()
-end
+end]]
 
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
 

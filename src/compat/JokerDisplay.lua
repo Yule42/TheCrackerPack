@@ -316,7 +316,7 @@ JokerDisplay.Definitions.j_cracker_baserunner = {
         end
     end,
 }
-JokerDisplay.Definitions.j_cracker_pinkcard = {
+--[[JokerDisplay.Definitions.j_cracker_pinkcard = {
     text = {
         { ref_table = "card.joker_display_values", ref_value = "h_size", colour = G.C.FILTER, retrigger_type = "mult" },
     },
@@ -332,20 +332,7 @@ JokerDisplay.Definitions.j_cracker_pinkcard = {
         card.joker_display_values.active = card.ability.extra.current_add > 0
         card.joker_display_values.h_size = card.joker_display_values.active and ("+" .. (card.ability.extra.current_add and JokerDisplay.number_format(card.ability.extra.current_add) or 0)) or "-"
     end,
-}
-JokerDisplay.Definitions.j_cracker_paycheck = {
-    text = {
-            { text = "+$" },
-            { ref_table = "card.ability.extra", ref_value = "dollars" },
-        },
-        text_config = { colour = G.C.GOLD },
-        reminder_text = {
-            { ref_table = "card.joker_display_values", ref_value = "localized_text" },
-        },
-        calc_function = function(card)
-            card.joker_display_values.localized_text = "(" .. localize("b_skip") .. ")"
-        end
-}
+}]]
 JokerDisplay.Definitions.j_cracker_darkroom = {
     reminder_text = {
         { text = "(" },
@@ -366,7 +353,7 @@ JokerDisplay.Definitions.j_cracker_darkroom = {
         card.joker_display_values.negative_count = card.ability.extra.skips_needed_base + negative_count
     end,
 }
-JokerDisplay.Definitions.j_cracker_whitecard = {
+--[[JokerDisplay.Definitions.j_cracker_whitecard = {
     text = {
         { ref_table = "card.joker_display_values", ref_value = "tarot_count", retrigger_type = "mult" },
     },
@@ -374,7 +361,7 @@ JokerDisplay.Definitions.j_cracker_whitecard = {
     calc_function = function(card)
         card.joker_display_values.tarot_count = "+" .. card.ability.extra.solds
     end,
-}
+}]]
 JokerDisplay.Definitions.j_cracker_rainbowcard = {
     reminder_text = {
         { text = "(" },
