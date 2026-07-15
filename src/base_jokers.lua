@@ -21,7 +21,6 @@ SMODS.Joker{ --Saltine Cracker
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
-    discovered = true,
     atlas = 'Jokers',
     no_pool_flag = 'saltine_cracker_eaten',
     loc_vars = function(self, info_queue, card)
@@ -84,7 +83,6 @@ SMODS.Joker{ --Chocolate Coin
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
     if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'lumahoneyy', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -162,7 +160,6 @@ SMODS.Joker{ --Graham Cracker
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
-    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
@@ -231,17 +228,23 @@ SMODS.Joker{ --Thrifty Joker
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
+    check_for_unlock = function(self, args)
+        return args.type == 'discover_amount' and G.DISCOVER_TALLIES.vouchers.tally >= 20
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 20 } }
+    end,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
+        return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
-                mult = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
+                mult = (math.max((table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
             }
         end
     end
@@ -271,7 +274,7 @@ SMODS.Joker{ --Cheese
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -345,7 +348,7 @@ SMODS.Joker{ --Cracker Barrel
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
@@ -415,10 +418,10 @@ SMODS.Joker{ --Sacramental Katana
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_sacrifice'}
@@ -479,7 +482,7 @@ SMODS.Joker{ --Freezer
     eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -534,9 +537,15 @@ SMODS.Joker{ --Life Support
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = true,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     atlas = 'Jokers',
+    check_for_unlock = function(self, args)
+        return args.type == 'cracker_money_change' and args.amount >= 20
+    end,
+    locked_loc_vars = function(self, info_queue, card)
+        return { vars = { 20 } }
+    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.price}}

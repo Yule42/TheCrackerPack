@@ -608,6 +608,8 @@ if next(SMODS.find_mod('paperback')) then
     assert(SMODS.load_file('src/compat/Paperback.lua'))()
 end
 
+assert(SMODS.load_file('src/expansion_2/patchwork_deck.lua'))() -- always at the last of the list of decks for an obvious reason
+
 if next(SMODS.find_mod('partner')) then
 	SMODS.Atlas {
 		key = 'Partner',
@@ -633,6 +635,14 @@ assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it refere
 SMODS.current_mod.calculate = function(self, context)
     if context.tag_added and context.tag_added.key == "tag_cracker_loan" then
         ease_dollars(30)
+    elseif context.money_altered then
+        if context.from_shop and context.amount < 0 then
+            G.GAME.cracker_money_spent = (G.GAME.cracker_money_spent or 0) - context.amount
+            check_for_unlock({type = 'cracker_money_spent'})
+        end
+        check_for_unlock({type = 'cracker_money_change', amount = context.amount})
+    elseif context.starting_shop then
+        G.GAME.cracker_money_spent = 0
     end
 end
 

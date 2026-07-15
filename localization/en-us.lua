@@ -9,6 +9,11 @@ return {
                     'Every {C:attention}#1#{} {C:inactive}[#2#]{} skips,',
                     'enter the shop'
                 },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
             },
             b_cracker_golden_collection = {
                 name = 'Golden Deck',
@@ -18,6 +23,11 @@ return {
                     'Every {C:attention}#1#{} skips,',
                     'enter the shop'
                 },
+                unlock = {
+                    "Win a run with any",
+                    "deck on at least",
+                    "{V:1}#1#{} difficulty",
+                }
             },
             b_cracker_rebate = {
                 name = 'Rebate Deck',
@@ -25,6 +35,10 @@ return {
                     'If {C:money}$#1#{} {C:inactive}[#2#]{} is spent',
                     'during a single ante, create a',
                     'free {C:attention}Mega{} Booster Pack',
+                },
+                unlock = {
+                    "Spend {C:money}$#1#",
+                    "in a single shop",
                 }
             },
             b_cracker_rebate_collection = {
@@ -33,6 +47,10 @@ return {
                     'If {C:money}$#1#{} is spent',
                     'during a single ante, create a',
                     'free {C:attention}Mega{} Booster Pack',
+                },
+                unlock = {
+                    "Spend {C:money}$#1#",
+                    "in a single shop",
                 }
             },
             b_cracker_blitz = {
@@ -41,6 +59,11 @@ return {
                     'Win in Ante {C:attention}6',
                     'Required score scales',
                     'faster for each {C:attention}Ante',
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
                 }
             },
             b_cracker_patchwork = {
@@ -50,6 +73,10 @@ return {
                     'instead of {C:attention}Vouchers',
                     '{C:attention}Deck Vouchers{} restock',
                     'every {C:attention}other{} Ante',
+                },
+                unlock = {
+                    "Win a run while having",
+                    "{C:attention}every other{} deck unlocked",
                 }
             },
             b_cracker_catalog = {
@@ -58,6 +85,11 @@ return {
                     'Start with {C:attention,T:v_overstock_norm}#1#',
                     '{C:attention}+1{} Voucher slot',
                     '{C:attention}-1{} Booster Pack slot',
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} items from",
+                    "your collection",
                 }
             },
             b_cracker_showdown = {
@@ -448,6 +480,11 @@ return {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
                     'purchased this run',
                     '{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
+                },
+                unlock = {
+                    "Discover at least",
+                    "{C:attention}#1#{} Vouchers from",
+                    "your collection",
                 }
             },
             j_cracker_cheese = {
@@ -496,6 +533,10 @@ return {
                     'and lose {C:money}$#1#',
                     '{S:1.1,C:red,E:2}Self destructs{} if cost puts you in debt',
                     '{C:inactive}(Money lost doubles each use)',
+                },
+                unlock = {
+                    'Lose {C:money}$#1#{}',
+                    'or more at once',
                 }
             },
             j_cracker_curry = {
@@ -620,9 +661,9 @@ return {
             j_cracker_card_binder = {
                 name = 'Card Binder',
                 text = {
-                    '{C:chips}+#2#{} Chips for each',
-                    '{C:attention}enhanced{} card in your full deck',
-                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips){}',
+                    '{C:mult}+#1#{} Mult for each {C:attention}#2#',
+                    '{C:attention}enhanced{} cards in your full deck',
+                    '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
                 }
             },
             j_cracker_baserunner = {

@@ -11,7 +11,18 @@ SMODS.Back{ -- Golden Deck
         requirement = 2,
         current_amount = 2,
     },
-    
+    unlocked = false,
+    locked_loc_vars = function(self, info_queue, back)
+        return {
+            vars = {
+                localize { type = 'name_text', set = 'Stake', key = 'stake_gold' },
+                colours = { get_stake_col(8) }
+            }
+        }
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'win_stake' and get_deck_win_stake() >= 8
+    end,
     loc_vars = function(self, info_queue, center)
         key = "b_cracker_golden"
         if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
@@ -105,7 +116,17 @@ SMODS.Back{ -- Rebate Deck
     },
     atlas = 'Backs',
     discovered = true,
-    
+    unlocked = false,
+    locked_loc_vars = function(self, info_queue, back)
+        return {
+            vars = {
+                30
+            }
+        }
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'cracker_money_spent' and G.GAME.cracker_money_spent >= 30
+    end,
     loc_vars = function(self, info_queue, center)
         key = "b_cracker_rebate"
         if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
@@ -145,14 +166,24 @@ SMODS.Back{ -- Rebate Deck
 
 SMODS.Back{ -- Blitz Deck
     key = "blitz",
-    
     pos = {
         x = 2,
         y = 0,
     },
     atlas = 'Backs',
     discovered = true,
-    
+    unlocked = false,
+    locked_loc_vars = function(self, info_queue, back)
+        local other_name = localize('k_unknown')
+        if G.P_CENTERS['b_cracker_golden'].unlocked then
+            other_name = localize { type = 'name_text', set = 'Back', key = 'b_cracker_golden' }
+        end
+
+        return { vars = { other_name } }
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'win_deck' and get_deck_win_stake('b_cracker_golden') > 0
+    end,
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,
@@ -166,7 +197,6 @@ SMODS.Back{ -- Blitz Deck
 
 SMODS.Back{ -- Catalog Deck
     key = "catalog",
-    
     pos = {
         x = 4,
         y = 0,
@@ -174,33 +204,18 @@ SMODS.Back{ -- Catalog Deck
     atlas = 'Backs',
     discovered = true,
     config = { vouchers = { 'v_overstock_norm' } },
+    unlocked = false,
+    locked_loc_vars = function(self, info_queue, back)
+        return { vars = { 150 } }
+    end,
+    check_for_unlock = function(self, args)
+        return args.type == 'discover_amount' and args.amount >= 150
+    end,
     loc_vars = function(self, info_queue, center)
         return {vars = { localize { type = 'name_text', key = self.config.vouchers[1], set = 'Voucher' } } }
     end,
-    
     apply = function(self, back)
         SMODS.change_booster_limit(-1)
         SMODS.change_voucher_limit(1)
-    end
-}
-
-SMODS.Back{ -- Patchwork Deck
-    name = "Patchwork Deck", 
-    key = "patchwork",
-    
-    pos = {
-        x = 3,
-        y = 0,
-    },
-    atlas = 'Backs',
-    discovered = true,
-    
-    loc_vars = function(self, info_queue, center)
-        return {vars = {}}
-    end,
-    
-    apply = function(self, back)
-        G.GAME.modifiers.voucher_override = 'patchwork_enabled'
-        G.GAME.modifiers.voucher_restock_antes = 2
     end
 }
