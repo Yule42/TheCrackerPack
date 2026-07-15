@@ -554,11 +554,6 @@ SMODS.current_mod.config_tab = function() --Config
             }
         },
         create_toggle({
-            label = "Disable Card Pack",
-            ref_table = CrackerConfig,
-            ref_value = "disable_card",
-        }),
-        create_toggle({
             label = "Dev Textures",
             ref_table = CrackerConfig,
             ref_value = "starlo",
@@ -571,9 +566,7 @@ assert(SMODS.load_file('src/base_jokers.lua'))()
 assert(SMODS.load_file('src/upgraded_food.lua'))()
 assert(SMODS.load_file('src/voucher.lua'))()
 
-if not CrackerConfig.disable_card then
-    assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
-end
+assert(SMODS.load_file('src/expansion_1/card_jokers.lua'))()
 
 assert(SMODS.load_file('src/new_additions/tags.lua'))() -- guess who needs to be referenced later?
 
