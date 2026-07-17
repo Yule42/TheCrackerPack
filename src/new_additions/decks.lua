@@ -43,8 +43,7 @@ SMODS.Back{ -- Showdown Deck
                     if v.boss and v.boss.dx then
                         G.GAME.banned_keys[k] = nil
                         local pool = v:in_pool()
-                        
-                        G.GAME.banned_keys[k] = pool and true or nil
+                        G.GAME.banned_keys[k] = pool and false or nil
                     end
                 end
                 G.GAME.banned_keys["bl_cracker_major"] = true
