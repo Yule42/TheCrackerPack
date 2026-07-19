@@ -184,7 +184,7 @@ SMODS.Back{ -- Blitz Deck
     check_for_unlock = function(self, args)
         return args.type == 'win_deck' and get_deck_win_stake('b_cracker_golden') > 0
     end,
-    config = { dollars = 15 },
+    config = { dollars = 5 },
     loc_vars = function(self, info_queue, back)
         return { vars = { G.GAME.selected_back.name == 'b_cracker_blitz' and G.GAME.selected_back.effect.config.dollars or self.config.dollars } }
     end,
