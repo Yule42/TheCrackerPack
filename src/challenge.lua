@@ -130,10 +130,6 @@ local challenge = SMODS.Challenge{
     }
 }
 
-if not disable_card then
-    table.insert(challenge.restrictions.banned_cards, 4, {id = 'j_cracker_whitecard'})
-end
-
 SMODS.Challenge{
     loc_txt = {name = "Mail Call"},
     key = "mailcall",
