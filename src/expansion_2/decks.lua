@@ -152,7 +152,7 @@ SMODS.Back{ -- Blitz Deck
     },
     atlas = 'Backs',
     discovered = true,
-    config = { dollars = 15 },
+    config = { dollars = 5 },
     loc_vars = function(self, info_queue, back)
         return { vars = { G.GAME.selected_back.name == 'b_cracker_blitz' and G.GAME.selected_back.effect.config.dollars or self.config.dollars } }
     end,
