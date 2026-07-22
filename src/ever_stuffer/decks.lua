@@ -9,7 +9,7 @@ SMODS.Back{ -- White Deck
     loc_vars = function(self, info_queue, center)
         return {vars = {}}
     end,
-    config = { hands = -1 },
+    config = { },
     calculate = function(self, back, context)
         if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
