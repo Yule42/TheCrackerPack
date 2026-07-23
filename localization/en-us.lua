@@ -113,8 +113,7 @@ return {
                 text = {
                     'Recieve a {C:tarot}Tarot{} card when',
                     '{C:attention}Blind{} is selected',
-                    '{C:inactive}(Must have room)',
-                    '{C:blue}-1{} hand every round'
+                    '{C:inactive}(Must have room)'
                 }
             },
             b_cracker_white_2 = {
