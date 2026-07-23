@@ -1079,7 +1079,7 @@ SMODS.Blind { -- Verdant Leaf
     in_pool = function(self)
         return Cracker.dx_blinds_enabled()
     end,
-    mult = 2,
+    mult = 1,
     boss_colour = HEX("56a786"),
     atlas = 'dx_blinds',
     pos = { y = 29 },
