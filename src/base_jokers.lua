@@ -314,7 +314,7 @@ SMODS.Joker{ --Cheese
                     end
                 })) 
                 return {
-                    message = localize('k_cracker_eaten_ex'),
+                    message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
             end
@@ -669,7 +669,7 @@ SMODS.Joker{ --Curry
                     end
                 })) 
                 return {
-                    message = localize('k_cracker_eaten_ex'),
+                    message = localize('k_eaten_ex'),
                     colour = G.C.RED
                 }
             end
