@@ -457,7 +457,7 @@ SMODS.Joker{ --Ants
         y = 3,
     },
     attributes = { 'xmult', 'joker', 'scaling' },
-    cost = 5,
+    cost = 7,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
@@ -470,26 +470,15 @@ SMODS.Joker{ --Ants
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'courier'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue+1] = { set = 'Other', key = 'food_cracker'}
-        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add}}
+        local x_mult = 1 + card.ability.extra.x_mult * G.GAME.Cracker.food_jokers_destroyed
+        return {vars = {x_mult, card.ability.extra.x_mult_add}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
+        if context.joker_main and ard.ability.extra.x_mult > 1 then
             return {
-                xmult = card.ability.extra.x_mult,
+                xmult = 1 + card.ability.extra.x_mult * G.GAME.Cracker.food_jokers_destroyed,
             }
-        elseif context.food_joker_destroyed and context.cardarea == G.jokers and not context.blueprint then
-			SMODS.scale_card(card, {
-				ref_table = card.ability.extra,
-				ref_value = "x_mult",
-				scalar_value = "x_mult_add",
-				operation = "+",
-				scaling_message = {
-					message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult+card.ability.extra.x_mult_add}},
-					colour = G.C.RED
-				}
-			})
-            return nil, true
         end
     end
 }

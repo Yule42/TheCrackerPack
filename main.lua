@@ -368,6 +368,7 @@ end
 local remove_ref = Card.remove
 function Card.remove(self)
     if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and Cracker.is_food(self.config.center_key) then
+        G.GAME.Cracker.food_jokers_destroyed = G.GAME.Cracker.food_jokers_destroyed + 1
         SMODS.calculate_context({
             food_joker_destroyed = true,
             destroyed_joker = self
@@ -395,6 +396,7 @@ Game.init_game_object = function(self)
     ret.Cracker = ret.Cracker or {}
     ret.Cracker.food_multiplier = 1
     ret.Cracker.tags_in_shop = 0
+    ret.Cracker.food_jokers_destroyed = 0
     
     return ret
 end
