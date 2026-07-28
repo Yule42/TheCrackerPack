@@ -10,8 +10,7 @@ target = "main.lua"
 pattern = '''function love.load()'''
 position = "before"
 payload = '''
-Cracker = {}
-Cracker.food = {}
+Cracker = Cracker or {}
 '''
 match_indent = true
 times = 1
