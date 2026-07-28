@@ -257,17 +257,21 @@ create_UIBox_your_collection_deckvouchers = function()
     })
 end
 
-Cracker.money_tags = {
-    tag_investment = true,
-    tag_handy = true,
-    tag_garbage = true,
-    tag_skip = true,
-    tag_economy = true,
-    tag_cracker_rocket = true,
-    tag_cracker_crystal = true,
-}
+Cracker.money_tags = Cracker.money_tags or {}
 
-function Cracker.spawn_mega_pack()
+Cracker.money_tags.tag_investment = true
+Cracker.money_tags.tag_handy = true
+Cracker.money_tags.tag_garbage = true
+Cracker.money_tags.tag_skip = true
+Cracker.money_tags.tag_economy = true
+Cracker.money_tags.tag_cracker_rocket = true
+Cracker.money_tags.tag_cracker_crystal = true
+
+Cracker.immutable_food = Cracker.immutable_food or {}
+
+Cracker.immutable_food.j_cracker_alcoholicsoda = true
+
+function Cracker.spawn_mega_pack() -- this isnt generic at all????
     local center = get_pack('rebate_deck')
     local count = 0
     local found = nil
@@ -388,7 +392,7 @@ end
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
-    ret.Cracker = {}
+    ret.Cracker = ret.Cracker or {}
     ret.Cracker.food_multiplier = 1
     ret.Cracker.tags_in_shop = 0
     
@@ -519,7 +523,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Contribution: DistantMind, wombatcountry, courier, GeorgeTheRat",
+                                text = "Contribution: DistantMind, wombatcountry, courier, GeorgeTheRat, Infamousinvictis",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
