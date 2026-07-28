@@ -26,7 +26,7 @@
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Cybernana MK920')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Cybernana MK920')
         return {vars = {card.ability.extra.x_mult_add, new_numerator, new_denominator, card.ability.extra.x_mult}}
     end,
     
@@ -42,7 +42,7 @@
                     colour = G.C.FILTER
                 }
             else
-                if SMODS.pseudorandom_probability(card, 'Cybernana MK920', 1, card.ability.extra.odds, 'Cybernana MK920') then 
+                if SMODS.pseudorandom_probability(card, 'cracker_Cybernana MK920', 1, card.ability.extra.odds, 'cracker_Cybernana MK920') then 
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
@@ -290,13 +290,13 @@ SMODS.Joker{ --Alcoholic Soda
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Alcoholic Soda')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.immutable_cracker_freezer.odds, 'cracker_Alcoholic Soda')
         return {vars = {new_numerator, new_denominator}}
     end,
     
     remove_from_deck = function(self, card, from_debuff)
         for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, 'Alcoholic Soda')
+            SMODS.debuff_card(v, false, 'cracker_Alcoholic Soda')
         end
     end,
     
@@ -309,13 +309,13 @@ SMODS.Joker{ --Alcoholic Soda
             }
         elseif context.setting_blind and not context.blueprint then
             for k, v in pairs(G.playing_cards) do
-                if SMODS.pseudorandom_probability(card, 'Alcoholic Soda', 1, card.ability.extra.odds, 'Alcoholic Soda') then
-                    SMODS.debuff_card(v, true, 'Alcoholic Soda')
+                if SMODS.pseudorandom_probability(card, 'cracker_Alcoholic Soda', 1, card.ability.extra.immutable_cracker_freezer.odds, 'cracker_Alcoholic Soda') then
+                    SMODS.debuff_card(v, true, 'cracker_Alcoholic Soda')
                 end
             end
         elseif context.end_of_round and context.main_eval and not context.blueprint then
             for k, v in pairs(G.playing_cards) do
-                SMODS.debuff_card(v, false, 'Alcoholic Soda')
+                SMODS.debuff_card(v, false, 'cracker_Alcoholic Soda')
             end
         end
     end

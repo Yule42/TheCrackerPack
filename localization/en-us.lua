@@ -782,9 +782,8 @@ return {
             j_cracker_ants = {
                 name = 'Ants',
                 text = {
-                    'This Joker gains',
-                    '{X:mult,C:white}X#2#{} Mult when a',
-                    '{C:attention}Food Joker{} is destroyed',
+                    '{X:mult,C:white}X#2#{} Mult for each',
+                    '{C:attention}Food Joker{} destroyed this run',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult){}',
                 }
             },

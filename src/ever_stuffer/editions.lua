@@ -140,7 +140,7 @@ SMODS.Consumable {
             trigger = 'after',
             delay = 0.4,
             func = function()
-                local eligible_card = pseudorandom_element(editionless_jokers, 'Cracker Abyss')
+                local eligible_card = pseudorandom_element(editionless_jokers, 'cracker_Cracker Abyss')
                 eligible_card:set_edition("e_cracker_prismatic")
 
                 G.consumeables:change_size(-1)

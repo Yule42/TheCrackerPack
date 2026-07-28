@@ -583,7 +583,7 @@ SMODS.Joker{ --The Falcon
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thefalcon')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_thefalcon')
         return {vars = {new_numerator, new_denominator}}
     end,
     
@@ -598,7 +598,7 @@ SMODS.Joker{ --The Falcon
     
     calculate = function(self, card, context)
         if context.discard then
-			if SMODS.pseudorandom_probability(card, 'thefalcon', 1, card.ability.extra.odds, 'thefalcon') then
+			if SMODS.pseudorandom_probability(card, 'cracker_thefalcon', 1, card.ability.extra.odds, 'cracker_thefalcon') then
 				return {
 					message = localize('k_cracker_discard_falcon'),
 					colour = G.C.FILTER,

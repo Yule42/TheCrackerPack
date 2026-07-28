@@ -119,10 +119,10 @@ if G.GAME.modifiers.suit_patcher then
 			                          keys[#keys+1] = key
                             end
 		                    end
-		                    local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+		                    local cur_suit = pseudorandom_element(keys, pseudoseed('cracker_patchwork'))
                         local temp_index = 0
                         while cur_suit == cur_card.base.suit do
-                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            cur_suit = pseudorandom_element(keys, pseudoseed('cracker_patchwork_resample'..temp_index))
                             temp_index = temp_index + 1
                         end
 			                  All_in_Jest.add_patch(cur_card, cur_suit, true);

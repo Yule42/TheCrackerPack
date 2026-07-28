@@ -43,7 +43,7 @@ SMODS.Blind { -- The Hook
                         end
                         for i = 1, 2 do
                             if G.hand.cards[i] then
-                                local selected_card, card_index = pseudorandom_element(_cards, 'hook_dx')
+                                local selected_card, card_index = pseudorandom_element(_cards, 'cracker_hook_dx')
                                 G.hand:add_to_highlighted(selected_card, true)
                                 table.remove(_cards, card_index)
                                 any_selected = true
@@ -88,7 +88,7 @@ SMODS.Blind { -- The Hook
                         G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + 2
                         for i = 1, 2 do
                             if G.hand.cards[i] then
-                                local selected_card, card_index = pseudorandom_element(_cards, 'hook_dx')
+                                local selected_card, card_index = pseudorandom_element(_cards, 'cracker_hook_dx')
                                 G.hand:add_to_highlighted(selected_card, true)
                                 table.remove(_cards, card_index)
                                 any_selected = true
@@ -253,7 +253,7 @@ SMODS.Blind { -- The Wheel
     calculate = function(self, blind, context)
         if not blind.disabled and G.GAME.blind.effect then
             if context.stay_flipped and context.to_area == G.hand then
-                if SMODS.pseudorandom_probability(blind, 'wheel_dx', G.GAME.blind.effect.extra.odds, 7) then
+                if SMODS.pseudorandom_probability(blind, 'cracker_wheel_dx', G.GAME.blind.effect.extra.odds, 7) then
                     return {
                         stay_flipped = true
                     }
@@ -866,8 +866,8 @@ SMODS.Blind { -- The Head
                                 end
                             end
                             if #jokers == 0 then break end
-                            local _card = pseudorandom_element(jokers, 'head_dx')
-                            SMODS.debuff_card(_card, true, 'head_dx')
+                            local _card = pseudorandom_element(jokers, 'cracker_head_dx')
+                            SMODS.debuff_card(_card, true, 'cracker_head_dx')
                             _card:juice_up()
                             blind:wiggle()
                         end
@@ -878,12 +878,12 @@ SMODS.Blind { -- The Head
     end,
     disable = function(self)
         for _, joker in ipairs(G.jokers.cards) do
-            SMODS.debuff_card(joker, false, 'head_dx')
+            SMODS.debuff_card(joker, false, 'cracker_head_dx')
         end
     end,
     defeat = function(self)
         for _, joker in ipairs(G.jokers.cards) do
-            SMODS.debuff_card(joker, false, 'head_dx')
+            SMODS.debuff_card(joker, false, 'cracker_head_dx')
         end
     end,
 }
