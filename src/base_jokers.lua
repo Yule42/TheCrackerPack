@@ -162,7 +162,7 @@ SMODS.Joker{ --Graham Cracker
     unlocked = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.x_mult_add, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.x_mult, card.ability.extra.x_mult_max}}
     end,
     calculate = function(self, card, context)
@@ -351,7 +351,7 @@ SMODS.Joker{ --Cracker Barrel
     discovered = false,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.creation, card.ability.extra.jokersleft}}
     end,
     calculate = function(self, card, context)
@@ -698,7 +698,7 @@ SMODS.Joker{ --Knife Thrower
     discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.hands}}
     end,
     add_to_deck = function(self, card, from_debuff)
