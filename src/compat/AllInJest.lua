@@ -354,12 +354,12 @@ SMODS.Blind {
 
     set_blind = function(self)
         for k, v in pairs(G.playing_cards) do
-            if SMODS.pseudorandom_probability(self, 'the_shell_dx', 1, G.GAME.blind.config.blind.boss.odds) then
+            if SMODS.pseudorandom_probability(self, 'jest_the_shell_dx'..G.GAME.round_resets.ante, 1, G.GAME.blind.config.blind.boss.odds) then
                 SMODS.debuff_card(v, true, 'the_shell_dx')
             end
         end
         for i=1, #G.deck.cards do
-            if SMODS.pseudorandom_probability(self, 'the_shell_dx', 1, G.GAME.blind.config.blind.boss.odds2) then
+            if SMODS.pseudorandom_probability(self, 'jest_the_shell_dx'..G.GAME.round_resets.ante, 1, G.GAME.blind.config.blind.boss.odds2) then
                 draw_card(G.deck, G.discard)
             end
         end
@@ -1093,10 +1093,10 @@ SMODS.Voucher {
                                   keys[#keys+1] = key
                         end
                         end
-                        local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                        local cur_suit = pseudorandom_element(keys, pseudoseed('cracker_pw_patchwork'))
                         local temp_index = 0
                         while cur_suit == cur_card.base.suit do
-                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            cur_suit = pseudorandom_element(keys, pseudoseed('cracker_pw_patchwork_resample'..temp_index))
                             temp_index = temp_index + 1
                         end
                         All_in_Jest.add_patch(cur_card, cur_suit, true);

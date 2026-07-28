@@ -26,12 +26,12 @@ SMODS.Joker{ --Saltine Cracker
     no_pool_flag = 'saltine_cracker_eaten',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'DistantMind'}, key = 'artist_credits_cracker'} end
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Saltine Cracker')
         return {vars = {card.ability.extra.chips, card.ability.extra.chip_mod, numerator, denominator}}
     end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint and not context.repetition then
-            if SMODS.pseudorandom_probability(card, 'Saltine Cracker', 1, card.ability.extra.odds, 'Saltine Cracker') then
+            if SMODS.pseudorandom_probability(card, 'cracker_Saltine Cracker', 1, card.ability.extra.odds, 'cracker_Saltine Cracker') then
                 SMODS.destroy_cards(card, nil, nil, true)
                 G.GAME.pool_flags.saltine_cracker_eaten = true
                 return {
@@ -496,7 +496,8 @@ SMODS.Joker{ --Freezer
         end
     end,
     calculate = function(self, card, context)
-        if context.mod_probability and Cracker.is_food(context.trigger_obj) then
+        if context.mod_probability and Cracker.is_food(context.trigger_obj) and not 
+            (context.trigger_obj.ability.extra and context.trigger_obj.ability.extra.immutable_cracker_freezer and context.trigger_obj.ability.extra.immutable_cracker_freezer.odds) then
             return {
                 numerator = 0
             }
@@ -724,12 +725,12 @@ SMODS.Joker{ --Northern Star
     discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimari'}, key = 'artist_credits_cracker'} end
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_northstar')
         return {vars = {new_numerator, new_denominator}}
     end,
     calculate = function(self, card, context)
-        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'northstar', 1, card.ability.extra.odds, 'northstar') then
+        if context.skipping_booster and SMODS.pseudorandom_probability(card, 'cracker_northstar', 1, card.ability.extra.odds, 'cracker_northstar') then
             local hand = Cracker.mostplayedhand()
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand, 'poker_hands'), chips = G.GAME.hands[hand].chips, mult = G.GAME.hands[hand].mult, level=G.GAME.hands[hand].level})
             level_up_hand(card, hand)
@@ -760,11 +761,11 @@ SMODS.Joker{ --The Dealer
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thedealer')
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_thedealer')
         return {vars = {new_numerator, new_denominator}}
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.repetition and not context.repetition_only and SMODS.pseudorandom_probability(card, 'thedealer', 1, card.ability.extra.odds, 'thedealer') then
+        if context.cardarea == G.play and context.repetition and not context.repetition_only and SMODS.pseudorandom_probability(card, 'cracker_thedealer', 1, card.ability.extra.odds, 'cracker_thedealer') then
             return {
                 message = localize('k_again_ex'),
                 repetitions = 1,
