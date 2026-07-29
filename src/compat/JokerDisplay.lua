@@ -264,14 +264,17 @@ JokerDisplay.Definitions.j_cracker_canofbeans = {
     end
 }
 JokerDisplay.Definitions.j_cracker_tsukemen = {
-    text = {
-        {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
-            }
-        }
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra",        ref_value = "cards" },
+        { text = "/" },
+        { ref_table = "card.joker_display_values", ref_value = "start_count" },
+        { text = ")" },
     },
+    reminder_text_config = { scale = 0.35 },
+    calc_function = function(card)
+        card.joker_display_values.start_count = card.joker_display_values.start_count or card.ability.extra.cards
+    end
 }
 JokerDisplay.Definitions.j_cracker_card_binder = {
     text = {
