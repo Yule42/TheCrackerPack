@@ -400,9 +400,9 @@ SMODS.Joker{ --Tsukemen
     key = "tsukemen",
     config = {
         extra = {
-            x_mult = 2,
-            x_mult_add = 0.05,
-            x_mult_remove = 0.25,
+            mult = 3,
+            cards = 30,
+            cards_reduce = 1
         }
     },
     pos = {
@@ -412,76 +412,46 @@ SMODS.Joker{ --Tsukemen
     pools = {
         Food = true,
     },
-    attributes = { 'xmult', 'scaling', 'discard', 'hands', 'food' },
-    cost = 8,
-    rarity = 3,
+    attributes = { 'mult', 'scaling', 'discard', 'modify_card', 'perma_bonus', 'food' },
+    cost = 5,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
 
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sugariimarii'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_add, card.ability.extra.x_mult_remove}}
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.mult, card.ability.extra.cards}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
-            return {
-                xmult = card.ability.extra.x_mult,
-            }
-        elseif context.discard and not context.blueprint then
-            if G.GAME.Cracker.food_multiplier > 0 then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "x_mult",
-                    scalar_value = "x_mult_add",
-                    operation = "+",
-                    scaling_message = {
-                        message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult_add * G.GAME.Cracker.food_multiplier}},
-                        colour = G.C.RED,
-                        delay = 0.2
-                    }
-                })
-            end
-        elseif context.after and context.cardarea == G.jokers and not context.blueprint then
-            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier >= 1 then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "x_mult",
-                    scalar_value = "x_mult_remove",
-                    operation = "-",
-                    scaling_message = {
-                        card = card,
-                        focus = card,
-                        message = localize{type='variable',key='a_xmult_minus',vars={card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier}},
-                        colour = G.C.RED
-                    }
-                })
-            else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
+        if context.discard then
+            if not context.blueprint then
+                if G.GAME.Cracker.food_multiplier > 0 then
+                    if card.ability.extra.cards < 2 then -- this is SO behind we need to check for 1
+                        SMODS.destroy_cards(card, nil, nil, true)
+                        return {
+                            message = localize('k_eaten_ex'),
+                            colour = G.C.FILTER
+                        }
                     end
-                })) 
-                return {
-                    message = localize('k_eaten_ex'),
-                    colour = G.C.FILTER
-                }
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "cards",
+                        scalar_value = "cards_reduce",
+                        operation = "-",
+                        scaling_message = {
+                            message = card.ability.extra.cards..'',
+                            colour = G.C.FILTER,
+                            delay = 0.2
+                        }
+                    })
+                end
             end
+            context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
         end
     end
 }

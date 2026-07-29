@@ -456,7 +456,7 @@ SMODS.Joker{ --Ants
         x = 7,
         y = 3,
     },
-    attributes = { 'xmult', 'joker', 'scaling' },
+    attributes = { 'xmult', 'joker' },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,

@@ -642,11 +642,8 @@ return {
             j_cracker_tsukemen = {
                 name = 'Tsukemen',
                 text = {
-                    '{X:mult,C:white} X#1#{} Mult,',
-                    'gains {X:mult,C:white} X#2#{} Mult',
-                    'per {C:attention}card{} discarded,',
-                    'loses {X:mult,C:white} X#3# {} Mult',
-                    'after {C:attention}hand is scored{}',
+                    'The next {C:attention}#2#{} discarded',
+                    'cards gain {C:mult}+#1#{} Mult'
                 }
             },
             
