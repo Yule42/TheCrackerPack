@@ -643,7 +643,7 @@ return {
                 name = 'Tsukemen',
                 text = {
                     'The next {C:attention}#2#{} discarded',
-                    'cards gain {C:mult}+#1#{} Mult'
+                    'cards permanently gain {C:mult}+#1#{} Mult'
                 }
             },
             
