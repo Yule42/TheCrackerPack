@@ -75,8 +75,8 @@ SMODS.Joker{ --Card Binder
                 end
             end
         end
-        local mult = card.ability.extra.mult * math.floor(count / 9)
-        return {vars = {card.ability.extra.mult, card.ability.extra.enhancements, mult}}
+        local mult = card.ability.extra.mult * math.floor(count / card.ability.extra.enhancements)
+        return {vars = {card.ability.extra.mult, card.ability.extra.enhancements, mult, count}}
     end,
     
     calculate = function(self, card, context)

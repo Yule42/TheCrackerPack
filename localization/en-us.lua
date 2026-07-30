@@ -38,7 +38,7 @@ return {
             b_cracker_blitz = {
                 name = 'Blitz Deck',
                 text = {
-                    'Start with {C:money}$#1#',
+                    'Start with extra {C:money}$#1#',
                     'Win in Ante {C:attention}6',
                     'Required score scales',
                     'faster for each {C:attention}Ante',
@@ -602,7 +602,7 @@ return {
                 text = {
                     '{C:mult}+#1#{} Mult for each {C:attention}#2#',
                     '{C:attention}enhanced{} cards in your full deck',
-                    '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult){}',
+                    '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult, {C:attention}#4#{C:inactive}/#2#){}',
                 }
             },
             j_cracker_baserunner = {
