@@ -804,9 +804,7 @@ return {
             j_cracker_postman = {
                 name = 'Postman',
                 text = {
-                    'This Joker gains',
-                    '{C:mult}+#2#{} Mult when a seal is triggered',
-                    '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}',
+                    'Earn {C:money}$#1#{} when a seal is triggered'
                 },
             },
             j_cracker_charcuterie_board = {
