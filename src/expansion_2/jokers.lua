@@ -603,20 +603,19 @@ SMODS.Joker{ --Postman
     key = "postman",
     config = {
         extra = {
-            mult = 0,
-            mult_add = 1,
+            dollars = 3,
         }
     },
     pos = {
         x = 9,
         y = 3,
     },
-    attributes = { 'mult', 'scaling', 'seals' },
-    cost = 4,
+    attributes = { 'economy', 'seals' },
+    cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
@@ -630,26 +629,22 @@ SMODS.Joker{ --Postman
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
+        return {vars = {card.ability.extra.dollars}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
+        if context.cracker_seal_trigger then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
-                mult = card.ability.extra.mult,
-            }
-        elseif context.cracker_seal_trigger and not context.blueprint then
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "mult",
-                scalar_value = "mult_add",
-                operation = "+",
-                no_mesage = true
-            })
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.MULT,
-                message_card = card
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
             }
         end
     end
