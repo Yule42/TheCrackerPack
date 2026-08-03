@@ -634,17 +634,8 @@ SMODS.Joker{ --Postman
     
     calculate = function(self, card, context)
         if context.cracker_seal_trigger then
-            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
-                func = function()
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            G.GAME.dollar_buffer = 0
-                            return true
-                        end
-                    }))
-                end
             }
         end
     end
