@@ -140,7 +140,8 @@ SMODS.Challenge{
     },
     rules = {
         custom = {
-            {id = 'debuff_played_unsealed_cards'}
+            {id = 'no_reward'},
+            {id = 'no_interest'},
         }
     },
     deck = {

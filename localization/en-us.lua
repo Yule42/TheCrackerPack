@@ -804,7 +804,8 @@ return {
             j_cracker_postman = {
                 name = 'Postman',
                 text = {
-                    'Earn {C:money}$#1#{} when a seal is triggered'
+                    'Seals earn',
+                    '{C:money}$#1#{} when triggered'
                 },
             },
             j_cracker_charcuterie_board = {
@@ -1089,10 +1090,10 @@ return {
             v_cracker_pw_golden = {
                 name = "Golden Deck",
                 text = {
-                    "Get {C:money,T:v_seed_money}#1#{},",
-                    "{C:money,T:v_cracker_silver_spoon}#2#{},",
-                    "and {C:dark_edition,T:v_hone}#3#",
-                    "{C:inactive}(Gives upgrade if voucher already owned)",
+                    'Economic {C:attention}Skip Tags{} appear',
+                    '{C:attention}3X{} more frequently,',
+                    'Every {C:attention}#1#{} {C:inactive}[#2#]{} skips,',
+                    'enter the shop'
                 },
             },
             v_cracker_pw_rebate = {

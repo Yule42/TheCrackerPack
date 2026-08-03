@@ -603,7 +603,7 @@ SMODS.Joker{ --Postman
     key = "postman",
     config = {
         extra = {
-            dollars = 3,
+            dollars = 2,
         }
     },
     pos = {
