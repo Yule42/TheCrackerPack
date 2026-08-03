@@ -390,15 +390,15 @@ SMODS.Joker{ --Darkroom
         if context.skipping_booster and not context.blueprint then
             card.ability.extra.skips = 0
             G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_reset'),
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
-                        return true
-                    end}))
+                func = function()
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {
+                        message = localize('k_reset'),
+                        colour = G.C.FILTER,
+                        delay = 0.45, 
+                        card = card
+                    })
+                    return true
+                end}))
         elseif context.open_booster then
             card.ability.extra.skips = card.ability.extra.skips + 1
             local negative_count = 0
@@ -550,16 +550,16 @@ SMODS.Joker{ --Rainbow Card
         elseif context.open_booster and card.ability.extra.active and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_cracker_inactive_ex'),
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
-                        return true
-                    end)
-                }))
+                func = (function()
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {
+                        message = localize('k_cracker_inactive_ex'),
+                        colour = G.C.FILTER,
+                        delay = 0.45, 
+                        card = card
+                    })
+                    return true
+                end)
+            }))
         elseif context.repetition and (context.cardarea == G.play or (context.cardarea == G.hand and (next(context.card_effects[1]) or #context.card_effects > 1))) and not context.repetition_only and card.ability.extra.active then
             return {
                 message = localize('k_again_ex'),

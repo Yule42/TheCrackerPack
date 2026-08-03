@@ -23,9 +23,7 @@ match_indent = true
 pattern = '''if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then'''
 position = 'after'
 payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Blue'})
-end
+SMODS.calculate_context({cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Blue', other_card = self})
 '''
 
 [[patches]]
@@ -35,9 +33,7 @@ match_indent = true
 pattern = '''elseif self.seal == 'Gold' and not self.ability.extra_enhancement then'''
 position = 'after'
 payload = '''
-for i=1, #G.jokers.cards do
-    eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Gold'})
-end
+SMODS.calculate_context({cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Gold', other_card = self})
 '''
 
 [[patches]]
@@ -48,9 +44,7 @@ pattern = '''if self.seal == 'Red' then'''
 position = 'after'
 payload = '''
 if not context.end_of_round or next(self:get_end_of_round_effect(context)) then
-    for i=1, #G.jokers.cards do
-        eval_card(G.jokers.cards[i], {cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Red'})
-    end
+    SMODS.calculate_context({cardarea = G.jokers, cracker_seal_trigger = true, seal = 'Red', other_card = self})
 end
 '''
 
