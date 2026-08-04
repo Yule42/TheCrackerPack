@@ -466,13 +466,6 @@ JokerDisplay.Definitions.j_cracker_thefalcon = {
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
 }
-JokerDisplay.Definitions.j_cracker_postman = {
-    text = {
-        { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
-    },
-    text_config = { colour = G.C.MULT },
-}
 JokerDisplay.Definitions.j_cracker_student = {
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
         if held_in_hand then return 0 end
