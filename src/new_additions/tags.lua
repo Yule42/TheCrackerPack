@@ -40,7 +40,7 @@ end
 SMODS.Tag {
     key = 'crystal',
     config = {
-        dollars_per_tarot = 2
+        dollars_per_tarot = 1
     },
     pos = { 
         x = 0,
