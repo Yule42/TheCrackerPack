@@ -475,7 +475,7 @@ SMODS.Joker{ --Ants
     end,
     
     calculate = function(self, card, context)
-        if context.joker_main and card.ability.extra.x_mult > 1 then
+        if context.joker_main and G.GAME.Cracker.food_jokers_destroyed > 0 then
             return {
                 xmult = 1 + card.ability.extra.x_mult * G.GAME.Cracker.food_jokers_destroyed,
             }
