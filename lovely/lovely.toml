@@ -231,7 +231,7 @@ if (key == 'x_mult' or key == 'xmult' or key == 'Xmult' or key == 'x_mult_mod' o
 '''
 payload = '''
 if G.GAME.blind and G.GAME.blind.name == 'bl_cracker_flint_dx' and not G.GAME.blind.disabled then -- need to redo this to be better
-    amount = math.max(1, math.floor((amount+1)/2))
+    amount = math.max(1, ((amount+1)/2))
 end
 '''
 
