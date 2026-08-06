@@ -331,7 +331,7 @@ SMODS.Joker{ --Cracker Barrel
     config = {
         extra = {
             creation = 1,
-            jokersleft = 5,
+            jokersleft = 10,
         }
     },
     pos = {
@@ -339,7 +339,7 @@ SMODS.Joker{ --Cracker Barrel
         y = 1
     },
     attributes = { 'generation', 'scaling', 'joker' },
-    cost = 7,
+    cost = 6,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = false,
