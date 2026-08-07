@@ -534,7 +534,7 @@ SMODS.Joker{ --Life Support
     attributes = { 'mult', 'chips', 'scaling', 'hands' },
     cost = 7,
     rarity = 2,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = true,
     unlocked = false,
@@ -551,7 +551,7 @@ SMODS.Joker{ --Life Support
         return {vars = {card.ability.extra.price}}
     end,
     calculate = function(self, card, context)
-        if context.joker_main and G.GAME.current_round.hands_left == 0 and not context.blueprint then
+        if context.joker_main and G.GAME.current_round.hands_left == 0 then
             local maxim = math.max(to_big(hand_chips), to_big(mult))
             hand_chips = maxim
             mult = maxim
@@ -562,8 +562,10 @@ SMODS.Joker{ --Life Support
                 func = (function()
                     ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
                     ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-                    ease_dollars(-card.ability.extra.price, true)
-                    card.ability.extra.price = card.ability.extra.price * 2
+                    if not context.blueprint then
+                        ease_dollars(-card.ability.extra.price, true)
+                        card.ability.extra.price = card.ability.extra.price * 2
+                    end
                     card:juice_up(0.3, 0.4)
                     if G.GAME.dollars < 0 then
                         play_sound('tarot1')
