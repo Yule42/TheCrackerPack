@@ -1,7 +1,7 @@
 JokerDisplay.Definitions.j_cracker_saltinecracker = {
     text = {
         { text = "+" },
-        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+        { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
     },
     extra = {
         {
@@ -14,6 +14,7 @@ JokerDisplay.Definitions.j_cracker_saltinecracker = {
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
+        card.joker_display_values.chips = card.ability.extra.chips * (G.GAME.current_round.hands_played + 1)
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
 }

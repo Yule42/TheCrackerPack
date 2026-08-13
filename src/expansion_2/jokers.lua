@@ -129,11 +129,11 @@ SMODS.Joker{ --Snail
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_add}}
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.mult > 0 then
+        if context.joker_main and card.ability.extra.mult > 0 then
             return {
                 mult = card.ability.extra.mult, 
             }
-        elseif context.end_of_round and context.cardarea == G.jokers and not context.blueprint and not context.repetition and not context.individual then
+        elseif context.end_of_round and context.main_eval and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "mult",
