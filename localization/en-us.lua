@@ -447,12 +447,11 @@ return {
             j_cracker_saltinecracker = {
                 name = 'Saltine Cracker',
                 text = {
-                    'Gains {C:chips}+#2#{} Chips',
-                    'per hand played',
-                    '{C:green}#3# in #4#{} chance this',
+                    '{C:chips}+#1#{} Chips per hand',
+                    'played this {C:attention}round',
+                    '{C:green}#2# in #3#{} chance this',
                     'card is destroyed',
                     'when hand is played',
-                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)'
                 }
             },
             j_cracker_chocolatecoin = {

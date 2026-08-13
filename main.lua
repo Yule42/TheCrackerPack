@@ -314,6 +314,15 @@ function Cracker.is_in_consumeables(key)
     return false
 end
 
+function Cracker.is_adjacent_joker(joker, other_joker)
+    for _, card in ipairs(G.consumeables.cards) do
+        if card.config.center_key == key then
+            return true
+        end
+    end
+    return false
+end
+
 function Cracker.is_in_array(key, current_index, array)
     if array then
         for k, v in ipairs(array) do

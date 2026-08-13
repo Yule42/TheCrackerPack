@@ -2,9 +2,9 @@ SMODS.Joker{ --Saltine Cracker
     key = "saltinecracker",
     config = {
         extra = {
-            chips = 0,
-            chip_mod = 3,
-            odds = 30
+            chips = 30,
+            chip_mod = 30,
+            odds = 15
         }
     },
     pos = {
@@ -14,19 +14,20 @@ SMODS.Joker{ --Saltine Cracker
     pools = {
         Food = true,
     },
-    attributes = { 'chips', 'scaling', 'chance', 'food' },
-    cost = 4,
+    attributes = { 'chips', 'chance', 'food' },
+    cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
+    discovered = true,
     atlas = 'Jokers',
     no_pool_flag = 'saltine_cracker_eaten',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'DistantMind'}, key = 'artist_credits_cracker'} end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Saltine Cracker')
-        return {vars = {card.ability.extra.chips, card.ability.extra.chip_mod, numerator, denominator}}
+        return {vars = {card.ability.extra.chips, numerator, denominator}}
     end,
     calculate = function(self, card, context)
         if context.after and not context.blueprint and not context.repetition then
@@ -43,18 +44,9 @@ SMODS.Joker{ --Saltine Cracker
                     colour = G.C.CHIPS
                 }
             end
-        elseif context.before and context.cardarea == G.jokers and not context.blueprint then
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "chips",
-                scalar_value = "chip_mod",
-                operation = "+",
-                message_colour = G.C.BLUE
-            })
-            return nil, true
-        elseif context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
+        elseif context.joker_main then
             return {
-                chips = card.ability.extra.chips, 
+                chips = card.ability.extra.chips * (G.GAME.current_round.hands_played + 1), 
             }
         end
     end
@@ -83,6 +75,7 @@ SMODS.Joker{ --Chocolate Coin
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
     if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'lumahoneyy', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -160,6 +153,7 @@ SMODS.Joker{ --Graham Cracker
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimarii'}, key = 'artist_credits_cracker'} end
@@ -228,23 +222,17 @@ SMODS.Joker{ --Thrifty Joker
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    unlocked = false,
-    discovered = false,
-    check_for_unlock = function(self, args)
-        return args.type == 'discover_amount' and G.DISCOVER_TALLIES.vouchers.tally >= 20
-    end,
-    locked_loc_vars = function(self, info_queue, card)
-        return { vars = { 20 } }
-    end,
+    unlocked = true,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'wombatcountry', 'palestjade'}, key = 'artist_credits_cracker'} end
-        return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
+        return {vars = {card.ability.extra.vouchers_multiply, (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)}}
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)) > 0 then
+        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and (table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)) > 0 then
             return {
-                mult = (math.max((table_length(G.GAME.used_vouchers or 0) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
+                mult = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply),
             }
         end
     end
@@ -274,7 +262,7 @@ SMODS.Joker{ --Cheese
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -348,7 +336,7 @@ SMODS.Joker{ --Cracker Barrel
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sugariimarii'}, key = 'artist_credits_cracker'} end
@@ -356,9 +344,9 @@ SMODS.Joker{ --Cracker Barrel
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not self.getting_sliced and not (context.blueprint_card or card).getting_sliced and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-            local jokers_to_create = math.min(card.ability.extra.creation, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            local jokers_to_create = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
             if jokers_to_create > 0 and not context.blueprint then
-                card.ability.extra.jokersleft = card.ability.extra.jokersleft - card.ability.extra.creation
+                card.ability.extra.jokersleft = card.ability.extra.jokersleft - 1
             end
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
@@ -418,10 +406,10 @@ SMODS.Joker{ --Sacramental Katana
     cost = 8,
     rarity = 3,
     blueprint_compat = true,
-    eternal_compat = false,
+    eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set='Other',key='d_sacrifice'}
@@ -482,7 +470,7 @@ SMODS.Joker{ --Freezer
     eternal_compat = true,
     perishable_compat = false,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
@@ -500,22 +488,38 @@ SMODS.Joker{ --Freezer
     end,
     calculate = function(self, card, context)
         if context.mod_probability and Cracker.is_food(context.trigger_obj) and not Cracker.immutable_food[context.trigger_obj.config.center_key] then
-            return {
-                numerator = 0
-            }
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    if other_joker = G.jokers.cards[i + 1] or other_joker = G.jokers.cards[i - 1] then
+                        return {
+                            numerator = 0
+                        }
+                    else
+                        return
+                    end
+                end
+            end
         end
     end,
     calc_scaling = function(self, card, other_card, initial, scalar_value, args)
         local stg = card.ability.extra
         if Cracker.is_food(other_card) and not Cracker.immutable_food[card.key] then
-            return {
-                override_scalar_value = {
-                    value = scalar_value * 0
-                },
-                override_message = {
-                    message = localize('k_cracker_frozen'),
-                }
-            }
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] == card then
+                    if other_joker = G.jokers.cards[i + 1] or other_joker = G.jokers.cards[i - 1] then
+                        return {
+                            override_scalar_value = {
+                                value = scalar_value * 0
+                            },
+                            override_message = {
+                                message = localize('k_cracker_frozen'),
+                            }
+                        }
+                    else
+                        return
+                    end
+                end
+            end
         end
     end
 }
@@ -537,15 +541,9 @@ SMODS.Joker{ --Life Support
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = true,
-    unlocked = false,
-    discovered = false,
+    unlocked = true,
+    discovered = true,
     atlas = 'Jokers',
-    check_for_unlock = function(self, args)
-        return args.type == 'cracker_money_change' and args.amount >= 20
-    end,
-    locked_loc_vars = function(self, info_queue, card)
-        return { vars = { 20 } }
-    end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'amoryax', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.price}}
@@ -691,7 +689,7 @@ SMODS.Joker{ --Knife Thrower
         y = 1
     },
     attributes = { 'hands', 'passive' },
-    cost = 4,
+    cost = 6,
     rarity = 1,
     blueprint_compat = false,
     eternal_compat = true,
