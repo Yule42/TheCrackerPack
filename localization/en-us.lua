@@ -578,7 +578,8 @@ return {
                     '{C:inactive}+#2# Mult{}, and {C:inactive}creating a random',
                     '{C:planet}Planet{} card after each hand',
                     'Will dissapear after creating',
-                    '{C:attention}#3#{} Planet cards'
+                    '{C:attention}#3#{} Planet cards',
+                    '{C:inactive}(Must have room)',
                 }
             },
             j_cracker_alcoholicsoda = {
