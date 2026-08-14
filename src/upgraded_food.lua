@@ -197,21 +197,23 @@ SMODS.Joker{ --Sundae
                     mult = card.ability.extra.mult,
                 }
             else
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        SMODS.add_card {
-                            set = 'Planet',
-                            key_append = 'sundae'
-                        }
-                        G.GAME.consumeable_buffer = 0
-                        return true
-                    end)
-                }))
-                return {
-                    message = localize('k_plus_planet'),
-                    colour = G.C.SECONDARY_SET.Planet,
-                }
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            SMODS.add_card {
+                                set = 'Planet',
+                                key_append = 'sundae'
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+                    return {
+                        message = localize('k_plus_planet'),
+                        colour = G.C.SECONDARY_SET.Planet,
+                    }
+                end
             end
         elseif context.after and not context.blueprint and not context.repetition then
             if card.ability.extra.state == 2 then
