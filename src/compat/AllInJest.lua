@@ -1,4 +1,4 @@
--- dx + pit blinds
+--[[-- dx + pit blinds
 SMODS.Atlas {
     key = 'dxpitblinds',
     path = "dxpitblinds.png",
@@ -944,7 +944,7 @@ SMODS.Blind {
             end
         end
     end
-}
+}]]
 
 SMODS.Voucher {
     key = 'aij_pw_fabled',

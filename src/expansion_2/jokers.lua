@@ -323,18 +323,18 @@ SMODS.Joker{ --Hamburger
     
     calculate = function(self, card, context)
         if context.pre_discard and not context.blueprint then
-            if G.GAME.Cracker.food_multiplier <= 0 then
+            if Cracker.is_adjacent_to_freezer(card) then
                 return {
-                    message = localize('k_cracker_frozen')
+                    message = localize('k_cracker_frozen_ex')
                 }
             end
         end
-        if context.discard and not context.blueprint then
-            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - math.floor(1 * G.GAME.Cracker.food_multiplier)
+        if context.discard and not context.blueprint and not Cracker.is_adjacent_to_freezer(card) then
+            card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_left - 1
             if card.ability.extra.discard_cards_left <= 0 then
                 card.ability.extra.discard_cards_left = card.ability.extra.discard_cards_required
-                card.ability.extra.hands = card.ability.extra.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier)
-                G.GAME.round_resets.hands = G.GAME.round_resets.hands - math.floor(card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier)
+                card.ability.extra.hands = card.ability.extra.hands - card.ability.extra.discards_reduction
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.discards_reduction
                 if G.GAME.current_round.hands_left < 1 then
                     G.GAME.current_round.hands_left = 1
                 end
@@ -361,7 +361,7 @@ SMODS.Joker{ --Hamburger
                     }
                 else
                     return {
-                        message = localize{type='variable',key='a_cracker_hands_minus',vars={card.ability.extra.discards_reduction * G.GAME.Cracker.food_multiplier}},
+                        message = localize{type='variable',key='a_cracker_hands_minus',vars={card.ability.extra.discards_reduction}},
                         colour = G.C.BLUE
                     }
                 end
@@ -550,7 +550,7 @@ SMODS.Joker{ --The Falcon
     key = "thefalcon",
     config = {
         extra = {
-            odds = 8,
+            odds = 7,
             FPS = 10,
             delay = 0,
             x_pos = 0
@@ -589,7 +589,7 @@ SMODS.Joker{ --The Falcon
         if context.discard then
 			if SMODS.pseudorandom_probability(card, 'cracker_thefalcon', 1, card.ability.extra.odds, 'cracker_thefalcon') then
 				return {
-					message = localize('k_cracker_discard_falcon'),
+					message = localize('k_cracker_discard_falcon_ex'),
 					colour = G.C.FILTER,
 					remove = true,
 				}

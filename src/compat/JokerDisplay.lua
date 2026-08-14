@@ -13,8 +13,27 @@ JokerDisplay.Definitions.j_cracker_saltinecracker = {
     text_config = { colour = G.C.CHIPS },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Saltine Cracker')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Saltine Cracker')
         card.joker_display_values.chips = card.ability.extra.chips * (G.GAME.current_round.hands_played + 1)
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
+    end,
+}
+JokerDisplay.Definitions.j_cracker_charcuterie_board = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "chips", retrigger_type = "mult" }
+    },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
+    },
+    text_config = { colour = G.C.CHIPS },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
+    calc_function = function(card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Charcuterie Board')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
 }
@@ -66,16 +85,6 @@ JokerDisplay.Definitions.j_cracker_thrifty_joker = {
         card.joker_display_values.mult = (math.max((table_length(G.GAME.used_vouchers) - (G.GAME.starting_voucher_count or 0)), 0) * card.ability.extra.vouchers_multiply)
     end,
     text_config = { colour = G.C.MULT },
-}
-JokerDisplay.Definitions.j_cracker_cheese = {
-    text = {
-        {
-            border_nodes = {
-                { text = "X" },
-                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
-            }
-        }
-    },
 }
 JokerDisplay.Definitions.j_cracker_cheese = {
     text = {
@@ -152,7 +161,7 @@ JokerDisplay.Definitions.j_cracker_northstar = {
     },
     text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'northstar')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_northstar')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
         card.joker_display_values.localized_text = localize(Cracker.mostplayedhand(), 'poker_hands')
     end,
@@ -165,7 +174,7 @@ JokerDisplay.Definitions.j_cracker_thedealer = {
     },
     text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thedealer')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_thedealer')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
 }
@@ -199,7 +208,7 @@ JokerDisplay.Definitions.j_cracker_cybernana = {
     },
     extra_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'Cybernana MK920')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_Cybernana MK920')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end
 }
@@ -243,7 +252,7 @@ JokerDisplay.Definitions.j_cracker_alcoholicsoda = {
     },
     calc_function = function(card)
         local numerator, denominator = 1, card.ability.extra.odds
-        if SMODS then numerator, denominator = SMODS.get_probability_vars(card, numerator, denominator, 'Alcoholic Soda') end
+        if SMODS then numerator, denominator = SMODS.get_probability_vars(card, numerator, denominator, 'cracker_Alcoholic Soda') end
         card.joker_display_values.odds = localize{ type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
     retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
@@ -463,7 +472,7 @@ JokerDisplay.Definitions.j_cracker_thefalcon = {
     },
     text_config = { colour = G.C.GREEN, scale = 0.3 },
     calc_function = function(card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'thefalcon')
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cracker_thefalcon')
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
     end,
 }

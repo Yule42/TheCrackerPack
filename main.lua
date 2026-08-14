@@ -308,9 +308,26 @@ function Cracker.is_in_consumeables(key)
 end
 
 function Cracker.is_adjacent_joker(joker, other_joker)
-    for _, card in ipairs(G.consumeables.cards) do
-        if card.config.center_key == key then
-            return true
+    if joker and other_joker and G.jokers then
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == joker then
+                if other_joker == G.jokers.cards[i + 1] or other_joker == G.jokers.cards[i - 1] then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+function Cracker.is_adjacent_to_freezer(self)
+    if self and G.jokers then
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.config.center.key == 'j_cracker_freezer' then
+                if Cracker.is_adjacent_joker(self, joker) then
+                    return true
+                end
+            end
         end
     end
     return false
@@ -396,7 +413,6 @@ local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
     ret.Cracker = ret.Cracker or {}
-    ret.Cracker.food_multiplier = 1
     ret.Cracker.tags_in_shop = 0
     ret.Cracker.food_jokers_destroyed = 0
     
@@ -588,7 +604,7 @@ assert(SMODS.load_file('src/expansion_2/decks.lua'))()
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 
 assert(SMODS.load_file('src/new_additions/decks.lua'))()
-assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
+--assert(SMODS.load_file('src/new_additions/showdown_blinds.lua'))()
 assert(SMODS.load_file('src/new_additions/joker.lua'))()
 
 if JokerDisplay then

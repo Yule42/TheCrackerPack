@@ -35,7 +35,7 @@ SMODS.Joker{ --Saltine Cracker
                 SMODS.destroy_cards(card, nil, nil, true)
                 G.GAME.pool_flags.saltine_cracker_eaten = true
                 return {
-                    message = localize('k_cracker_eaten_crumble'),
+                    message = localize('k_cracker_eaten_crumble_ex'),
                     colour = G.C.CHIPS
                 }
             else
@@ -105,24 +105,23 @@ SMODS.Joker{ --Chocolate Coin
     end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if G.GAME.Cracker.food_multiplier == 0 then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "rounds",
+                scalar_value = "rounds_mod",
+                operation = "-",
+                no_message = true
+            })
+            if card.ability.extra.rounds <= 0 then
                 return {
-                    message = localize('k_cracker_frozen'),
+                    message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
-                card.ability.extra.rounds = card.ability.extra.rounds - (card.ability.extra.rounds_mod * G.GAME.Cracker.food_multiplier)
-                if card.ability.extra.rounds <= 0 then
-                    return {
-                        message = localize('k_eaten_ex'),
-                        colour = G.C.FILTER
-                    }
-                else
-                    return {
-                        message = tostring(card.ability.extra.rounds),
-                        colour = G.C.FILTER
-                    }
-                end
+                return {
+                    message = tostring(card.ability.extra.rounds),
+                    colour = G.C.FILTER
+                }
             end
         end
     end
@@ -133,10 +132,10 @@ SMODS.Joker{ --Graham Cracker
     config = {
         extra = {
             x_mult_add = 1,
-            cards_require = 20,
-            cards_left = 20,
+            cards_require = 15,
+            cards_left = 5,
             x_mult = 1,
-            x_mult_max = 6
+            x_mult_max = 5
         }
     },
     pos = {
@@ -160,12 +159,14 @@ SMODS.Joker{ --Graham Cracker
         return {vars = {card.ability.extra.x_mult_add, card.ability.extra.cards_require, card.ability.extra.cards_left, card.ability.extra.x_mult, card.ability.extra.x_mult_max}}
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.x_mult > 1 then
+        if context.joker_main then
             return {
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
-            card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand) * G.GAME.Cracker.food_multiplier)
+            if not Cracker.is_adjacent_to_freezer(card) then
+                card.ability.extra.cards_left = card.ability.extra.cards_left - table_length(context.scoring_hand)
+            end
             if card.ability.extra.cards_left <= 0 then
                 card.ability.extra.cards_left = card.ability.extra.cards_require
                 if card.ability.extra.x_mult + (card.ability.extra.x_mult_add) >= card.ability.extra.x_mult_max then 
@@ -186,7 +187,7 @@ SMODS.Joker{ --Graham Cracker
                         end
                     })) 
                     return {
-                        message = localize('k_cracker_eaten_crumble'),
+                        message = localize('k_cracker_eaten_crumble_ex'),
                         colour = G.C.RED
                     }
                 else
@@ -274,7 +275,7 @@ SMODS.Joker{ --Cheese
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and not context.repetition and (to_big(hand_chips) * to_big(mult) + to_big(G.GAME.chips)) < to_big(G.GAME.blind.chips) then
-            if card.ability.extra.x_mult - card.ability.extra.x_mult_remove * G.GAME.Cracker.food_multiplier > card.ability.extra.x_mult_min then
+            if Cracker.is_adjacent_to_freezer(card) or card.ability.extra.x_mult - card.ability.extra.x_mult_remove > card.ability.extra.x_mult_min then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
@@ -382,7 +383,7 @@ SMODS.Joker{ --Cracker Barrel
                     end
                 })) 
                 return {
-                    message = localize('k_cracker_eaten_barrel'),
+                    message = localize('k_cracker_eaten_barrel_ex'),
                     colour = G.C.FILTER
                 }
             end
@@ -395,7 +396,7 @@ SMODS.Joker{ --Sacramental Katana
     config = {
         extra = {
             x_mult = 1,
-            x_mult_gain = 1,
+            x_mult_gain = 0.75,
         }
     },
     pos = {
@@ -456,7 +457,6 @@ SMODS.Joker{ --Freezer
     key = "freezer",
     config = {
         extra = {
-            multiply = 0,
         }
     },
     pos = {
@@ -476,49 +476,29 @@ SMODS.Joker{ --Freezer
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue+1] = { set = 'Other', key = 'food_cracker'}
         info_queue[#info_queue+1] = { key = "perishable", set = "Other", vars = { G.GAME.perishable_rounds or 5, G.GAME.perishable_rounds or 5 } }
-        return {vars = {card.ability.extra.multiply}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.Cracker.food_multiplier = card.ability.extra.multiply
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        if not next(SMODS.find_card("j_cracker_freezer")) then
-            G.GAME.Cracker.food_multiplier = 1
-        end
+        return {vars = {}}
     end,
     calculate = function(self, card, context)
         if context.mod_probability and Cracker.is_food(context.trigger_obj) and not Cracker.immutable_food[context.trigger_obj.config.center_key] then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    if other_joker = G.jokers.cards[i + 1] or other_joker = G.jokers.cards[i - 1] then
-                        return {
-                            numerator = 0
-                        }
-                    else
-                        return
-                    end
-                end
+            if Cracker.is_adjacent_joker(card, context.trigger_obj) then
+                return {
+                    numerator = 0
+                }
             end
         end
     end,
     calc_scaling = function(self, card, other_card, initial, scalar_value, args)
         local stg = card.ability.extra
         if Cracker.is_food(other_card) and not Cracker.immutable_food[card.key] then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    if other_joker = G.jokers.cards[i + 1] or other_joker = G.jokers.cards[i - 1] then
-                        return {
-                            override_scalar_value = {
-                                value = scalar_value * 0
-                            },
-                            override_message = {
-                                message = localize('k_cracker_frozen'),
-                            }
-                        }
-                    else
-                        return
-                    end
-                end
+            if Cracker.is_adjacent_joker(card, other_card) then
+                return {
+                    override_scalar_value = {
+                        value = scalar_value * 0
+                    },
+                    override_message = {
+                        message = localize('k_cracker_frozen_ex'),
+                    }
+                }
             end
         end
     end
@@ -554,7 +534,7 @@ SMODS.Joker{ --Life Support
             hand_chips = maxim
             mult = maxim
             update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_cracker_maximized'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_cracker_maximized_ex'), colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', pitch = 0.94 })
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = (function()
@@ -641,7 +621,7 @@ SMODS.Joker{ --Curry
                 mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.Cracker.food_multiplier > 0 then
+            if Cracker.is_adjacent_to_freezer(card) or card.ability.extra.mult - card.ability.extra.mult_remove > 0 then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
@@ -815,7 +795,7 @@ SMODS.Joker{ --Bomb Joker
                 G.STATE = G.STATES.GAME_OVER
                 G.STATE_COMPLETE = false
                 return {
-                    message = localize('k_cracker_bomb_explode'),
+                    message = localize('k_cracker_bomb_explode_ex'),
                     colour = G.C.FILTER
                 }
             else
