@@ -76,6 +76,23 @@ return {
                     '{C:planet}Planet{} cards are stronger',
                 }
             },
+            b_cracker_white = {
+                name = 'White Deck',
+                text = {
+                    'Recieve a {C:tarot}Tarot{} card when',
+                    '{C:attention}Blind{} is selected',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            b_cracker_void = {
+                name = 'Void Deck',
+                text = {
+                    'Recieve a {C:dark_edition}Negative {C:spectral}Spectral{} card',
+                    'when {C:attention}Boss Blind{} is selected',
+                    '{C:blue}-1{} hand every round',
+                    '{C:red}+1{} discard every round'
+                }
+            },
         },
         Blind = {
             bl_cracker_ox_dx = {
@@ -647,7 +664,7 @@ return {
                     'Creates a {C:dark_edition}Negative Tag{} every',
                     '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened',
                     'requirement increases for every {C:dark_edition}Negative{} {C:attention}Joker',
-                    'and when a {C:attention}Booster Pack{} is skipped,',
+                    'and when a {C:attention}Booster Pack{} is skipped',
                 }
             },
             --[[j_cracker_whitecard = {
