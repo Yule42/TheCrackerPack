@@ -971,6 +971,21 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)"
                 }
             },
+            v_cracker_pw_white = {
+                name = 'White Deck',
+                text = {
+                    'Recieve a {C:tarot}Tarot{} card when',
+                    '{C:attention}Blind{} is selected',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            v_cracker_pw_void = {
+                name = 'Void Deck',
+                text = {
+                    'Recieve a {C:dark_edition}Negative {C:spectral}Spectral{} card',
+                    'when {C:attention}Boss Blind{} is selected'
+                }
+            },
             v_aij_pw_fabled = {
                 name = 'Fabled Deck',
                 text = {
