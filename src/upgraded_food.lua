@@ -36,9 +36,9 @@
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if G.GAME.Cracker.food_multiplier == 0 then
+            if Cracker.is_adjacent_to_freezer(card) then
                 return {
-                    message = localize('k_cracker_frozen'),
+                    message = localize('k_cracker_frozen_ex'),
                     colour = G.C.FILTER
                 }
             else
@@ -117,7 +117,7 @@ SMODS.Joker{ --Buttered Popcorn
                 mult = card.ability.extra.mult,
             }
         elseif context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if card.ability.extra.mult - card.ability.extra.mult_remove * G.GAME.Cracker.food_multiplier > 0 then
+            if card.ability.extra.mult - card.ability.extra.mult_remove > 0 or Cracker.is_adjacent_to_freezer(card) then -- scale card if adjacent to freezer so frozen can pop off
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
@@ -215,9 +215,10 @@ SMODS.Joker{ --Sundae
             end
         elseif context.after and not context.blueprint and not context.repetition then
             if card.ability.extra.state == 2 then
-                if card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier) > 0 then
-                    card.ability.extra.left = card.ability.extra.left - math.floor(1 * G.GAME.Cracker.food_multiplier)
-                    SMODS.calculate_effect({message = G.GAME.Cracker.food_multiplier > 0 and ''..card.ability.extra.left or localize('k_cracker_frozen'), colour = G.C.FILTER}, card)
+                local frz = Cracker.is_adjacent_to_freezer(card)
+                if card.ability.extra.left - 1 > 0 or frz then
+                    card.ability.extra.left = card.ability.extra.left - 1
+                    SMODS.calculate_effect({message = not frz and ''..card.ability.extra.left or localize('k_cracker_frozen_ex'), colour = G.C.FILTER}, card)
                 else
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -268,7 +269,7 @@ SMODS.Joker{ --Alcoholic Soda
     key = "alcoholicsoda",
     config = {
         extra = {
-            odds = 3
+            odds = 4
         }
     },
     pos = {
@@ -363,7 +364,9 @@ SMODS.Joker{ --Alcoholic Soda
     
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            card.ability.extra.rounds = card.ability.extra.rounds - card.ability.extra.rounds_remove * G.GAME.Cracker.food_multiplier
+            if not Cracker.is_adjacent_to_freezer(card) then
+                card.ability.extra.rounds = card.ability.extra.rounds - card.ability.extra.rounds_remove
+            end
             if card.ability.extra.rounds <= 0 then 
                 G.E_MANAGER:add_event(Event({
                     func = function()
@@ -430,26 +433,24 @@ SMODS.Joker{ --Tsukemen
     calculate = function(self, card, context)
         if context.discard then
             if not context.blueprint then
-                if G.GAME.Cracker.food_multiplier > 0 then
-                    if card.ability.extra.cards < 2 then -- this is SO behind we need to check for 1
-                        SMODS.destroy_cards(card, nil, nil, true)
-                        return {
-                            message = localize('k_eaten_ex'),
-                            colour = G.C.FILTER
-                        }
-                    end
-                    SMODS.scale_card(card, {
-                        ref_table = card.ability.extra,
-                        ref_value = "cards",
-                        scalar_value = "cards_reduce",
-                        operation = "-",
-                        scaling_message = {
-                            message = card.ability.extra.cards..'',
-                            colour = G.C.FILTER,
-                            delay = 0.2
-                        }
-                    })
+                if not Cracker.is_adjacent_to_freezer(card) and card.ability.extra.cards < 2 then -- this is SO behind we need to check for 1
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    return {
+                        message = localize('k_eaten_ex'),
+                        colour = G.C.FILTER
+                    }
                 end
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "cards",
+                    scalar_value = "cards_reduce",
+                    operation = "-",
+                    scaling_message = {
+                        message = card.ability.extra.cards..'',
+                        colour = G.C.FILTER,
+                        delay = 0.2
+                    }
+                })
             end
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
         end

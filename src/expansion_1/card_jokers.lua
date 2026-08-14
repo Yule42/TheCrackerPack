@@ -388,17 +388,18 @@ SMODS.Joker{ --Darkroom
     
     calculate = function(self, card, context)
         if context.skipping_booster and not context.blueprint then
-            card.ability.extra.skips = 0
+            card.ability.extra.skips_needed_base = card.ability.extra.skips_needed_base + 1
+            card.ability.extra.skips_needed = card.ability.extra.skips_needed + 1
             G.E_MANAGER:add_event(Event({
                 func = function()
                     card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize('k_reset'),
+                        message = localize('k_cracker_downgrade_ex_qu'),
                         colour = G.C.FILTER,
-                        delay = 0.45, 
                         card = card
                     })
                     return true
-                end}))
+                end
+            }))
         elseif context.open_booster then
             card.ability.extra.skips = card.ability.extra.skips + 1
             local negative_count = 0

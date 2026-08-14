@@ -1,4 +1,4 @@
-SMODS.Back{ -- Showdown Deck
+--[[SMODS.Back{ -- Showdown Deck
     key = "showdown",
     
     pos = {
@@ -50,7 +50,7 @@ SMODS.Back{ -- Showdown Deck
             end
         end
     end,
-}
+}]]
 
 SMODS.Back{ -- Solar Deck
     key = "solar",

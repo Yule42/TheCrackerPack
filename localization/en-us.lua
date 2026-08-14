@@ -519,7 +519,8 @@ return {
             j_cracker_freezer = {
                 name = 'Freezer',
                 text = {
-                    '{C:attention}Food Jokers{}',
+                    '{C:attention}Adjacent{} Food Jokers',
+                    'and other {C:attention}perishables',
                     'cannot scale or decay',
                 }
             },
@@ -702,9 +703,9 @@ return {
                 name = 'Darkroom',
                 text = {
                     'Creates a {C:dark_edition}Negative Tag{} every',
-                    '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened,',
-                    'resets when {C:attention}Booster Pack{} is skipped,',
+                    '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened',
                     'requirement increases for every {C:dark_edition}Negative{} {C:attention}Joker',
+                    'and when a {C:attention}Booster Pack{} is skipped,',
                 }
             },
             --[[j_cracker_whitecard = {
@@ -1326,13 +1327,14 @@ return {
         dictionary = {
             k_cracker_inactive="inactive",
             k_cracker_inactive_ex="Inactive...",
-            k_cracker_eaten_crumble="Crumbled!",
-            k_cracker_eaten_barrel="Emptied!",
-            k_cracker_bomb_explode='Boom!',
+            k_cracker_eaten_crumble_ex="Crumbled!",
+            k_cracker_eaten_barrel_ex="Emptied!",
+            k_cracker_bomb_explode_ex='Boom!',
+            k_cracker_downgrade_ex_qu='Downgrade!?',
             k_cracker_chips='Chips',
-            k_cracker_maximized='Maximized!',
-            k_cracker_discard_falcon='Clawed!',
-            k_cracker_frozen='Frozen!',
+            k_cracker_maximized_ex='Maximized!',
+            k_cracker_discard_falcon_ex='Clawed!',
+            k_cracker_frozen_ex='Frozen!',
             k_cracker_rebate='Rebate!',
             k_plus_cracker_card='+1 Card',
             b_cracker_deck_vouchers='Deck Vouchers',
