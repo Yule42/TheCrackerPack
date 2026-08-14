@@ -3,32 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''self.ability.perish_tally = self.ability.perish_tally - 1
-card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})'''
-position = "at"
-payload = '''
-if G.GAME.Cracker.food_multiplier > 0 then
-    self.ability.perish_tally = self.ability.perish_tally - 1
-    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_remaining',vars={self.ability.perish_tally}},colour = G.C.FILTER, delay = 0.45})
-end
-'''
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.perish_tally == 1 then'''
-position = "at"
-payload = '''
-if self.ability.perish_tally == 1 and G.GAME.Cracker.food_multiplier > 0 then
-'''
-match_indent = true
-times = 1
-
 
     # Freezer - Ice Cream
 #[[patches]]
