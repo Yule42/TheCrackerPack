@@ -1067,8 +1067,6 @@ SMODS.Voucher {
     end
 }
 
--- yes, i know showdown isn't here i have an idea for it but it'd be a lot to implement for now
-
 SMODS.Voucher {
     key = 'pw_catalog',
     pos = {
@@ -1142,6 +1140,101 @@ SMODS.Voucher {
                 if values.chips then G.GAME.hands[hand].l_chips = values.chips end
                 if values.mult then G.GAME.hands[hand].l_mult = values.mult end
             end
+        end
+    end
+}
+
+SMODS.Voucher {
+    key = 'pw_white',
+    pos = {
+        x = 7,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    atlas = 'Backs',
+    config = {},
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    calculate = function(self, back, context)
+        if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            SMODS.add_card {
+                                set = 'Tarot',
+                                key_append = 'pw_white_deck'
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end
+                    }))
+                    SMODS.calculate_effect({ message = localize('k_plus_tarot'), colour = G.C.TAROT }, G.deck.cards[1] or G.deck)
+                    return true
+                end)
+            }))
+        end
+    end
+}
+
+SMODS.Voucher {
+    key = 'pw_void',
+    pos = {
+        x = 8,
+        y = 0
+    },
+    unlocked = true,
+    discovered = true,
+    cost = 10,
+    in_pool = function(self, args)
+        if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
+            return true
+        end
+    end,
+    atlas = 'Backs',
+    config = {},
+    pools = { DeckVoucher = true },
+    no_collection = true,
+    set_card_type_badge = function(self, card, badges)
+        badges[1] = create_badge('Deck Voucher', G.C.FILTER, G.C.WHITE)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
+        return {vars = {}}
+    end,
+    calculate = function(self, back, context)
+        if context.setting_blind and context.blind.boss then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            SMODS.add_card {
+                                set = 'Spectral',
+                                key_append = 'pw_white_deck',
+                                edition = 'e_negative'
+                            }
+                            return true
+                        end
+                    }))
+                    SMODS.calculate_effect({ message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral }, G.deck.cards[1] or G.deck)
+                    return true
+                end)
+            }))
         end
     end
 }
