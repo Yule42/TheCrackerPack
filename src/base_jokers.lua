@@ -475,7 +475,6 @@ SMODS.Joker{ --Freezer
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade','sophiedeergirl'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue+1] = { set = 'Other', key = 'food_cracker'}
-        info_queue[#info_queue+1] = { key = "perishable", set = "Other", vars = { G.GAME.perishable_rounds or 5, G.GAME.perishable_rounds or 5 } }
         return {vars = {}}
     end,
     calculate = function(self, card, context)
