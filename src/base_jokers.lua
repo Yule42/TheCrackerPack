@@ -539,7 +539,7 @@ SMODS.Joker{ --Life Support
                 func = (function()
                     ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
                     ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-                    eease_dollars(-card.ability.extra.price, true)
+                    ease_dollars(-card.ability.extra.price, true)
                     card.ability.extra.price = card.ability.extra.price * 2
                     card:juice_up(0.3, 0.4)
                     if G.GAME.dollars < 0 then
