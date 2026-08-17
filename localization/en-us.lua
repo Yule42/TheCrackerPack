@@ -521,7 +521,6 @@ return {
                 name = 'Freezer',
                 text = {
                     '{C:attention}Adjacent{} Food Jokers',
-                    'and other {C:attention}perishables',
                     'cannot scale or decay',
                 }
             },
