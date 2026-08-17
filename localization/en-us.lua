@@ -38,11 +38,15 @@ return {
             b_cracker_blitz = {
                 name = 'Blitz Deck',
                 text = {
-                    'Start with {C:attention,T:v_overstock_norm}#1#',
-                    'and {C:attention,T:v_overstock_plus}#2#',
+                    'Start with {C:attention,T:v_overstock_plus}#1#',
+                    'and {C:attention,T:v_reroll_glut}#2#',
                     'Win in Ante {C:attention}6',
-                    'Required score scales',
-                    'faster for each {C:attention}Ante',
+                    'Required score scales much faster'
+                },
+                unlock = {
+                    "Win a run with",
+                    "{C:attention}#1#{}",
+                    "on any difficulty",
                 }
             },
             b_cracker_patchwork = {
