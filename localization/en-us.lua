@@ -38,7 +38,8 @@ return {
             b_cracker_blitz = {
                 name = 'Blitz Deck',
                 text = {
-                    'Start with extra {C:money}$#1#',
+                    'Start with {C:attention,T:v_overstock_norm}#1#',
+                    'and {C:attention,T:v_overstock_plus}#2#',
                     'Win in Ante {C:attention}6',
                     'Required score scales',
                     'faster for each {C:attention}Ante',

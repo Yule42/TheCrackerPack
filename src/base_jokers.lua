@@ -133,7 +133,7 @@ SMODS.Joker{ --Graham Cracker
         extra = {
             x_mult_add = 1,
             cards_require = 15,
-            cards_left = 5,
+            cards_left = 15,
             x_mult = 1,
             x_mult_max = 5
         }

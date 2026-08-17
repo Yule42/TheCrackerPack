@@ -152,15 +152,47 @@ SMODS.Back{ -- Blitz Deck
     },
     atlas = 'Backs',
     discovered = true,
-    config = { dollars = 5 },
-    loc_vars = function(self, info_queue, back)
-        return { vars = { G.GAME.selected_back.name == 'b_cracker_blitz' and G.GAME.selected_back.effect.config.dollars or self.config.dollars } }
+    config = { vouchers = { 'v_overstock_norm', 'v_overstock_plus', 'v_reroll_surplus', 'v_reroll_glut' } },
+    loc_vars = function(self, info_queue, center)
+        return {vars = { localize { type = 'name_text', key = self.config.vouchers[2], set = 'Voucher' }, localize { type = 'name_text', key = self.config.vouchers[4], set = 'Voucher' } } }
     end,
     apply = function(self, back)
-        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 2
+        if G.GAME.modifiers.scaling == 4 then
+            G.GAME.modifiers.scaling = "blitz_mid"
+        elseif G.GAME.modifiers.scaling == 5 then
+            G.GAME.modifiers.scaling = "blitz_full"
+        end
+        G.GAME.modifiers.cracker_increased_blinds = true
         G.GAME.win_ante = 6
     end,
 }
+
+local ref_bl_amo = get_blind_amount
+function get_blind_amount(ante)
+    if G.GAME.modifiers.scaling and G.GAME.modifiers.scaling == "blitz_mid" then
+        local amounts = {
+          300, 1100, 3500, 11000, 35000, 75000, 150000, 400000
+        }
+        if ante < 1 then return 100 end
+        if ante <= 8 then return amounts[ante] end
+        local a, b, c, d = amounts[8],1.6,ante-8, 1 + 0.2*(ante-8)
+        local amount = math.floor(a*(b+(k*c)^d)^c)
+        amount = amount - amount%(10^math.floor(math.log10(amount)-1))
+        return amount
+    elseif G.GAME.modifiers.scaling and G.GAME.modifiers.scaling == "blitz_full" then
+        local amounts = {
+          300, 1200, 4000, 15000, 50000, 150000, 400000, 800000
+        }
+        if ante < 1 then return 100 end
+        if ante <= 8 then return amounts[ante] end
+        local a, b, c, d = amounts[8],1.6,ante-8, 1 + 0.2*(ante-8)
+        local amount = math.floor(a*(b+(k*c)^d)^c)
+        amount = amount - amount%(10^math.floor(math.log10(amount)-1))
+        return amount
+    end
+    return ref_bl_amo(ante)
+end
 
 SMODS.Back{ -- Catalog Deck
     key = "catalog",
