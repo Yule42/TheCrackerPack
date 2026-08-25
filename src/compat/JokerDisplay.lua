@@ -464,6 +464,24 @@ JokerDisplay.Definitions.j_cracker_ants = {
         card.joker_display_values.x_mult = 1 + card.ability.extra.x_mult * G.GAME.Cracker.food_jokers_destroyed
     end,
 }
+JokerDisplay.Definitions.j_cracker_highroller = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+        }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.localized_text = localize("k_lucky_cards")
+    end
+}
 JokerDisplay.Definitions.j_cracker_thefalcon = {
     text = {
         { text = "(" },

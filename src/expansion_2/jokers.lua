@@ -514,8 +514,11 @@ SMODS.Joker{ --High Roller
     end,
     
     calculate = function(self, card, context)
-        if context.after then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.x_mult = 1
+            return {
+                message = localize('k_reset')
+            }
         elseif context.cardarea == G.play and context.individual and context.other_card.config.center.key == 'm_lucky' then
             local returnthis = false
             if context.other_card.lucky_trigger and not context.blueprint then
@@ -530,6 +533,11 @@ SMODS.Joker{ --High Roller
             end
             if card.ability.extra.x_mult > 0 then
                 if returnthis then
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {
+                        message = localize('k_upgrade_ex'),
+                        colour = G.C.MULT,
+                        card = card
+                    })
                     return {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT,

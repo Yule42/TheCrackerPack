@@ -91,6 +91,29 @@ for tag_key, enabled in pairs(Cracker.money_tags) do
     end
 end
 
+function Cracker.spawn_jumbo_pack_rebate()
+    local center = get_pack('rebate_deck')
+    local count = 0
+    local found = nil
+    
+    while count <= 1000 and not found do
+        if not center.name:find('Jumbo') then
+            center = get_pack('rebate_deck')
+        else
+            found = true
+        end
+        count = count + 1
+    end
+    local booster = SMODS.add_booster_to_shop(center.key)
+    booster.ability.couponed = true
+    booster:set_cost()
+    return {
+        message = localize('k_cracker_rebate'),
+        colour = G.C.FILTER,
+        delay = 0.5
+    }
+end
+
 SMODS.Back{ -- Rebate Deck
     key = "rebate",
     
@@ -120,7 +143,7 @@ SMODS.Back{ -- Rebate Deck
                 back.effect.config.current_amount = back.effect.config.requirement
                 if context.from_shop then
                     back.effect.config.active = false
-                    return Cracker.spawn_mega_pack()
+                    return Cracker.spawn_jumbo_pack_rebate()
                 end
             else
                 return {
@@ -131,7 +154,7 @@ SMODS.Back{ -- Rebate Deck
             end
         elseif context.starting_shop and back.effect.config.current_amount >= back.effect.config.requirement and back.effect.config.active then
             back.effect.config.active = false
-            return Cracker.spawn_mega_pack()
+            return Cracker.spawn_jumbo_pack_rebate()
         elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
             back.effect.config.active = true
             back.effect.config.current_amount = 0

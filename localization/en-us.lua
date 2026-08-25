@@ -34,7 +34,7 @@ return {
                 text = {
                     'If {C:money}$#1#{} {C:inactive}[#2#]{} is spent',
                     'during a single ante, create a',
-                    'free {C:attention}Mega{} Booster Pack',
+                    'free {C:attention}Jumbo{} Booster Pack',
                 },
                 unlock = {
                     "Spend {C:money}$#1#",
@@ -46,7 +46,7 @@ return {
                 text = {
                     'If {C:money}$#1#{} is spent',
                     'during a single ante, create a',
-                    'free {C:attention}Mega{} Booster Pack',
+                    'free {C:attention}Jumbo{} Booster Pack',
                 },
                 unlock = {
                     "Spend {C:money}$#1#",
@@ -58,8 +58,9 @@ return {
                 text = {
                     'Start with {C:attention,T:v_overstock_plus}#1#',
                     'and {C:attention,T:v_reroll_glut}#2#',
-                    'Win in Ante {C:attention}6',
-                    'Required score scales much faster'
+                    'Win in Ante {C:attention}6{},',
+                    'Required score and blind size',
+                    'scales much faster'
                 },
                 unlock = {
                     "Win a run with",
@@ -704,8 +705,8 @@ return {
                 text = {
                     'Creates a {C:dark_edition}Negative Tag{} every',
                     '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened',
-                    'requirement increases for every {C:dark_edition}Negative{} {C:attention}Joker',
-                    'and when a {C:attention}Booster Pack{} is skipped',
+                    'requirement increases for every {C:dark_edition}Negative{} Joker',
+                    'and when a Booster Pack is {C:attention}skipped',
                 }
             },
             --[[j_cracker_whitecard = {
@@ -1083,7 +1084,8 @@ return {
             v_pw_erratic = {
                 name = "Erratic Deck",
                 text = {
-                    "Get {C:attention}#1#{} random regular Vouchers",
+                    "Get {C:attention}#1#{} Vouchers",
+                    "{C:inactive}(#2#, #3#, #4#)",
                 },
             },
             v_cracker_pw_golden = {
@@ -1346,6 +1348,7 @@ return {
             k_cracker_eaten_barrel_ex="Emptied!",
             k_cracker_bomb_explode_ex='Boom!',
             k_cracker_downgrade_ex_qu='Downgrade!?',
+            k_cracker_lucky_cards='Lucky Cards',
             k_cracker_chips='Chips',
             k_cracker_maximized_ex='Maximized!',
             k_cracker_discard_falcon_ex='Clawed!',
