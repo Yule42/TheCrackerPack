@@ -90,7 +90,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 20,
+    cost = 10,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -761,7 +761,8 @@ SMODS.Voucher {
     atlas = 'centers',
     config = {
         extra = {
-            vouchers = 3
+            vouchers = 3,
+            voucher_list = { "v_blank", "v_blank", "v_blank" }
         }
     },
     pools = { DeckVoucher = true },
@@ -771,63 +772,44 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {card.ability.extra.vouchers}}
+        return {vars = {card.ability.extra.vouchers, localize{type = 'name_text', key = self.config.extra.voucher_list[1], set = 'Voucher' }, localize{type = 'name_text', key = self.config.extra.voucher_list[2], set = 'Voucher' }, localize{type = 'name_text', key = self.config.extra.voucher_list[3], set = 'Voucher' } }}
     end,
-    
-    redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
-        G.GAME.modifiers.voucher_override = false
-        local usable_vouchers = {}
-        for _, v in ipairs(G.vouchers.cards) do
-            local can_use = true
-            local center = G.P_CENTERS[v.config.center.key]
-            if center.requires and not center.requires == 'patchwork_enabled' then
-                for _, vv in pairs(center.requires) do
-                    if vv == v.config.center.key then
-                        can_use = false
-                        break
-                    end
+    set_ability = function(self, card, initial, delay_sprites)
+        if not G.SETTINGS.paused and initial then
+            --- Credits to Eremel <3
+            G.GAME.modifiers.voucher_override = false
+            for i = 1, 3 do
+                local voucher_pool = get_current_pool('Voucher')
+                local it = 1
+                self.config.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic')
+                while self.config.extra.voucher_list[i] == 'UNAVAILABLE' do
+                    it = it + 1
+                    self.config.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic' .. it)
                 end
             end
-            if can_use then
-                usable_vouchers[#usable_vouchers + 1] = v
-            end
+            G.GAME.modifiers.voucher_override = 'patchwork_enabled'
         end
-        local unredeemed_vouchers = {}
-        unredeemed_vouchers[1] = pseudorandom_element(usable_vouchers, pseudoseed("cracker_pw_erratic"))
-        for i, v in ipairs(usable_vouchers) do
-            if v == unredeemed_vouchers[1] then
-                table.remove(usable_vouchers, i)
-                break
-            end
-        end
-        unredeemed_vouchers[2] = pseudorandom_element(usable_vouchers, pseudoseed("cracker_pw_erratic"))
-        for i, v in ipairs(usable_vouchers) do
-            if v == unredeemed_vouchers[2] then
-                table.remove(usable_vouchers, i)
-                break
-            end
-        end
-        unredeemed_vouchers[3] = pseudorandom_element(usable_vouchers, pseudoseed("cracker_pw_erratic"))
+    end,
+    redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
         for i=1, 3 do
             G.E_MANAGER:add_event(Event({
                 delay = 0.5,
                 func = function()
-                    local voucher = G.GAME.used_vouchers[self.config.extra.voucher] and self.config.extra.upgrade_voucher or self.config.extra.voucher
+                    local voucher = self.config.extra.voucher_list[i]
+                    print(voucher)
                     local area = G.play
                     local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
                     card:start_materialize()
                     area:emplace(card)
                     card.cost = 0
                     card.shop_voucher = false
+                    delay(0.8)
                     card:redeem()
                     G.GAME.current_round.voucher = voucher
                     G.E_MANAGER:add_event(Event({
-                        delay = 0,
+                        delay = 0.5,
                         func = function() 
                             card:start_dissolve()
-                            if i == 2 then
-                                G.GAME.modifiers.voucher_override = 'patchwork_enabled'
-                            end
                         return true
                     end}))
                 return true
@@ -952,7 +934,7 @@ SMODS.Voucher {
                 self.config.current_amount = self.config.requirement
                 if context.from_shop then
                     self.config.active = false
-                    return Cracker.spawn_mega_pack(self)
+                    return Cracker.spawn_jumbo_pack_rebate(self)
                 end
             else
                 return {
@@ -963,7 +945,7 @@ SMODS.Voucher {
             end
         elseif context.starting_shop and self.config.current_amount >= self.config.requirement and self.config.active then
             self.config.active = false
-            return Cracker.spawn_mega_pack()
+            return Cracker.spawn_jumbo_pack_rebate()
         elseif context.end_of_round and context.beat_boss and context.game_over == false and context.main_eval then
             self.config.active = true
             self.config.current_amount = 0

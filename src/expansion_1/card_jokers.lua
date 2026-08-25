@@ -400,7 +400,7 @@ SMODS.Joker{ --Darkroom
                     return true
                 end
             }))
-        elseif context.open_booster then
+        elseif context.open_booster and not context.blueprint then
             card.ability.extra.skips = card.ability.extra.skips + 1
             local negative_count = 0
             if G.jokers then
