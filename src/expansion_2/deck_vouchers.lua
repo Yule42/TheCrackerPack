@@ -860,8 +860,6 @@ SMODS.Voucher {
     end,
     atlas = 'Backs',
     config = {
-        requirement = 2,
-        current_amount = 2,
     },
     pools = { DeckVoucher = true },
     no_collection = true,
@@ -870,53 +868,43 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {self.config.requirement, self.config.current_amount}}
+        return {vars = {}}
     end,
     calculate = function(self, card, context)
         if context.skip_blind then
-            self.config.current_amount = self.config.current_amount - 1
-            if self.config.current_amount <= 0 then
-                self.config.current_amount = self.config.requirement
-                G.GAME.no_saved = true
-                return { func = function()
-                    G.E_MANAGER:add_event(Event {
-                        trigger = "after",
-                        blocking = false,
-                        func = function()
-                            G.E_MANAGER:add_event(Event {
-                            trigger = "after",
-                            blocking = false,
-                            func = function()
-                                if G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED then
-                                G.GAME.current_round.reroll_cost = G.GAME.round_resets.reroll_cost
-                                G.GAME.current_round.reroll_cost_increase = 0
-                                G.STATE = G.STATES.SHOP
-                                G.STATE_COMPLETE = false
-                                G.GAME.no_saved = nil
-                                return true
-                            end
-                        end})
-                        if G.blind_select then
-                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.y + G.blind_select.T.h
-                            G.E_MANAGER:add_event(Event{
-                            trigger = "after",
-                            delay = 0.3,
-                            func = function()
-                                G.blind_select:remove()
-                                G.blind_prompt_box:remove()
-                                return true
-                            end})
-                        end
-                        return true
-                    end})
-                end}
-            else
-                return {
-                    message = ''..self.config.current_amount,
-                    colour = G.C.FILTER,
-                    delay = 0.5
-                }
+            stop_use()
+            if G.blind_select then
+                G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+                G.blind_select.alignment.offset.x = 0
             end
+            G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
+            G.deck:hard_set_T()
+            G.GAME.current_round.reroll_cost_increase = 0
+            G.GAME.current_round.used_packs = {}
+            G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+            calculate_reroll_cost(true)
+            if G.blind_prompt_box then
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object.pop_delay = 0
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object:pop_out(5) 
+            end
+            delay(0.3)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    if G.blind_select then
+                        G.blind_select:remove()
+                        G.blind_prompt_box:remove()
+                        G.blind_select = nil
+                    end
+                    G.STATE = G.STATES.SHOP
+                    G.GAME.shop_free = nil
+                    G.GAME.shop_d6ed = nil
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
         end
     end
 }
