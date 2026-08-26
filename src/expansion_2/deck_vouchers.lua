@@ -775,9 +775,9 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        local key = 'v_pw_erratic'
+        local key = 'v_cracker_pw_erratic'
         if G.SETTINGS.paused then
-            key = 'v_pw_erratic_collection'
+            key = 'v_cracker_pw_erratic_collection'
         end
         return {vars = {card.ability.extra.vouchers, localize{type = 'name_text', key = card.ability.extra.voucher_list[1], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[2], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[3], set = 'Voucher' } }, key = key}
     end,
@@ -786,8 +786,9 @@ SMODS.Voucher {
             --- Credits to Eremel <3
             G.GAME.modifiers.voucher_override = false
             local used_vouchers = {}
-            for _, v in ipairs(G.vouchers.cards) do
-                if v ~= card and v.config.center.key == 'pw_erratic' and v.ability.extra and v.ability.extra.voucher_list then
+            for _, v in ipairs(G.shop_vouchers.cards) do
+                print(v.config.center.key)
+                if v ~= card and v.config.center.key == 'v_pw_erratic' and v.ability.extra and v.ability.extra.voucher_list then
                     for _, key in ipairs(v.ability.extra.voucher_list) do
                         if key and key ~= 'v_blank' then
                             used_vouchers[key] = true
@@ -795,15 +796,23 @@ SMODS.Voucher {
                     end
                 end
             end
+            print(used_vouchers)
             for i = 1, card.ability.extra.vouchers do
                 local voucher_pool = get_current_pool('Voucher')
                 local it = 1
-                card.ability.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic')
-                while card.ability.extra.voucher_list[i] == 'UNAVAILABLE' and not used_vouchers[card.ability.extra.voucher_list[i]] do
-                    it = it + 1
-                    card.ability.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic' .. it)
+                local available = {}
+                for _, key in ipairs(voucher_pool) do
+                    if key ~= 'UNAVAILABLE' and not used_vouchers[key] then
+                        available[#available + 1] = key
+                    end
                 end
-                used_vouchers[card.ability.extra.voucher_list[i]] = true
+                if #available > 0 then
+                    local key = pseudorandom_element(available, 'cracker_pw_erratic_'..i)
+                    card.ability.extra.voucher_list[i] = key
+                    used_vouchers[key] = true
+                else
+                    card.ability.extra.voucher_list[i] = 'v_blank'
+                end
             end
             G.GAME.modifiers.voucher_override = 'patchwork_enabled'
         end
