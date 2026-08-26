@@ -822,7 +822,7 @@ return {
                 name = "Red Deck",
                 text = {
                     'Permanently',
-                    'gain {C:red}+#1#{} discard',
+                    'gain {C:red}+#1#{} discards',
                     'each round',
                 },
             },
@@ -830,7 +830,7 @@ return {
                 name = "Blue Deck",
                 text = {
                     'Permanently',
-                    'gain {C:blue}+#1#{} hand',
+                    'gain {C:blue}+#1#{} hands',
                     'per round',
                 },
             },
@@ -880,7 +880,7 @@ return {
                 text = {
                     "{C:spectral}Spectral{} cards may",
                     "appear in the shop,",
-                    "Create {C:spectral,T:c_hex}#1#",
+                    "recieve {C:spectral,T:c_hex}#1#",
                     "{C:inactive}(Must have room)",
                 },
             },
@@ -901,7 +901,7 @@ return {
             v_pw_zodiac = {
                 name = "Zodiac Deck",
                 text = {
-                    "Get {C:tarot,T:v_tarot_merchant}#1#{},",
+                    "Redeem {C:tarot,T:v_tarot_merchant}#1#{},",
                     "{C:planet,T:v_planet_merchant}#2#{},",
                     "and {C:attention,T:v_overstock_norm}#3#",
                     "{C:inactive}(Gives upgrade if voucher already owned)",
@@ -918,7 +918,9 @@ return {
                 text = {
                     "After defeating each",
                     "{C:attention}Boss Blind{}, gain a",
-                    "{C:attention,T:tag_double}#1#",
+                    "{C:attention,T:tag_double}#1#{},",
+                    "gain a {C:attention,T:tag_double}#1#{}",
+                    "for every {C:attention}Ante{} when redeemed"
                 },
             },
             v_pw_plasma = {
@@ -927,10 +929,10 @@ return {
                     "Balance {C:blue}Chips{} and",
                     "{C:red}Mult{} when calculating",
                     "score for played hand",
-                    --"{C:red}X2{} base Blind size",
+                    "{C:red}X1.5{} base Blind size",
                 },
             },
-            v_cracker_pw_erratic = {
+            v_pw_erratic = {
                 name = "Erratic Deck",
                 text = {
                     "Redeem {C:attention}#1#{} Vouchers",
@@ -957,13 +959,15 @@ return {
             v_cracker_pw_blitz = {
                 name = "Blitz Deck",
                 text = {
-                    "{C:attention}-1{} Ante Requirement",
+                    '{C:attention}-1{} Ante Requirement,',
+                    'redeem {C:attention,T:v_overstock_norm}#1#',
+                    'and {C:attention,T:v_reroll_surplus}#2#',
                 },
             },
             v_cracker_pw_catalog = {
                 name = 'Catalog Deck',
                 text = {
-                    'Get {C:attention,T:v_overstock_norm}#1#',
+                    'Redeem {C:attention,T:v_overstock_norm}#1#',
                     '{C:attention}+1{} Voucher slot',
                     "{C:inactive}(Gives upgrade if voucher already owned)"
                 }

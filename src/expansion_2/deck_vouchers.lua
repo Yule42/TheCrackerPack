@@ -683,7 +683,18 @@ SMODS.Voucher {
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
         return {vars = {localize{type = 'name_text', key = 'tag_double', set = 'Tag'}}}
     end,
-    
+    redeem = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = (function()
+                for i = 1, G.GAME.round_resets.ante do
+                    add_tag({ key = 'tag_double' })
+                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+                end
+                return true
+            end)
+        }))
+    end,
     calc_dollar_bonus = function(self, card)
         if G.GAME.last_blind and G.GAME.last_blind.boss then
             G.E_MANAGER:add_event(Event({
@@ -706,7 +717,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 20,
+    cost = 15,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -734,7 +745,7 @@ SMODS.Voucher {
     end,
     
     redeem = function(self)
-        --G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 1
+        G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 0.5
     end,
 }
 
@@ -979,7 +990,7 @@ SMODS.Voucher {
     },
     unlocked = true,
     discovered = true,
-    cost = 10,
+    cost = 20,
     in_pool = function(self, args)
         if G.GAME.selected_back.effect.center.key == 'b_cracker_patchwork' then
             return true
@@ -988,6 +999,8 @@ SMODS.Voucher {
     atlas = 'Backs',
     config = {
         extra = {
+            voucher = { "v_overstock_norm", "v_reroll_surplus" },
+            upgrade_voucher = { "v_overstock_plus", "v_reroll_glut" },
         }
     },
     pools = { DeckVoucher = true },
@@ -997,10 +1010,34 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {}}
+        return {vars = {localize{type = 'name_text', key = 'v_overstock_norm', set = 'Voucher'}, localize{type = 'name_text', key = 'v_reroll_glut', set = 'Voucher'}}}
     end,
     redeem = function(self)
         G.GAME.win_ante = G.GAME.win_ante - 1
+        for i = 1, #self.config.extra.voucher do
+            if not G.GAME.used_vouchers[self.config.extra.upgrade_voucher[i]] or not G.GAME.used_vouchers[self.config.extra.voucher[i]] then
+                G.E_MANAGER:add_event(Event({
+                    delay = 0.5,
+                    func = function()
+                        local voucher = G.GAME.used_vouchers[self.config.extra.voucher[i]] and self.config.extra.upgrade_voucher[i] or self.config.extra.voucher[i]
+                        local area = G.play
+                        local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
+                        card:start_materialize()
+                        area:emplace(card)
+                        card.cost = 0
+                        card.shop_voucher = false
+                        card:redeem()
+                        G.GAME.current_round.voucher = voucher
+                        G.E_MANAGER:add_event(Event({
+                            delay = 0,
+                            func = function() 
+                                card:start_dissolve()
+                            return true
+                        end}))
+                    return true
+                end}))
+            end
+        end
     end
 }
 
