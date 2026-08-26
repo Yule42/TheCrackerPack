@@ -939,14 +939,14 @@ return {
                     --"{C:red}X2{} base Blind size",
                 },
             },
-            v_pw_erratic = {
+            v_cracker_pw_erratic = {
                 name = "Erratic Deck",
                 text = {
                     "Redeem {C:attention}#1#{} Vouchers",
                     "{C:inactive}(#2#, #3#, #4#)",
                 },
             },
-            v_pw_erratic_collection = {
+            v_cracker_pw_erratic_collection = {
                 name = "Erratic Deck",
                 text = {
                     "Redeem {C:attention}#1#{} Vouchers",
