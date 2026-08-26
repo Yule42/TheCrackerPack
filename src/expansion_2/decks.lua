@@ -8,62 +8,46 @@ SMODS.Back{ -- Golden Deck
     atlas = 'Backs',
     discovered = true,
     config = {
-        requirement = 2,
-        current_amount = 2,
     },
     
     loc_vars = function(self, info_queue, center)
-        key = "b_cracker_golden"
-        if not G.GAME.selected_back.effect.config.requirement then -- figure out a way to make this work while still playing the deck
-            key = key.."_collection"
-        end
-        return {vars = {G.GAME.selected_back.name == 'b_cracker_golden' and G.GAME.selected_back.effect.config.requirement or self.config.requirement, G.GAME.selected_back.name == 'b_cracker_golden' and G.GAME.selected_back.effect.config.current_amount or self.config.current_amount}, key = key}
+        return {vars = {}}
     end,
     calculate = function(self, back, context)
         if context.skip_blind then
-            back.effect.config.current_amount = back.effect.config.current_amount - 1
-            if back.effect.config.current_amount <= 0 then
-                back.effect.config.current_amount = back.effect.config.requirement
-                stop_use()
-                if G.blind_select then
-                    G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
-                    G.blind_select.alignment.offset.x = 0
-                end
-                G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
-                G.deck:hard_set_T()
-                G.GAME.current_round.reroll_cost_increase = 0
-                G.GAME.current_round.used_packs = {}
-                G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
-                calculate_reroll_cost(true)
-                if G.blind_prompt_box then
-                    G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
-                    G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
-                    G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object.pop_delay = 0
-                    G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object:pop_out(5) 
-                end
-                delay(0.3)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    func = function()
-                        if G.blind_select then
-                            G.blind_select:remove()
-                            G.blind_prompt_box:remove()
-                            G.blind_select = nil
-                        end
-                        G.STATE = G.STATES.SHOP
-                        G.GAME.shop_free = nil
-                        G.GAME.shop_d6ed = nil
-                        G.STATE_COMPLETE = false
-                        return true
-                    end
-                }))
-            else
-                return {
-                    message = ''..back.effect.config.current_amount,
-                    colour = G.C.FILTER,
-                    delay = 0.5
-                }
+            stop_use()
+            if G.blind_select then
+                G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+                G.blind_select.alignment.offset.x = 0
             end
+            G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
+            G.deck:hard_set_T()
+            G.GAME.current_round.reroll_cost_increase = 0
+            G.GAME.current_round.used_packs = {}
+            G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+            calculate_reroll_cost(true)
+            if G.blind_prompt_box then
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object.pop_delay = 0
+                G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object:pop_out(5) 
+            end
+            delay(0.3)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                func = function()
+                    if G.blind_select then
+                        G.blind_select:remove()
+                        G.blind_prompt_box:remove()
+                        G.blind_select = nil
+                    end
+                    G.STATE = G.STATES.SHOP
+                    G.GAME.shop_free = nil
+                    G.GAME.shop_d6ed = nil
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
         end
     end
 }

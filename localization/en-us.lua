@@ -6,22 +6,8 @@ return {
                 text = {
                     'Economic {C:attention}Skip Tags{} appear',
                     '{C:attention}3X{} more frequently,',
-                    'Every {C:attention}#1#{} {C:inactive}[#2#]{} skips,',
-                    'enter the shop'
-                },
-                unlock = {
-                    "Win a run with any",
-                    "deck on at least",
-                    "{V:1}#1#{} difficulty",
-                }
-            },
-            b_cracker_golden_collection = {
-                name = 'Golden Deck',
-                text = {
-                    'Economic {C:attention}Skip Tags{} appear',
-                    '{C:attention}3X{} more frequently,',
-                    'Every {C:attention}#1#{} skips,',
-                    'enter the shop'
+                    'Enter the shop',
+                    'after {C:attention}skipping',
                 },
                 unlock = {
                     "Win a run with any",
@@ -1088,19 +1074,13 @@ return {
                     "{C:inactive}(#2#, #3#, #4#)",
                 },
             },
-            v_cracker_pw_erratic_collection = {
-                name = "Erratic Deck",
-                text = {
-                    "Redeem {C:attention}#1#{} Vouchers",
-                },
-            },
             v_cracker_pw_golden = {
                 name = "Golden Deck",
                 text = {
                     'Economic {C:attention}Skip Tags{} appear',
                     '{C:attention}3X{} more frequently,',
-                    'Every {C:attention}#1#{} {C:inactive}[#2#]{} skips,',
-                    'enter the shop'
+                    'Enter the shop',
+                    'after {C:attention}skipping',
                 },
             },
             v_cracker_pw_rebate = {
