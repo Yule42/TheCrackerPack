@@ -752,6 +752,9 @@ SMODS.Voucher {
             return true
         end
     end,
+    in_pool = function(self, args)
+        allow_duplicates = true
+    end,
     prefix_config = {
         key = { 
             mod = false
@@ -772,31 +775,45 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        return {vars = {card.ability.extra.vouchers, localize{type = 'name_text', key = self.config.extra.voucher_list[1], set = 'Voucher' }, localize{type = 'name_text', key = self.config.extra.voucher_list[2], set = 'Voucher' }, localize{type = 'name_text', key = self.config.extra.voucher_list[3], set = 'Voucher' } }}
+        local key = 'v_pw_erratic'
+        if G.SETTINGS.paused then
+            key = 'v_pw_erratic_collection'
+        end
+        return {vars = {card.ability.extra.vouchers, localize{type = 'name_text', key = card.ability.extra.voucher_list[1], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[2], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[3], set = 'Voucher' } }, key = key}
     end,
     set_ability = function(self, card, initial, delay_sprites)
         if not G.SETTINGS.paused and initial then
             --- Credits to Eremel <3
             G.GAME.modifiers.voucher_override = false
-            for i = 1, 3 do
+            local used_vouchers = {}
+            for _, v in ipairs(G.vouchers.cards) do
+                if v ~= card and v.config.center.key == 'pw_erratic' and v.ability.extra and v.ability.extra.voucher_list then
+                    for _, key in ipairs(v.ability.extra.voucher_list) do
+                        if key and key ~= 'v_blank' then
+                            used_vouchers[key] = true
+                        end
+                    end
+                end
+            end
+            for i = 1, card.ability.extra.vouchers do
                 local voucher_pool = get_current_pool('Voucher')
                 local it = 1
-                self.config.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic')
-                while self.config.extra.voucher_list[i] == 'UNAVAILABLE' do
+                card.ability.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic')
+                while card.ability.extra.voucher_list[i] == 'UNAVAILABLE' and not used_vouchers[card.ability.extra.voucher_list[i]] do
                     it = it + 1
-                    self.config.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic' .. it)
+                    card.ability.extra.voucher_list[i] = pseudorandom_element(voucher_pool, 'cracker_pw_erratic' .. it)
                 end
+                used_vouchers[card.ability.extra.voucher_list[i]] = true
             end
             G.GAME.modifiers.voucher_override = 'patchwork_enabled'
         end
     end,
-    redeem = function(self) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
-        for i=1, 3 do
+    redeem = function(self, card) -- Voucher multi-redeem code based off Cryptid and Betmma's Vouchers
+        for i=1, card.ability.extra.vouchers do
             G.E_MANAGER:add_event(Event({
                 delay = 0.5,
                 func = function()
-                    local voucher = self.config.extra.voucher_list[i]
-                    print(voucher)
+                    local voucher = card.ability.extra.voucher_list[i]
                     local area = G.play
                     local card = create_card("Voucher", area, nil, nil, nil, nil, voucher)
                     card:start_materialize()
