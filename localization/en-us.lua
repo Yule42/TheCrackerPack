@@ -777,7 +777,7 @@ return {
                     '{X:mult,C:white}X#1#{} Mult when scored,',
                     'increases by {X:mult,C:white}X#2#{} when a',
                     '{C:attention}Lucky Card {C:green}successfully{} triggers',
-                    '{C:inactive}(Resets every hand){}',
+                    '{C:inactive}(Resets every round){}',
                 }
             },
             j_cracker_thefalcon = {

@@ -479,7 +479,7 @@ JokerDisplay.Definitions.j_cracker_highroller = {
         { text = ")" },
     },
     calc_function = function(card)
-        card.joker_display_values.localized_text = localize("k_lucky_cards")
+        card.joker_display_values.localized_text = localize("k_cracker_lucky_cards")
     end
 }
 JokerDisplay.Definitions.j_cracker_thefalcon = {
