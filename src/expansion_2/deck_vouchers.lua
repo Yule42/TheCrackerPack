@@ -763,9 +763,6 @@ SMODS.Voucher {
             return true
         end
     end,
-    in_pool = function(self, args)
-        allow_duplicates = true
-    end,
     prefix_config = {
         key = { 
             mod = false
@@ -798,7 +795,6 @@ SMODS.Voucher {
             G.GAME.modifiers.voucher_override = false
             local used_vouchers = {}
             for _, v in ipairs(G.shop_vouchers.cards) do
-                print(v.config.center.key)
                 if v ~= card and v.config.center.key == 'v_pw_erratic' and v.ability.extra and v.ability.extra.voucher_list then
                     for _, key in ipairs(v.ability.extra.voucher_list) do
                         if key and key ~= 'v_blank' then
@@ -807,7 +803,6 @@ SMODS.Voucher {
                     end
                 end
             end
-            print(used_vouchers)
             for i = 1, card.ability.extra.vouchers do
                 local voucher_pool = get_current_pool('Voucher')
                 local it = 1

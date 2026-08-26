@@ -506,7 +506,6 @@ SMODS.Joker{ --High Roller
     discovered = true,
     atlas = 'Jokers',
     enhancement_gate = 'm_lucky',
-
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'palestjade', 'brook03'}, key = 'artist_credits_cracker'} end
         info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
@@ -531,18 +530,15 @@ SMODS.Joker{ --High Roller
                 })
                 returnthis = true
             end
-            if card.ability.extra.x_mult > 0 then
+            if card.ability.extra.x_mult > 1 then
                 if returnthis then
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT,
-                        card = card
-                    })
                     return {
+                        extra = {
+                            colour = G.C.MULT,
+                            xmult = card.ability.extra.x_mult,
+                        },
                         message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT,
                         message_card = card,
-                        xmult = card.ability.extra.x_mult
                     }
                 end
                 return {
