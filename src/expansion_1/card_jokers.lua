@@ -215,7 +215,6 @@ SMODS.Joker{ --Baserunner
 }]]
 
 SMODS.Joker{ --Goodie Bag
-    name = "Goodie Bag",
     key = "goodie_bag",
     config = {
         extra = {
@@ -300,7 +299,6 @@ SMODS.Joker{ --Goodie Bag
 }
 
 SMODS.Joker{ --Paycheck
-    name = "Paycheck",
     key = "paycheck",
     config = {
         extra = {
@@ -348,7 +346,6 @@ SMODS.Joker{ --Paycheck
 }
 
 SMODS.Joker{ --Darkroom
-    name = "Darkroom",
     key = "darkroom",
     config = {
         extra = {

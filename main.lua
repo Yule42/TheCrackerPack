@@ -525,7 +525,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Contribution: DistantMind, wombatcountry, courier, GeorgeTheRat, Infamousinvictis",
+                                text = "Contribution: DistantMind, wombatcountry, courier, elpapud6, GeorgeTheRat, Infamousinvictis",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
