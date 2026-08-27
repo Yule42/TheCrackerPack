@@ -707,8 +707,8 @@ return {
                 name = 'Rainbow Card',
                 text = {
                     'Retrigger {C:attention}played{} and {C:attention}held in hand{} cards',
-                    'if no {C:attention}Booster Packs{} opened in shop',
-                    'during last round',
+                    'if no cards were taken from {C:attention}Booster Packs',
+                    'opened in shop {C:attention}last round',
                 }
             },
             j_cracker_royaldecree = {

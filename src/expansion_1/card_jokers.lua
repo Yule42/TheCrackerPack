@@ -225,7 +225,7 @@ SMODS.Joker{ --Goodie Bag
         y = 2
     },
     attributes = { 'generation' },
-    cost = 6,
+    cost = 4,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
@@ -545,7 +545,7 @@ SMODS.Joker{ --Rainbow Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.open_booster and card.ability.extra.active and G.shop and not context.blueprint then
+        elseif context.taking_booster_card and card.ability.extra.active and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                 func = (function()
