@@ -464,7 +464,7 @@ return {
                 name = 'Thrifty Joker',
                 text = {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
-                    'purchased this run',
+                    'added this run',
                     '{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
                 },
                 unlock = {
