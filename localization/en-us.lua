@@ -471,7 +471,7 @@ return {
                     'When {C:attention}Boss Blind{} is defeated,',
                     '{S:1.1,C:red,E:2}sacrifice{} and destroy Joker',
                     'to the right and add',
-                    '{X:mult,C:white}X1{} Mult to this Joker,',
+                    '{X:mult,C:white}X#2#{} Mult to this Joker,',
                     'otherwise {C:attention}debuff{} this Joker',
                     '{C:inactive}(Currently {X:mult,C:white} X#1#{C:inactive} Mult)',
                 }
