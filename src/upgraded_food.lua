@@ -405,8 +405,8 @@ SMODS.Joker{ --Tsukemen
     key = "tsukemen",
     config = {
         extra = {
-            mult = 3,
-            cards = 30,
+            mult = 5,
+            cards = 25,
             cards_reduce = 1
         }
     },

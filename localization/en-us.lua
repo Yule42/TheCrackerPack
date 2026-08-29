@@ -571,7 +571,7 @@ return {
                 name = 'Sundae',
                 text = {
                     'Cycles between {C:inactive}+#1# Chips{},',
-                    '{C:inactive}+#2# Mult{}, and {C:inactive}creating a random',
+                    '{C:inactive}+#2# Mult{}, and creating a random',
                     '{C:planet}Planet{} card after each hand',
                     'Will dissapear after creating',
                     '{C:attention}#3#{} Planet cards',
@@ -601,7 +601,6 @@ return {
                     'cards permanently gain {C:mult}+#1#{} Mult'
                 }
             },
-            
             j_cracker_membershipcard = {
                 name = 'Membership Card',
                 text = {
