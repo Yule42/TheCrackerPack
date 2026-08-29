@@ -5,31 +5,24 @@ priority = 1
 
 
     # Freezer - Ice Cream
-#[[patches]]
-#[patches.pattern]
-#target = "card.lua"
-#pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then "
-#position = "at"
-#payload = '''if self.ability.extra.chips - (self.ability.extra.chip_mod * G.GAME.Cracker.food_multiplier) <= 0 then
-#if not CrackerConfig.disable_upgradedfood then
-#    G.GAME.pool_flags.ice_cream_eaten = true
-#end'''
-#match_indent = true
-#times = 1
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 then"
+position = "at"
+payload = '''if self.ability.extra.chips - self.ability.extra.chip_mod <= 0 and not Cracker.is_adjacent_to_freezer(self) then'''
+match_indent = true
+times = 1
 
     # Freezer - Turtle Bean
-#
-#[[patches]]
-#[patches.pattern]
-#target = "card.lua"
-#pattern = "if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then"
-#position = "at"
-#payload = '''if self.ability.extra.h_size - (self.ability.extra.h_mod * G.GAME.Cracker.food_multiplier) <= 0 then
-#if not CrackerConfig.disable_upgradedfood then
-#    G.GAME.pool_flags.turtle_bean_eaten = true
-#end'''
-#match_indent = true
-#times = 1
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 then"
+position = "at"
+payload = '''if self.ability.extra.h_size - self.ability.extra.h_mod <= 0 and not Cracker.is_adjacent_to_freezer(self) then'''
+match_indent = true
+times = 1
 
     # Freezer/Upgraded Food Joker - Popcorn
 [[patches]]
@@ -37,30 +30,27 @@ priority = 1
 target = "card.lua"
 pattern = "if self.ability.mult - self.ability.extra <= 0 then"
 position = "at"
-payload = '''if self.ability.mult - (self.ability.extra * G.GAME.Cracker.food_multiplier) <= 0 then 
+payload = '''if self.ability.mult - self.ability.extra <= 0 and not Cracker.is_adjacent_to_freezer(self) then 
 G.GAME.pool_flags.popcorn_eaten = true'''
 match_indent = true
 times = 1
 
     # Freezer - Seltzer
-#[[patches]]
-#[patches.pattern]
-#target = "card.lua"
-#pattern = "if self.ability.extra - 1 <= 0 then "
-#position = "at"
-#payload = '''if self.ability.extra - (1 * G.GAME.Cracker.food_multiplier) <= 0 then 
-#if not CrackerConfig.disable_upgradedfood then
-#    G.GAME.pool_flags.seltzer_drank = true
-#end'''
-#match_indent = true
-#times = 1
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.extra - 1 <= 0 then"
+position = "at"
+payload = '''if self.ability.extra - 1 <= 0 and not Cracker.is_adjacent_to_freezer(self) then'''
+match_indent = true
+times = 1
 
 [[patches]]
 [patches.pattern]
 target = "card.lua"
 pattern = "self.ability.extra = self.ability.extra - 1"
 position = "at"
-payload = "self.ability.extra = self.ability.extra - (1 * G.GAME.Cracker.food_multiplier)"
+payload = "self.ability.extra = self.ability.extra - (Cracker.is_adjacent_to_freezer(self) and 0 or 1)"
 match_indent = true
 times = 1
 
@@ -69,6 +59,6 @@ times = 1
 target = "card.lua"
 pattern = "message = self.ability.extra..'',"
 position = "at"
-payload = "message = self.ability.extra * G.GAME.Cracker.food_multiplier..'',"
+payload = "message = Cracker.is_adjacent_to_freezer(self) and localize('k_cracker_frozen_ex') or self.ability.extra..'',"
 match_indent = true
 times = 1
