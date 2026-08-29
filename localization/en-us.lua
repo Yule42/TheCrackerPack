@@ -613,7 +613,7 @@ return {
                 name = 'Alcoholic Soda',
                 text = {
                     'Retrigger all played cards,',
-                    '{C:green}#1# in #2#{} cards are',
+                    '{C:green}#1# in #2#{} playing cards are',
                     '{C:attention}debuffed{} during {C:attention}Blinds'
                 }
             },
