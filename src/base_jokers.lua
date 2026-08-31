@@ -210,7 +210,7 @@ SMODS.Joker{ --Thrifty Joker
     key = "thrifty_joker",
     config = {
         extra = {
-            vouchers_multiply = 6,
+            vouchers_multiply = 10,
         }
     },
     pos = {
@@ -219,7 +219,7 @@ SMODS.Joker{ --Thrifty Joker
     },
     attributes = { 'mult' },
     cost = 5,
-    rarity = 1,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
