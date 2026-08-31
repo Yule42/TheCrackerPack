@@ -106,7 +106,7 @@ SMODS.Joker{ --Snail
     config = {
         extra = {
             mult = 0,
-            mult_add = 2
+            mult_add = 8
         }
     },
     pos = {
@@ -133,7 +133,7 @@ SMODS.Joker{ --Snail
             return {
                 mult = card.ability.extra.mult, 
             }
-        elseif context.end_of_round and context.main_eval and not context.blueprint then
+        elseif context.setting_blind and context.blind.big and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "mult",

@@ -721,8 +721,8 @@ return {
             j_cracker_snail = {
                 name = 'Snail',
                 text = {
-                    '{C:mult}+#2#{} Mult',
-                    'per {C:attention}blind defeated{} with this Joker',
+                    'This Joker gains {C:mult}+#2#{} Mult',
+                    'when {C:attention}Big Blind{} is selected',
                     '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)',
                 }
             },

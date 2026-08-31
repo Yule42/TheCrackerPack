@@ -1,6 +1,6 @@
 {
     "name": "The_Cracker_Pack",
-    "version_number": "1.0.6",
+    "version_number": "1.0.7",
     "website_url": "https://github.com/Yule42/TheCrackerPack",
     "description": "The Cracker Pack (TCP) is a Balatro mod that adds unique new content to the game while still attempting to not stray too far from normal game balancing, with a light \"food joker\"-based theming.",
     "dependencies": [
