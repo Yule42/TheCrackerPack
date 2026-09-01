@@ -464,7 +464,7 @@ return {
                 name = 'Thrifty Joker',
                 text = {
                     '{C:red}+#1#{} Mult per {C:voucher}Voucher{}',
-                    'added this run',
+                    'gained this run',
                     '{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
                 },
                 unlock = {
@@ -689,7 +689,7 @@ return {
                 name = 'Darkroom',
                 text = {
                     'Creates a {C:dark_edition}Negative Tag{} every',
-                    '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened',
+                    '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened,',
                     'requirement increases for every {C:dark_edition}Negative{} Joker',
                     'and when a Booster Pack is {C:attention}skipped',
                 }
@@ -1089,7 +1089,7 @@ return {
                 text = {
                     'If {C:money}$#1#{} {C:inactive}[#2#]{} is spent',
                     'during a single ante, create a',
-                    'free {C:attention}Mega{} Booster Pack',
+                    'free {C:attention}Jumbo{} Booster Pack',
                 }
             },
             v_cracker_pw_blitz = {
