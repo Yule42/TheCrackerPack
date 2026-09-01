@@ -30,7 +30,7 @@ return {
                 name = 'Blitz Deck',
                 text = {
                     'Start with {C:attention,T:v_overstock_plus}#1#',
-                    'and {C:attention,T:v_reroll_glut}#2#',
+                    'and {C:attention,T:v_reroll_glut}#2#{},',
                     'Win in Ante {C:attention}6{},',
                     'Required score and blind size',
                     'scales much faster'
