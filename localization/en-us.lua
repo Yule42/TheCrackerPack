@@ -840,6 +840,16 @@ return {
                     "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult{C:inactive})"
                 }
             },
+            j_cracker_raffle_ticket = {
+                name = "Raffle Ticket",
+                text = {
+                    "After {C:attention}#2#{} round,",
+                    "sell this card to",
+                    "make all {C:attention}Booster Packs{}",
+                    "in shop {C:money}free{} and {C:attention}Mega{}-size",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {

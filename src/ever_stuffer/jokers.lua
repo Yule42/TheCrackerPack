@@ -224,3 +224,57 @@ SMODS.Joker{ --U.F.O.
 		end
     end
 }
+
+SMODS.Joker{ --Raffle Ticket
+    key = "raffle_ticket",
+    config = {
+        extra = {
+            rounds = 0,
+            round_max = 1,
+        }
+    },
+    pos = {
+        x = 5,
+        y = 4
+    },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = false,
+    eternal_compat = false,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii', 'sophiedeergirl, sugariimarii'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.rounds, card.ability.extra.round_max}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.selling_self and card.ability.extra.rounds >= card.ability.extra.round_max and not context.blueprint then
+            for _, booster in ipairs(G.shop_booster.cards) do -- this is scuffed as fuck but it wont crash and that's what matters
+                local key = booster.config.center.key
+                if key:find("mega") then
+                elseif key:find("jumbo") then
+                    booster.ability.choose = booster.ability.choose + 1
+                else
+                    booster.ability.choose = booster.ability.choose + 1
+                    booster.ability.extra = booster.ability.extra + 2
+                end
+                booster.cost = 0
+            end
+            return nil, true
+        end
+        if context.end_of_round and context.main_eval and not context.blueprint then
+            card.ability.extra.rounds = card.ability.extra.rounds + 1
+            if card.ability.extra.rounds == card.ability.extra.round_max then
+                local eval = function(card) return not card.REMOVED end
+                juice_card_until(card, eval, true)
+            end
+            return {
+                message = (card.ability.extra.rounds < card.ability.extra.round_max) and (card.ability.extra.rounds .. '/' .. card.ability.extra.round_max) or localize('k_active_ex'),
+                colour = G.C.FILTER
+            }
+        end
+    end
+}
