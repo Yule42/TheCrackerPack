@@ -834,9 +834,9 @@ return {
             j_cracker_ufo = {
                 name = "U.F.O.",
                 text = {
-                    "Decrease level of played",
-                    "{C:attention}poker hand{} and add",
-                    "triple the lost {C:red}Mult{} to this Joker",
+                    "Every {C:attention}#3# {C:inactive}[#2#]{} hands,",
+                    "{C:attention}decrease{} level of played {C:attention}poker hand{},",
+                    "add {C:attention}3X{} the lost {C:red}Mult{} to this Joker",
                     "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult{C:inactive})"
                 }
             },

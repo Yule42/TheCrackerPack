@@ -435,7 +435,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Directors: sugariimarii, sophiedeergirl",
+                                text = "Director: sophiedeergirl",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.GREEN
@@ -453,7 +453,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Art: palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, sugariimarii, gfsg",
+                                text = "Art: sugariimarii, palestjade, MrkySpices, amoryax, LumaHoneyy, vyletbunni, sugariimarii, gfsg",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.BLUE
@@ -525,7 +525,7 @@ SMODS.current_mod.extra_tabs = function() --Credits
                         {
                             n = G.UIT.T,
                             config = {
-                                text = "Contribution: DistantMind, wombatcountry, courier, elpapud6, GeorgeTheRat, Infamousinvictis",
+                                text = "Contribution: sugariimarii, DistantMind, wombatcountry, courier, elpapud6, GeorgeTheRat, Infamousinvictis",
                                 shadow = false,
                                 scale = scale,
                                 colour = G.C.SECONDARY_SET.Spectral
