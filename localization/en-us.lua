@@ -850,6 +850,13 @@ return {
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
                 }
             },
+            j_cracker_sailor = {
+                name = "Sailor",
+                text = {
+                    "Upgrades the {C:attention}most played{} poker hand",
+                    "every {C:attention}#2# {C:inactive}[#1#]{} {C:planet}planets{} used"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {

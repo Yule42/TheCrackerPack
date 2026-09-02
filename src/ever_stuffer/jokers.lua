@@ -246,7 +246,7 @@ SMODS.Joker{ --Raffle Ticket
     discovered = true,
     atlas = 'Jokers',
     loc_vars = function(self, info_queue, card)
-        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii', 'sophiedeergirl, sugariimarii'}, key = 'artist_credits_cracker'} end
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds, card.ability.extra.round_max}}
     end,
     
@@ -275,6 +275,52 @@ SMODS.Joker{ --Raffle Ticket
                 message = (card.ability.extra.rounds < card.ability.extra.round_max) and (card.ability.extra.rounds .. '/' .. card.ability.extra.round_max) or localize('k_active_ex'),
                 colour = G.C.FILTER
             }
+        end
+    end
+}
+
+SMODS.Joker{ -- Sailor
+    key = "sailor",
+    config = {
+        extra = {
+            planets = 3,
+            planets_max = 3
+        }
+    },
+    pos = {
+        x = 6,
+        y = 4
+    },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.planets, card.ability.extra.planets_max}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
+            if not context.blueprint then
+                card.ability.extra.planets = card.ability.extra.planets - 1
+            end
+            if card.ability.extra.planets <= 0 or (context.blueprint and context.blueprint_card.T.x < card.T.x and card.ability.extra.planets == 1) then
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        card.ability.extra.planets = card.ability.extra.planets_max
+                        return true
+                end}))
+                return {
+                    level_up = true,
+                    hand = Cracker.mostplayedhand(),
+                    message = localize('k_level_up_ex'),
+                }
+            end
         end
     end
 }
