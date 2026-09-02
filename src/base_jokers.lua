@@ -354,12 +354,10 @@ SMODS.Joker{ --Cracker Barrel
                 func = function() 
                     for _ = 1, jokers_to_create do
                         card = SMODS.add_card {
-                            set = 'Food',
+                            set = 'Joker',
+                            attributes = { "food" },
                             key_append = 'crackerbarrel'
                         }
-                        if G.GAME.modifiers.all_perishable then
-                            card:set_perishable(true)
-                        end
                         G.GAME.joker_buffer = 0
                     end
                     return true
