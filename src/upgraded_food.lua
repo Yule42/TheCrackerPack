@@ -406,7 +406,7 @@ SMODS.Joker{ --Tsukemen
     config = {
         extra = {
             mult = 5,
-            cards = 25,
+            cards = 20,
             cards_reduce = 1
         }
     },
