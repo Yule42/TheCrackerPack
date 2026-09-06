@@ -9,6 +9,7 @@ Additions:
 
 Officially has support for:
 - [JokerDisplay](https://github.com/nh6574/JokerDisplay)
+- [Partner](https://github.com/Icecanno/Partner-API/)
 
 ### [Wiki](https://balatromods.miraheze.org/wiki/The_Cracker_Pack)
 
