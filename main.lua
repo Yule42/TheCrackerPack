@@ -399,6 +399,7 @@ Game.init_game_object = function(self)
     ret.Cracker = ret.Cracker or {}
     ret.Cracker.tags_in_shop = 0
     ret.Cracker.food_jokers_destroyed = 0
+    ret.Cracker.wheel_options = { 'e_foil', 'e_holo', 'e_polychrome' }
     
     return ret
 end

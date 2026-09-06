@@ -440,6 +440,21 @@ end
 
 [[patches]]
 [patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''G.GAME.orbital_choices = G.GAME.orbital_choices or {}'''
+position = 'before'
+match_indent = true
+payload = '''
+G.GAME.Cracker.wheel_choices = G.GAME.Cracker.wheel_choices or {}
+G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante] = G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante] or {}
+if not G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante][type] then 
+    local edition = pseudorandom_element(G.GAME.Cracker.wheel_options, pseudoseed('cracker_wheel_tag'))
+    G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante][type] = edition
+end
+'''
+
+[[patches]]
+[patches.pattern]
 target = 'card.lua'
 match_indent = true
 position = 'before'

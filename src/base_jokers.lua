@@ -218,7 +218,7 @@ SMODS.Joker{ --Thrifty Joker
         y = 0
     },
     attributes = { 'mult' },
-    cost = 5,
+    cost = 6,
     rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
