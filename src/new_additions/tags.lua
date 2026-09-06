@@ -2,6 +2,7 @@ local function get_available_voucher_upgrades(reserved_upgrades)
     local available_upgrades = {}
     local seen_upgrades = {}
     local in_shop = {}
+    local reserved_upgrades = reserved_upgrades or {}
 
     if not (G and G.GAME and G.GAME.used_vouchers and G.P_CENTERS) then
         return available_upgrades
@@ -40,7 +41,7 @@ end
 SMODS.Tag {
     key = 'crystal',
     config = {
-        dollars_per_tarot = 1
+        dollars_per_tarot = 2
     },
     pos = { 
         x = 0,
@@ -70,7 +71,7 @@ SMODS.Tag {
 SMODS.Tag {
     key = 'rocket',
     config = {
-        dollars_per_planet = 2
+        dollars_per_planet = 3
     },
     pos = { 
         x = 1,
@@ -109,25 +110,40 @@ SMODS.Tag {
     discovered = true,
     atlas = 'tags',
     loc_vars = function(self, info_queue, tag)
-        return {vars = {}}
+        local key = tag.ability.wheels and "tag_cracker_wheel_set" or "tag_cracker_wheel"
+        return {vars = { localize { set = 'Edition', type = 'name_text', key = tag.ability.wheels } }, key = key}
+    end,
+    set_ability = function(self, tag)
+        if not tag.ability.blind_type then tag.ability.blind_type = 'Small' end
+        if G.cracker_wheel_choices then
+            tag.ability.wheels = G.cracker_wheel_choices
+        elseif tag.ability.blind_type then
+            if G.GAME.Cracker.wheel_choices and G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante] and G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante][tag.ability.blind_type] then
+                tag.ability.wheels = G.GAME.Cracker.wheel_choices[G.GAME.round_resets.ante][tag.ability.blind_type]
+            end
+        end
     end,
     apply = function(self, tag, context)
         if context.type == 'immediate' then
-            local editionless_jokers = SMODS.Edition:get_edition_cards(G.jokers, true)
+            local editionless_jokers = {}
+
+            for _, joker in ipairs(G.jokers.cards) do
+                if not joker.edition and not joker.ability.cracker_wheel_reserved then
+                    table.insert(editionless_jokers, joker)
+                end
+            end
             if #editionless_jokers > 0 then
+                local eligible_card = pseudorandom_element(editionless_jokers, 'cracker_wheel_tag_jokers')
+                local edition = tag.ability.wheels
+                eligible_card.ability.cracker_wheel_reserved = true
                 tag:yep('+', G.C.ATTENTION, function()
-                    local eligible_card = pseudorandom_element(editionless_jokers, 'cracker_wheel')
-                    local edition = SMODS.poll_edition { key = "tag_cracker_wheel", guaranteed = true, no_negative = true, options = { 'e_polychrome', 'e_holo', 'e_foil' } }
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        eligible_card:set_edition(edition, true)
-                        check_for_unlock({ type = 'have_edition' })
-                        return true end
-                    }))
+                    eligible_card:set_edition(edition, true)
+                    check_for_unlock({ type = 'have_edition' })
+                    eligible_card.ability.cracker_wheel_reserved = nil
                     return true
                 end)
                 tag.triggered = true
-            else
-                tag:nope()
+                return true
             end
         end
     end
@@ -150,38 +166,35 @@ SMODS.Tag {
     loc_vars = function(self, info_queue, tag)
         return {vars = {}}
     end,
-    apply = function(self, tag, context)
-        if context.type == 'voucher_add' then
-            if not G.shop_vouchers then
-                tag:nope()
-                return
-            end
-
-            G.shop_vouchers.cracker_gift_reserved_upgrades = G.shop_vouchers.cracker_gift_reserved_upgrades or {}
-            local reserved_upgrades = G.shop_vouchers.cracker_gift_reserved_upgrades
-
-            if #get_available_voucher_upgrades(reserved_upgrades) > 0 then
-                tag:yep('+', G.C.SECONDARY_SET.Voucher, function()
-                    local live_available_upgrades = get_available_voucher_upgrades(reserved_upgrades)
-                    if #live_available_upgrades == 0 then
-                        return true
-                    end
-
-                    local chosen_key = pseudorandom_element(live_available_upgrades, pseudoseed('cracker_gift_tag' .. tostring(tag.ID)))
-                    reserved_upgrades[chosen_key] = true
-
-                    local voucher = SMODS.add_voucher_to_shop(chosen_key)
-                    voucher.from_tag = true
-                    voucher.couponed = true
-                    voucher:set_cost()
+apply = function(self, tag, context)
+    if context.type == 'new_blind_choice' then
+        local available = get_available_voucher_upgrades()
+        if #available > 0 then
+            local chosen_key = pseudorandom_element(available, pseudoseed('cracker_gift_tag'))
+            tag:yep('+', G.C.SECONDARY_SET.Voucher, function()
+                G.E_MANAGER:add_event(Event({func = function()
+                    local voucher_card = create_card('Voucher', G.hand, nil, nil, nil, nil, chosen_key, 'cracker_gift_tag')
+                    voucher_card.cost = 0
+                    local prev_state = G.STATE
+                    delay(0.2)
+                    G.STATE = prev_state
+                    G.FUNCS.use_card({ config = { ref_table = voucher_card } })
+                    delay(0.6)
                     return true
-                end)
-                tag.triggered = true
-            else
-                tag:nope()
-            end
+                end}))
+                G.E_MANAGER:add_event(Event({func = function()
+                    for i = 1, #G.GAME.tags do
+                        if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+                    end
+                    return true
+                end}))
+                return true
+            end)
+            tag.triggered = true
+            return true
         end
     end
+end
 }
 
 SMODS.Tag {

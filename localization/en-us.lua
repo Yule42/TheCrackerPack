@@ -1056,12 +1056,18 @@ return {
                     "to an owned Joker"
                 },
             },
+            tag_cracker_wheel_set = {
+                name = "Wheel Tag",
+                text = {
+                    "Add {C:dark_edition}#1#",
+                    "to an owned Joker"
+                }
+            },
             tag_cracker_gift = {
                 name = "Gift Tag",
                 text = {
-                    "Adds a {C:money}free{} {C:attention}upgraded{} version",
+                    "Redeem an {C:attention}upgraded{} version",
                     "of an owned {C:attention}Voucher",
-                    "in next shop"
                 },
             },
             tag_cracker_loan = {
