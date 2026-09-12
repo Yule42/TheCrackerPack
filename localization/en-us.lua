@@ -1370,6 +1370,7 @@ return {
             b_cracker_deck_vouchers='Deck Vouchers',
             jdis_cracker_before='Before',
             k_cracker_food='Food',
+            k_cracker_plus_tag="+1 Tag",
         },
         v_dictionary = {
             a_cracker_hands_minus="-#1# Hands",

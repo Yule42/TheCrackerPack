@@ -360,7 +360,7 @@ SMODS.Joker{ --Darkroom
     attributes = { 'generation', 'scaling', 'reset', 'tag' },
     cost = 8,
     rarity = 3,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
@@ -396,8 +396,10 @@ SMODS.Joker{ --Darkroom
                     return true
                 end
             }))
-        elseif context.open_booster and not context.blueprint then
-            card.ability.extra.skips = card.ability.extra.skips + 1
+        elseif context.open_booster then
+            if not context.blueprint then
+                card.ability.extra.skips = card.ability.extra.skips + 1
+            end
             local negative_count = 0
             if G.jokers then
                 for k, v in ipairs(G.jokers.cards) do
@@ -407,23 +409,28 @@ SMODS.Joker{ --Darkroom
                 end
             end
             card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
-            if card.ability.extra.skips >= card.ability.extra.skips_needed then
-                card.ability.extra.skips = 0
+            if card.ability.extra.skips >= card.ability.extra.skips_needed or (context.blueprint and context.blueprint_card.T.x < card.T.x and card.ability.extra.skips >= card.ability.extra.skips_needed - 1) then
+                local card_ = context.blueprint and context.blueprint_card or card
+                if not context.blueprint then
+                    local original = true
+                end
                 G.E_MANAGER:add_event(Event({
                     func = (function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = card.ability.extra.skips..'/'..card.ability.extra.skips_needed,
-                            colour = G.C.FILTER,
-                            delay = 0.45, 
-                            card = card
-                        })
+                        if original then
+                            card.ability.extra.skips = 0
+                        end
                         add_tag(Tag('tag_negative'))
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                         return true
                     end)
                 }))
-            else 
+                return {
+                message = localize('k_cracker_plus_tag'),
+                    colour = G.C.FILTER,
+                    delay = 0.45,
+                }
+            elseif not context.blueprint then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         card_eval_status_text(card, 'extra', nil, nil, nil, {
