@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Saltine Cracker
     key = "saltinecracker",
     config = {
@@ -466,7 +467,7 @@ SMODS.Joker{ --Freezer
     rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
