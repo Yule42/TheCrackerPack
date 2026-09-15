@@ -1125,6 +1125,12 @@ return {
                     "{C:inactive}(Gives upgrade if voucher already owned)"
                 }
             },
+            v_cracker_pw_solar = {
+                name = 'Solar Deck',
+                text = {
+                    '{C:planet}Planet{} cards are stronger',
+                }
+            },
             v_cracker_pw_white = {
                 name = 'White Deck',
                 text = {
