@@ -1096,7 +1096,7 @@ SMODS.Voucher {
 }
 
 SMODS.Voucher {
-    key = 'pw_catalog',
+    key = 'pw_solar',
     pos = {
         x = 6,
         y = 0
