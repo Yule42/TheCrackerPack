@@ -411,9 +411,7 @@ SMODS.Joker{ --Darkroom
             card.ability.extra.skips_needed = card.ability.extra.skips_needed_base + negative_count
             if card.ability.extra.skips >= card.ability.extra.skips_needed or (context.blueprint and context.blueprint_card.T.x < card.T.x and card.ability.extra.skips >= card.ability.extra.skips_needed - 1) then
                 local card_ = context.blueprint and context.blueprint_card or card
-                if not context.blueprint then
-                    local original = true
-                end
+                local original = not context.blueprint
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         if original then
