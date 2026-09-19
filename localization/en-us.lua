@@ -1113,7 +1113,7 @@ return {
                 name = "Blitz Deck",
                 text = {
                     '{C:attention}-1{} Ante Requirement,',
-                    'redeem {C:attention,T:v_overstock_norm}#1#',
+                    'Redeem {C:attention,T:v_overstock_norm}#1#',
                     'and {C:attention,T:v_reroll_surplus}#2#',
                 },
             },
