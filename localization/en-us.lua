@@ -651,7 +651,7 @@ return {
                     'Earn {C:money}$#1#{} after',
                     'defeating the Boss Blind',
                     'if a {C:attention}Blind{} was skipped',
-                    'during this ante',
+                    'during the ante',
                 }
             },
             j_cracker_darkroom = {

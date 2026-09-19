@@ -212,6 +212,12 @@ SMODS.Tag {
     loc_vars = function(self, info_queue, tag)
         return {vars = {tag.config.money}}
     end,
+    in_pool = function(self, args)
+        if not args.source then
+            return true
+        end
+        return false
+    end,
     apply = function(self, tag, context)
         if context.type == 'shop_end' then
             tag:yep('+', G.C.GOLD, function()
