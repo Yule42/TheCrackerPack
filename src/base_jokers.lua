@@ -163,44 +163,42 @@ SMODS.Joker{ --Graham Cracker
             return {
                 xmult = card.ability.extra.x_mult,
             }
+        elseif context.after and not context.blueprint and card.ability.extra.x_mult >= card.ability.extra.x_mult_max then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('tarot1')
+                    card.T.r = -0.2
+                    card:juice_up(0.3, 0.4)
+                    card.states.drag.is = true
+                    card.children.center.pinch.x = true
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                        func = function()
+                                G.jokers:remove_card(card)
+                                card:remove()
+                                card = nil
+                            return true; end})) 
+                    return true
+                end
+            })) 
+            return {
+                message = localize('k_cracker_eaten_crumble_ex'),
+                colour = G.C.RED
+            }
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
             if not Cracker.is_adjacent_to_freezer(card) then
                 card.ability.extra.cards_left = card.ability.extra.cards_left - table_length(context.scoring_hand)
             end
             if card.ability.extra.cards_left <= 0 then
                 card.ability.extra.cards_left = card.ability.extra.cards_require
-                if card.ability.extra.x_mult + (card.ability.extra.x_mult_add) >= card.ability.extra.x_mult_max then 
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    })) 
-                    return {
-                        message = localize('k_cracker_eaten_crumble_ex'),
-                        colour = G.C.RED
-                    }
-                else
-                    SMODS.scale_card(card, {
-                        ref_table = card.ability.extra,
-                        ref_value = "x_mult",
-                        scalar_value = "x_mult_add",
-                        operation = "+",
-                        message_key = 'a_xmult',
-                        message_colour = G.C.RED
-                    })
-                    return nil, true
-                end
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "x_mult",
+                    scalar_value = "x_mult_add",
+                    operation = "+",
+                    message_key = 'a_xmult',
+                    message_colour = G.C.RED
+                })
+                return nil, true
             end
         end
     end
