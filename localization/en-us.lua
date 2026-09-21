@@ -857,6 +857,16 @@ return {
                     "every {C:attention}#2# {C:inactive}[#1#]{} {C:planet}planets{} used"
                 }
             },
+            j_cracker_spider = {
+                name = "Spider",
+                text = {
+                    "If played hand contains",
+                    "a {C:attention}#2#{},",
+                    "set hand size",
+                    "to {C:attention}#1#",
+                    "for this round"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {

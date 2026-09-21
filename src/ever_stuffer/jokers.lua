@@ -324,3 +324,49 @@ SMODS.Joker{ -- Sailor
         end
     end
 }
+
+SMODS.Joker{ -- Spider
+    key = "spider",
+    config = {
+        extra = {
+            hand_size = 13,
+            active = false,
+            hand_size_change = 0
+        }
+    },
+    pos = {
+        x = 7,
+        y = 4
+    },
+    cost = 8,
+    rarity = 3,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = true,
+    discovered = true,
+    atlas = 'Jokers',
+    loc_vars = function(self, info_queue, card)
+        if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'palestjade, brook03, sugariimarii'}, key = 'artist_credits_cracker'} end
+        return {vars = {card.ability.extra.hand_size, localize('Straight Flush', 'poker_hands')}}
+    end,
+    
+    calculate = function(self, card, context)
+        if context.before and not context.blueprint and not card.ability.extra.active then
+            if next(context.poker_hands['Straight Flush']) then
+                card.ability.extra.hand_size_change = card.ability.extra.hand_size - G.hand.config.card_limit
+                G.hand:change_size(card.ability.extra.hand_size_change)
+                card.ability.extra.active = true
+            end
+        elseif context.end_of_round and not context.individual and not context.repetition and card.ability.extra.active and not context.blueprint then
+            G.hand:change_size(-card.ability.extra.hand_size_change)
+            card.ability.extra.active = false
+            card.ability.extra.hand_size_change = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.FILTER,
+                card = card,
+            }
+        end
+    end
+}
