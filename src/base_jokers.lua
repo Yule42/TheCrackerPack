@@ -577,6 +577,7 @@ SMODS.Joker{ --Life Support
                     return true
                 end)
             }))
+            return nil, true
         end
     end
 }
