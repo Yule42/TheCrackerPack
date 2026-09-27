@@ -526,3 +526,18 @@ match_indent = true
 position = 'at'
 pattern = '''if v.ability.forced_selection and not self.highlighted[1] then'''
 payload = '''if v.ability.forced_selection and not v.highlighted then'''
+
+# card binder patch for info queue
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = 'for _, v in ipairs(info_queue) do'
+position = "before"
+payload = '''
+    if card and card.config and card.config.center then
+        for i, v in pairs(Cracker.binder_queue(card, _c, first_pass)) do
+            info_queue[#info_queue + 1] = v
+        end
+    end
+'''
+match_indent = true

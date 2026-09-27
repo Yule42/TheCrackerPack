@@ -612,9 +612,9 @@ return {
             j_cracker_card_binder = {
                 name = 'Card Binder',
                 text = {
-                    '{C:mult}+#1#{} Mult for each {C:attention}#2#',
-                    '{C:attention}enhanced{} cards in your full deck',
-                    '{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult, {C:attention}#4#{C:inactive}/#2#){}',
+                    '{C:mult}+#1#{} Mult for every {C:attention}unique{} Joker',
+                    '{C:attention}activated{} this run',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}',
                 }
             },
             j_cracker_baserunner = {
@@ -1136,6 +1136,12 @@ return {
                     "{C:inactive}Booster Packs){}",
                 }
             },
+            cracker_activated = {
+                name = "Activated",
+                text = {
+                    "Activated this run"
+                }
+            }
         },
         Partner={
             pnr_cracker_pride = {

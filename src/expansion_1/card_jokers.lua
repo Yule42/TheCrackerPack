@@ -46,8 +46,7 @@ SMODS.Joker{ --Card Binder
     key = "card_binder",
     config = {
         extra = {
-            enhancements = 9,
-            mult = 20,
+            mult = 4,
         }
     },
     pos = {
@@ -66,32 +65,15 @@ SMODS.Joker{ --Card Binder
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'GeorgeTheRat', 'sugariimarii'}, key = 'artist_credits_cracker'} end
-        local count = 0
-        if G.playing_cards then
-            for k, v in pairs(G.playing_cards) do
-                if next(SMODS.get_enhancements(v)) then
-                    count = count + 1
-                end
-            end
-        end
-        local mult = card.ability.extra.mult * math.floor(count / card.ability.extra.enhancements)
-        return {vars = {card.ability.extra.mult, card.ability.extra.enhancements, mult, count}}
+        local mult = card.ability.extra.mult * G.GAME.Cracker.triggered_jokers_count
+        return {vars = {card.ability.extra.mult, mult}}
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand then
-            local count = 0
-            if G.playing_cards then
-                for k, v in pairs(G.playing_cards) do
-                    if next(SMODS.get_enhancements(v)) then
-                        count = count + 1
-                    end
-                end
-            end
-            if count > 0 then
-                local mult = card.ability.extra.mult * math.floor(count / 9)
+        if context.joker_main then
+            if G.GAME.Cracker.triggered_jokers_count > 0 then
                 return {
-                    mult = mult,
+                    mult = card.ability.extra.mult * G.GAME.Cracker.triggered_jokers_count,
                 }
             end
         end
