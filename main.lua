@@ -3,6 +3,7 @@ CrackerConfig = SMODS.current_mod.config
 SMODS.current_mod.optional_features = function()
     return {
         object_weights = true,
+        post_trigger = true,
     }
 end
 
@@ -350,6 +351,23 @@ function Cracker.is_food(card)
     end
 end
 
+function Cracker.show_card_binder()
+    if next(SMODS.find_card("j_cracker_card_binder")) then
+        return true
+    end
+end
+
+
+function Cracker.binder_queue(card, _c, first_pass)
+    local info_queue = {}
+    if card.ability.set == 'Joker' and first_pass and Cracker.show_card_binder() then
+        if G.GAME.Cracker.triggered_jokers[card.config.center_key] then
+            info_queue[#info_queue+1] = {key = "cracker_activated", set = "Other", vars = {}}
+        end
+    end
+    return info_queue
+end
+
 function Cracker.dx_blinds_enabled()
     return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
 end
@@ -400,6 +418,8 @@ Game.init_game_object = function(self)
     ret.Cracker.tags_in_shop = 0
     ret.Cracker.food_jokers_destroyed = 0
     ret.Cracker.wheel_options = { 'e_foil', 'e_holo', 'e_polychrome' }
+    ret.Cracker.triggered_jokers_count = 0
+    ret.Cracker.triggered_jokers = ret.Cracker.triggered_jokers or {}
     
     return ret
 end
@@ -644,6 +664,19 @@ SMODS.current_mod.calculate = function(self, context)
         check_for_unlock({type = 'cracker_money_change', amount = context.amount})
     elseif context.starting_shop then
         G.GAME.cracker_money_spent = 0
+    elseif context.post_trigger then
+        if context.other_card.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] then
+            G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] = true
+            G.GAME.Cracker.triggered_jokers_count = G.GAME.Cracker.triggered_jokers_count + 1
+        end
     end
 end
 
+local cdb = Card.calculate_dollar_bonus
+function Card:calculate_dollar_bonus()
+    local ret = cdb(self)
+    if ret and ret > 0 and self.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[self.config.center_key] then
+        G.GAME.Cracker.triggered_jokers[self.config.center_key] = true
+        G.GAME.Cracker.triggered_jokers_count = G.GAME.Cracker.triggered_jokers_count + 1
+    end
+end

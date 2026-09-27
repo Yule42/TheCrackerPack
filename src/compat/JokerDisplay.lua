@@ -291,23 +291,9 @@ JokerDisplay.Definitions.j_cracker_card_binder = {
         { text = "+" },
         { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
     },
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ORANGE },
-        { text = "/" },
-        { ref_table = "card.ability.extra", ref_value = "enhancements" },
-        { text = ")" },
-    },
     text_config = { colour = G.C.RED },
     calc_function = function(card)
-        local count = 0
-        for k, v in pairs(G.playing_cards) do
-            if next(SMODS.get_enhancements(v)) then
-                count = count + 1
-            end
-        end
-        card.joker_display_values.mult = card.ability.extra.mult * math.floor(count / card.ability.extra.enhancements)
-        card.joker_display_values.count = count
+        card.joker_display_values.mult = card.ability.extra.mult * G.GAME.Cracker.triggered_jokers_count
     end
 }
 JokerDisplay.Definitions.j_cracker_baserunner = {
