@@ -853,8 +853,9 @@ return {
             j_cracker_sailor = {
                 name = "Sailor",
                 text = {
-                    "Upgrades the {C:attention}most played{} poker hand",
-                    "every {C:attention}#2# {C:inactive}[#1#]{} {C:planet}planets{} used"
+                    "{C:attention}Retrigger{} every",
+                    "third used {C:planet}Planet",
+                    "{C:inactive}(#1#/#2#)"
                 }
             },
             j_cracker_spider = {
