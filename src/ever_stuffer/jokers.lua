@@ -341,8 +341,8 @@ SMODS.Joker{ -- Spider
         x = 7,
         y = 4
     },
-    cost = 8,
-    rarity = 3,
+    cost = 6,
+    rarity = 2,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,

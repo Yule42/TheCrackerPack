@@ -484,12 +484,11 @@ SMODS.Joker{ --Ants
 }
 
 SMODS.Joker{ --High Roller
-    name = "High Roller",
     key = "highroller",
     config = {
         extra = {
             x_mult = 1,
-            x_mult_add = 0.5,
+            x_mult_add = 0.25,
         }
     },
     pos = {

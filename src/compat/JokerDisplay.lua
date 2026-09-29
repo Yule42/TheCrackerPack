@@ -549,3 +549,21 @@ JokerDisplay.Definitions.j_cracker_ufo = {
         { text = ")" },
     },
 }
+JokerDisplay.Definitions.j_cracker_raffle_ticket = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "rounds" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "rounds_max" },
+        { text = ")" },
+    },
+}
+JokerDisplay.Definitions.j_cracker_raffle_sailor = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "planets" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "planets_max" },
+        { text = ")" },
+    },
+}
