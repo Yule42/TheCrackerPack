@@ -657,4 +657,5 @@ function Card:calculate_dollar_bonus()
         G.GAME.Cracker.triggered_jokers[self.config.center_key] = true
         G.GAME.Cracker.triggered_jokers_count = G.GAME.Cracker.triggered_jokers_count + 1
     end
+    return ret
 end
