@@ -486,3 +486,34 @@ JokerDisplay.Definitions.j_cracker_student = {
         return playing_card.config.center.key == 'm_cracker_sequenced' or playing_card.config.center.key == 'm_cracker_multi' and JokerDisplay.calculate_joker_triggers(joker_card) or 0
     end
 }
+JokerDisplay.Definitions.j_cracker_ufo = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.ability.extra", ref_value = "mult",  colour = G.C.MULT,  retrigger_type = "mult" }
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "counter" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "counter_max" },
+        { text = ")" },
+    },
+}
+JokerDisplay.Definitions.j_cracker_raffle_ticket = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "rounds" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "rounds_max" },
+        { text = ")" },
+    },
+}
+JokerDisplay.Definitions.j_cracker_sailor = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra", ref_value = "planets" },
+        { text = "/" },
+        { ref_table = "card.ability.extra", ref_value = "planets_max" },
+        { text = ")" },
+    },
+}
