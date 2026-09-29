@@ -317,7 +317,7 @@ SMODS.Joker{ -- Sailor
                     if not context.blueprint then
                         G.E_MANAGER:add_event(Event({
                             func = function() 
-                                card.ability.extra.planets = card.ability.extra.planets_max
+                                card.ability.extra.planets = 0
                                 return true
                         end}))
                     end
