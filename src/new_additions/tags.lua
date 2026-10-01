@@ -4,19 +4,18 @@ local function get_available_voucher_upgrades(reserved_upgrades)
     local in_shop = {}
     local reserved_upgrades = reserved_upgrades or {}
 
-    if not (G and G.GAME and G.GAME.used_vouchers and G.P_CENTERS) then
+    if not G.GAME.used_vouchers then
         return available_upgrades
     end
-
-    if G.shop_vouchers and G.shop_vouchers.cards then
-        for _, voucher_card in ipairs(G.shop_vouchers.cards) do
-            local center = voucher_card and voucher_card.config and voucher_card.config.center
-            if center and center.key then
-                in_shop[center.key] = true
+    
+    if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
+        print(G.GAME.current_round.voucher.spawn)
+        for voucher_card, _ in pairs(G.GAME.current_round.voucher.spawn) do
+            if voucher_card then
+                in_shop[voucher_card] = true
             end
         end
     end
-    print(in_shop)
 
     for owned_voucher_key, owned in pairs(G.GAME.used_vouchers) do
         if owned then
