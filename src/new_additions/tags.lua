@@ -16,6 +16,7 @@ local function get_available_voucher_upgrades(reserved_upgrades)
             end
         end
     end
+    print(in_shop)
 
     for owned_voucher_key, owned in pairs(G.GAME.used_vouchers) do
         if owned then

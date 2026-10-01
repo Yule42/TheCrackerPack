@@ -863,9 +863,15 @@ return {
                 text = {
                     "If played hand contains",
                     "a {C:attention}#2#{},",
-                    "set hand size",
-                    "to {C:attention}#1#",
-                    "for this round"
+                    "immediately draw",
+                    "{C:attention}#1#{} cards"
+                }
+            },
+            j_cracker_circuit_board = {
+                name = "Circuit Board",
+                text = {
+                    "Copies the Joker",
+                    "in slot {C:attention}#1#{}",
                 }
             },
         },
