@@ -872,6 +872,7 @@ return {
                 text = {
                     "Copies the Joker",
                     "in slot {C:attention}#1#{}",
+                    "{C:inactive}(Slot set on appearence)"
                 }
             },
         },
