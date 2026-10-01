@@ -771,6 +771,64 @@ return {
                     'when hand is played',
                 },
             },
+            j_cracker_knight = {
+                name = 'Knight',
+                text = {
+                    '{C:attention}Face{} cards always score'
+                }
+            },
+            j_cracker_ufo = {
+                name = "U.F.O.",
+                text = {
+                    "Every {C:attention}#3# {C:inactive}[#2#]{} hands,",
+                    "{C:attention}decrease{} level of played {C:attention}poker hand{},",
+                    "add {C:attention}3X{} the lost {C:red}Mult{} to this Joker",
+                    "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult{C:inactive})"
+                }
+            },
+            j_cracker_raffle_ticket = {
+                name = "Raffle Ticket",
+                text = {
+                    "After {C:attention}#2#{} round,",
+                    "sell this card to",
+                    "make all {C:attention}Booster Packs{}",
+                    "in shop {C:money}free{} and {C:attention}Mega{}-size",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
+                }
+            },
+            j_cracker_sailor = {
+                name = "Sailor",
+                text = {
+                    "{C:attention}Retrigger{} every",
+                    "third used {C:planet}Planet",
+                    "{C:inactive}(#1#/#2#)"
+                }
+            },
+            j_cracker_spider = {
+                name = "Spider",
+                text = {
+                    "If played hand contains",
+                    "a {C:attention}#2#{},",
+                    "immediately draw",
+                    "{C:attention}#1#{} cards"
+                }
+            },
+            j_cracker_circuit_board = {
+                name = "Circuit Board",
+                text = {
+                    "Copies the Joker",
+                    "in slot {C:attention}#1#{}",
+                    "{C:inactive}(Slot set on appearence)"
+                }
+            },
+        },
+        Edition = {
+            e_cracker_prismatic = {
+                name = "Prismatic",
+                text = {
+                    "{C:attention}+#1#{} hand size",
+                },
+            },
         },
         Voucher = {
             v_cracker_silver_spoon = {
