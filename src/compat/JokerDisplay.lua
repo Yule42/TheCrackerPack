@@ -558,7 +558,7 @@ JokerDisplay.Definitions.j_cracker_raffle_ticket = {
         { text = ")" },
     },
 }
-JokerDisplay.Definitions.j_cracker_raffle_sailor = {
+JokerDisplay.Definitions.j_cracker_sailor = {
     reminder_text = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "planets" },
