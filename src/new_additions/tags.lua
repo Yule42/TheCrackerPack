@@ -9,7 +9,6 @@ local function get_available_voucher_upgrades(reserved_upgrades)
     end
     
     if G.GAME.current_round.voucher and G.GAME.current_round.voucher.spawn then
-        print(G.GAME.current_round.voucher.spawn)
         for voucher_card, _ in pairs(G.GAME.current_round.voucher.spawn) do
             if voucher_card then
                 in_shop[voucher_card] = true

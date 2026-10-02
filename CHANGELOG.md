@@ -1,3 +1,7 @@
+## v0.1.1.1
+### Fixes
+- Fixed an accidental debug print
+
 ## v0.1.1.0
 ### Additions
 #### Jokers
