@@ -126,8 +126,9 @@ SMODS.Joker{ --LegendaryTest
         extra = {
             retriggers = 0,
             retriggers_increase = 1,
-            cards_require = 50,
-            cards_left = 50,
+            cards_require = 10,
+			cards_increase = 10,
+            cards_left = 10,
         }
     },
     pos = {
@@ -157,6 +158,7 @@ SMODS.Joker{ --LegendaryTest
         elseif context.before and context.cardarea == G.jokers and not context.blueprint then
             card.ability.extra.cards_left = card.ability.extra.cards_left - (table_length(context.scoring_hand))
             if card.ability.extra.cards_left <= 0 then
+				card.ability.extra.cards.require = card.ability.extra.cards_require + card.ability.extra.cards_increase
                 card.ability.extra.cards_left = card.ability.extra.cards_require
                 card.ability.extra.retriggers = card.ability.extra.retriggers + card.ability.extra.retriggers_increase
                 return {
