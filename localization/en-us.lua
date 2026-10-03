@@ -828,7 +828,8 @@ return {
                 text = {
                     'Retrigger all cards {C:attention}#1#{} time#5#,',
                     'increases by #4# every',
-                    '{C:attention}#2#{C:inactive} [#3#]{} scoring cards played',
+                    '{C:attention}#2#{C:inactive} [#3#]{} cards in poker hand,',
+					'requirement increases by 10'
                 }
             },
             j_cracker_ufo = {
