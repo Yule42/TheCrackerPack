@@ -876,6 +876,14 @@ return {
                     "{C:inactive}(Slot set on appearence)"
                 }
             },
+            j_cracker_painter = {
+                name = "Painter",
+                text = {
+                    "{C:mult}+#1#{} Mult per",
+                    "hand size {C:attention}above #2#",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {
