@@ -884,6 +884,15 @@ return {
                     "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
                 }
             },
+            j_cracker_tax_collector = {
+                name = "Tax Collector",
+                text = {
+                    "Played cards that are",
+                    "{C:attention}not part of the poker hand{}",
+                    "give half of their {C:chips}Chips{}",
+                    "as {C:mult}Mult"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {
