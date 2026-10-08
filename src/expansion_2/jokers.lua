@@ -589,8 +589,18 @@ SMODS.Joker{ --The Falcon
     end,
     
     calculate = function(self, card, context)
-        if context.discard then
+        if context.discard and not context.other_card.ability.cracker_falcon_destroyed then
 			if SMODS.pseudorandom_probability(card, 'cracker_thefalcon', 1, card.ability.extra.odds, 'cracker_thefalcon') then
+                context.other_card.ability.cracker_falcon_destroyed = true
+                G.E_MANAGER:add_event(Event({ -- just in case it survives somehow (NEED TO TEST WHEN "CREATES COPY OF DESTROYED CARDS" IS ADDED)
+                    trigger = 'after',
+                    delay = 0,
+                    func = function()
+                        context.other_card.ability.cracker_falcon_destroyed = nil
+                        return true
+                    end
+                }))
+
 				return {
 					message = localize('k_cracker_discard_falcon_ex'),
 					colour = G.C.FILTER,

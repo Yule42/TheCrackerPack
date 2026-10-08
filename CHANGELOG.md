@@ -1,11 +1,22 @@
 ## v0.1.1.1
+### Additions
+#### Jokers
+- Painter (Common): *+10 Mult per hand size above 7*
+- Tax Collector (Common): *Played cards that are not part of the poker hand give half of their Chips as Mult*
 ### Fixes
-- Fixed an accidental debug print
+- Fixed Spider accidentally drawing cards when a Straight Flush isn't in hand.
+- Fixed an accidental debug print.
+- Fixed copying The Falcon possibly resulting in multiple destroyed messages on the same card.
+- Fixed copying Goodie Bag resulting in messages being shown on the bag itself and not the copier.
 
 ## v0.1.1.0
 ### Additions
 #### Jokers
-- Added Knight, U.F.O., Sailor, Spider, and Circuit Board.
+- Knight (Common): *All face cards score*
+- U.F.O. (Uncommon): *Every 3 hands, decrease level of played poker hand and add 3X the lost Mult to this Joker*
+- Sailor (Common): *Retrigger every third used planet*
+- Spider (Uncommon): *If played hand contains a Straight Flush, immediately draw 13 cards*
+- Circuit Board (Rare): *Copy the Joker in slot N, slot set on appearence*
 ### Changes
 #### Jokers
 - Card Binder rework: Now gives +4 Mult for every Joker activated this run. Previously gave +20 Mult for every 9 enhanced cards in the full deck.
