@@ -821,6 +821,23 @@ return {
                     "{C:inactive}(Slot set on appearence)"
                 }
             },
+            j_cracker_painter = {
+                name = "Painter",
+                text = {
+                    "{C:mult}+#1#{} Mult per",
+                    "hand size {C:attention}above #2#",
+                    "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
+                }
+            },
+            j_cracker_tax_collector = {
+                name = "Tax Collector",
+                text = {
+                    "Played cards that are",
+                    "{C:attention}not part of the poker hand{}",
+                    "give half of their {C:chips}Chips{}",
+                    "as {C:mult}Mult"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {

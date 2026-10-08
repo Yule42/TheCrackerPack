@@ -224,9 +224,10 @@ SMODS.Joker{ --Goodie Bag
         if context.skipping_booster then
 			local booster_real = context.booster
             if booster_real.create_card and type(booster_real.create_card) == "function" then
+                local eval_card = context.blueprint_card or card
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before',
-                    delay = 0.45,
+                    delay = 0.0,
                     func = (function() -- consumables vs consumeables makes me hate everything
                         local _card = booster_real:create_card(booster_real, 1)
                         local message = 'k_plus_cracker_card'
@@ -260,14 +261,14 @@ SMODS.Joker{ --Goodie Bag
                                 else
                                     SMODS.add_card(_card)
                                 end
-                                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                                card_eval_status_text(eval_card, 'extra', nil, nil, nil, {
                                     message = localize(message),
                                     colour = color
                                 })
                             end
                         else
                             SMODS.add_card(_card)
-                            card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                            card_eval_status_text(eval_card, 'extra', nil, nil, nil, {
                                 message = localize(message),
                                 colour = color
                             })
