@@ -532,7 +532,7 @@ SMODS.Joker{ --Rainbow Card
                 colour = G.C.FILTER,
                 card = card,
             }
-        elseif context.taking_booster_card and card.ability.extra.active and G.shop and not context.blueprint then
+        elseif context.cracker_taking_booster_card and card.ability.extra.active and G.shop and not context.blueprint then
             card.ability.extra.active = false
             G.E_MANAGER:add_event(Event({
                 func = (function()
