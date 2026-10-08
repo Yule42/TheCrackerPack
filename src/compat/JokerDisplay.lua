@@ -539,7 +539,7 @@ JokerDisplay.Definitions.j_cracker_testLegendary = {
 JokerDisplay.Definitions.j_cracker_ufo = {
     text = {
         { text = "+", colour = G.C.MULT },
-        { ref_table = "card.ability.extra", ref_value = "mult",  colour = G.C.MULT,  retrigger_type = "mult" }
+        { ref_table = "card.ability.extra", ref_value = "mult",  colour = G.C.MULT, retrigger_type = "mult" }
     },
     reminder_text = {
         { text = "(" },
@@ -566,4 +566,48 @@ JokerDisplay.Definitions.j_cracker_sailor = {
         { ref_table = "card.ability.extra", ref_value = "planets_max" },
         { text = ")" },
     },
+}
+JokerDisplay.Definitions.j_cracker_circuit_board = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "blueprint_compat", colour = G.C.RED },
+        { text = ")" }
+    },
+    calc_function = function(card)
+        local copied_joker, copied_debuff = JokerDisplay.calculate_blueprint_copy(card)
+        card.joker_display_values.blueprint_compat = localize('k_incompatible')
+        JokerDisplay.copy_display(card, copied_joker, copied_debuff)
+    end,
+    get_blueprint_joker = function(card)
+        return G.jokers.cards[card.ability.extra.slot_copy] or nil
+    end
+}
+
+JokerDisplay.Definitions.j_cracker_painter = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT, retrigger_type = "mult" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.mult = math.max(0, card.ability.extra.mult * ((G.hand and G.hand.config.card_limit or 8) - card.ability.extra.above))
+    end
+}
+
+JokerDisplay.Definitions.j_cracker_tax_collector = {
+    text = {
+        { text = "+", colour = G.C.MULT },
+        { ref_table = "card.joker_display_values", ref_value = "mult", colour = G.C.MULT, retrigger_type = "mult" },
+    },
+    calc_function = function(card)
+        local mult = 0
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        if text ~= 'Unknown' then
+            for _, v in pairs(next(G.play.cards) and G.play.cards or G.hand.highlighted) do
+                if not SMODS.in_scoring(v, scoring_hand) then
+                    mult = mult + (math.floor(v:get_chip_bonus()/2))
+                end
+            end
+        end
+        card.joker_display_values.mult = mult
+    end
 }
