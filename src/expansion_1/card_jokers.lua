@@ -46,7 +46,7 @@ SMODS.Joker{ --Card Binder
     key = "card_binder",
     config = {
         extra = {
-            mult = 4,
+            mult = 3,
         }
     },
     pos = {
