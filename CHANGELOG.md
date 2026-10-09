@@ -3,9 +3,9 @@
 #### Jokers
 - Decreased Card Binder to only gain +3 Mult instead of +4.
 ### Fixes
-- Fixed Tsukemen not being able to be "Activated"
-- Fixed Rainbow Card disabling when you use a consumable in shop
-- Added JokerDisplay support for Circuit Board, Painter, and Tax Collector
+- Fixed Tsukemen not being able to be "Activated" for Card Binder.
+- Fixed Rainbow Card disabling when you use a consumable in shop.
+- Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
 
 ## v0.1.1.1
 ### Additions
