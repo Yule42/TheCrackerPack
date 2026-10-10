@@ -85,22 +85,7 @@ SMODS.Joker{ --Chocolate Coin
     calc_dollar_bonus = function(self, card)
         local bonus = card.ability.extra.money
         if card.ability.extra.rounds <= 0 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                        func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                            return true; end})) 
-                    return true
-                end
-            }))
+            SMODS.destroy_cards(card, { pinch_anim = true })
         end
         if bonus > 0 then return bonus end
     end,
@@ -165,22 +150,7 @@ SMODS.Joker{ --Graham Cracker
                 xmult = card.ability.extra.x_mult,
             }
         elseif context.after and not context.blueprint and card.ability.extra.x_mult >= card.ability.extra.x_mult_max then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                        func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                            return true; end})) 
-                    return true
-                end
-            })) 
+            SMODS.destroy_cards(card, { pinch_anim = true })
             return {
                 message = localize('k_cracker_eaten_crumble_ex'),
                 colour = G.C.RED
@@ -285,22 +255,7 @@ SMODS.Joker{ --Cheese
                 })
                 return nil, true
             else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -363,22 +318,7 @@ SMODS.Joker{ --Cracker Barrel
                 end}))   
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_joker'), colour = G.C.BLUE}) 
             if card.ability.extra.jokersleft < 1 and not context.blueprint then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_cracker_eaten_barrel_ex'),
                     colour = G.C.FILTER
@@ -541,16 +481,7 @@ SMODS.Joker{ --Life Support
                     card.ability.extra.price = card.ability.extra.price * 2
                     card:juice_up(0.3, 0.4)
                     if G.GAME.dollars < 0 then
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                            return true; end})) 
+                        SMODS.destroy_cards(card, { pinch_anim = true })
                     end
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
@@ -628,22 +559,7 @@ SMODS.Joker{ --Curry
                 })
                 return nil, true
             else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED

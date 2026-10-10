@@ -238,22 +238,7 @@ SMODS.Joker{ --Shrimp Cocktail
                 message_colour = G.C.MULT
             })
             if card.ability.extra.discards <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -338,22 +323,7 @@ SMODS.Joker{ --Hamburger
                     G.GAME.current_round.hands_left = 1
                 end
                 if card.ability.extra.hands <= 0 then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    })) 
+                    SMODS.destroy_cards(card, { pinch_anim = true })
                     return {
                         message = localize('k_eaten_ex'),
                         colour = G.C.FILTER
@@ -402,7 +372,7 @@ SMODS.Joker{ --Potato Chips
     end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main and context.scoring_hand and card.ability.extra.chips > 0 then
+        if context.joker_main then
             return {
                 chips = card.ability.extra.chips,
             }
@@ -416,22 +386,7 @@ SMODS.Joker{ --Potato Chips
                 message_colour = G.C.CHIPS
             })
             if card.ability.extra.chips <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.CHIPS
@@ -477,6 +432,10 @@ SMODS.Joker{ --Ants
         if context.joker_main and G.GAME.Cracker.food_jokers_destroyed > 0 then
             return {
                 xmult = 1 + card.ability.extra.x_mult * G.GAME.Cracker.food_jokers_destroyed,
+            }
+        elseif context.joker_type_destroyed and Cracker.is_food(context.card) then
+            return {
+                message = localize { type = 'variable', key = 'a_xmult', vars = { 1 + (card.ability.extra.x_mult * (G.GAME.Cracker.food_jokers_destroyed+1)) } }
             }
         end
     end

@@ -43,22 +43,7 @@
                 }
             else
                 if SMODS.pseudorandom_probability(card, 'cracker_Cybernana MK920', 1, card.ability.extra.odds, 'cracker_Cybernana MK920') then 
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    }))
+                    SMODS.destroy_cards(card, { pinch_anim = true })
                     return {
                         message = localize('k_extinct_ex')
                     }
@@ -127,22 +112,7 @@ SMODS.Joker{ --Buttered Popcorn
                     message_colour = G.C.RED
                 })
             else
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.RED
@@ -222,22 +192,7 @@ SMODS.Joker{ --Sundae
                     card.ability.extra.left = card.ability.extra.left - 1
                     SMODS.calculate_effect({message = not frz and ''..card.ability.extra.left or localize('k_cracker_frozen_ex'), colour = G.C.FILTER}, card)
                 else
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                                func = function()
-                                        G.jokers:remove_card(card)
-                                        card:remove()
-                                        card = nil
-                                    return true; end})) 
-                            return true
-                        end
-                    })) 
+                    SMODS.destroy_cards(card, { pinch_anim = true })
                     return {
                         message = localize('k_melted_ex'),
                         colour = G.C.CHIPS
@@ -370,22 +325,7 @@ SMODS.Joker{ --Alcoholic Soda
                 card.ability.extra.rounds = card.ability.extra.rounds - card.ability.extra.rounds_remove
             end
             if card.ability.extra.rounds <= 0 then 
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER

@@ -31,22 +31,7 @@ SMODS.Joker{ --Charcuterie Board
     calculate = function(self, card, context)
         if context.after and not context.blueprint and not context.repetition then
             if SMODS.pseudorandom_probability(card, 'cracker_Charcuterie Board', 1, card.ability.extra.odds, 'cracker_Charcuterie Board') then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                            func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                return true; end})) 
-                        return true
-                    end
-                })) 
+                SMODS.destroy_cards(card, { pinch_anim = true })
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.CHIPS
