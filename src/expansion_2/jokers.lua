@@ -178,13 +178,12 @@ SMODS.Joker{ --Prosopagnosia
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_face() and not context.blueprint then
-            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_add
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.RED,
-                card = card,
-                focus = card,
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "x_mult",
+                scalar_value = "x_mult_add",
+                operation = "+"
+            })
         elseif context.stay_flipped and context.to_area == G.hand and not context.blueprint then
             if context.other_card:is_face() then
                 return { stay_flipped = true }

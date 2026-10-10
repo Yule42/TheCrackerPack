@@ -38,6 +38,7 @@ SMODS.Joker{ --Membership Card
                     }) 
                     return true
                 end}))
+            return nil, true
         end
     end
 }
@@ -275,6 +276,7 @@ SMODS.Joker{ --Goodie Bag
                         end
                         return true
                     end)}))
+                return nil, true
             end
         end
     end
@@ -320,7 +322,7 @@ SMODS.Joker{ --Paycheck
             for _, state in pairs(G.GAME.round_resets.blind_states) do
                 if state == 'Skipped' then
                     card.ability.extra.active = true
-                    return
+                    return nil, true
                 end
             end
         end
@@ -407,7 +409,7 @@ SMODS.Joker{ --Darkroom
                     end)
                 }))
                 return {
-                message = localize('k_cracker_plus_tag'),
+                    message = localize('k_cracker_plus_tag'),
                     colour = G.C.FILTER,
                     delay = 0.45,
                 }
@@ -422,6 +424,7 @@ SMODS.Joker{ --Darkroom
                         })
                         return true
                     end}))
+                return nil, true
             end
         end
     end

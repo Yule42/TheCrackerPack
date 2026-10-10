@@ -453,9 +453,9 @@ SMODS.Joker{ --Tsukemen
                         delay = 0.2
                     }
                 })
-                return nil, true
             end
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
+            return nil, true
         end
     end
 }
