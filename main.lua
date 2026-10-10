@@ -342,10 +342,12 @@ function Cracker.is_food(card)
             or (card.config and card.config.center)
 
         if not center then
+            if card:has_attribute("food") then
+                return true
+            end
             return false
         end
-        -- If the center has the Food pool in its definition
-        if center.pools and center.pools.Food then
+        if (center.pools and center.pools.Food) or G.P_CENTERS[center] and SMODS.has_attribute(G.P_CENTERS[center], "food") then
             return true
         end
     end
@@ -384,19 +386,6 @@ function Cracker.tag_is_in_shop(tag)
         end
     end
     return false
-end
-
-local remove_ref = Card.remove
-function Card.remove(self)
-    if self.added_to_deck and self.ability.set == 'Joker' and not G.CONTROLLER.locks.selling_card and Cracker.is_food(self.config.center_key) then
-        G.GAME.Cracker.food_jokers_destroyed = G.GAME.Cracker.food_jokers_destroyed + 1
-        SMODS.calculate_context({
-            food_joker_destroyed = true,
-            destroyed_joker = self
-        })
-    end
-
-    return remove_ref(self)
 end
 
 -- Tailsman Compat (fake)
@@ -656,6 +645,10 @@ assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it refere
 SMODS.current_mod.calculate = function(self, context)
     if context.tag_added and context.tag_added.key == "tag_cracker_loan" then
         ease_dollars(30)
+    elseif context.joker_type_destroyed then
+        if Cracker.is_food(context.card) then
+            G.GAME.Cracker.food_jokers_destroyed = G.GAME.Cracker.food_jokers_destroyed + 1
+        end
     elseif context.money_altered then
         if context.from_shop and context.amount < 0 then
             G.GAME.cracker_money_spent = (G.GAME.cracker_money_spent or 0) - context.amount
