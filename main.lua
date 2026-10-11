@@ -409,6 +409,7 @@ Game.init_game_object = function(self)
     ret.Cracker.wheel_options = { 'e_foil', 'e_holo', 'e_polychrome' }
     ret.Cracker.triggered_jokers_count = 0
     ret.Cracker.triggered_jokers = ret.Cracker.triggered_jokers or {}
+    ret.Cracker.current_card_pack = nil
     
     return ret
 end
@@ -629,7 +630,7 @@ if next(SMODS.find_mod('partner')) then
 	assert(SMODS.load_file('src/compat/Partner.lua'))()
 end
 
---[[if CardSleeves then
+if CardSleeves then
 	SMODS.Atlas {
 		key = 'sleeves',
 		path = "sleeves.png",
@@ -637,7 +638,7 @@ end
 		py = 95
 	}
 	assert(SMODS.load_file('src/compat/CardSleeves.lua'))()
-end]]
+end
 
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
@@ -658,7 +659,7 @@ SMODS.current_mod.calculate = function(self, context)
     elseif context.starting_shop then
         G.GAME.cracker_money_spent = 0
     elseif context.post_trigger then
-        if context.other_card.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] then
+        if context.other_card.ability and context.other_card.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] then
             G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] = true
             G.GAME.Cracker.triggered_jokers_count = G.GAME.Cracker.triggered_jokers_count + 1
         end

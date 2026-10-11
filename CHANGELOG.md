@@ -6,6 +6,7 @@
 - Fixed the activation condition of various jokers for Card Binder.
 - Fixed Rainbow Card disabling when you use a consumable in shop in modern SMODS versions.
 - Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
+- Debuffed Food Jokers now count as Food Jokers for Ants.
 
 ## v0.1.1.1
 ### Additions

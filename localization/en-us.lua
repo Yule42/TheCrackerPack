@@ -955,6 +955,14 @@ return {
                     'the {C:attention}current deck'
                 },
             },
+            v_cracker_test_voucher = {
+                name = 'Card Pack',
+                text = {
+                    'Has a unique',
+                    'effect based on',
+                    'the {C:attention}current deck'
+                },
+            },
             v_cracker_card_pack_b_red = {
                 name = 'Card Pack',
                 text = {
@@ -975,27 +983,27 @@ return {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Yellow Deck)',
-                    'After defeating each',
-                    '{C:attention}Boss Blind{}, gain a',
-                    '{C:money}#1#'
+                    'For every {C:money}$#1#{}',
+                    'earned at end of round,',
+                    'earn an extra {C:money}$#2#'
                 },
             },
             v_cracker_card_pack_b_green = {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Green Deck)',
-                    'Earn an extra {C:money}$2{}',
-                    'per remaning {C:red}discard',
-                    'at the end of each round'
+                    'Extra {C:red}Discards{} carry',
+                    'over to the next round,',
+                    'resets after {C:attention}Boss Blind{}'
                 },
             },
             v_cracker_card_pack_b_black = {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Black Deck)',
-                    'After defeating each',
-                    '{C:attention}Boss Blind{}, gain a',
-                    '{C:dark_edition}#1#'
+                    '{C:attention}+#1#{} Discard when {C:attention}Blind{}',
+                    'is selected for each',
+                    '{C:attention}#2#{} non-{C:attention}Common{} Jokers held'
                 },
             },
             v_cracker_card_pack_b_plasma = {
@@ -1419,6 +1427,7 @@ return {
             jdis_cracker_before='Before',
             k_cracker_food='Food',
             k_cracker_plus_tag="+1 Tag",
+            k_cracker_card_pack_yellow='Card Pack (Yellow Deck)',
         },
         v_dictionary = {
             a_cracker_hands_minus="-#1# Hands",
