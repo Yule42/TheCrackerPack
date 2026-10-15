@@ -195,7 +195,7 @@ SMODS.Joker{ --U.F.O.
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'sugariimarii', 'sophiedeergirl, sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.mult, card.ability.extra.counter, card.ability.extra.counter_max}}
     end,
-    
+    attributes = { 'mult', 'scaling', 'hand_level', 'hands' },
     calculate = function(self, card, context)
         if context.before and card.ability.extra.counter == 1 and G.GAME.hands[context.scoring_name].level > 1 and not context.blueprint then
             SMODS.scale_card(card, {
@@ -251,7 +251,7 @@ SMODS.Joker{ --Raffle Ticket
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.rounds, card.ability.extra.round_max}}
     end,
-    
+    attributes = { 'on_sell', 'booster' },
     calculate = function(self, card, context)
         if context.selling_self and card.ability.extra.rounds >= card.ability.extra.round_max and not context.blueprint then
             for _, booster in ipairs(G.shop_booster.cards) do -- this is scuffed as fuck but it wont crash and that's what matters
@@ -305,7 +305,7 @@ SMODS.Joker{ -- Sailor
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.planets, card.ability.extra.planets_max}}
     end,
-    
+    attributes = { 'hand_level', 'planet' },
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
             if not context.retrigger_planet_cards then
@@ -353,7 +353,7 @@ SMODS.Joker{ -- Spider
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'palestjade, brook03, sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.cards_draw, localize('Straight Flush', 'poker_hands')}}
     end,
-    
+    attributes = { 'hand_type' },
     calculate = function(self, card, context)
         if context.press_play and not context.blueprint then
             if G.FUNCS.get_poker_hand_info(G.hand.highlighted) == 'Straight Flush' then
@@ -406,6 +406,7 @@ SMODS.Joker{ -- Circuit Board
         end
         return {vars = {card.ability.extra.slot_copy}, main_end = main_end}
     end,
+    attributes = { 'copying', 'position' },
     set_ability = function(self, card, initial, delay_sprites)
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -450,6 +451,7 @@ SMODS.Joker{ -- Painter
         local mult = math.max(0, card.ability.extra.mult * ((G.hand and G.hand.config.card_limit or 8) - card.ability.extra.above))
         return {vars = { card.ability.extra.mult, card.ability.extra.above, mult }}
     end,
+    attributes = { 'mult', 'hand_size' },
     calculate = function(self, card, context)
         if context.joker_main then
             return {
@@ -481,6 +483,7 @@ SMODS.Joker{ -- Tax Collector
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Le Ginger', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = { }}
     end,
+    attributes = { 'mult' },
     calculate = function(self, card, context)
         if context.individual and context.cardarea == "unscored" then
             if context.other_card.debuff then

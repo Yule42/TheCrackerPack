@@ -70,28 +70,28 @@ SMODS.Voucher {
     },
     loc_vars = function(self, info_queue, card)
         local vars = {}
-        if not G.GAME.Cracker.current_card_pack then
-            G.GAME.Cracker.current_card_pack = G.GAME.selected_back_key and G.GAME.selected_back_key.key
+        if not card.ability.extra.back then
+            card.ability.extra.back = G.GAME.selected_back_key and G.GAME.selected_back_key.key
         end
-        if G.GAME.Cracker.current_card_pack and Cracker.card_pack_localize[G.GAME.Cracker.current_card_pack] then
-            vars = Cracker.card_pack_localize[G.GAME.Cracker.current_card_pack](self, info_queue, card, vars)
+        if card.ability.extra.back and Cracker.card_pack_localize[card.ability.extra.back] then
+            vars = Cracker.card_pack_localize[card.ability.extra.back](self, info_queue, card, vars)
         end
-        return {vars = vars, key = G.GAME.Cracker.current_card_pack and Cracker.card_pack_supported[G.GAME.Cracker.current_card_pack] and 'v_cracker_card_pack_'..G.GAME.Cracker.current_card_pack or 'v_cracker_card_pack'}
+        return {vars = vars, key = card.ability.extra.back and Cracker.card_pack_supported[card.ability.extra.back] and 'v_cracker_card_pack_'..card.ability.extra.back or 'v_cracker_card_pack'}
     end,
     in_pool = function(self, args)
         return G.GAME.selected_back_key and Cracker.card_pack_supported[G.GAME.selected_back_key.key]
     end,
     redeem = function(self, card)
-        if not G.GAME.Cracker.current_card_pack then
-            G.GAME.Cracker.current_card_pack = G.GAME.selected_back_key and G.GAME.selected_back_key.key
+        if not card.ability.extra.back then
+            card.ability.extra.back = G.GAME.selected_back_key and G.GAME.selected_back_key.key
         end
-        if G.GAME.Cracker.current_card_pack and Cracker.card_pack_redeem[G.GAME.Cracker.current_card_pack] then
-            Cracker.card_pack_redeem[G.GAME.Cracker.current_card_pack](self, card)
+        if card.ability.extra.back and Cracker.card_pack_redeem[card.ability.extra.back] then
+            Cracker.card_pack_redeem[card.ability.extra.back](self, card)
         end
     end,
     calculate = function(self, card, context)
-        if G.GAME.Cracker.current_card_pack and Cracker.card_pack_calculate[G.GAME.Cracker.current_card_pack] then
-            return Cracker.card_pack_calculate[G.GAME.Cracker.current_card_pack](self, card, context)
+        if card.ability.extra.back and Cracker.card_pack_calculate[card.ability.extra.back] then
+            return Cracker.card_pack_calculate[card.ability.extra.back](self, card, context)
         end
     end,
 }

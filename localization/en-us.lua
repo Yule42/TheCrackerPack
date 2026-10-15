@@ -955,14 +955,6 @@ return {
                     'the {C:attention}current deck'
                 },
             },
-            v_cracker_test_voucher = {
-                name = 'Card Pack',
-                text = {
-                    'Has a unique',
-                    'effect based on',
-                    'the {C:attention}current deck'
-                },
-            },
             v_cracker_card_pack_b_red = {
                 name = 'Card Pack',
                 text = {

@@ -370,6 +370,22 @@ function Cracker.binder_queue(card, _c, first_pass)
     return info_queue
 end
 
+function Cracker.get_voucher_extra(voucher_key) --AAAAAAAAAAAA
+    local voucher = nil
+    for _, card in ipairs(G.vouchers.cards) do
+        print(card.config.center.key)
+        if card.config.center.key == voucher_key then
+            voucher = card
+            break
+        end
+    end
+
+    if voucher then
+        return voucher.ability.extra
+    end
+    return nil
+end
+
 function Cracker.dx_blinds_enabled()
     return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
 end
