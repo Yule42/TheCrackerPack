@@ -24,16 +24,18 @@ Cracker.card_pack_redeem = {
 }
 Cracker.card_pack_calculate = {
     b_black = function(self, card, context)
-        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    add_tag({ key = 'tag_negative' })
-                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
-                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
-                    return true
+        if context.setting_blind then
+            local jokr = 0
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker.config.center.rarity ~= 1 then
+                    jokr = jokr + 1
                 end
-            }))
-            return nil, true
+            end
+            if jokr > 1 then
+                ease_discard(math.floor(jokr / 2), nil, true)
+                SMODS.calculate_effect(
+                    { message = localize { type = 'variable', key = 'a_cracker_discards', vars = { math.floor(jokr / 2) } } }, card)
+            end
         end
     end,
     b_yellow = function(self, card, context)

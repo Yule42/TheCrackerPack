@@ -373,7 +373,6 @@ end
 function Cracker.get_voucher_extra(voucher_key) --AAAAAAAAAAAA
     local voucher = nil
     for _, card in ipairs(G.vouchers.cards) do
-        print(card.config.center.key)
         if card.config.center.key == voucher_key then
             voucher = card
             break
