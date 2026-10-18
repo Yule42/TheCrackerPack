@@ -6,6 +6,7 @@ Cracker.card_pack_supported = {
     b_black = true,
     b_plasma = true,
     b_magic = true,
+    b_nebula = true
 }
 Cracker.card_pack_erratic_compatible = {
     b_red = true,
@@ -15,6 +16,7 @@ Cracker.card_pack_erratic_compatible = {
     b_black = true,
     b_plasma = true,
     b_magic = true,
+    b_nebula = true
 }
 Cracker.card_pack_redeem = {
     b_red = function(self, card)
