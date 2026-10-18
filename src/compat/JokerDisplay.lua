@@ -554,7 +554,7 @@ JokerDisplay.Definitions.j_cracker_raffle_ticket = {
         { text = "(" },
         { ref_table = "card.ability.extra", ref_value = "rounds" },
         { text = "/" },
-        { ref_table = "card.ability.extra", ref_value = "rounds_max" },
+        { ref_table = "card.ability.extra", ref_value = "round_max" },
         { text = ")" },
     },
 }

@@ -6,7 +6,8 @@ Cracker.card_pack_supported = {
     b_black = true,
     b_plasma = true,
     b_magic = true,
-    b_nebula = true
+    b_nebula = true,
+    b_ghost = true,
 }
 Cracker.card_pack_erratic_compatible = {
     b_red = true,
@@ -16,7 +17,7 @@ Cracker.card_pack_erratic_compatible = {
     b_black = true,
     b_plasma = true,
     b_magic = true,
-    b_nebula = true
+    b_nebula = true,
 }
 Cracker.card_pack_redeem = {
     b_red = function(self, card)
@@ -24,6 +25,9 @@ Cracker.card_pack_redeem = {
     end,
     b_blue = function(self, card)
         SMODS.change_play_limit(1)
+    end,
+    b_ghost = function(self, card)
+        G.GAME.spectral_rate = G.GAME.spectral_rate * 2
     end
 }
 Cracker.card_pack_calculate = {

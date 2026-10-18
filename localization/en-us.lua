@@ -1019,9 +1019,19 @@ return {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Nebula Deck)',
-                    '{C:attention}Celestial Packs{} always contain the',
-                    '{C:planet}Planet{} card for the last played',
-                    '{C:attention}poker hand'
+                    '{C:attention}Celestial Packs{} always',
+                    'contain the {C:planet}Planet',
+                    'card for the last',
+                    'played {C:attention}poker hand'
+                },
+            },
+            v_cracker_card_pack_b_ghost = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Ghost Deck)',
+                    '{C:spectral}Spectral{} cards appear',
+                    '{C:attention}X2{} more frequently',
+                    'in the shop',
                 },
             },
             v_pw_red = {
