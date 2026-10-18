@@ -5,6 +5,7 @@ Cracker.card_pack_supported = {
     b_green = true,
     b_black = true,
     b_plasma = true,
+    b_magic = true,
 }
 Cracker.card_pack_erratic_compatible = {
     b_red = true,
@@ -13,6 +14,7 @@ Cracker.card_pack_erratic_compatible = {
     b_green = true,
     b_black = true,
     b_plasma = true,
+    b_magic = true,
 }
 Cracker.card_pack_redeem = {
     b_red = function(self, card)
@@ -46,6 +48,11 @@ Cracker.card_pack_calculate = {
             }
         end
     end,
+    b_magic = function(self, card, context)
+        if context.open_booster and context.card.config.center.kind == "Arcana" then
+            G.GAME.pack_choices = G.GAME.pack_choices + 1
+        end
+    end,
 }
 Cracker.card_pack_localize = {
     b_black = function(self, info_queue, card, vars)
@@ -53,6 +60,9 @@ Cracker.card_pack_localize = {
     end,
     b_yellow = function(self, info_queue, card, vars)
         return { 3, 1 }
+    end,
+    b_magic = function(self, info_queue, card, vars)
+        return { 1 }
     end,
 }
 

@@ -1002,9 +1002,26 @@ return {
                 name = 'Card Pack',
                 text = {
                     '{C:inactive}(Plasma Deck)',
-                    'Replaces {C:attention}balancing{} with',
-                    'setting {C:chips}Chips{} and {C:mult}Mult',
-                    'to the higher value'
+                    'Sets {C:attention}25%{} of {C:chips}Chips',
+                    'and {C:mult}Mult to the higher',
+                    'value before balancing'
+                },
+            },
+            v_cracker_card_pack_b_magic = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Magic Deck)',
+                    'Choose {C:attention}#1#{} extra',
+                    'option in {C:tarot}Arcana Packs',
+                },
+            },
+            v_cracker_card_pack_b_nebula = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Nebula Deck)',
+                    '{C:attention}Celestial Packs{} always contain the',
+                    '{C:planet}Planet{} card for the last played',
+                    '{C:attention}poker hand'
                 },
             },
             v_pw_red = {

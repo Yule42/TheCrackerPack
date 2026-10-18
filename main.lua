@@ -371,6 +371,7 @@ function Cracker.binder_queue(card, _c, first_pass)
 end
 
 function Cracker.get_voucher_extra(voucher_key) --AAAAAAAAAAAA
+    if not G.GAME.used_vouchers[voucher_key] then return nil end
     local voucher = nil
     for _, card in ipairs(G.vouchers.cards) do
         if card.config.center.key == voucher_key then

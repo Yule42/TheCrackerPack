@@ -53,3 +53,50 @@ else
     G.GAME.current_round.hands_left = (math.max(1, G.GAME.round_resets.hands + G.GAME.round_bonus.next_hands))
 end
 '''
+
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+pattern = '''local tot = args.chips + args.mult
+args.chips = math.floor(tot/2)
+args.mult = math.floor(tot/2)'''
+position = "before"
+payload = '''
+local cardpack = Cracker.get_voucher_extra('v_cracker_card_pack')
+if cardpack and cardpack.back == 'b_plasma' then
+    local higher = math.max(args.chips, args.mult)
+    args.chips = args.chips * 3/4 + higher/4
+    args.mult = args.mult * 3/4 + higher/4
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+pattern = '''if G.GAME.used_vouchers.v_telescope and i == 1 then'''
+position = "before"
+payload = '''
+local cardpack = Cracker.get_voucher_extra('v_cracker_card_pack')
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+pattern = '''_card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = _planet, key_append = "pl1"}'''
+position = "after"
+payload = '''
+elseif cardpack and cardpack.back == 'b_nebula' and i == 2 then
+    local planet
+    for _, center in pairs(G.P_CENTER_POOLS.Planet) do
+        if center.config.hand_type == G.GAME.last_hand_played then
+            planet = center.key
+        end
+    end
+    _card = {set = "Planet", area = G.pack_cards, skip_materialize = true, soulable = true, key = planet, key_append = "cracker_pl2"}
+'''
+match_indent = true
+times = 1

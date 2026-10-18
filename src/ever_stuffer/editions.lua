@@ -25,12 +25,12 @@ SMODS.Edition { -- Altered
     in_shop = true,
     extra_cost = 5,
     on_apply = function(card)
-        if (card.ability.set == 'Joker' and card.area == G.jokers) and G.consumeables then
+        if (card.ability.set == 'Joker' and card.area == G.jokers) then
             G.hand.config.card_limit = G.hand.config.card_limit + 1
         end
     end,
     on_remove = function(card)
-        if (card.ability.set == 'Joker' and card.area == G.jokers) and G.consumeables then
+        if (card.ability.set == 'Joker' and card.area == G.jokers) then
             G.hand.config.card_limit = G.hand.config.card_limit - 1
         end
     end,
