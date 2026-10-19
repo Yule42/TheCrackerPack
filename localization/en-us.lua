@@ -1034,6 +1034,16 @@ return {
                     'in the shop',
                 },
             },
+            v_cracker_card_pack_b_abandoned = {
+                name = 'Card Pack',
+                text = {
+                    '{C:inactive}(Abandoned Deck)',
+                    'Recieve {C:tarot}The Hanged Man',
+                    'when a {C:attention}playing card',
+                    'is added to deck',
+                    '{C:inactive}(Must have room)'
+                },
+            },
             v_pw_red = {
                 name = "Red Deck",
                 text = {

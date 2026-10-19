@@ -8,6 +8,7 @@ Cracker.card_pack_supported = {
     b_magic = true,
     b_nebula = true,
     b_ghost = true,
+    b_abandoned = true,
 }
 Cracker.card_pack_erratic_compatible = {
     b_red = true,
@@ -18,6 +19,7 @@ Cracker.card_pack_erratic_compatible = {
     b_plasma = true,
     b_magic = true,
     b_nebula = true,
+    b_abandoned = true,
 }
 Cracker.card_pack_redeem = {
     b_red = function(self, card)
@@ -59,6 +61,21 @@ Cracker.card_pack_calculate = {
             G.GAME.pack_choices = G.GAME.pack_choices + 1
         end
     end,
+    b_abandoned = function(self, card, context)
+        if context.playing_card_added then
+            for i = 1, #context.cards do
+                if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            SMODS.add_card{ set = "Tarot", key = 'c_hanged_man' }
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
+    end,
 }
 Cracker.card_pack_localize = {
     b_black = function(self, info_queue, card, vars)
@@ -69,6 +86,9 @@ Cracker.card_pack_localize = {
     end,
     b_magic = function(self, info_queue, card, vars)
         return { 1 }
+    end,
+    b_abandoned = function(self, info_queue, card, vars)
+        info_queue[#info_queue + 1] = G.P_CENTERS.c_hanged_man
     end,
 }
 
