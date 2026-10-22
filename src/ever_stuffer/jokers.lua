@@ -324,6 +324,10 @@ SMODS.Joker{ -- Sailor
                         end}))
                     end
                     return nil, true
+                elseif not context.blueprint then
+                    return {
+                        message = card.ability.extra.planets..'/'..card.ability.extra.planets_max
+                    }
                 end
             end
         end
