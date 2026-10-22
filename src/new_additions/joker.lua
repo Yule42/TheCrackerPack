@@ -190,6 +190,10 @@ SMODS.Joker{ -- Sailor
                         end}))
                     end
                     return nil, true
+                elseif not context.blueprint then
+                    return {
+                        message = card.ability.extra.planets..'/'..card.ability.extra.planets_max
+                    }
                 end
             end
         end
@@ -224,6 +228,7 @@ SMODS.Joker{ -- Spider
         if context.press_play and not context.blueprint then
             if G.FUNCS.get_poker_hand_info(G.hand.highlighted) == 'Straight Flush' then
                 SMODS.draw_cards(card.ability.extra.cards_draw)
+                return nil, true
             end
         end
     end
