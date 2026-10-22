@@ -69,6 +69,7 @@ Cracker.card_pack_calculate = {
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             SMODS.add_card{ set = "Tarot", key = 'c_hanged_man' }
+                            G.GAME.consumeable_buffer = 0
                             return true
                         end
                     }))
