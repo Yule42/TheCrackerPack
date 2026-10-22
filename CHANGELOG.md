@@ -2,6 +2,7 @@
 ### Changes
 #### Jokers
 - Decreased Card Binder to only gain +3 Mult instead of +4.
+- Freezer is now Perishable compatible.
 ### Fixes
 - Fixed the activation condition of various jokers for Card Binder.
 - Fixed Rainbow Card disabling when you use a consumable in shop in modern SMODS versions.
