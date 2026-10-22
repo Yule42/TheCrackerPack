@@ -171,7 +171,7 @@ SMODS.Joker{ -- Sailor
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.planets, card.ability.extra.planets_max}}
     end,
-    
+    attributes = { 'hand_level', 'planet' },
     calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == 'Planet' then
             if not context.retrigger_planet_cards then
@@ -223,7 +223,7 @@ SMODS.Joker{ -- Spider
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'palestjade, brook03, sugariimarii'}, key = 'artist_credits_cracker'} end
         return {vars = {card.ability.extra.cards_draw, localize('Straight Flush', 'poker_hands')}}
     end,
-    
+    attributes = { 'hand_type' },
     calculate = function(self, card, context)
         if context.press_play and not context.blueprint then
             if G.FUNCS.get_poker_hand_info(G.hand.highlighted) == 'Straight Flush' then
@@ -253,6 +253,7 @@ SMODS.Joker{ -- Circuit Board
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    attributes = { 'copying', 'position' },
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Infamousinvictis', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         local main_end
@@ -316,6 +317,7 @@ SMODS.Joker{ -- Painter
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    attributes = { 'mult', 'hand_size' },
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Le Ginger', 'palestjade'}, key = 'artist_credits_cracker'} end
         local mult = math.max(0, card.ability.extra.mult * ((G.hand and G.hand.config.card_limit or 8) - card.ability.extra.above))
@@ -348,6 +350,7 @@ SMODS.Joker{ -- Tax Collector
     unlocked = true,
     discovered = true,
     atlas = 'Jokers',
+    attributes = { 'mult' },
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'Le Ginger', 'sophiedeergirl'}, key = 'artist_credits_cracker'} end
         return {vars = { }}
