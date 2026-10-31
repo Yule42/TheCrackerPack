@@ -2,7 +2,7 @@
 The Cracker Pack (TCP) is a Balatro mod that adds unique new content to the game while still attempting to not stray too far from normal game balancing, with a light "food joker"-based theming.
 
 Additions:
-- 42 Jokers
+- 43 Jokers
 - 8 Decks
 - 4 Vouchers
 - 5 Tags
@@ -10,6 +10,7 @@ Additions:
 Officially has support for:
 - [JokerDisplay](https://github.com/nh6574/JokerDisplay)
 - [Partner](https://github.com/Icecanno/Partner-API/)
+- [Indicators](https://github.com/Balatro-Paperback/indicators)
 
 ### [Wiki](https://balatromods.miraheze.org/wiki/The_Cracker_Pack)
 
