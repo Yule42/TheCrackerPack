@@ -1,0 +1,365 @@
+Cracker.vanilla_food = {
+    j_gros_michel = true,
+    j_ice_cream = true,
+    j_cavendish = true,
+    j_turtle_bean = true,
+    j_diet_cola = true,
+    j_popcorn = true,
+    j_ramen = true,
+    j_selzer = true,
+    j_egg = true,
+}
+
+-- Initialize pool of food jokers if it doesn't exist already, which may be created by other mods.
+-- Any joker can add itself to this pool by adding pools = { Food = true } to its code
+-- Credits to Cryptid for the idea and Paperback for this code
+if not SMODS.ObjectTypes.Food then
+    SMODS.ObjectType {
+        key = 'Food',
+        default = 'j_joker',
+        cards = copy_table(Cracker.vanilla_food)
+    }
+end
+
+SMODS.ObjectType {
+    key = 'DeckVoucher',
+    default = 'v_pw_erratic',
+    cards = {}
+}
+
+local cracker_mod_id = SMODS.current_mod and SMODS.current_mod.id
+
+SMODS.current_mod.custom_collection_tabs = function()
+    local deck_voucher_pool = G.P_CENTER_POOLS and G.P_CENTER_POOLS.DeckVoucher or {}
+    local tally = { tally = 0, of = 0 }
+    local active_mod_id = (G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id) or cracker_mod_id
+    for _, center in ipairs(deck_voucher_pool) do
+        if type(center) == 'table' and center.mod and center.mod.id == active_mod_id then
+            tally.of = tally.of + 1
+            if center.discovered then
+                tally.tally = tally.tally + 1
+            end
+        end
+    end
+    if tally.of <= 0 then
+        return {}
+    end
+
+    return {
+        UIBox_button({
+            button = 'your_collection_deckvouchers',
+            label = { localize('b_cracker_deck_vouchers') },
+            count = tally,
+            minw = 5,
+            id = 'your_collection_deckvouchers'
+        })
+    }
+end
+
+G.FUNCS.your_collection_deckvouchers = function(e)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu {
+        definition = create_UIBox_your_collection_deckvouchers(),
+    }
+end
+
+-- this is so stupid please figure out a better way to do this eventually
+local function cracker_card_collection_UIBox_raw(_pool, rows, args) -- copied from smods code, modified for deck vouchers.
+    args = args or {}
+    args.w_mod = args.w_mod or 1
+    args.h_mod = args.h_mod or 1
+    args.card_scale = args.card_scale or 1
+    local deck_tables = {}
+    local pool = {}
+
+    if type(_pool) == 'table' then
+        for _, center in ipairs(_pool) do
+            if not G.ACTIVE_MOD_UI or center.mod == G.ACTIVE_MOD_UI then
+                pool[#pool + 1] = center
+            end
+        end
+    end
+
+    G.your_collection = {}
+    local cards_per_page = 0
+    local row_totals = {}
+    for j = 1, #rows do
+        if cards_per_page >= #pool and args.collapse_single_page then
+            rows[j] = nil
+        else
+            row_totals[j] = cards_per_page
+            cards_per_page = cards_per_page + rows[j]
+            G.your_collection[j] = CardArea(
+                G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2,
+                G.ROOM.T.h,
+                (args.w_mod * rows[j] + 0.25) * G.CARD_W,
+                args.h_mod * G.CARD_H,
+                { card_limit = rows[j], type = args.area_type or 'title', highlight_limit = 0, collection = true }
+            )
+            table.insert(deck_tables, {
+                n = G.UIT.R,
+                config = { align = 'cm', padding = 0.07, no_fill = true },
+                nodes = {
+                    { n = G.UIT.O, config = { object = G.your_collection[j] } }
+                }
+            })
+        end
+    end
+
+    local options = {}
+    local total_pages = math.max(1, math.ceil(#pool / math.max(1, cards_per_page)))
+    for i = 1, total_pages do
+        options[#options + 1] = localize('k_page') .. ' ' .. tostring(i) .. '/' .. tostring(total_pages)
+    end
+
+    G.FUNCS.cracker_deckvoucher_collection_page = function(e)
+        if not e or not e.cycle_config then return end
+        for j = 1, #G.your_collection do
+            for i = #G.your_collection[j].cards, 1, -1 do
+                local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
+                c:remove()
+                c = nil
+            end
+        end
+        for j = 1, #rows do
+            for i = 1, rows[j] do
+                local center = pool[i + row_totals[j] + (cards_per_page * (e.cycle_config.current_option - 1))]
+                if not center then break end
+                local card = Card(
+                    G.your_collection[j].T.x + G.your_collection[j].T.w / 2,
+                    G.your_collection[j].T.y,
+                    G.CARD_W * args.card_scale,
+                    G.CARD_H * args.card_scale,
+                    G.P_CARDS.empty,
+                    (args.center and G.P_CENTERS[args.center]) or center
+                )
+                if args.modify_card then args.modify_card(card, center, i, j) end
+                if not args.no_materialize then card:start_materialize(nil, i > 1 or j > 1) end
+                G.your_collection[j]:emplace(card)
+            end
+        end
+        INIT_COLLECTION_CARD_ALERTS()
+    end
+
+
+    G.FUNCS.cracker_deckvoucher_collection_page({ cycle_config = { current_option = 1 } })
+
+    return create_UIBox_generic_options({
+        colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_colour or (G.ACTIVE_MOD_UI.ui_config or {}).colour),
+        bg_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_bg_colour or (G.ACTIVE_MOD_UI.ui_config or {}).bg_colour),
+        back_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_back_colour or (G.ACTIVE_MOD_UI.ui_config or {}).back_colour),
+        outline_colour = G.ACTIVE_MOD_UI and ((G.ACTIVE_MOD_UI.ui_config or {}).collection_outline_colour or (G.ACTIVE_MOD_UI.ui_config or {}).outline_colour),
+        back_func = (args and args.back_func) or G.ACTIVE_MOD_UI and 'openModUI_' .. G.ACTIVE_MOD_UI.id or 'your_collection',
+        snap_back = args.snap_back,
+        infotip = args.infotip,
+        contents = {
+            { n = G.UIT.R, config = { align = 'cm', r = 0.1, colour = G.C.BLACK, emboss = 0.05 }, nodes = deck_tables },
+            (not args.hide_single_page or cards_per_page < #pool) and {
+                n = G.UIT.R,
+                config = { align = 'cm' },
+                nodes = {
+                    create_option_cycle({
+                        options = options,
+                        w = 4.5,
+                        cycle_shoulders = true,
+                        opt_callback = 'cracker_deckvoucher_collection_page',
+                        current_option = 1,
+                        colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED,
+                        no_pips = true,
+                        focus_args = { snap_to = true, nav = 'wide' }
+                    })
+                }
+            } or nil,
+        }
+    })
+end
+
+create_UIBox_your_collection_deckvouchers = function()
+    return cracker_card_collection_UIBox_raw(G.P_CENTER_POOLS.DeckVoucher, {4, 4}, {
+        area_type = 'voucher',
+        back_func = 'your_collection_other_gameobjects',
+        modify_card = function(card, center, i, j)
+            card.ability.order = i + (j - 1) * 4
+        end,
+    })
+end
+
+Cracker.money_tags = Cracker.money_tags or {}
+
+Cracker.money_tags.tag_investment = true
+Cracker.money_tags.tag_handy = true
+Cracker.money_tags.tag_garbage = true
+Cracker.money_tags.tag_skip = true
+Cracker.money_tags.tag_economy = true
+Cracker.money_tags.tag_cracker_rocket = true
+Cracker.money_tags.tag_cracker_crystal = true
+
+Cracker.immutable_food = Cracker.immutable_food or {}
+
+Cracker.immutable_food.j_cracker_alcoholicsoda = true
+
+function Cracker.mostplayedhand() -- Balatro doesn't update G.GAME.current_round.most_played_poker_hand so
+    local _hand, _tally = 'High Card', 0
+    for _, handname in ipairs(G.handlist) do
+        if SMODS.is_poker_hand_visible(handname) and G.GAME.hands[handname].played > _tally then
+            _hand = handname
+            _tally = G.GAME.hands[handname].played
+        end
+    end
+    return _hand
+end
+
+function Cracker.get_non_stone_enhancements()
+    local pool = {}
+    for i, key in ipairs(get_current_pool('Enhanced')) do
+        if key ~= "UNAVAILABLE" and not G.P_CENTERS[key].overrides_base_rank then
+            pool[#pool + 1] = key
+        end
+    end
+    return pool
+end
+
+function Cracker.is_in_consumeables(key)
+    for _, card in ipairs(G.consumeables.cards) do
+        if card.config.center_key == key then
+            return true
+        end
+    end
+    return false
+end
+
+function Cracker.is_adjacent_joker(joker, other_joker)
+    if joker and other_joker and G.jokers then
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] == joker then
+                if other_joker == G.jokers.cards[i + 1] or other_joker == G.jokers.cards[i - 1] then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+function Cracker.is_adjacent_to_freezer(self)
+    if self and G.jokers then
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.config.center.key == 'j_cracker_freezer' then
+                if Cracker.is_adjacent_joker(self, joker) then
+                    return true
+                end
+            end
+        end
+    end
+    return false
+end
+
+function Cracker.is_in_array(key, current_index, array)
+    if array then
+        for k, v in ipairs(array) do
+            if k ~= current_index and v == key then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
+-- Code modified from Paperback 
+---@param card table | string a center key or a card
+---@return boolean
+function Cracker.is_food(card)
+    if not card then
+        return false
+    else
+        local center = type(card) == "string"
+            and G.P_CENTERS[card]
+            or (card.config and card.config.center)
+
+        if not center then
+            if SMODS.has_attribute(card, "food") then
+                return true
+            end
+            return false
+        end
+        if (center.pools and center.pools.Food) or G.P_CENTERS[center] and SMODS.has_attribute(G.P_CENTERS[center], "food") then
+            return true
+        end
+    end
+end
+
+function Cracker.show_card_binder()
+    if next(SMODS.find_card("j_cracker_card_binder")) then
+        return true
+    end
+end
+
+
+function Cracker.binder_queue(card, _c, first_pass)
+    local info_queue = {}
+    if card.ability.set == 'Joker' and first_pass and Cracker.show_card_binder() then
+        if G.GAME.Cracker.triggered_jokers[card.config.center_key] then
+            info_queue[#info_queue+1] = {key = "cracker_activated", set = "Other", vars = {}}
+        end
+    end
+    return info_queue
+end
+
+function Cracker.dx_blinds_enabled()
+    return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
+end
+
+function Cracker.force_dx_blind()
+    return G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == 'b_cracker_showdown'
+end
+
+function Cracker.tag_is_in_shop(tag)
+    if not tag or not G.shop_jokers then return false end
+    for _, card in ipairs(G.shop_jokers.cards or {}) do
+        if card.tag == tag or (card.config.center and card.config.center.key == tag.key) then
+            return true
+        end
+    end
+    return false
+end
+
+function Cracker.load_files(path, files)
+    for i = 1, #files do
+        assert(SMODS.load_file(path .. "/" .. files[i] .. ".lua"))()
+    end
+end
+
+-- Tailsman Compat (fake)
+
+to_big = to_big or function(x)
+  return x
+end
+
+to_number = to_number or function(n)
+  return n
+end
+
+--
+
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+    local ret = igo(self)
+    ret.Cracker = ret.Cracker or {}
+    ret.Cracker.tags_in_shop = 0
+    ret.Cracker.food_jokers_destroyed = 0
+    ret.Cracker.wheel_options = { 'e_foil', 'e_holo', 'e_polychrome' }
+    ret.Cracker.triggered_jokers_count = 0
+    ret.Cracker.triggered_jokers = ret.Cracker.triggered_jokers or {}
+    
+    return ret
+end
+
+local calculate_seal_ref = Card.calculate_seal
+function Card:calculate_seal(context, ...)
+    local ret, ret2 = calculate_seal_ref(self, context, ...)
+    if (ret or ret2) and (self.seal ~= "Red" or not context.repetition) then
+        SMODS.calculate_context({cardarea = G.jokers, cracker_seal_trigger = true, seal = self.seal or nil, other_card = self})
+    end
+    return ret, ret2
+end

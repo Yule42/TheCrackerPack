@@ -893,6 +893,15 @@ return {
                     "as {C:mult}Mult"
                 }
             },
+            j_cracker_illusionist = {
+                name = "Illusionist",
+                text = {
+                    "If {C:attention}poker hand",
+                    "contains {C:attention}#1#{} cards,",
+                    "the {C:attention}third{} played card",
+                    "is {C:attention}enhanced"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {
@@ -1457,6 +1466,7 @@ return {
             k_cracker_food='Food',
             k_cracker_plus_tag="+1 Tag",
             k_cracker_card_pack_yellow='Card Pack (Yellow Deck)',
+            k_cracker_enhanced_ex='Enhanced!'
         },
         v_dictionary = {
             a_cracker_hands_minus="-#1# Hands",

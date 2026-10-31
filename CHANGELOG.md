@@ -1,13 +1,15 @@
 ## v0.1.1.2
+### Additions
+#### Jokers
+- Illusionist (Common): *If poker hand contains 5 cards, the third played card is enhanced*
 ### Changes
 #### Jokers
 - Decreased Card Binder to only gain +3 Mult instead of +4.
-- Freezer is now Perishable compatible.
 ### Fixes
 - Fixed the activation condition of various jokers for Card Binder.
-- Fixed Rainbow Card disabling when you use a consumable in shop in modern SMODS versions.
+- Fixed Rainbow Card disabling when you "buy and use" a consumable in shop.
 - Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
-- Debuffed Food Jokers now count as Food Jokers for Ants.
+- Fixed Lucky Cards crashing when Freezer is held sometimes.
 
 ## v0.1.1.1
 ### Additions
@@ -54,7 +56,7 @@
 - Fixed Cracker Barrel on latest SMODS
 - Fixed various localization issues
 
-## v1.0.7
+## v0.1.0.7
 ### Changes
 #### Jokers
 - Changed Tsukemen: Now only works for 25 cards discarded instead of 30, applies +5 Mult instead of +3

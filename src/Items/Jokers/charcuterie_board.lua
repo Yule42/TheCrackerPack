@@ -13,6 +13,7 @@ SMODS.Joker{ --Charcuterie Board
     pools = {
         Food = true,
     },
+    order = 23,
     attributes = { 'chips', 'chance', 'food' },
     cost = 3,
     rarity = 1,
