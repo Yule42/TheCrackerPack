@@ -10,6 +10,7 @@
 - Fixed Rainbow Card disabling when you "buy and use" a consumable in shop.
 - Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
 - Fixed Lucky Cards crashing when Freezer is held sometimes.
+- Debuffed Food Jokers still count as Food Jokers now.
 
 ## v0.1.1.1
 ### Additions
