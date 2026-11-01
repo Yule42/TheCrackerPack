@@ -2,8 +2,8 @@ SMODS.Joker{ --Saltine Cracker
     key = "saltinecracker",
     config = {
         extra = {
-            chips = 30,
-            chip_mod = 30,
+            chips = 25,
+            chip_mod = 25,
             odds = 15
         }
     },
