@@ -1,3 +1,17 @@
+## v0.1.2.0
+### Additions
+#### Challenges
+- Clown Shoe: Deck is 8x as large
+### Changes
+#### Jokers
+- Saltine Cracker now gains +25 Chips per hand
+### Fixes
+- Fixed the activation condition of various jokers for Card Binder.
+- Fixed Rainbow Card disabling when you "buy and use" a consumable in shop.
+- Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
+- Fixed Lucky Cards crashing when Freezer is held sometimes.
+- Debuffed Food Jokers still count as Food Jokers now.
+
 ## v0.1.1.2
 ### Additions
 #### Jokers

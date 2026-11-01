@@ -2,8 +2,8 @@ SMODS.Joker{ --Charcuterie Board
     key = "charcuterie_board",
     config = {
         extra = {
-            chips = 300,
-            odds = 300
+            chips = 250,
+            odds = 250
         }
     },
     pos = {
@@ -15,7 +15,7 @@ SMODS.Joker{ --Charcuterie Board
     },
     order = 23,
     attributes = { 'chips', 'chance', 'food' },
-    cost = 3,
+    cost = 5,
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
