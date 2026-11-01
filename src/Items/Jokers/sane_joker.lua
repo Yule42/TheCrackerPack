@@ -41,8 +41,7 @@ SMODS.Joker{ -- Sane Joker
                 ref_table = card.ability.extra,
                 ref_value = "mult",
                 scalar_value = "mult_gain",
-                operation = "+",
-                no_message = true
+                operation = "+"
             })
             card.ability.extra.active = true
             local card_to_destroy = pseudorandom_element(context.full_hand, 'cracker_sane_joker_destruction')
