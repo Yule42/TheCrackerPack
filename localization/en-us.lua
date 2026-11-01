@@ -902,6 +902,25 @@ return {
                     "is {C:attention}enhanced"
                 }
             },
+            j_cracker_sultan = {
+                name = "Sultan",
+                text = {
+                    "This Joker gains {X:mult,C:white} X#2# {} Mult",
+                    "per {C:attention}consecutive{} hand that",
+                    "contains {C:attention}#3#{} cards",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}",
+                }
+            },
+            j_cracker_sane_joker = {
+                name = "Sane Joker",
+                text = {
+                    "If {C:attention}poker hand",
+                    "is a {C:attention}#3#{},",
+                    "destroy a played card",
+                    "and gain {C:mult}+#2#{} Mult",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                }
+            },
         },
         Edition = {
             e_cracker_prismatic = {
