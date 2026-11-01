@@ -46,15 +46,6 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
-    key = 'dx_blinds',
-    path = "dxblinds.png",
-    px = 34,
-    py = 34,
-    frames = 21, 
-    atlas_table = 'ANIMATION_ATLAS'
-}
-
-SMODS.Atlas {
     key = 'tags',
     path = "tags.png",
     px = 34,

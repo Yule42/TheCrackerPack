@@ -32,6 +32,7 @@ Cracker.jokers = {
     "curry",
     "paycheck",
     "card_binder",
+    "sane_joker",
     "sacramentalkatana",
     "shrimpcocktail",
     "thrifty_joker",
@@ -42,5 +43,6 @@ Cracker.jokers = {
     "thefalcon",
     "knifethrower",
     "tsukemen",
+    "sultan",
     "bomb",
 }
