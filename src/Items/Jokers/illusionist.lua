@@ -25,7 +25,7 @@ SMODS.Joker{ -- Illusionist
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
             if #context.scoring_hand >= card.ability.extra.cards then
-                context.full_hand[3]:set_ability(SMODS.poll_enhancement({ key = 'cracker_illusionist_enhancement', type_key = 'cracker_illusionist_enhancement', guaranteed = true }), nil, true)
+                context.full_hand[3]:set_ability(SMODS.poll_enhancement({ key = 'cracker_illusionist', type_key = 'cracker_illusionist_enhancement', guaranteed = true }), nil, true)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         context.full_hand[3]:juice_up()

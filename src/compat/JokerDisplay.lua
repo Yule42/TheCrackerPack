@@ -611,3 +611,44 @@ JokerDisplay.Definitions.j_cracker_tax_collector = {
         card.joker_display_values.mult = mult
     end
 }
+
+JokerDisplay.Definitions.j_cracker_sultan = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
+}
+
+JokerDisplay.Definitions.j_cracker_sane_joker = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" },
+    },
+    text_config = { colour = G.C.MULT },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "poker_hand" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.poker_hand = localize(card.ability.extra.poker_hand, 'poker_hands')
+    end
+}
+
+JokerDisplay.Definitions.j_cracker_nigiri = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability.extra",        ref_value = "cards" },
+        { text = "/" },
+        { ref_table = "card.joker_display_values", ref_value = "start_count" },
+        { text = ")" },
+    },
+    reminder_text_config = { scale = 0.35 },
+    calc_function = function(card)
+        card.joker_display_values.start_count = card.joker_display_values.start_count or card.ability.extra.cards
+    end
+}

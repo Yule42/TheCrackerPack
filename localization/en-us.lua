@@ -688,7 +688,7 @@ return {
             j_cracker_darkroom = {
                 name = 'Darkroom',
                 text = {
-                    'Creates a {C:dark_edition}Negative Tag{} every',
+                    'Creates a {C:dark_edition}Negative{} Joker every',
                     '{C:attention}#2# {C:inactive}[#1#] {C:attention}Booster Packs{} opened,',
                     'requirement increases for every {C:dark_edition}Negative{} Joker',
                     'and when a Booster Pack is {C:attention}skipped',
@@ -919,6 +919,23 @@ return {
                     "destroy a played card",
                     "and gain {C:mult}+#2#{} Mult",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                }
+            },
+            j_cracker_nigiri = {
+                name = "Nigiri",
+                text = {
+                    "The next {C:attention}#2#",
+                    "scored cards",
+                    "permanently give",
+                    "{C:mult}+#1#{} Mult",
+                }
+            },
+            j_cracker_miner = {
+                name = "Miner",
+                text = {
+                    "{C:attention}Held in hand",
+                    "effects also trigger",
+                    "on cards in poker hand",
                 }
             },
         },

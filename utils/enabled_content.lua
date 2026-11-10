@@ -13,6 +13,7 @@ Cracker.jokers = {
     "sundae",
     "lifesupport",
     "hamburger",
+    "miner",
     "royaldecree",
     "knight",
     "buttpopcorn",
@@ -44,5 +45,6 @@ Cracker.jokers = {
     "knifethrower",
     "tsukemen",
     "sultan",
+    "nigiri",
     "bomb",
 }

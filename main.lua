@@ -118,68 +118,6 @@ if CardSleeves then
 	assert(SMODS.load_file('src/compat/CardSleeves.lua'))()
 end
 
-local mod_path = ''..SMODS.current_mod.path..'/src/'
-
-local function collect_item_files(base_fs, rel, out)
-    print(NFS.getDirectoryItems(base_fs))
-    print(base_fs)
-	for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
-        print(name)
-		local abs = base_fs .. "/" .. name
-		local info = NFS.getInfo(abs)
-		if info and info.type == "directory" then
-			collect_item_files(abs, rel .. "/" .. name, out)
-		elseif info and info.type == "file" and name:match("%.lua$") then
-			table.insert(out, rel .. "/" .. name)
-		end
-	end
-end
-
--- Collect item files
-local files = {}
-collect_item_files(mod_path .. "Items", "/src/Items", files)
-local objects = {}
-for _, rel in ipairs(files) do
-	local f, err = SMODS.load_file(rel)
-	if not f then
-		print("Error loading item file '" .. rel .. "': " .. tostring(err))
-	else
-		local ok, curr_obj = pcall(f)
-		if ok then
-			table.insert(objects, curr_obj)
-		end
-	end
-end
-
--- Sort loaded objects by defined order
-table.sort(objects, function(a, b)
-	local function get_lowest_order(obj)
-		if not obj.items then
-			return math.huge
-		end
-		local lowest = math.huge
-		for _, item in ipairs(obj.items) do
-			if item.order and item.order < lowest then
-				lowest = item.order
-			end
-		end
-		return lowest
-	end
-	return get_lowest_order(a) < get_lowest_order(b)
-end)
-
--- Load all the items
-for _, item in ipairs(objects) do
-    item.ignore = item.ignore or false
-    if SMODS[item.object_type] and not item.ignore then
-        SMODS[item.object_type](item)
-    elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then
-        CardSleeves[item.object_type](item)
-    elseif not item.ignore then
-        print("Error loading item "..item.key.." of unknown type "..item.object_type)
-    end
-end
-
 assert(SMODS.load_file('src/expansion_2/deck_vouchers.lua'))()
 assert(SMODS.load_file('src/challenge.lua'))() -- load this last cause it references stuff from previous files
 

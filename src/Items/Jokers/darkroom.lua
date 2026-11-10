@@ -3,8 +3,8 @@ SMODS.Joker{ --Darkroom
     config = {
         extra = {
             skips = 0,
-            skips_needed = 2,
-            skips_needed_base = 2,
+            skips_needed = 3,
+            skips_needed_base = 3,
         }
     },
     pos = {
@@ -24,7 +24,6 @@ SMODS.Joker{ --Darkroom
 
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', vars = {'mrkyspices', 'sugariimarii'}, key = 'artist_credits_cracker'} end
-        info_queue[#info_queue + 1] = G.P_TAGS.tag_negative
         local negative_count = 0
         if G.jokers then
             for k, v in ipairs(G.jokers.cards) do
@@ -72,15 +71,13 @@ SMODS.Joker{ --Darkroom
                         if original then
                             card.ability.extra.skips = 0
                         end
-                        add_tag(Tag('tag_negative'))
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                        SMODS.add_card { set = 'Joker', edition = 'e_negative', key_append = 'cracker_darkroom' }
                         return true
                     end)
                 }))
                 return {
-                    message = localize('k_cracker_plus_tag'),
-                    colour = G.C.FILTER,
+                    message = localize('k_plus_joker'),
+                    colour = G.C.DARK_EDITION,
                     delay = 0.45,
                 }
             elseif not context.blueprint then

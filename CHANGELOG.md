@@ -4,13 +4,11 @@
 - Clown Shoe: Deck is 8x as large
 ### Changes
 #### Jokers
-- Saltine Cracker now gains +25 Chips per hand
+- Saltine Cracker now gains +25 Chips per hand, instead of +30.
+- Charcuterie Board now gives +250 Chips, and has a 1 in 250 chance of being destroyed instead of +300 and 1 in 300 respectively.
+- Darkroom now creates a Negative Joker instead of a Negative Tag, and has a starting requirement of 3 instead of 2.
 ### Fixes
-- Fixed the activation condition of various jokers for Card Binder.
-- Fixed Rainbow Card disabling when you "buy and use" a consumable in shop.
-- Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
-- Fixed Lucky Cards crashing when Freezer is held sometimes.
-- Debuffed Food Jokers still count as Food Jokers now.
+- Fixed Illusionist sometimes not adding an enhancement when it should have.
 
 ## v0.1.1.2
 ### Additions

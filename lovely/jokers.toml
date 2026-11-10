@@ -1,0 +1,46 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+    # Miner
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = '''SMODS.calculate_repetitions(card, context, reps)'''
+position = "at"
+payload = '''SMODS.calculate_repetitions(card, context, context.cracker_no_retrigger and { 1 } or reps)'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = '''card.lucky_trigger = nil'''
+position = "after"
+payload = '''
+if next(SMODS.find_card('j_cracker_miner')) and context.cardarea == G.play then
+    context.cardarea = G.hand
+    context.cracker_no_retrigger = true
+    SMODS.score_card(card, context)
+    context.cracker_no_retrigger = nil
+    context.cardarea = G.play
+end
+'''
+match_indent = true
+times = 1
+
+# card binder patch for info queue
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = 'for _, v in ipairs(info_queue) do'
+position = "before"
+payload = '''
+    if card and card.config and card.config.center then
+        for i, v in pairs(Cracker.binder_queue(card, _c, first_pass)) do
+            info_queue[#info_queue + 1] = v
+        end
+    end
+'''
+match_indent = true
