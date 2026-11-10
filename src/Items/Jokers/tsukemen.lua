@@ -16,7 +16,7 @@ SMODS.Joker{ --Tsukemen
         Food = true,
     },
     order = 28,
-    attributes = { 'mult', 'scaling', 'discard', 'modify_card', 'perma_bonus', 'food' },
+    attributes = { 'mult', 'discard', 'modify_card', 'perma_bonus', 'food' },
     cost = 5,
     rarity = 2,
     blueprint_compat = true,
@@ -54,7 +54,10 @@ SMODS.Joker{ --Tsukemen
                 })
             end
             context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
-            return nil, true
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
+            }
         end
     end
 }

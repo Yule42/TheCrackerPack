@@ -8,7 +8,8 @@
 ### Changes
 #### Jokers
 - Saltine Cracker now gains +25 Chips per hand instead of +30.
-- Charcuterie board now gives +250 Chips, and has a 1 in 250 chance of being destroyed.
+- Charcuterie board now gives +250 Chips, and has a 1 in 250 chance of being destroyed, instead of +300 and 1 in 300.
+- Darkroom now creates a Negative Joker instead of a Negative Tag, and has a starting requirement of 3 instead of 2.
 ### Fixes
 - Fixed Illusionist sometimes not adding an enhancement when it should have.
 - Blitz Deck no longer crashes when entering Ante 9.
