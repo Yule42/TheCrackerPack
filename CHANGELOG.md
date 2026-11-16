@@ -1,16 +1,20 @@
 ## v0.1.2.0
 ### Additions
+#### Jokers
+- Nigiri (Common): *The next 20 scored cards permanently give +1 Mult*
+- Miner (Uncommon): *Held in hand effects also trigger on cards in poker hand*
 #### Challenges
 - Clown Shoe: Deck is 8x as large
 ### Changes
 #### Jokers
-- Saltine Cracker now gains +25 Chips per hand
+- Saltine Cracker now gains +25 Chips per hand instead of +30.
+- Charcuterie board now gives +250 Chips, and has a 1 in 250 chance of being destroyed.
 ### Fixes
-- Fixed the activation condition of various jokers for Card Binder.
-- Fixed Rainbow Card disabling when you "buy and use" a consumable in shop.
-- Added JokerDisplay support for Circuit Board, Painter, and Tax Collector.
-- Fixed Lucky Cards crashing when Freezer is held sometimes.
-- Debuffed Food Jokers still count as Food Jokers now.
+- Fixed Illusionist sometimes not adding an enhancement when it should have.
+- Blitz Deck no longer crashes when entering Ante 9.
+- Erratic Deck Voucher shows its effect in the Collection.
+- Fixed All In Jest's Crossmod Fabled Deck Voucher crashing when a Legendary Joker is purchased.
+- Fixed crashes with log "attempt to index field 'ability'"
 
 ## v0.1.1.2
 ### Additions
