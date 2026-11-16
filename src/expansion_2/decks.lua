@@ -177,6 +177,7 @@ SMODS.Back{ -- Blitz Deck
 
 local ref_bl_amo = get_blind_amount
 function get_blind_amount(ante)
+    local k = 0.75
     if G.GAME.modifiers.scaling and G.GAME.modifiers.scaling == "blitz_mid" then
         local amounts = {
           300, 1100, 3500, 11000, 35000, 75000, 150000, 400000
