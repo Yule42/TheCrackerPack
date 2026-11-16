@@ -1210,6 +1210,12 @@ return {
                     "{C:inactive}(#2#, #3#, #4#)",
                 },
             },
+            v_pw_erratic_collection = {
+                name = "Erratic Deck",
+                text = {
+                    "Redeem {C:attention}#1#{} Vouchers"
+                },
+            },
             v_cracker_pw_golden = {
                 name = "Golden Deck",
                 text = {
