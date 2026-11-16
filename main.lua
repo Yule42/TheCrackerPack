@@ -177,7 +177,7 @@ SMODS.current_mod.calculate = function(self, context)
             G.GAME.Cracker.food_jokers_destroyed = G.GAME.Cracker.food_jokers_destroyed + 1
         end
     elseif context.post_trigger then
-        if context.other_card.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] then
+        if context.other_card.ability and context.other_card.ability.set == 'Joker' and not G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] then
             G.GAME.Cracker.triggered_jokers[context.other_card.config.center_key] = true
             G.GAME.Cracker.triggered_jokers_count = G.GAME.Cracker.triggered_jokers_count + 1
         end
