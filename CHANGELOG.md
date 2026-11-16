@@ -1,5 +1,8 @@
 ## v0.1.2.0
 ### Additions
+#### Jokers
+- Nigiri (Common): *The next 20 scored cards permanently give +1 Mult*
+- Miner (Uncommon): *Held in hand effects also trigger on cards in poker hand*
 #### Challenges
 - Clown Shoe: Deck is 8x as large
 ### Changes
@@ -9,6 +12,8 @@
 - Darkroom now creates a Negative Joker instead of a Negative Tag, and has a starting requirement of 3 instead of 2.
 ### Fixes
 - Fixed Illusionist sometimes not adding an enhancement when it should have.
+- Blitz Deck no longer crashes when entering Ante 9.
+- Erratic Deck Voucher shows its effect in the Collection.
 
 ## v0.1.1.2
 ### Additions
