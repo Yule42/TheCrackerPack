@@ -987,12 +987,12 @@ SMODS.Voucher {
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual and self.config.extra.should_increase then
              G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.003
-             self.config.extra.remove_amt = self.config.extra.remove_amt + 0.003
+             card.ability.extra.remove_amt = card.ability.extra.remove_amt + 0.003
         end
         if context.buying_card then
             if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
                 self.config.extra.should_increase = false
-                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + self.config.extra.remove_amt
+                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + card.ability.extra.remove_amt
                 G.GAME.selected_back.effect.config.extra.remove_amt = 0
             end
         end
