@@ -783,9 +783,9 @@ SMODS.Voucher {
     end,
     loc_vars = function(self, info_queue, card)
         if card and card.area and card.area.config.collection then info_queue[#info_queue+1] = {set = 'Other', key = 'patchwork_only'} end
-        local key = 'v_cracker_pw_erratic'
+        local key = 'v_pw_erratic'
         if G.SETTINGS.paused then
-            key = 'v_cracker_pw_erratic_collection'
+            key = 'v_pw_erratic_collection'
         end
         return {vars = {card.ability.extra.vouchers, localize{type = 'name_text', key = card.ability.extra.voucher_list[1], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[2], set = 'Voucher' }, localize{type = 'name_text', key = card.ability.extra.voucher_list[3], set = 'Voucher' } }, key = key}
     end,
