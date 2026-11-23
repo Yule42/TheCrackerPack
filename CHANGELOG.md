@@ -1,4 +1,4 @@
-## v0.1.2.0
+## v0.1.1.3
 ### Additions
 #### Jokers
 - Nigiri (Common): *The next 20 scored cards permanently give +1 Mult*
@@ -8,7 +8,7 @@
 ### Changes
 #### Jokers
 - Saltine Cracker now gains +25 Chips per hand instead of +30.
-- Charcuterie board now gives +250 Chips, and has a 1 in 250 chance of being destroyed, instead of +300 and 1 in 300.
+- Charcuterie Board now gives +250 Chips, and has a 1 in 250 chance of being destroyed, instead of +300 and 1 in 300.
 - Darkroom now creates a Negative Joker instead of a Negative Tag, and has a starting requirement of 3 instead of 2.
 ### Fixes
 - Fixed Illusionist sometimes not adding an enhancement when it should have.
